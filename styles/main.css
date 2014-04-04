@@ -1,0 +1,165 @@
+/* ---------------------------------------- */
+/* COMMON */
+/* ---------------------------------------- */
+
+* {
+    margin: 0;
+}
+
+body {
+    padding-top: 20px;
+}
+
+h1 {
+    color: #045FB4;
+    font-family: 'Gilda Display', serif;
+}
+
+a, a:visited {
+    color: #045FB4;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #b4052c;
+}
+
+hr {
+    border-bottom: 1px solid #eee;
+    border-top: 0;
+    margin: 10px 0;
+}
+
+input[type="text"] {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    line-height: 20px;
+    color: #555555;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    height: 20px;
+    padding: 4px 6px;
+}
+
+i {
+    font-size: 10px;
+}
+
+/* ---------------------------------------- */
+/* HEADER */
+/* ---------------------------------------- */
+
+header {
+    text-align: center;
+}
+
+/* ---------------------------------------- */
+/* FOOTER */
+/* ---------------------------------------- */
+
+footer {
+    margin: 30px auto 30px auto;
+    width: 900px;
+    border-top: 1px solid #CACACA;
+    padding-top: 15px;
+    text-align: center;
+}
+
+/* ---------------------------------------- */
+/* CODE */
+/* ---------------------------------------- */
+
+code {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #254CC7;
+    white-space: nowrap;
+    background-color: #F2F7F9;
+    border-radius: 4px;
+}
+
+code, kbd, pre, samp {
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+
+pre {
+    display: block;
+    padding: 10px;
+    margin: 0 0 10.5px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #7b8a8b;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #ecf0f1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+pre code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+aside {
+    float: left;
+    width: 55%;
+}
+
+/* ---------------------------------------- */
+/* MAIN CONTENT */
+/* ---------------------------------------- */
+
+article {
+    background-color: #FFF;
+    padding: 30px 30px 0 30px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333;
+}
+
+article h1 {
+    border-bottom: 1px solid #CACACA;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    font-size: xx-large;
+}
+
+article h3 {
+    font-size: x-large;
+    margin-bottom: 10px;
+}
+
+section:before, section:after {
+    display: table;
+    content: " ";
+}
+
+section:after {
+    clear:both;
+}
+
+.container {
+    margin: 0 auto;
+    width: 900px;
+    font: 13px Helvetica, arial, freesans, clean, sans-serif;
+}
+
+.demo .font-animation {
+    float: left;
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+.font-animation i {
+    font-size: 1.5em;
+}

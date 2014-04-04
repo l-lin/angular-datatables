@@ -1,0 +1,109 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>angular-datatables</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<link rel="icon" type="image/png" href="favicon.png">
+	
+	<link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/monokai.css">
+	<link rel="stylesheet" href="src/angular-datatables.css">
+	<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="vendor/font-awesome-animation/font-awesome-animation.min.css">
+</head>
+<body>
+	<header>
+		<h1><a href="https://github.com/l-lin/angular-datatables">angular-datatables</a></h1>
+        <p>
+            angular-datatables
+        </p>
+        <a href="https://github.com/l-lin/angular-datatables">
+        	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+        </a>
+        <hr />
+	</header>
+	
+	<div class="container" ng-controller="demoCtrl">
+		<article>
+			<h1>Getting started</h1>
+			<section>
+				<p>
+					TODO
+				</p>
+			</section>
+			<section>
+				<h3>Download</h3>
+				<h4>Manually</h4>
+				<p>
+					The files can be downloaded from:
+					<ul>
+						<li>
+							Minified <a href="https://github.com/l-lin/angular-datatables/dist/angular-datatables.min.css">CSS</a> and <a href="https://github.com/l-lin/angular-datatables/dist/angular-datatables.min.js">JS</a> for production usage
+						</li>
+						<li>
+							Un-minified <a href="https://github.com/l-lin/angular-datatables/dist/angular-datatables.css">CSS</a> and <a href="https://github.com/l-lin/angular-datatables/dist/angular-datatables.js">JS</a> for development
+						</li>
+					</ul>
+				</p>
+				<h4>With <a href="http://bower.io">Bower</a></h4>
+				<br />
+				<div class="highlight">
+<pre><code class="bash"><span class="nv">$ </span>bower install angular-datatables
+</code></pre>
+				</div>
+			</section>
+			<section>
+				<h3>Installation</h3>
+				<p>
+					Include the JS and CSS file in your <code>index.html</code> file:
+					<br />
+					<div class="highlight">
+<pre><code class="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"angular-datatables.min.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"angular-datatables.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
+				</p>
+				<p>
+					Declare dependencies on your module app like this:
+					<div class="highlight">
+<pre><code class="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'angularDatatables'</span><span class="p">]);</span>
+</code></pre>
+				</p>
+			</section>
+		</article>
+		<article>
+			<h1>Usage</h1>
+			<section>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed laoreet eros. In sollicitudin mauris eget diam dapibus, ac aliquet leo ornare. Curabitur aliquet urna in ligula vulputate aliquam. Nullam congue diam ut leo adipiscing placerat. Donec odio quam, dapibus quis tempus ac, viverra eget massa. Nunc id aliquam augue. Sed a imperdiet felis. Mauris id purus adipiscing, varius enim molestie, suscipit lectus.
+				</p>
+				<p>
+					Praesent ut leo et massa mattis tristique pellentesque sed diam. Praesent fringilla felis congue massa suscipit, in vestibulum arcu pharetra. Integer dapibus adipiscing felis id semper. Vivamus dictum mauris quis tellus rhoncus bibendum. Aliquam accumsan neque a est scelerisque ultrices. Morbi in nunc sit amet ligula posuere consequat et in nibh. Cras ac sem id lacus tempus fringilla ut eget turpis. Nunc suscipit feugiat interdum. Phasellus hendrerit leo nec libero sagittis ultrices. Duis arcu elit, ultricies non mi interdum, auctor feugiat enim. Integer cursus dignissim felis tempus posuere.
+				</p>
+				<p>
+					Praesent porttitor volutpat lobortis. Praesent cursus, sapien eget rutrum pellentesque, neque magna vestibulum purus, id auctor ipsum odio sed nisi. Fusce bibendum consectetur consectetur. Etiam vehicula, lectus ornare ultrices rhoncus, orci tellus posuere libero, faucibus sollicitudin ipsum diam a lacus. Aliquam erat volutpat. Suspendisse egestas nisl dignissim pulvinar porta. Ut lacus turpis, venenatis vitae suscipit vitae, hendrerit sed velit.
+				</p>
+				<p>
+					Sed faucibus purus eu neque pellentesque porttitor. Pellentesque eu diam condimentum, dapibus ante a, blandit velit. Etiam lacinia eu massa vel luctus. Ut ultricies lectus neque. Quisque volutpat, quam eu ultricies malesuada, arcu ligula rhoncus massa, vel egestas nunc massa eu justo. Cras et pulvinar quam. Donec risus massa, congue sit amet quam eu, sodales tempus ligula. Duis luctus porttitor lorem, quis euismod nulla. Mauris consectetur tellus enim, sit amet aliquet eros fringilla in. Vivamus blandit ante id dolor sagittis, quis posuere massa ultricies. Nullam ante mauris, imperdiet ut dolor ultricies, mollis sollicitudin leo. Nullam tincidunt nisl lacinia lorem lobortis consectetur. Duis sodales leo ipsum, sed tempor turpis pretium vulputate. Quisque vitae elementum nisi. Nulla vitae purus purus.
+				</p>
+				<p>
+					Nam aliquet ante tellus, id consequat augue porta vel. Sed a tellus lacinia, commodo tellus a, cursus arcu. Curabitur non semper quam. Duis ac massa et mauris ultricies placerat vitae nec nulla. Fusce semper malesuada eros, quis vehicula tortor mollis nec. Ut scelerisque porttitor dui, eu facilisis est lobortis non. Praesent ullamcorper nisi ut magna pretium tristique. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam commodo nisi quam, vitae bibendum elit pellentesque ac. Sed at egestas turpis. Quisque fringilla venenatis purus, a eleifend libero malesuada eget. Etiam rutrum magna eu ornare accumsan. Curabitur quis venenatis diam, sit amet tempus lacus. Ut aliquam sem nec sodales porttitor. Vestibulum blandit augue in mollis interdum. Donec vel venenatis odio.
+				</p>
+				<br />
+			</section>
+		</article>
+	</div>
+
+	<footer>
+		Designed and built with <i class="fa fa-heart faa-pulse animated"></i> by <a href="https://github.com/l-lin">Louis LIN</a>
+	</footer>
+
+	<script src="vendor/angular/angular.min.js"></script>
+	<script src="src/angular-datatables.js"></script>
+</body>
+</html>
