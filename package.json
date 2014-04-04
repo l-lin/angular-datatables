@@ -15,6 +15,7 @@
         "grunt-jsbeautifier": "~0.2.2",
         "grunt-angular-templates": "~0.5.1",
         "grunt-ngmin": "~0.0.2",
+        "load-grunt-config": "~0.7.2",
         "jshint-stylish": "~0.1.3",
         "load-grunt-tasks": "~0.2.0",
         "time-grunt": "~0.2.0",

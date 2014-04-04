@@ -2,7 +2,8 @@ angular-datatables [![Build Status](https://travis-ci.org/l-lin/angular-datatabl
 ================
 > angular-datatables
 
-**WORK IN PROGRESS**
+**Work in progress**
+
 
 Getting started
 ================

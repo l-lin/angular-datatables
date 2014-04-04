@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="vendor/font-awesome-animation/font-awesome-animation.min.css">
 </head>
-<body>
+<body ng-app="angularDatatablesSampleApp">
 	<header>
 		<h1><a href="https://github.com/l-lin/angular-datatables">angular-datatables</a></h1>
         <p>
@@ -30,7 +30,7 @@
         <hr />
 	</header>
 	
-	<div class="container" ng-controller="demoCtrl">
+	<div class="container">
 		<article>
 			<h1>Getting started</h1>
 			<section>
@@ -78,24 +78,7 @@
 		</article>
 		<article>
 			<h1>Usage</h1>
-			<section>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed laoreet eros. In sollicitudin mauris eget diam dapibus, ac aliquet leo ornare. Curabitur aliquet urna in ligula vulputate aliquam. Nullam congue diam ut leo adipiscing placerat. Donec odio quam, dapibus quis tempus ac, viverra eget massa. Nunc id aliquam augue. Sed a imperdiet felis. Mauris id purus adipiscing, varius enim molestie, suscipit lectus.
-				</p>
-				<p>
-					Praesent ut leo et massa mattis tristique pellentesque sed diam. Praesent fringilla felis congue massa suscipit, in vestibulum arcu pharetra. Integer dapibus adipiscing felis id semper. Vivamus dictum mauris quis tellus rhoncus bibendum. Aliquam accumsan neque a est scelerisque ultrices. Morbi in nunc sit amet ligula posuere consequat et in nibh. Cras ac sem id lacus tempus fringilla ut eget turpis. Nunc suscipit feugiat interdum. Phasellus hendrerit leo nec libero sagittis ultrices. Duis arcu elit, ultricies non mi interdum, auctor feugiat enim. Integer cursus dignissim felis tempus posuere.
-				</p>
-				<p>
-					Praesent porttitor volutpat lobortis. Praesent cursus, sapien eget rutrum pellentesque, neque magna vestibulum purus, id auctor ipsum odio sed nisi. Fusce bibendum consectetur consectetur. Etiam vehicula, lectus ornare ultrices rhoncus, orci tellus posuere libero, faucibus sollicitudin ipsum diam a lacus. Aliquam erat volutpat. Suspendisse egestas nisl dignissim pulvinar porta. Ut lacus turpis, venenatis vitae suscipit vitae, hendrerit sed velit.
-				</p>
-				<p>
-					Sed faucibus purus eu neque pellentesque porttitor. Pellentesque eu diam condimentum, dapibus ante a, blandit velit. Etiam lacinia eu massa vel luctus. Ut ultricies lectus neque. Quisque volutpat, quam eu ultricies malesuada, arcu ligula rhoncus massa, vel egestas nunc massa eu justo. Cras et pulvinar quam. Donec risus massa, congue sit amet quam eu, sodales tempus ligula. Duis luctus porttitor lorem, quis euismod nulla. Mauris consectetur tellus enim, sit amet aliquet eros fringilla in. Vivamus blandit ante id dolor sagittis, quis posuere massa ultricies. Nullam ante mauris, imperdiet ut dolor ultricies, mollis sollicitudin leo. Nullam tincidunt nisl lacinia lorem lobortis consectetur. Duis sodales leo ipsum, sed tempor turpis pretium vulputate. Quisque vitae elementum nisi. Nulla vitae purus purus.
-				</p>
-				<p>
-					Nam aliquet ante tellus, id consequat augue porta vel. Sed a tellus lacinia, commodo tellus a, cursus arcu. Curabitur non semper quam. Duis ac massa et mauris ultricies placerat vitae nec nulla. Fusce semper malesuada eros, quis vehicula tortor mollis nec. Ut scelerisque porttitor dui, eu facilisis est lobortis non. Praesent ullamcorper nisi ut magna pretium tristique. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam commodo nisi quam, vitae bibendum elit pellentesque ac. Sed at egestas turpis. Quisque fringilla venenatis purus, a eleifend libero malesuada eget. Etiam rutrum magna eu ornare accumsan. Curabitur quis venenatis diam, sit amet tempus lacus. Ut aliquam sem nec sodales porttitor. Vestibulum blandit augue in mollis interdum. Donec vel venenatis odio.
-				</p>
-				<br />
-			</section>
+			<section ng-include="demo/simple.html"></section>
 		</article>
 	</div>
 
@@ -103,7 +86,10 @@
 		Designed and built with <i class="fa fa-heart faa-pulse animated"></i> by <a href="https://github.com/l-lin">Louis LIN</a>
 	</footer>
 
+    <script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/angular/angular.min.js"></script>
+	<script src="vendor/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="src/angular-datatables.js"></script>
+	<script src="demo/app.js"></script>
 </body>
 </html>
