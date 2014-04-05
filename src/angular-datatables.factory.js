@@ -26,14 +26,17 @@
                 this.addOption(DT_OPTION_KEYS.ajaxDataProp, dataProp);
                 return this;
             };
-            this.addFnServerdata = function(fn) {
+            this.addFnServerData = function(fn) {
+                if (!angular.isFunction(fn)) {
+                    throw new Error('The parameter must be a function');
+                }
                 this.addOption(DT_OPTION_KEYS.fnServerData, fn);
                 return this;
             };
         };
         
         return {
-            newOption: function() {
+            newOptions: function() {
                 return new DTOptions();
             },
             fromSource: function(sAjaxSource) {

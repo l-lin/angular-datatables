@@ -15,9 +15,9 @@ module.exports = function(config) {
             'vendor/datatables/media/js/jquery.dataTables.js',
             'vendor/angular/angular.js',
             'vendor/angular-mocks/angular-mocks.js',
-            'src/angular-datatables.js',
-            'src/angular-datatables.directive.js',
             'src/angular-datatables.factory.js',
+            'src/angular-datatables.directive.js',
+            'src/angular-datatables.js',
             'test/spec/*.spec.js'
         ],
 
