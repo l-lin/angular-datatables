@@ -61,7 +61,7 @@
             this.setVisible = function(bVisible) {
                 this.bVisible = bVisible;
                 return this;
-            }
+            };
         };
         
         return {

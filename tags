@@ -737,7 +737,6 @@ $render	vendor/angular/angular.js	21080
 compile	vendor/angular/angular.js	21404
 randomNumber	server/server.js	16
 randomInArray	server/server.js	19
-exports	Gruntfile.js	3
 github-ribbon	styles/main.css	48
 header	styles/main.css	56
 header	styles/main.css	84
@@ -763,6 +762,7 @@ exports	test/karma.conf.js	4
 link	src/angular-datatables.directive.js	17
 link	src/angular-datatables.directive.js	32
 fnServerData	src/angular-datatables.directive.js	48
+fn	test/spec/angular-datatables.factory.spec.js	65
 DTOptions	src/angular-datatables.factory.js	10
 addOption	src/angular-datatables.factory.js	15
 addSource	src/angular-datatables.factory.js	21
@@ -775,4 +775,4 @@ withLabel	src/angular-datatables.factory.js	53
 withClass	src/angular-datatables.factory.js	57
 setVisible	src/angular-datatables.factory.js	61
 newColumn	src/angular-datatables.factory.js	68
-fn	test/spec/angular-datatables.factory.spec.js	65
+exports	Gruntfile.js	3

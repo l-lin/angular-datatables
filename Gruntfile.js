@@ -50,10 +50,8 @@ module.exports = function(grunt) {
         'ngtemplates',
         'concat:build',
         'ngmin',
-        'cssmin',
         'uglify',
-        'concat:banner',
-        'concat:bannerCSS'
+        'concat:banner'
     ]);
 
     grunt.registerTask('default', [
