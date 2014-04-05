@@ -16,6 +16,7 @@ module.exports = function(grunt) {
                 src: 'src',
                 dist: 'dist',
                 build: '.tmp',
+                test: 'test',
                 currentDir: path.resolve(__dirname),
                 banner: '/*!\n' +
                     ' * <%= pkg.name %> - v<%= pkg.version %>\n' +

@@ -735,10 +735,12 @@ $isEmpty	vendor/angular/angular.js	21038
 $render	vendor/angular/angular.js	21053
 $render	vendor/angular/angular.js	21079
 compile	vendor/angular/angular.js	21403
-exports	test/karma.conf.js	4
 link	src/angular-datatables.directive.js	17
 link	src/angular-datatables.directive.js	32
 fnServerData	src/angular-datatables.directive.js	48
+randomNumber	server/server.js	15
+randomInArray	server/server.js	18
+exports	test/karma.conf.js	4
 DTOptions	src/angular-datatables.factory.js	9
 addOption	src/angular-datatables.factory.js	15
 addSource	src/angular-datatables.factory.js	21
@@ -749,3 +751,4 @@ withLabel	src/angular-datatables.factory.js	43
 withClass	src/angular-datatables.factory.js	47
 setVisible	src/angular-datatables.factory.js	51
 newColumn	src/angular-datatables.factory.js	58
+exports	Gruntfile.js	3

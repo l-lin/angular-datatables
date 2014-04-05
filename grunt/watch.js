@@ -19,7 +19,8 @@ module.exports = {
         },
         files: [
             '<%= yeoman.src %>/{,*/}*.html',
-            '{<%= yeoman.build %>,<%= yeoman.src %>}/app/{,*/}*.js'
+            '<%= yeoman.src %>/{,*/}*.js',
+            '<%= yeoman.test %>/**/*.js'
         ],
         tasks: ['test']
     }

@@ -7,7 +7,8 @@ module.exports = {
     livereload: {
         options: {
             open: true,
-            bases: '<%= yeoman.currentDir %>'
+            bases: '<%= yeoman.currentDir %>',
+            server: 'server/server'
         }
     },
     test: {

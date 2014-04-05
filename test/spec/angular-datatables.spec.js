@@ -1,13 +1,17 @@
-describe('angularDatatables', function() {
+describe('angularDatatables: Factory', function() {
     'use strict';
 
-    // load the directive's module
-    beforeEach(module('angularDatatables'));
+    beforeEach(module('angularDatatables.factory'));
 
-    // Initialize the controller and a mock scope
-    beforeEach(inject(function() {}));
+    var DATA = 'data.json',
+        DTColumnBuilder;
+    
+    beforeEach(inject(function($inject) {
+        DTColumnBuilder = $inject.get('DTColumnBuilder');
+    }));
 
-    it('should test something...', function() {
-        // TODO: Complete test
+    it('should build the column', function() {
+        var column = DTColumnBuilder.newColumn(DATA);
+        expect(column.mData).toBe(DATA);
     });
 });
