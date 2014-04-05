@@ -4,6 +4,7 @@ module.exports = {
             livereload: '<%= express.options.livereload %>'
         },
         files: [
+            '<%= yeoman.currentDir %>',
             '<%= yeoman.src %>/**/*.html',
             '<%= yeoman.src %>/styles/{,*/}*.css',
             '<%= yeoman.src %>/{,*/}*.js',

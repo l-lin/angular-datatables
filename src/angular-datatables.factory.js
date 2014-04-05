@@ -3,14 +3,14 @@
     angular.module('angularDatatables.factory', []).
     constant('DT_OPTION_KEYS', {
         ajaxSource: 'sAjaxSource',
+        ajaxDataProp: 'sAjaxDataProp',
         fnServerData: 'fnServerData'
     }).
     factory('DTOptionsBuilder', function(DT_OPTION_KEYS) {
         var DTOptions = function(sAjaxSource) {
-            if (!angular.isString(sAjaxSource)) {
-                throw new Error('The parameter must be defined!');
+            if (angular.isString(sAjaxSource)) {
+                this[DT_OPTION_KEYS.ajaxSource] = sAjaxSource;
             }
-            this[DT_OPTION_KEYS.ajaxSource] = sAjaxSource;
             
             this.addOption = function(key, value) {
                 if (angular.isString(key)) {
@@ -22,6 +22,10 @@
                 this.addOption(DT_OPTION_KEYS.ajaxSource, sAjaxSource);
                 return this;
             };
+            this.addDataProp = function(dataProp) {
+                this.addOption(DT_OPTION_KEYS.ajaxDataProp, dataProp);
+                return this;
+            };
             this.addFnServerdata = function(fn) {
                 this.addOption(DT_OPTION_KEYS.fnServerData, fn);
                 return this;
@@ -29,6 +33,9 @@
         };
         
         return {
+            newOption: function() {
+                return new DTOptions();
+            },
             fromSource: function(sAjaxSource) {
                 return new DTOptions(sAjaxSource);
             }

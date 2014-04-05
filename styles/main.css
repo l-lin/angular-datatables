@@ -10,11 +10,6 @@ body {
     padding-top: 20px;
 }
 
-h1 {
-    color: #045FB4;
-    font-family: 'Gilda Display', serif;
-}
-
 a, a:visited {
     color: #045FB4;
     text-decoration: none;
@@ -22,6 +17,7 @@ a, a:visited {
 
 a:hover {
     color: #b4052c;
+    text-decoration: none;
 }
 
 hr {
@@ -45,24 +41,70 @@ input[type="text"] {
     padding: 4px 6px;
 }
 
-i {
-    font-size: 10px;
-}
-
 /* ---------------------------------------- */
 /* HEADER */
 /* ---------------------------------------- */
 
-header {
+.github-ribbon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+    z-index: 1000;
+}
+
+.header {
     text-align: center;
+    border-top: solid 2px #FFF;
+    border-bottom: solid 6px #5fc9e5;
+    position: relative;
+    padding-bottom: 13px;
+}
+
+.header::before,
+.header::after {
+    bottom: -6px;
+}
+
+.header::before,
+.header::after {
+    content: "";
+    height: 6px;
+    width: 33.33%;
+    position: absolute;
+    left: 33.33%;
+    background: #b1cf37;
+}
+
+.header::after {
+    left: 66.66%;
+    background: #f48123;
+}
+
+.header h1 {
+    color: #045FB4;
+    font-family: 'Gilda Display', serif;
+    font-size: 2em;
+    margin: 0;
+    font-weight: bold;
+    line-height: 38px;
+}
+
+.header p {
+    margin: 0;
 }
 
 /* ---------------------------------------- */
 /* FOOTER */
 /* ---------------------------------------- */
 
-footer {
-    margin: 30px auto 30px auto;
+.footer {
+    background: #fbfbfb 50% 100% no-repeat;
+    padding-bottom: 30px;
+}
+
+.footer-note {
+    margin: auto;
     width: 900px;
     border-top: 1px solid #CACACA;
     padding-top: 15px;
@@ -86,20 +128,6 @@ code, kbd, pre, samp {
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 
-pre {
-    display: block;
-    padding: 10px;
-    margin: 0 0 10.5px;
-    font-size: 14px;
-    line-height: 1.428571429;
-    color: #7b8a8b;
-    word-break: break-all;
-    word-wrap: break-word;
-    background-color: #ecf0f1;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
 pre code {
     padding: 0;
     font-size: inherit;
@@ -109,57 +137,72 @@ pre code {
     border-radius: 0;
 }
 
-aside {
-    float: left;
-    width: 55%;
-}
-
 /* ---------------------------------------- */
 /* MAIN CONTENT */
 /* ---------------------------------------- */
 
-article {
-    background-color: #FFF;
-    padding: 30px 30px 0 30px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    line-height: 1.428571429;
-    color: #333;
-}
-
-article h1 {
-    border-bottom: 1px solid #CACACA;
-    padding-bottom: 15px;
-    margin-bottom: 10px;
-    font-size: xx-large;
-}
-
-article h3 {
-    font-size: x-large;
-    margin-bottom: 10px;
-}
-
-section:before, section:after {
-    display: table;
-    content: " ";
-}
-
-section:after {
-    clear:both;
+.main-container {
+    background: #fbfbfb 50% 100% no-repeat;
 }
 
 .container {
+    padding-top: 30px;
     margin: 0 auto;
     width: 900px;
     font: 13px Helvetica, arial, freesans, clean, sans-serif;
 }
 
-.demo .font-animation {
-    float: left;
-    width: 400px;
-    margin-bottom: 20px;
+.container h1 {
+    color: #434343;
+    font: 40px 'Nunito', sans-serif;
+    line-height: 60px;
+    text-shadow: 1px 1px #ccc;
 }
 
-.font-animation i {
-    font-size: 1.5em;
+.main-content {
+    background: #fff;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.main-content h3 {
+    font-size: x-large;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.nav {
+    cursor: pointer;
+}
+
+.code .nav-tabs>li.active>a,
+.code .nav-tabs>li.active>a:hover,
+.code .nav-tabs>li.active>a:focus {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-bottom-color: transparent;
+}
+
+.code pre, .code code {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.ob-form {
+    padding: 10px 30px 0 30px;
+    color: #333;
+    border: 1px solid #c2c2c2;
+    background: #fafafa;
+}
+
+.ob-form-content {
+    padding: 30px;
+    border-top: 2px solid #ededed;
+    border-right: 1px solid #c2c2c2;
+    border-left: 1px solid #c2c2c2;
+    border-bottom: 1px solid #c2c2c2;
 }

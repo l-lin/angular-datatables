@@ -11,7 +11,7 @@ describe('angularDatatables: Factory', function() {
     }));
 
     it('should build the column', function() {
-        var column = DTColumnBuilder.newColumn(DATA);
+        // var column = DTColumnBuilder.newColumn(DATA);
         expect(column.mData).toBe(DATA);
     });
 });
