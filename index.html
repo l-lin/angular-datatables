@@ -1,0 +1,76 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>angular-datatables</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<link rel="icon" type="image/png" href="favicon.png">
+	
+	<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="vendor/font-awesome-animation/font-awesome-animation.min.css">
+	<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="vendor/datatables/media/css/jquery.dataTables.css">
+	<link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/monokai.css">
+</head>
+<body ng-app="angularDatatablesSampleApp">
+    <div class="github-ribbon">
+        <a href="https://github.com/l-lin/angular-datatables">
+            <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+        </a>
+    </div>
+	<header class="header">
+		<h1><a href="https://github.com/l-lin/angular-datatables">angular-datatables</a></h1>
+        <p>
+            Ajax oriented datatables for Angular.
+        </p>
+	</header>
+	
+	<div class="main-container">
+    	<div class="container">
+    		<article class="main-content">
+    			<header class="ob-form">
+    			    <h1><i class="fa fa-gear faa-spin animated"></i>&nbsp;Getting started</h1>
+    			</header>
+    			<section class="ob-form-content" ng-include="'demo/partials/getting_started.html'"></section>
+    		</article>
+    		<article class="main-content">
+    		    <header class="ob-form">
+    			    <h1><i class="fa fa-play faa-horizontal animated"></i>&nbsp;Usage</h1>
+    		    </header>
+    		    <section class="ob-form-content" ng-include="'demo/partials/simple.html'"></section>
+    		</article>
+    		<article class="main-content">
+    		    <header class="ob-form">
+    		        <h1><i class="fa fa-book"></i>&nbsp;API</h1>
+    		    </header>
+    		    <section class="ob-form-content" ng-include="'demo/partials/api.html'"></section>
+    		</article>
+    	</div>
+	</div>
+
+	<footer class="footer">
+		<div class="footer-note">
+			Designed and built with <i class="fa fa-heart faa-pulse animated"></i> by <a href="https://github.com/l-lin">Louis LIN</a>
+		</div>
+	</footer>
+
+    <script src="vendor/jquery/dist/jquery.min.js"></script>
+	<script src="vendor/angular/angular.min.js"></script>
+	<script src="vendor/datatables/media/js/jquery.dataTables.js"></script>
+	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="vendor/angular-bootstrap/ui-bootstrap.min.js"></script>
+	<script src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="dist/angular-datatables.min.js"></script>
+	<!--<script src="src/angular-datatables.js"></script>-->
+	<!--<script src="src/angular-datatables.directive.js"></script>-->
+	<!--<script src="src/angular-datatables.factory.js"></script>-->
+	<script src="demo/app.js"></script>
+</body>
+</html>

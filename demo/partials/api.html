@@ -1,0 +1,27 @@
+<h3>DTOptionsBuilder</h3>
+These are the methods that can be called to create a datatables options:
+<ul>
+    <li><code>newOption()</code>: This will create a <code>DTOption</code>.
+    <li><code>fromSource(sAjaxSource)</code>: This will create a <code>DTOption</code> with the given ajax source</li>.
+</ul>
+<h3>DTOptions</h3>
+These are the methods that can be called to customized the datatables options:
+<ul>
+    <li><code>addSource(sAjaxSource)</code>: This will add the ajax source to the <code>DTOption</code>.</li>
+    <li><code>addFnServerData(fn)</code>: This will customize the function to fetch the data. By default, it uses the angular <code>$http</code> in order to call the Ajax request.</li>
+    <li><code>addDataProp(sDataProp)</code>: This will add a data property.</li>
+    <li><code>addOption(key, value)</code>: This will a specific option. See the <a href="http://datatables.net/usage/options">datatables documentation</a> for the list of options.</li>
+</ul>
+<h3>DTColumnBuilder</h3>
+These are the methods that can be called to create a datatable column to display:
+<ul>
+    <li><code>newColumn(mData)</code>: This will create a <code>DTColumn</code> with the attribute of the object to display in the column.</li>
+</ul>
+<h3>DTColumn</h3>
+These are the methods that can be called to customized the columns:
+<ul>
+    <li><code>withLabel(label)</code>: Set the label to display in the <code>&lg;thead&gt;</code>.</li>
+    <li><code>withClass(sClass)</code>: Set the CSS class for the column.</li>
+    <li><code>setVisible(bVisible)</code>: Set the visibility of the column.</li>
+</ul>
+<strong>Note</strong>: Of course, these helpers are not mandatory. You can directly pass the datatable options on the element attributes <code>dt-options</code> and <code>dt-columns</code>.
