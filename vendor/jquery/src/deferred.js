@@ -1,3 +1,9 @@
+define([
+	"./core",
+	"./var/slice",
+	"./callbacks"
+], function( jQuery, slice ) {
+
 jQuery.extend({
 
 	Deferred: function( func ) {
@@ -20,23 +26,19 @@ jQuery.extend({
 					var fns = arguments;
 					return jQuery.Deferred(function( newDefer ) {
 						jQuery.each( tuples, function( i, tuple ) {
-							var action = tuple[ 0 ],
-								fn = fns[ i ];
+							var fn = jQuery.isFunction( fns[ i ] ) && fns[ i ];
 							// deferred[ done | fail | progress ] for forwarding actions to newDefer
-							deferred[ tuple[1] ]( jQuery.isFunction( fn ) ?
-								function() {
-									var returned = fn.apply( this, arguments );
-									if ( returned && jQuery.isFunction( returned.promise ) ) {
-										returned.promise()
-											.done( newDefer.resolve )
-											.fail( newDefer.reject )
-											.progress( newDefer.notify );
-									} else {
-										newDefer[ action + "With" ]( this === deferred ? newDefer : this, [ returned ] );
-									}
-								} :
-								newDefer[ action ]
-							);
+							deferred[ tuple[1] ](function() {
+								var returned = fn && fn.apply( this, arguments );
+								if ( returned && jQuery.isFunction( returned.promise ) ) {
+									returned.promise()
+										.done( newDefer.resolve )
+										.fail( newDefer.reject )
+										.progress( newDefer.notify );
+								} else {
+									newDefer[ tuple[ 0 ] + "With" ]( this === promise ? newDefer.promise() : this, fn ? [ returned ] : arguments );
+								}
+							});
 						});
 						fns = null;
 					}).promise();
@@ -70,8 +72,11 @@ jQuery.extend({
 				}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
 			}
 
-			// deferred[ resolve | reject | notify ] = list.fire
-			deferred[ tuple[0] ] = list.fire;
+			// deferred[ resolve | reject | notify ]
+			deferred[ tuple[0] ] = function() {
+				deferred[ tuple[0] + "With" ]( this === deferred ? promise : this, arguments );
+				return this;
+			};
 			deferred[ tuple[0] + "With" ] = list.fireWith;
 		});
 
@@ -90,7 +95,7 @@ jQuery.extend({
 	// Deferred helper
 	when: function( subordinate /* , ..., subordinateN */ ) {
 		var i = 0,
-			resolveValues = core_slice.call( arguments ),
+			resolveValues = slice.call( arguments ),
 			length = resolveValues.length,
 
 			// the count of uncompleted subordinates
@@ -103,10 +108,11 @@ jQuery.extend({
 			updateFunc = function( i, contexts, values ) {
 				return function( value ) {
 					contexts[ i ] = this;
-					values[ i ] = arguments.length > 1 ? core_slice.call( arguments ) : value;
-					if( values === progressValues ) {
+					values[ i ] = arguments.length > 1 ? slice.call( arguments ) : value;
+					if ( values === progressValues ) {
 						deferred.notifyWith( contexts, values );
-					} else if ( !( --remaining ) ) {
+
+					} else if ( !(--remaining) ) {
 						deferred.resolveWith( contexts, values );
 					}
 				};
@@ -138,4 +144,7 @@ jQuery.extend({
 
 		return deferred.promise();
 	}
+});
+
+return jQuery;
 });

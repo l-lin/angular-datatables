@@ -11,10 +11,9 @@
 	<meta name="viewport" content="width=device-width">
 	<link rel="icon" type="image/png" href="favicon.png">
 	
-	<link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>
+	<!--<link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>-->
 	<link rel="stylesheet" href="styles/main.css">
 	<link rel="stylesheet" href="styles/monokai.css">
-	<link rel="stylesheet" href="src/angular-datatables.css">
 	<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="vendor/font-awesome-animation/font-awesome-animation.min.css">
 </head>
@@ -24,9 +23,9 @@
         <p>
             angular-datatables
         </p>
-        <a href="https://github.com/l-lin/angular-datatables">
-        	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
-        </a>
+        <!--<a href="https://github.com/l-lin/angular-datatables">-->
+        <!--	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">-->
+        <!--</a>-->
         <hr />
 	</header>
 	
@@ -78,7 +77,7 @@
 		</article>
 		<article>
 			<h1>Usage</h1>
-			<section ng-include="demo/simple.html"></section>
+			<section ng-include="'demo/partials/simple.html'">
 		</article>
 	</div>
 
@@ -86,10 +85,12 @@
 		Designed and built with <i class="fa fa-heart faa-pulse animated"></i> by <a href="https://github.com/l-lin">Louis LIN</a>
 	</footer>
 
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery/dist/jquery.min.js"></script>
 	<script src="vendor/angular/angular.min.js"></script>
 	<script src="vendor/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="src/angular-datatables.js"></script>
+	<script src="src/angular-datatables.directive.js"></script>
+	<script src="src/angular-datatables.factory.js"></script>
 	<script src="demo/app.js"></script>
 </body>
 </html>

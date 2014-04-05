@@ -1,10 +1,15 @@
+define([
+	"./core",
+	"./var/rnotwhite"
+], function( jQuery, rnotwhite ) {
+
 // String to Object options format cache
 var optionsCache = {};
 
 // Convert String-formatted options into Object-formatted ones and store in cache
 function createOptions( options ) {
 	var object = optionsCache[ options ] = {};
-	jQuery.each( options.split( core_rspace ), function( _, flag ) {
+	jQuery.each( options.match( rnotwhite ) || [], function( _, flag ) {
 		object[ flag ] = true;
 	});
 	return object;
@@ -40,18 +45,18 @@ jQuery.Callbacks = function( options ) {
 		( optionsCache[ options ] || createOptions( options ) ) :
 		jQuery.extend( {}, options );
 
-	var // Last fire value (for non-forgettable lists)
+	var // Flag to know if list is currently firing
+		firing,
+		// Last fire value (for non-forgettable lists)
 		memory,
 		// Flag to know if list was already fired
 		fired,
-		// Flag to know if list is currently firing
-		firing,
-		// First callback to fire (used internally by add and fireWith)
-		firingStart,
 		// End of the loop when firing
 		firingLength,
 		// Index of currently firing callback (modified by remove if needed)
 		firingIndex,
+		// First callback to fire (used internally by add and fireWith)
+		firingStart,
 		// Actual callback list
 		list = [],
 		// Stack of fire calls for repeatable lists
@@ -121,7 +126,7 @@ jQuery.Callbacks = function( options ) {
 				if ( list ) {
 					jQuery.each( arguments, function( _, arg ) {
 						var index;
-						while( ( index = jQuery.inArray( arg, list, index ) ) > -1 ) {
+						while ( ( index = jQuery.inArray( arg, list, index ) ) > -1 ) {
 							list.splice( index, 1 );
 							// Handle firing indexes
 							if ( firing ) {
@@ -137,13 +142,15 @@ jQuery.Callbacks = function( options ) {
 				}
 				return this;
 			},
-			// Control if a given callback is in the list
+			// Check if a given callback is in the list.
+			// If no argument is given, return whether or not list has callbacks attached.
 			has: function( fn ) {
-				return jQuery.inArray( fn, list ) > -1;
+				return fn ? jQuery.inArray( fn, list ) > -1 : !!( list && list.length );
 			},
 			// Remove all callbacks from the list
 			empty: function() {
 				list = [];
+				firingLength = 0;
 				return this;
 			},
 			// Have the list do nothing anymore
@@ -169,9 +176,9 @@ jQuery.Callbacks = function( options ) {
 			},
 			// Call all callbacks with the given context and arguments
 			fireWith: function( context, args ) {
-				args = args || [];
-				args = [ context, args.slice ? args.slice() : args ];
 				if ( list && ( !fired || stack ) ) {
+					args = args || [];
+					args = [ context, args.slice ? args.slice() : args ];
 					if ( firing ) {
 						stack.push( args );
 					} else {
@@ -193,3 +200,6 @@ jQuery.Callbacks = function( options ) {
 
 	return self;
 };
+
+return jQuery;
+});

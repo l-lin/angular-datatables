@@ -1,1 +1,7 @@
-<h1>angular-datatables</h1>
+<thead>
+    <tr>
+        <th ng-repeat="column in dtColumns" dt-column-repeat>
+            {{ column.label }}
+        </th>
+    </tr>
+</thead>

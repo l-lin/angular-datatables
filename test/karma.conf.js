@@ -11,10 +11,12 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
+            'vendor/jquery/dist/jquery.min.js',
+            'vendor/datatables/media/js/jquery.dataTables.js',
             'vendor/angular/angular.js',
             'vendor/angular-mocks/angular-mocks.js',
-            'src/*.js',
-            'src/**/*.js',
+            'src/angular-datatables.js',
+            'src/angular-datatables.directive.js',
             'test/spec/*.spec.js'
         ],
 

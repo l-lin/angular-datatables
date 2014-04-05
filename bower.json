@@ -4,9 +4,7 @@
 	"author": "l-lin",
 	"main": [
         "dist/angular-datatables.js",
-        "dist/angular-datatables.min.js",
-        "dist/angular-datatables.css",
-        "dist/angular-datatables.min.css"
+        "dist/angular-datatables.min.js"
     ],
     "ignore": [
         ".bowerrc",
@@ -22,10 +20,11 @@
     ],
     "dependencies": {
         "angular": "1.2.6",
-        "jquery": "~1.8.0",
+        "jquery": "1.11.0",
         "datatables": "~1.9.4"
     },
     "devDependencies": {
-        "angular-mocks": ">= 1.2.7"
+        "angular-mocks": ">= 1.2.7",
+        "bootstrap": "3.0.1"
     }
 }
