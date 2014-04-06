@@ -1,8 +1,8 @@
 (function(angular) {
     'use strict';
 
-    angular.module('angularDatatables.directive', []).
-    value('angularDatatablesTemplateUrl', 'src/angular-datatables.html').
+    angular.module('datatables.directive', []).
+    value('datatablesTemplateUrl', 'src/angular-datatables.html').
     constant('DT_DEFAULT_OPTIONS', {
         sAjaxDataProp: '',
         aoColumns: []
@@ -21,14 +21,14 @@
             }
         };
     }).
-    directive('datatable', function($http, DT_DEFAULT_OPTIONS) {
+    directive('datatable', function($http, DT_DEFAULT_OPTIONS, datatablesTemplateUrl) {
         return {
             restrict: 'A',
             scope: {
                 dtOptions: '=',
                 dtColumns: '='
             },
-            templateUrl: 'src/angular-datatables.html',
+            templateUrl: datatablesTemplateUrl,
             link: function($scope, $elem) {
                 var options = DT_DEFAULT_OPTIONS;
 

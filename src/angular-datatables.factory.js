@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('angularDatatables.factory', []).
+    angular.module('datatables.factory', []).
     constant('DT_OPTION_KEYS', {
         ajaxSource: 'sAjaxSource',
         ajaxDataProp: 'sAjaxDataProp',

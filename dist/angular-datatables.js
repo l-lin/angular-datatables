@@ -1,14 +1,14 @@
 /*!
- * angular-datatables - v0.0.1
+ * angular-datatables - v0.0.2
  * https://github.com/l-lin/angular-datatables
  */
 /*!
- * angular-datatables - v0.0.1
+ * angular-datatables - v0.0.2
  * https://github.com/l-lin/angular-datatables
  */
 (function (angular) {
   'use strict';
-  angular.module('angularDatatables.directive', []).value('angularDatatablesTemplateUrl', 'src/angular-datatables.html').constant('DT_DEFAULT_OPTIONS', {
+  angular.module('datatables.directive', []).value('datatablesTemplateUrl', 'src/angular-datatables.html').constant('DT_DEFAULT_OPTIONS', {
     sAjaxDataProp: '',
     aoColumns: []
   }).directive('dtColumnRepeat', function () {
@@ -23,14 +23,15 @@
   }).directive('datatable', [
     '$http',
     'DT_DEFAULT_OPTIONS',
-    function ($http, DT_DEFAULT_OPTIONS) {
+    'datatablesTemplateUrl',
+    function ($http, DT_DEFAULT_OPTIONS, datatablesTemplateUrl) {
       return {
         restrict: 'A',
         scope: {
           dtOptions: '=',
           dtColumns: '='
         },
-        templateUrl: 'src/angular-datatables.html',
+        templateUrl: datatablesTemplateUrl,
         link: function ($scope, $elem) {
           var options = DT_DEFAULT_OPTIONS;
           if (angular.isUndefined($scope.dtOptions)) {
@@ -64,7 +65,7 @@
 }(angular));
 (function (angular) {
   'use strict';
-  angular.module('angularDatatables.factory', []).constant('DT_OPTION_KEYS', {
+  angular.module('datatables.factory', []).constant('DT_OPTION_KEYS', {
     ajaxSource: 'sAjaxSource',
     ajaxDataProp: 'sAjaxDataProp',
     fnServerData: 'fnServerData'
@@ -134,9 +135,9 @@
 }(angular));
 (function (angular) {
   'use strict';
-  angular.module('angularDatatables', [
-    'angularDatatables.directive',
-    'angularDatatables.factory'
+  angular.module('datatables', [
+    'datatables.directive',
+    'datatables.factory'
   ]);
 }(angular));
 angular.module('angularDatatables').run([

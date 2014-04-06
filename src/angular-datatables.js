@@ -1,4 +1,4 @@
 (function(angular) {
     'use strict';
-    angular.module('angularDatatables', ['angularDatatables.directive', 'angularDatatables.factory']);
+    angular.module('datatables', ['datatables.directive', 'datatables.factory']);
 })(angular);
