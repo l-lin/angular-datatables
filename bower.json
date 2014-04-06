@@ -16,7 +16,15 @@
         "node_modules",
         "src",
         ".travis.yml",
-        "vendor"
+        "vendor",
+		"data.json",
+		"demo",
+		"favicon.png",
+		"index.html",
+		"README.md",
+		"server",
+		styles",
+		"_config.yml"
     ],
     "dependencies": {
         "angular": "1.2.6",
