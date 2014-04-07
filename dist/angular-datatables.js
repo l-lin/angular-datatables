@@ -140,7 +140,7 @@
     'datatables.factory'
   ]);
 }(angular));
-angular.module('angularDatatables').run([
+angular.module('datatables').run([
   '$templateCache',
   function ($templateCache) {
     'use strict';

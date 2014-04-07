@@ -17,14 +17,15 @@
         "src",
         ".travis.yml",
         "vendor",
-	"data.json",
-	"demo",
-	"favicon.png",
-	"index.html",
-	"README.md",
-	"server",
-	"styles",
-	"_config.yml"
+    	"data.json",
+    	"demo",
+    	"favicon.png",
+    	"index.html",
+    	"README.md",
+    	"server",
+    	"styles",
+    	"_config.yml",
+    	"grunt"
     ],
     "dependencies": {
         "angular": "1.2.6",
