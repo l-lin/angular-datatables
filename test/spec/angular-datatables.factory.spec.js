@@ -47,7 +47,7 @@ describe('angularDatatables.factory', function() {
         
         it('should create a new option', function() {
             expect(options).toBeDefined();
-            options.addSource(AJAX_SOURCE);
+            options.withSource(AJAX_SOURCE);
             expect(options.sAjaxSource).toBe(AJAX_SOURCE);
         });
         
@@ -57,18 +57,18 @@ describe('angularDatatables.factory', function() {
         });
         
         it('should be able to add a data prop', function() {
-            options.addDataProp(DATA_PROP);
+            options.withDataProp(DATA_PROP);
             expect(options.sAjaxDataProp).toBe(DATA_PROP);
         });
         
         it('should be able to define the function to fetch the data', function() {
             var fn = function() {};
-            options.addFnServerData(fn);
+            options.withFnServerData(fn);
             expect(options.fnServerData).toBe(fn);
         });
         
         it('should throw an error if the parameter is not a function when setting the server data function', function() {
-            expect(function() {options.addFnServerData({});}).toThrow(new Error('The parameter must be a function'));
+            expect(function() {options.withFnServerData({});}).toThrow(new Error('The parameter must be a function'));
         });
     });
 });
