@@ -1,12 +1,15 @@
 (function(angular) {
     'use strict';
-    angular.module('datatables.factory', []).
+    angular.module('datatables.factory', ['datatables.bootstrap']).
     constant('DT_OPTION_KEYS', {
         ajaxSource: 'sAjaxSource',
         ajaxDataProp: 'sAjaxDataProp',
-        fnServerData: 'fnServerData'
+        fnServerData: 'fnServerData',
+        dom: 'sDom',
+        paginationType: 'sPaginationType',
+        paginationTypeList: ['two_buttons', 'full_numbers']
     }).
-    factory('DTOptionsBuilder', function(DT_OPTION_KEYS) {
+    factory('DTOptionsBuilder', function(DT_OPTION_KEYS, $DTBootstrap) {
         var DTOptions = function(sAjaxSource) {
             if (angular.isString(sAjaxSource)) {
                 this[DT_OPTION_KEYS.ajaxSource] = sAjaxSource;
@@ -31,6 +34,22 @@
                     throw new Error('The parameter must be a function');
                 }
                 this.addOption(DT_OPTION_KEYS.fnServerData, fn);
+                return this;
+            };
+            this.integrateBootstrap = function() {
+                $DTBootstrap.integrate(this);
+                return this;
+            };
+            this.setPaginationType = function(paginationType) {
+                if (angular.isString(paginationType)) {
+                    if (DT_OPTION_KEYS.paginationTypeList.indexOf(paginationType) > -1) {
+                        this.addOption(DT_OPTION_KEYS.paginationType, paginationType);
+                    } else {
+                        console.error('The pagination type must be either "two_buttons" or "full_numbers"');
+                    }
+                } else {
+                    console.error('The pagination type must be provided');
+                }
                 return this;
             };
         };

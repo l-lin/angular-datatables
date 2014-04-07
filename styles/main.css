@@ -192,14 +192,14 @@ pre code {
     border-top-right-radius: 0;
 }
 
-.ob-form {
+.article-header {
     padding: 10px 30px 0 30px;
     color: #333;
     border: 1px solid #c2c2c2;
     background: #fafafa;
 }
 
-.ob-form-content {
+.article-content {
     padding: 30px;
     border-top: 2px solid #ededed;
     border-right: 1px solid #c2c2c2;

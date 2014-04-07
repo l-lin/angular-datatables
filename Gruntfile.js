@@ -17,6 +17,8 @@ module.exports = function(grunt) {
                 dist: 'dist',
                 build: '.tmp',
                 test: 'test',
+                demo: 'demo',
+                styles: 'styles',
                 currentDir: path.resolve(__dirname),
                 banner: '/*!\n' +
                     ' * <%= pkg.name %> - v<%= pkg.version %>\n' +
@@ -50,8 +52,10 @@ module.exports = function(grunt) {
         'ngtemplates',
         'concat:build',
         'ngmin',
+        'cssmin',
         'uglify',
-        'concat:banner'
+        'concat:banner',
+        'concat:bannerCSS'
     ]);
 
     grunt.registerTask('default', [

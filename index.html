@@ -16,6 +16,8 @@
 	<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="vendor/datatables/media/css/jquery.dataTables.css">
 	<link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>
+	<!--<link rel="stylesheet" href="dist/datatables.bootstrap.min.css">-->
+	<!--<link rel="stylesheet" href="src/datatables.bootstrap.css">-->
 	<link rel="stylesheet" href="styles/main.css">
 	<link rel="stylesheet" href="styles/monokai.css">
 </head>
@@ -35,22 +37,23 @@
 	<div class="main-container">
     	<div class="container">
     		<article class="main-content">
-    			<header class="ob-form">
+    			<header class="article-header">
     			    <h1><i class="fa fa-gear faa-spin animated"></i>&nbsp;Getting started</h1>
     			</header>
-    			<section class="ob-form-content" ng-include="'demo/partials/getting_started.html'"></section>
+    			<section class="article-content" ng-include="'demo/partials/getting_started.html'"></section>
     		</article>
     		<article class="main-content">
-    		    <header class="ob-form">
+    		    <header class="article-header">
     			    <h1><i class="fa fa-play faa-horizontal animated"></i>&nbsp;Usage</h1>
     		    </header>
-    		    <section class="ob-form-content" ng-include="'demo/partials/simple.html'"></section>
+    		    <section class="article-content" ng-include="'demo/partials/simple.html'"></section>
+    		    <!--<section class="article-content" ng-include="'demo/partials/bootstrap.html'"></section>-->
     		</article>
     		<article class="main-content">
-    		    <header class="ob-form">
+    		    <header class="article-header">
     		        <h1><i class="fa fa-book"></i>&nbsp;API</h1>
     		    </header>
-    		    <section class="ob-form-content" ng-include="'demo/partials/api.html'"></section>
+    		    <section class="article-content" ng-include="'demo/partials/api.html'"></section>
     		</article>
     	</div>
 	</div>
@@ -71,6 +74,7 @@
 	<script src="src/angular-datatables.js"></script>
 	<script src="src/angular-datatables.directive.js"></script>
 	<script src="src/angular-datatables.factory.js"></script>
+	<script src="src/angular-datatables.bootstrap.js"></script>
 	<script src="demo/app.js"></script>
 </body>
 </html>
