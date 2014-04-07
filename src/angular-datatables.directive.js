@@ -21,7 +21,7 @@
             }
         };
     }).
-    directive('datatable', function($http, DT_DEFAULT_OPTIONS, datatablesTemplateUrl, $timeout) {
+    directive('datatable', function($http, datatablesTemplateUrl, $timeout) {
         return {
             restrict: 'A',
             scope: {

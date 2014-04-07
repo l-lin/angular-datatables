@@ -1,27 +1,172 @@
 <h3>DTOptionsBuilder</h3>
-These are the methods that can be called to create a datatables options:
-<ul>
-    <li><code>newOption()</code>: This will create a <code>DTOption</code>.
-    <li><code>fromSource(sAjaxSource)</code>: This will create a <code>DTOption</code> with the given ajax source.</li>
-</ul>
-<h3>DTOptions</h3>
-These are the methods that can be called to customized the datatables options:
-<ul>
-    <li><code>addSource(sAjaxSource)</code>: This will add the ajax source to the <code>DTOption</code>.</li>
-    <li><code>addFnServerData(fn)</code>: This will customize the function to fetch the data. By default, it uses the angular <code>$http</code> in order to call the Ajax request.</li>
-    <li><code>addDataProp(sDataProp)</code>: This will add a data property.</li>
-    <li><code>addOption(key, value)</code>: This will add a specific option. See the <a href="http://datatables.net/usage/options">datatables documentation</a> for the list of options.</li>
-</ul>
-<h3>DTColumnBuilder</h3>
-These are the methods that can be called to create a datatable column to display:
-<ul>
-    <li><code>newColumn(mData)</code>: This will create a <code>DTColumn</code> with the attribute of the object to display in the column.</li>
-</ul>
-<h3>DTColumn</h3>
-These are the methods that can be called to customized the columns:
-<ul>
-    <li><code>withLabel(label)</code>: Set the label to display in the <code>&lt;thead&gt;</code>.</li>
-    <li><code>withClass(sClass)</code>: Set the CSS class for the column.</li>
-    <li><code>setVisible(bVisible)</code>: Set the visibility of the column.</li>
-</ul>
-<strong>Note</strong>: Of course, these helpers are not mandatory. You can directly pass the datatable options on the element attributes <code>dt-options</code> and <code>dt-columns</code>.
+<p>
+    <strong>Note</strong>: Of course, these helpers are not mandatory. You can directly pass the datatable options on the element attributes <code>dt-options</code> and <code>dt-columns</code>.
+</p>
+<table datatable dt-options="dtOptions">
+    <thead>
+        <tr>
+            <th>Helper/Wrapper</th>
+            <th>API</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>$DTDefaultOptions</code></td>
+            <td><code>setLanguageSource(sLanguageSource)</code></td>
+            <td>
+                Set the default language source for all datatables.
+                <div class="highlight">
+<pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
+<span class="nx">run</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$DTDefaultOptions</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$DTDefaultOptions</span><span class="p">.</span><span class="nx">setLanguageSource</span><span class="p">(</span><span class="s1">'/path/to/language'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>$DTDefaultOptions</code></td>
+            <td><code>setDisplayLength(iDisplayLength)</code></td>
+            <td>
+                Set the default numbers of items to display for all datatables.
+                <div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
+<span class="nx">run</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$DTDefaultOptions</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Display 25 items per page by default</span>
+    <span class="nx">$DTDefaultOptions</span><span class="p">.</span><span class="nx">setDisplayLength</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>DTOptionsBuilder</code></td>
+            <td><code>newOptions()</code></td>
+            <td>Create a wrapped datatables options.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptionsBuilder</code></td>
+            <td><code>fromSource(sAjaxSource)</code></td>
+            <td>Create a wrapped datatables options with initialized ajax source.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withOption(key, value)</code></td>
+            <td>Add an option to the wrapped datatables options.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withSource(sAjaxSource)</code></td>
+            <td>Set the ajax source.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withDataProp(sAjaxDataProp)</code></td>
+            <td>Set the Ajax properties</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withFnServerData(fn)</code></td>
+            <td>Set the data server retrieval function. If not defined, it uses angular <code>$http</code> to call the requests.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withPaginationType(sPaginationType)</code></td>
+            <td>Set the pagination type of the datatables</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withLanguage(oLanguage)</code></td>
+            <td>Set the language of the datatables. If not defined, it uses the default language set by datables, ie english.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withDisplayLength(iDisplayLength)</code></td>
+            <td>Set the number of items per page to display.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withBootstrap()</code></td>
+            <td>Add <a href="http://getbootstrap.com">bootstrap</a> compatibility.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withColReorder()</code></td>
+            <td>Add <a href="https://datatables.net/extras/colreorder/">ColReorder compatibility.</a></td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withColReorderOption(key, value)</code></td>
+            <td>Add option to the attribute <code>oColReorder</code>.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withColOrder(aiOrder)</code></td>
+            <td>Set the default column order.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withReorderCallback(fnReorderCallback)</code></td>
+            <td>Set the reorder callback function</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withColVis()</code></td>
+            <td>Add <a href="https://datatables.net/extras/colvis/">ColVis</a> compatibility.</td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withColVisOption(key, value)</code></td>
+            <td>Add option to the attribute <code>oColVis</code>.</td>
+        </tr>
+        <tr>
+            <td><code>DTColumnBuilder</code></td>
+            <td><code>newColumn(mData, labe)</code></td>
+            <td>Create a new wrapped <code>DTColumn</code>.</td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>withOption(key, value)</code></td>
+            <td>Add the option of the column.</td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>withLabel(label)</code></td>
+            <td>Set the label of the colum.</td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>withClass(sClass)</code></td>
+            <td>Set the CSS class of the column</td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>notVisible()</code></td>
+            <td>Hide the column.</td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>notSortable()</code></td>
+            <td>Set the column as not sortable</td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>renderWith(mrender)</code></td>
+            <td>
+                Render each cell with the given parameter
+                <div class="highlight">
+<pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
+<span class="nx">controller</span><span class="p">(</span><span class="s1">'myCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">DTColumnBuilder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Data fetched: {gender: 'Mr', firstName: 'foo', lastName: 'bar'}</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">dtColumns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nx">DTColumnBuilder</span><span class="p">.</span><span class="nx">newColumn</span><span class="p">(</span><span class="s1">'firstName'</span><span class="p">).</span><span class="nx">withLabel</span><span class="p">(</span><span class="s1">'First name'</span><span class="p">).</span><span class="nx">renderWith</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">full</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">full</span><span class="p">.</span><span class="nx">gender</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="nx">full</span><span class="p">.</span><span class="nx">firstName</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">];</span>
+<span class="p">});</span>
+</code></pre>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -46,14 +46,18 @@
     		    <header class="article-header">
     			    <h1><i class="fa fa-play faa-horizontal animated"></i>&nbsp;Usage</h1>
     		    </header>
-    		    <section id="example-basic" class="article-content" ng-include="'demo/partials/basic.html'"></section>
+    		    <section id="example-zero-config" class="article-content" ng-include="'demo/partials/zero_config.html'"></section>
+    		    <section id="example-with-options" class="article-content" ng-include="'demo/partials/with_options.html'"></section>
+    		    <section id="example-with-ajax" class="article-content" ng-include="'demo/partials/with_ajax.html'"></section>
+    		    <section id="example-with-col-reorder" class="article-content" ng-include="'demo/partials/with_col_reorder.html'"></section>
+    		    <section id="example-with-col-vis" class="article-content" ng-include="'demo/partials/with_col_vis.html'"></section>
     		    <section id="example-bootstrap" class="article-content" ng-include="'demo/partials/bootstrap.html'"></section>
     		</article>
     		<article class="main-content">
     		    <header class="article-header">
     		        <h1><i class="fa fa-book"></i>&nbsp;API</h1>
     		    </header>
-    		    <section class="article-content" ng-include="'demo/partials/api.html'"></section>
+    		    <section ng-controller="apiCtrl" class="article-content" ng-include="'demo/partials/api.html'"></section>
     		</article>
     	</div>
 	</div>

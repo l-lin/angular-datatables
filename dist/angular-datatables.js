@@ -127,10 +127,9 @@
     };
   }).directive('datatable', [
     '$http',
-    'DT_DEFAULT_OPTIONS',
     'datatablesTemplateUrl',
     '$timeout',
-    function ($http, DT_DEFAULT_OPTIONS, datatablesTemplateUrl, $timeout) {
+    function ($http, datatablesTemplateUrl, $timeout) {
       return {
         restrict: 'A',
         scope: {
@@ -408,6 +407,11 @@
           }
           return this;
         };
+        /**
+             * Set the reorder callback function
+             * @param fnReorderCallback
+             * @return {DTOptions} the options
+             */
         this.withReorderCallback = function (fnReorderCallback) {
           if (angular.isFunction(fnReorderCallback)) {
             this.oColReorder = fromNullable(this.oColReorder).orEmptyObj();
