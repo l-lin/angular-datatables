@@ -206,3 +206,8 @@ pre code {
     border-left: 1px solid #c2c2c2;
     border-bottom: 1px solid #c2c2c2;
 }
+
+.demo-preview {
+    width: 100%;
+    border: 1px solid #e5e5e5;
+}

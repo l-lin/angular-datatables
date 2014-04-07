@@ -139,7 +139,7 @@
         },
         link: function ($scope, $elem) {
           if (angular.isDefined($scope.dtOptions)) {
-            var options = DT_DEFAULT_OPTIONS;
+            var options = {};
             angular.extend(options, $scope.dtOptions);
             // Set the columns
             if (angular.isArray($scope.dtColumns)) {
