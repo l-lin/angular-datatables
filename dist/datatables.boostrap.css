@@ -36,20 +36,16 @@ table.table {
 table.table thead .sorting, table.table thead .sorting_asc, table.table thead .sorting_desc, table.table thead .sorting_asc_disabled, table.table thead .sorting_desc_disabled {
     cursor: pointer;
 }
-table.table thead .sorting {
-    background: url('../images/sort_both.png') no-repeat center right;
+table.table thead .sorting:before {
+    content: ' ';
+    position: relative;
+    left: -5px;
 }
-table.table thead .sorting_asc {
-    background: url('../images/sort_asc.png') no-repeat center right;
+table.table thead .sorting_desc:before {
+    content: "\25BE";
 }
-table.table thead .sorting_desc {
-    background: url('../images/sort_desc.png') no-repeat center right;
-}
-table.table thead .sorting_asc_disabled {
-    background: url('../images/sort_asc_disabled.png') no-repeat center right;
-}
-table.table thead .sorting_desc_disabled {
-    background: url('../images/sort_desc_disabled.png') no-repeat center right;
+table.table thead .sorting_asc:before {
+    content: "\25B4";
 }
 table.dataTable th:active {
     outline: none;
@@ -102,7 +98,6 @@ ul.DTTT_dropdown.dropdown-menu {
 }
 ul.DTTT_dropdown.dropdown-menu a {
     color: #333 !important;
-    /* needed only when demo_page.css is included */
 }
 ul.DTTT_dropdown.dropdown-menu li {
     position: relative;

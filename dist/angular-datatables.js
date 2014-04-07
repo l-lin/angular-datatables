@@ -12,13 +12,11 @@
      * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
      */
   angular.module('datatables.bootstrap', []).service('$DTBootstrap', function () {
-    this.integrate = function () {
-      /* Set the defaults for DataTables initialisation */
-      $.extend(true, $.fn.dataTable.defaults, {
-        'sDom': '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>',
-        'sPaginationType': 'bootstrap',
-        'oLanguage': { 'sLengthMenu': '_MENU_ records per page' }
-      });
+    this.initialized = false;
+    this.init = function () {
+      if (this.initialized) {
+        return;
+      }
       /* Default class modification */
       $.extend($.fn.dataTableExt.oStdClasses, {
         'sWrapper': 'dataTables_wrapper form-inline',
@@ -99,37 +97,20 @@
           }
         }
       });
-      /*
-             * TableTools Bootstrap compatibility
-             * Required TableTools 2.1+
-             */
-      if ($.fn.DataTable.TableTools) {
-        // Set the classes that TableTools uses to something suitable for Bootstrap
-        $.extend(true, $.fn.DataTable.TableTools.classes, {
-          'container': 'DTTT btn-group',
-          'buttons': {
-            'normal': 'btn btn-default',
-            'disabled': 'disabled'
-          },
-          'collection': {
-            'container': 'DTTT_dropdown dropdown-menu',
-            'buttons': {
-              'normal': '',
-              'disabled': 'disabled'
-            }
-          },
-          'print': { 'info': 'DTTT_print_info modal' },
-          'select': { 'row': 'active' }
-        });
-        // Have the collection use a bootstrap compatible dropdown
-        $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, {
-          'collection': {
-            'container': 'ul',
-            'button': 'li',
-            'liner': 'a'
-          }
-        });
-      }
+      this.initialized = true;
+    };
+    this.integrate = function (options) {
+      this.init();
+      // TODO: It currently apply the integration to all tables...
+      options.sDom = '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>';
+      options.sPaginationType = 'bootstrap';  /* Set the defaults for DataTables initialisation */
+                                              // $.extend(true, options, {
+                                              //     'sDom': '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>',
+                                              //     'sPaginationType': 'bootstrap',
+                                              //     'oLanguage': {
+                                              //         'sLengthMenu': '_MENU_ records per page'
+                                              //     }
+                                              // });
     };
   });
 }(jQuery, angular));
@@ -232,7 +213,7 @@
           return this;
         };
         this.integrateBootstrap = function () {
-          $DTBootstrap.integrateBootstrap();
+          $DTBootstrap.integrate(this);
           return this;
         };
         this.setPaginationType = function (paginationType) {
