@@ -1,7 +1,7 @@
 module.exports = {
     main: {
         options: {
-            module: 'angularDatatables',
+            module: 'datatables',
             base: '<%= yeoman.src %>'
         },
         src: '<%= yeoman.src %>/*.html',
