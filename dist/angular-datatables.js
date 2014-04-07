@@ -182,7 +182,8 @@
     paginationTypeList: [
       'two_buttons',
       'full_numbers'
-    ]
+    ],
+    language: 'oLanguage'
   }).factory('DTOptionsBuilder', [
     'DT_OPTION_KEYS',
     '$DTBootstrap',
@@ -212,20 +213,24 @@
           this.addOption(DT_OPTION_KEYS.fnServerData, fn);
           return this;
         };
-        this.integrateBootstrap = function () {
+        this.withBootstrap = function () {
           $DTBootstrap.integrate(this);
           return this;
         };
-        this.setPaginationType = function (paginationType) {
-          if (angular.isString(paginationType)) {
-            if (DT_OPTION_KEYS.paginationTypeList.indexOf(paginationType) > -1) {
-              this.addOption(DT_OPTION_KEYS.paginationType, paginationType);
+        this.setPaginationType = function (sPaginationType) {
+          if (angular.isString(sPaginationType)) {
+            if (DT_OPTION_KEYS.paginationTypeList.indexOf(sPaginationType) > -1) {
+              this.addOption(DT_OPTION_KEYS.paginationType, sPaginationType);
             } else {
               console.error('The pagination type must be either "two_buttons" or "full_numbers"');
             }
           } else {
             console.error('The pagination type must be provided');
           }
+          return this;
+        };
+        this.setLanguage = function (sLanguageUrl) {
+          this.addOption(DT_OPTION_KEYS.language, { sUrl: sLanguageUrl });
           return this;
         };
       };
