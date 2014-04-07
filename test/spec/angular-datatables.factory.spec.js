@@ -29,9 +29,9 @@ describe('angularDatatables.factory', function() {
             expect(column.sClass).toBe(CLASS);
         });
         
-        it('should set the visibility', function() {
-            column.setVisible(true);
-            expect(column.bVisible).toBeTruthy();
+        it('should hide the column', function() {
+            column.notVisible();
+            expect(column.bVisible).toBeFalsy();
         });
     });
     

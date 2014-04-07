@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('datatablesSampleApp', []);
+    angular.module('datatablesSampleApp', ['datatables']);
     // angular.module('datatablesSampleApp', ['datatables', 'ui.bootstrap']).
     // controller('simpleCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder) {
     //     $scope.dtOptions = DTOptionsBuilder.fromSource('data.json');

@@ -113,7 +113,7 @@
         };
         this.integrate = function(options) {
             this.init();
-            // TODO: It currently apply the integration to all tables...
+            // TODO: It currently applies the bootstrap integration to all tables...
             options.sDom = '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>';
             options.sPaginationType = 'bootstrap';
         };
