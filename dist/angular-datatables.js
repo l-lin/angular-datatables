@@ -1,9 +1,9 @@
 /*!
- * angular-datatables - v0.0.2
+ * angular-datatables - v0.0.3
  * https://github.com/l-lin/angular-datatables
  */
 /*!
- * angular-datatables - v0.0.2
+ * angular-datatables - v0.0.3
  * https://github.com/l-lin/angular-datatables
  */
 (function (angular) {
@@ -144,6 +144,6 @@ angular.module('angularDatatables').run([
   '$templateCache',
   function ($templateCache) {
     'use strict';
-    $templateCache.put('src/angular-datatables.html', '<thead>\r' + '\n' + '    <tr>\r' + '\n' + '        <th ng-repeat="column in dtColumns" dt-column-repeat>\r' + '\n' + '            {{ column.label }}\r' + '\n' + '        </th>\r' + '\n' + '    </tr>\r' + '\n' + '</thead>\r' + '\n');
+    $templateCache.put('src/angular-datatables.html', '<thead>\n' + '    <tr>\n' + '        <th ng-repeat="column in dtColumns" dt-column-repeat>\n' + '            {{ column.label }}\n' + '        </th>\n' + '    </tr>\n' + '</thead>\n');
   }
 ]);

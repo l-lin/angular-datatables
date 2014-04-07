@@ -15,13 +15,13 @@
         <tab heading="Markup">
             <div class="highlight">
 <pre><code class="html language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">ng-controller=</span><span class="s">"myCtrl"</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;t<span class="chromeextension-highlight">able</span></span> <span class="na">datat<span class="chromeextension-highlight">able</span></span> <span class="na">dt-options=</span><span class="s">"dtOptions"</span> <span class="na">dt-columns=</span><span class="s">"dtColumns"</span><span class="nt">&gt;&lt;/t<span class="chromeextension-highlight">able</span>&gt;</span>
+    <span class="nt">&lt;table</span> <span class="na">datatable</span> <span class="na">dt-options=</span><span class="s">"dtOptions"</span> <span class="na">dt-columns=</span><span class="s">"dtColumns"</span><span class="nt">&gt;&lt;/table&gt;</span>
 <span class="nt">&lt;/div&gt;</span></code></pre>
             </div>
         </tab>
         <tab heading="JavaScript">
             <div class="highlight">
-<pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,[</span><span class="s1">'angularDatat<span class="chromeextension-highlight">able</span>s'</span><span class="p">]).</span>
+<pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,[</span><span class="s1">'angularDatatables'</span><span class="p">]).</span>
 <span class="nx">controller</span><span class="p">(</span><span class="s1">'myCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">DTOptionsBuilder</span><span class="p">,</span> <span class="nx">DTColumnBuilder</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">$scope</span><span class="p">.</span><span class="nx">dtOptions</span> <span class="o">=</span> <span class="nx">DTOptionsBuilder</span><span class="p">.</span><span class="nx">fromSource</span><span class="p">(</span><span class="s1">'data.json'</span><span class="p">);</span>
     <span class="nx">$scope</span><span class="p">.</span><span class="nx">dtColumns</span> <span class="o">=</span> <span class="p">[</span>
