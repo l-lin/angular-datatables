@@ -103,14 +103,7 @@
       this.init();
       // TODO: It currently apply the integration to all tables...
       options.sDom = '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>';
-      options.sPaginationType = 'bootstrap';  /* Set the defaults for DataTables initialisation */
-                                              // $.extend(true, options, {
-                                              //     'sDom': '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>',
-                                              //     'sPaginationType': 'bootstrap',
-                                              //     'oLanguage': {
-                                              //         'sLengthMenu': '_MENU_ records per page'
-                                              //     }
-                                              // });
+      options.sPaginationType = 'bootstrap';
     };
   });
 }(jQuery, angular));
@@ -132,7 +125,8 @@
     '$http',
     'DT_DEFAULT_OPTIONS',
     'datatablesTemplateUrl',
-    function ($http, DT_DEFAULT_OPTIONS, datatablesTemplateUrl) {
+    '$timeout',
+    function ($http, DT_DEFAULT_OPTIONS, datatablesTemplateUrl, $timeout) {
       return {
         restrict: 'A',
         scope: {
@@ -164,14 +158,17 @@
           }
           // Load the datatable! 
           $scope.$on('dt:lastElem', function () {
-            $elem.dataTable(options);
+            // Add $timeout to be sure that angular has finished rendering before calling datatables
+            $timeout(function () {
+              $elem.dataTable(options);
+            }, 0, false);
           });
         }
       };
     }
   ]);
 }(angular));
-(function (angular) {
+(function ($, angular) {
   'use strict';
   angular.module('datatables.factory', ['datatables.bootstrap']).constant('DT_OPTION_KEYS', {
     ajaxSource: 'sAjaxSource',
@@ -184,6 +181,10 @@
       'full_numbers'
     ],
     language: 'oLanguage'
+  }).service('$DTService', function () {
+    this.setLanguageSource = function (sLanguageSource) {
+      $.extend($.fn.dataTable.defaults, { oLanguage: { sUrl: sLanguageSource } });
+    };
   }).factory('DTOptionsBuilder', [
     'DT_OPTION_KEYS',
     '$DTBootstrap',
@@ -229,8 +230,8 @@
           }
           return this;
         };
-        this.setLanguage = function (sLanguageUrl) {
-          this.addOption(DT_OPTION_KEYS.language, { sUrl: sLanguageUrl });
+        this.setLanguage = function (sLanguageSource) {
+          this.addOption(DT_OPTION_KEYS.language, { sUrl: sLanguageSource });
           return this;
         };
       };
@@ -268,7 +269,7 @@
       }
     };
   });
-}(angular));
+}(jQuery, angular));
 (function (angular) {
   'use strict';
   angular.module('datatables', [

@@ -113,20 +113,9 @@
         };
         this.integrate = function(options) {
             this.init();
-            
             // TODO: It currently apply the integration to all tables...
-            
             options.sDom = '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>';
             options.sPaginationType = 'bootstrap';
-
-            /* Set the defaults for DataTables initialisation */
-            // $.extend(true, options, {
-            //     'sDom': '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>',
-            //     'sPaginationType': 'bootstrap',
-            //     'oLanguage': {
-            //         'sLengthMenu': '_MENU_ records per page'
-            //     }
-            // });
         };
     });
 

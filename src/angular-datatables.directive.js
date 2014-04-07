@@ -21,7 +21,7 @@
             }
         };
     }).
-    directive('datatable', function($http, DT_DEFAULT_OPTIONS, datatablesTemplateUrl) {
+    directive('datatable', function($http, DT_DEFAULT_OPTIONS, datatablesTemplateUrl, $timeout) {
         return {
             restrict: 'A',
             scope: {
@@ -59,7 +59,10 @@
 
                 // Load the datatable! 
                 $scope.$on('dt:lastElem', function() {
-                    $elem.dataTable(options);
+                    // Add $timeout to be sure that angular has finished rendering before calling datatables
+                    $timeout(function() {
+                        $elem.dataTable(options);
+                    }, 0, false);
                 });
             }
         };

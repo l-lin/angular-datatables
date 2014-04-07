@@ -1,4 +1,4 @@
-(function(angular) {
+(function($, angular) {
     'use strict';
     angular.module('datatables.factory', ['datatables.bootstrap']).
     constant('DT_OPTION_KEYS', {
@@ -9,6 +9,15 @@
         paginationType: 'sPaginationType',
         paginationTypeList: ['two_buttons', 'full_numbers'],
         language: 'oLanguage'
+    }).
+    service('$DTService', function() {
+        this.setLanguageSource = function(sLanguageSource) {
+            $.extend($.fn.dataTable.defaults, {
+                oLanguage: {
+                    sUrl: sLanguageSource
+                }
+            });
+        };
     }).
     factory('DTOptionsBuilder', function(DT_OPTION_KEYS, $DTBootstrap) {
         var DTOptions = function(sAjaxSource) {
@@ -53,9 +62,9 @@
                 }
                 return this;
             };
-            this.setLanguage = function(sLanguageUrl) {
+            this.setLanguage = function(sLanguageSource) {
                 this.addOption(DT_OPTION_KEYS.language, {
-                    sUrl: sLanguageUrl
+                    sUrl: sLanguageSource
                 });
                 return this;
             };
@@ -96,4 +105,4 @@
             }
         };
     });
-})(angular);
+})(jQuery, angular);
