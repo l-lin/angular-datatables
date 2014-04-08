@@ -235,8 +235,6 @@
                 if (angular.isArray(aiOrder)) {
                     this.oColReorder = fromNullable(this.oColReorder).orEmptyObj();
                     this.oColReorder.aiOrder = aiOrder;
-                } else {
-                    throw new Error('The order must be an array!');
                 }
                 return this;
             };
