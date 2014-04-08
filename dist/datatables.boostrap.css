@@ -43,9 +43,11 @@ table.table thead .sorting:before {
 }
 table.table thead .sorting_desc:before {
     content: "\25BE";
+    padding-right: 5px;
 }
 table.table thead .sorting_asc:before {
     content: "\25B4";
+    padding-right: 5px;
 }
 table.dataTable th:active {
     outline: none;
