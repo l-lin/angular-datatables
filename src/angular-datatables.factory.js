@@ -6,7 +6,7 @@
         /**
          * Set the default language source for all datatables
          * @param sLanguageSource the language source
-         * @returns {$DTDefaultOption} the default option config
+         * @returns {$DTDefaultOptions} the default option config
          */
         this.setLanguageSource = function(sLanguageSource) {
             $.extend($.fn.dataTable.defaults, {
@@ -18,9 +18,21 @@
         };
         
         /**
+         * Set the language for all datatables
+         * @param oLanguage the language
+         * @returns {$DTDefaultOptions} the default option config
+         */
+        this.setLanguage = function(oLanguage) {
+            $.extend(true, $.fn.dataTable.defaults, {
+                oLanguage: oLanguage
+            });
+            return this;
+        };
+        
+        /**
          * Set the default number of items to display for all datatables
          * @param iDisplayLength the number of items to display
-         * @returns {$DTDefaultOption} the default option config
+         * @returns {$DTDefaultOptions} the default option config
          */
         this.setDisplayLength = function(iDisplayLength) {
             $.extend($.fn.dataTable.defaults, {
