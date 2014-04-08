@@ -16,8 +16,6 @@
 	<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="vendor/datatables/media/css/jquery.dataTables.css">
 	<link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>
-	<!--<link rel="stylesheet" href="dist/datatables.bootstrap.min.css">-->
-	<!--<link rel="stylesheet" href="src/datatables.bootstrap.css">-->
 	<link rel="stylesheet" href="styles/main.css">
 	<link rel="stylesheet" href="styles/monokai.css">
 </head>
@@ -46,6 +44,10 @@
     		    <header class="article-header">
     			    <h1><i class="fa fa-play faa-horizontal animated"></i>&nbsp;Usage</h1>
     		    </header>
+    		    <section ng-controller="fooCtrl" class="article-content">
+    		        <table datatable dt-options="dtOptions" dt-columns="dtColumns">
+    		        </table>
+    		    </section>
     		    <section id="example-zero-config" class="article-content" ng-include="'demo/partials/zero_config.html'"></section>
     		    <section id="example-with-options" class="article-content" ng-include="'demo/partials/with_options.html'"></section>
     		    <section id="example-with-ajax" class="article-content" ng-include="'demo/partials/with_ajax.html'"></section>

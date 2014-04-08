@@ -16,7 +16,7 @@
             });
             return this;
         };
-        
+
         /**
          * Set the language for all datatables
          * @param oLanguage the language
@@ -28,7 +28,7 @@
             });
             return this;
         };
-        
+
         /**
          * Set the default number of items to display for all datatables
          * @param iDisplayLength the number of items to display
@@ -48,7 +48,7 @@
          */
         var DTOptions = function(sAjaxSource) {
             this.sAjaxSource = sAjaxSource;
-            
+
             /**
              * Optional class to handle undefined or null
              * @param obj the object to wrap
@@ -62,7 +62,7 @@
                 this.isPresent = function() {
                     return angular.isDefined(this.obj) && this.obj !== null;
                 };
-                
+
                 /**
                  * Return the wrapped object or an empty object
                  * @returns the wrapped objector an empty object
@@ -73,7 +73,7 @@
                     }
                     return {};
                 };
-                
+
                 /**
                  * Return the wrapped object or the given second choice
                  * @returns the wrapped object or the given second choice
@@ -85,7 +85,7 @@
                     return secondChoice;
                 };
             };
-            
+
             /**
              * Wrap the given objec
              * @param obj the object to wrap
@@ -94,7 +94,7 @@
             var fromNullable = function(obj) {
                 return new Optional(obj);
             };
-            
+
             /**
              * Add the option to the datatables optoins
              * @param key the key of the option
@@ -107,7 +107,7 @@
                 }
                 return this;
             };
-            
+
             /**
              * Add the Ajax source to the options.
              * This corresponds to the "sAjaxSource" option
@@ -118,7 +118,7 @@
                 this.sAjaxSource = sAjaxSource;
                 return this;
             };
-            
+
             /**
              * Add the ajax data properties.
              * @param sAjaxDataProp the ajax data property
@@ -128,7 +128,7 @@
                 this.sAjaxDataProp = sAjaxDataProp;
                 return this;
             };
-            
+
             /**
              * Set the server data function.
              * @param fn the function of the server retrieval
@@ -141,7 +141,7 @@
                 this.fnServerData = fn;
                 return this;
             };
-            
+
             /**
              * Set the pagination type.
              * @param sPaginationType the pagination type
@@ -155,7 +155,7 @@
                 }
                 return this;
             };
-            
+
             /**
              * Set the language of the datatables
              * @param oLanguage the language
@@ -165,7 +165,7 @@
                 this.oLanguage = oLanguage;
                 return this;
             };
-            
+
             /**
              * Set the language source
              * @param sLanguageSource the language source
@@ -176,7 +176,7 @@
                     sUrl: sLanguageSource
                 });
             };
-            
+
             /**
              * Set default number of items per page to display
              * @param iDisplayLength the number of items per page
@@ -186,10 +186,10 @@
                 this.iDisplayLength = iDisplayLength;
                 return this;
             };
-            
+
             // BOOTSTRAP INTEGRATION ---------
             // See http://getbootstrap.com
-            
+
             /**
              * Add bootstrap compatibility
              * @returns {DTOptions} the options
@@ -198,10 +198,10 @@
                 $DTBootstrap.integrate(this);
                 return this;
             };
-            
+
             // COL REORDER DATATABLES PLUGIN ---------
             // See https://datatables.net/extras/colreorder/
-            
+
             /**
              * Add option to "oColReorder" option
              * @param key the key of the option to add
@@ -215,7 +215,7 @@
                 }
                 return this;
             };
-            
+
             /**
              * Add colReorder compatibility
              * @returns {DTOptions} the options
@@ -225,7 +225,7 @@
                 this.sDom = colReorderPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
                 return this;
             };
-            
+
             /**
              * Set the default column order
              * @param aiOrder the column order
@@ -233,12 +233,11 @@
              */
             this.withColReorderOrder = function(aiOrder) {
                 if (angular.isArray(aiOrder)) {
-                    this.oColReorder = fromNullable(this.oColReorder).orEmptyObj();
-                    this.oColReorder.aiOrder = aiOrder;
+                    this.withColReorderOption('aiOrder', aiOrder);
                 }
                 return this;
             };
-            
+
             /**
              * Set the reorder callback function
              * @param fnReorderCallback the callback
@@ -246,17 +245,16 @@
              */
             this.withColReorderCallback = function(fnReorderCallback) {
                 if (angular.isFunction(fnReorderCallback)) {
-                    this.oColReorder = fromNullable(this.oColReorder).orEmptyObj();
-                    this.oColReorder.fnReorderCallback = fnReorderCallback;
+                    this.withColReorderOption('fnReorderCallback', fnReorderCallback);
                 } else {
                     throw new Error('The reorder callback must be a function');
                 }
                 return this;
             };
-            
+
             // COL VIS DATATABLES PLUGIN ---------
             // See https://datatables.net/extras/colvis/
-            
+
             /**
              * Add option to "oColVis" option
              * @param key the key of the option to add
@@ -270,17 +268,17 @@
                 }
                 return this;
             };
-            
+
             /**
              * Add colVis compatibility
              * @returns {DTOptions} the options
              */
             this.withColVis = function() {
-                var colVisPrefix = 'C<"clear">';
+                var colVisPrefix = 'C';
                 this.sDom = colVisPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
                 return this;
             };
-            
+
             /**
              * Set the state change function
              * @param fnStateChange  the state change function
@@ -288,15 +286,57 @@
              */
             this.withColVisStateChange = function(fnStateChange) {
                 if (angular.isFunction(fnStateChange)) {
-                    this.oColVis = fromNullable(this.oColVis).orEmptyObj();
-                    this.oColVis.fnStateChange = fnStateChange;
+                    this.withColVisOption('fnStateChange', fnStateChange);
                 } else {
                     throw new Error('The state change must be a function');
                 }
                 return this;
             };
+
+            // TABLE TOOLS DATATABLES PLUGIN ---------
+            // See https://datatables.net/extras/tabletools/
+
+            /**
+             * Add option to "oTableTools" option
+             * @param key the key of the option to add
+             * @param value an object or a function of the function
+             * @returns {DTOptions} the options
+             */
+            this.withTableToolsOption = function(key, value) {
+                if (angular.isString(key)) {
+                    this.oTableTools = fromNullable(this.oTableTools).orEmptyObj();
+                    this.oTableTools[key] = value;
+                }
+                return this;
+            };
+
+            /**
+             * Add table tools compatibility
+             * @param sSwfPath the path to the swf file to export in csv/xls
+             * @returns {DTOptions} the options
+             */
+            this.withTableTools = function(sSwfPath) {
+                var tableToolsPrefix = 'T';
+                this.sDom = tableToolsPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+                if (angular.isString(sSwfPath)) {
+                    this.withTableToolsOption('sSwfPath', sSwfPath);
+                }
+                return this;
+            };
+            
+            /**
+             * Set the table tools buttons to display
+             * @param aButtons the array of buttons to display
+             * @returns {DTOptions} the options
+             */
+            this.withTableToolsButtons = function(aButtons) {
+                if (angular.isArray(aButtons)) {
+                    this.withTableToolsOption('aButtons', aButtons);
+                }
+                return this;
+            };
         };
-        
+
         return {
             /**
              * Create a wrapped datatables options
@@ -319,15 +359,15 @@
         /**
          * The wrapped datatables column 
          * @param mData the data to display of the column
-         * @param label the label of the column title to display in the DOM
+         * @param sTitle the sTitle of the column title to display in the DOM
          */
-        var DTColumn = function(mData, label) {
+        var DTColumn = function(mData, sTitle) {
             if (angular.isUndefined(mData)) {
-                throw new Error('The parametr "mData" is not defined!');
+                throw new Error('The parameter "mData" is not defined!');
             }
             this.mData = mData;
-            this.label = label || '';
-            
+            this.sTitle = sTitle || '';
+
             /**
              * Add the option of the column
              * @param key the key of the option
@@ -340,17 +380,17 @@
                 }
                 return this;
             };
-            
+
             /**
-             * Set the label of the colum
-             * @param label the label of the column
+             * Set the title of the colum
+             * @param sTitle the sTitle of the column
              * @returns {DTColumn} the wrapped datatables column
              */
-            this.withLabel = function(label) {
-                this.label = label;
+            this.withTitle = function(sTitle) {
+                this.sTitle = sTitle;
                 return this;
             };
-            
+
             /**
              * Set the CSS class of the column
              * @param sClass the CSS class
@@ -360,7 +400,7 @@
                 this.sClass = sClass;
                 return this;
             };
-            
+
             /**
              * Hide the column
              * @returns {DTColumn} the wrapped datatables column
@@ -369,7 +409,7 @@
                 this.bVisible = false;
                 return this;
             };
-            
+
             /**
              * Set the column as not sortable
              * @returns {DTColumn} the wrapped datatables column
@@ -378,7 +418,7 @@
                 this.bSortable = false;
                 return this;
             };
-            
+
             /**
              * Render each cell with the given parameter
              * @mRender mRender the function/string to render the data
@@ -389,16 +429,16 @@
                 return this;
             };
         };
-        
+
         return {
             /**
              * Create a new wrapped datatables column
              * @param mData the data of the column to display
-             * @param label the label of the column title to display in the DOM
+             * @param sTitle the sTitle of the column title to display in the DOM
              * @returns {DTColumn} the wrapped datatables column
              */
-            newColumn: function(mData, label) {
-                return new DTColumn(mData, label);
+            newColumn: function(mData, sTitle) {
+                return new DTColumn(mData, sTitle);
             }
         };
     });

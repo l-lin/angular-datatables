@@ -5,7 +5,7 @@ describe('angularDatatables.factory', function() {
 
     describe('DTColumnBuilder', function() {
         var DATA = 'foobar',
-            LABEL = 'FooBarLabel',
+            TITLE = 'FooBarTitle',
             CLASS = 'foo-bar-class',
             DTColumnBuilder,
             column;
@@ -19,9 +19,9 @@ describe('angularDatatables.factory', function() {
             expect(column.mData).toBe(DATA);
         });
         
-        it('should set the label', function() {
-            column.withLabel(LABEL);
-            expect(column.label).toBe(LABEL);
+        it('should set the title', function() {
+            column.withTitle(TITLE);
+            expect(column.sTitle).toBe(TITLE);
         });
         
         it('should set the class', function() {

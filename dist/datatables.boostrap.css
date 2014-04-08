@@ -50,6 +50,9 @@ table.table thead .sorting_asc:before {
 table.dataTable th:active {
     outline: none;
 }
+.dataTables_wrapper .row {
+    margin-top: 20px;
+}
 /* Scrolling */
  div.dataTables_scrollHead table {
     margin-bottom: 0 !important;
@@ -88,7 +91,6 @@ table.DTTT_selectable tbody tr {
 }
 div.DTTT .btn {
     color: #333 !important;
-    font-size: 12px;
 }
 div.DTTT .btn:hover {
     text-decoration: none !important;
@@ -150,4 +152,10 @@ div.DTFC_RightBodyWrapper tbody tr:first-child th, div.DTFC_RightBodyWrapper tbo
 }
 div.DTFC_RightFootWrapper table, div.DTFC_LeftFootWrapper table {
     border-top: none;
+}
+/*
+ * ColVis
+ */
+ul.ColVis_collection {
+    width: auto !important;
 }

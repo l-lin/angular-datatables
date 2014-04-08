@@ -6,130 +6,214 @@
  * angular-datatables - v0.0.1
  * https://github.com/l-lin/angular-datatables
  */
-(function ($, angular) {
+/*jshint camelcase: false */
+(function (window, document, $, angular) {
   'use strict';
+  angular.module('datatable.bootstrap.tabletools', []).service('$DTBootstrapTableTools', function () {
+    var _initializedTableTools = false;
+    this.integrate = function () {
+      if (!_initializedTableTools) {
+        /*
+                 * TableTools Bootstrap compatibility
+                 * Required TableTools 2.1+
+                 */
+        if ($.fn.DataTable.TableTools) {
+          // Set the classes that TableTools uses to something suitable for Bootstrap
+          $.extend(true, $.fn.DataTable.TableTools.classes, {
+            container: 'DTTT btn-group',
+            buttons: {
+              normal: 'btn btn-default',
+              disabled: 'disabled'
+            },
+            collection: {
+              container: 'DTTT_dropdown dropdown-menu',
+              buttons: {
+                normal: '',
+                disabled: 'disabled'
+              }
+            },
+            print: { info: 'DTTT_print_info modal' },
+            select: { row: 'active' }
+          });
+          // Have the collection use a bootstrap compatible dropdown
+          $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, {
+            collection: {
+              container: 'ul',
+              button: 'li',
+              liner: 'a'
+            }
+          });
+        }
+        _initializedTableTools = true;
+      }
+    };
+  });
+  angular.module('datatables.bootstrap.colvis', []).service('$DTBootstrapColVis', function () {
+    var _initializedColVis = false;
+    this.integrate = function (addDrawCallbackFunction) {
+      if (!_initializedColVis) {
+        /* ColVis Bootstrap compatibility */
+        if ($.fn.DataTable.ColVis) {
+          addDrawCallbackFunction(function () {
+            $('.ColVis_MasterButton').addClass('btn btn-default');
+            $('.ColVis_Button').removeClass('ColVis_Button');
+          });
+        }
+        _initializedColVis = true;
+      }
+    };
+  });
   /**
      * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
      */
-  angular.module('datatables.bootstrap', []).service('$DTBootstrap', function () {
-    this.initialized = false;
-    this.init = function () {
-      if (this.initialized) {
-        return;
-      }
-      /* Default class modification */
-      $.extend($.fn.dataTableExt.oStdClasses, {
-        'sWrapper': 'dataTables_wrapper form-inline',
-        'sFilterInput': 'form-control input-sm',
-        'sLengthSelect': 'form-control input-sm'
-      });
-      /* API method to get paging information */
-      $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
-        return {
-          'iStart': oSettings._iDisplayStart,
-          'iEnd': oSettings.fnDisplayEnd(),
-          'iLength': oSettings._iDisplayLength,
-          'iTotal': oSettings.fnRecordsTotal(),
-          'iFilteredTotal': oSettings.fnRecordsDisplay(),
-          'iPage': oSettings._iDisplayLength === -1 ? 0 : Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
-          'iTotalPages': oSettings._iDisplayLength === -1 ? 0 : Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+  angular.module('datatables.bootstrap', [
+    'datatable.bootstrap.tabletools',
+    'datatables.bootstrap.colvis'
+  ]).service('$DTBootstrap', [
+    '$DTBootstrapTableTools',
+    '$DTBootstrapColVis',
+    function ($DTBootstrapTableTools, $DTBootstrapColVis) {
+      var _initialized = false, _drawCallbackFunctionList = [];
+      var _overrideClasses = function () {
+        /* Default class modification */
+        $.extend($.fn.dataTableExt.oStdClasses, {
+          'sWrapper': 'dataTables_wrapper form-inline',
+          'sFilterInput': 'form-control input-sm',
+          'sLengthSelect': 'form-control input-sm',
+          'sFilter': 'dataTables_filter',
+          'sLength': 'dataTables_length'
+        });
+      };
+      var _overridePagingInfo = function () {
+        /* API method to get paging information */
+        $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
+          return {
+            'iStart': oSettings._iDisplayStart,
+            'iEnd': oSettings.fnDisplayEnd(),
+            'iLength': oSettings._iDisplayLength,
+            'iTotal': oSettings.fnRecordsTotal(),
+            'iFilteredTotal': oSettings.fnRecordsDisplay(),
+            'iPage': oSettings._iDisplayLength === -1 ? 0 : Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+            'iTotalPages': oSettings._iDisplayLength === -1 ? 0 : Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+          };
         };
       };
-      /* Bootstrap style pagination control */
-      $.extend($.fn.dataTableExt.oPagination, {
-        'bootstrap': {
-          'fnInit': function (oSettings, nPaging, fnDraw) {
-            var oLang = oSettings.oLanguage.oPaginate;
-            var fnClickHandler = function (e) {
-              e.preventDefault();
-              if (oSettings.oApi._fnPageChange(oSettings, e.data.action)) {
-                fnDraw(oSettings);
-              }
-            };
-            $(nPaging).append('<ul class="pagination">' + '<li class="prev disabled"><a href="#">&larr; ' + oLang.sPrevious + '</a></li>' + '<li class="next disabled"><a href="#">' + oLang.sNext + ' &rarr; </a></li>' + '</ul>');
-            var els = $('a', nPaging);
-            $(els[0]).bind('click.DT', { action: 'previous' }, fnClickHandler);
-            $(els[1]).bind('click.DT', { action: 'next' }, fnClickHandler);
-          },
-          'fnUpdate': function (oSettings, fnDraw) {
-            var iListLength = 5;
-            var oPaging = oSettings.oInstance.fnPagingInfo();
-            var an = oSettings.aanFeatures.p;
-            var i, ien, j, sClass, iStart, iEnd, iHalf = Math.floor(iListLength / 2);
-            if (oPaging.iTotalPages < iListLength) {
-              iStart = 1;
-              iEnd = oPaging.iTotalPages;
-            } else if (oPaging.iPage <= iHalf) {
-              iStart = 1;
-              iEnd = iListLength;
-            } else if (oPaging.iPage >= oPaging.iTotalPages - iHalf) {
-              iStart = oPaging.iTotalPages - iListLength + 1;
-              iEnd = oPaging.iTotalPages;
-            } else {
-              iStart = oPaging.iPage - iHalf + 1;
-              iEnd = iStart + iListLength - 1;
-            }
-            var fnPaging = function (e) {
-              e.preventDefault();
-              oSettings._iDisplayStart = (parseInt($('a', this).text(), 10) - 1) * oPaging.iLength;
+      var _overridePagination = function () {
+        var _fnInit = function (oSettings, nPaging, fnDraw) {
+          var oLang = oSettings.oLanguage.oPaginate;
+          var fnClickHandler = function (e) {
+            e.preventDefault();
+            if (oSettings.oApi._fnPageChange(oSettings, e.data.action)) {
               fnDraw(oSettings);
-            };
-            for (i = 0, ien = an.length; i < ien; i++) {
-              // Remove the middle elements
-              $('li:gt(0)', an[i]).filter(':not(:last)').remove();
-              // Add the new list items and their event handlers
-              for (j = iStart; j <= iEnd; j++) {
-                sClass = j === oPaging.iPage + 1 ? 'class="active"' : '';
-                $('<li ' + sClass + '><a href="#">' + j + '</a></li>').insertBefore($('li:last', an[i])[0]).bind('click', fnPaging);
-              }
-              // Add / remove disabled classes from the static elements
-              if (oPaging.iPage === 0) {
-                $('li:first', an[i]).addClass('disabled');
-              } else {
-                $('li:first', an[i]).removeClass('disabled');
-              }
-              if (oPaging.iPage === oPaging.iTotalPages - 1 || oPaging.iTotalPages === 0) {
-                $('li:last', an[i]).addClass('disabled');
-              } else {
-                $('li:last', an[i]).removeClass('disabled');
-              }
+            }
+          };
+          $(nPaging).append('<ul class="pagination">' + '<li class="prev disabled"><a href="#">&larr; ' + oLang.sPrevious + '</a></li>' + '<li class="next disabled"><a href="#">' + oLang.sNext + ' &rarr; </a></li>' + '</ul>');
+          var els = $('a', nPaging);
+          $(els[0]).bind('click.DT', { action: 'previous' }, fnClickHandler);
+          $(els[1]).bind('click.DT', { action: 'next' }, fnClickHandler);
+        };
+        var _fnUpdate = function (oSettings, fnDraw) {
+          var iListLength = 5;
+          var oPaging = oSettings.oInstance.fnPagingInfo();
+          var an = oSettings.aanFeatures.p;
+          var i, ien, j, sClass, iStart, iEnd, iHalf = Math.floor(iListLength / 2);
+          if (oPaging.iTotalPages < iListLength) {
+            iStart = 1;
+            iEnd = oPaging.iTotalPages;
+          } else if (oPaging.iPage <= iHalf) {
+            iStart = 1;
+            iEnd = iListLength;
+          } else if (oPaging.iPage >= oPaging.iTotalPages - iHalf) {
+            iStart = oPaging.iTotalPages - iListLength + 1;
+            iEnd = oPaging.iTotalPages;
+          } else {
+            iStart = oPaging.iPage - iHalf + 1;
+            iEnd = iStart + iListLength - 1;
+          }
+          var fnPaging = function (e) {
+            e.preventDefault();
+            oSettings._iDisplayStart = (parseInt($('a', this).text(), 10) - 1) * oPaging.iLength;
+            fnDraw(oSettings);
+          };
+          for (i = 0, ien = an.length; i < ien; i++) {
+            // Remove the middle elements
+            $('li:gt(0)', an[i]).filter(':not(:last)').remove();
+            // Add the new list items and their event handlers
+            for (j = iStart; j <= iEnd; j++) {
+              sClass = j === oPaging.iPage + 1 ? 'class="active"' : '';
+              $('<li ' + sClass + '><a href="#">' + j + '</a></li>').insertBefore($('li:last', an[i])[0]).bind('click', fnPaging);
+            }
+            // Add / remove disabled classes from the static elements
+            if (oPaging.iPage === 0) {
+              $('li:first', an[i]).addClass('disabled');
+            } else {
+              $('li:first', an[i]).removeClass('disabled');
+            }
+            if (oPaging.iPage === oPaging.iTotalPages - 1 || oPaging.iTotalPages === 0) {
+              $('li:last', an[i]).addClass('disabled');
+            } else {
+              $('li:last', an[i]).removeClass('disabled');
             }
           }
+        };
+        /* Bootstrap style pagination control */
+        $.extend($.fn.dataTableExt.oPagination, {
+          'bootstrap': {
+            fnInit: _fnInit,
+            fnUpdate: _fnUpdate
+          }
+        });
+      };
+      var _addDrawCallbackFunction = function (fn) {
+        if (angular.isFunction(fn)) {
+          _drawCallbackFunctionList.push(fn);
         }
-      });
-      this.initialized = true;
-    };
-    this.integrate = function (options) {
-      this.init();
-      // TODO: It currently applies the bootstrap integration to all tables...
-      options.sDom = '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>';
-      options.sPaginationType = 'bootstrap';
-    };
-  });
-}(jQuery, angular));
+      };
+      var _init = function () {
+        if (!_initialized) {
+          _overrideClasses();
+          _overridePagingInfo();
+          _overridePagination();
+          _addDrawCallbackFunction(function () {
+            $('div.dataTables_filter').find('input').addClass('form-control');
+            $('div.dataTables_length').find('select').addClass('form-control');
+          });
+          _initialized = true;
+        }
+      };
+      /**
+         * Integrate Bootstrap
+         * @param options the datatables options
+         */
+      this.integrate = function (options) {
+        _init();
+        $DTBootstrapTableTools.integrate();
+        $DTBootstrapColVis.integrate(_addDrawCallbackFunction);
+        // TODO: It currently applies the bootstrap integration to all tables...
+        options.sDom = '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>';
+        options.sPaginationType = 'bootstrap';
+        if (angular.isUndefined(options.fnDrawCallback)) {
+          // Call every drawcallback functions
+          options.fnDrawCallback = function () {
+            for (var index = 0; index < _drawCallbackFunctionList.length; index++) {
+              _drawCallbackFunctionList[index]();
+            }
+          };
+        }
+      };
+    }
+  ]);
+}(window, document, jQuery, angular));
 (function (angular) {
   'use strict';
-  angular.module('datatables.directive', []).value('datatablesTemplateUrl', 'src/angular-datatables.html').constant('DT_DEFAULT_OPTIONS', {
+  angular.module('datatables.directive', []).constant('DT_DEFAULT_OPTIONS', {
     sAjaxDataProp: '',
     aoColumns: []
-  }).directive('dtColumnRepeat', function () {
-    /**
-        * This directive is used to tell the "datatable" directive that the table is
-        * rendered.
-        */
-    return {
-      restrict: 'A',
-      link: function ($scope) {
-        if ($scope.$last) {
-          $scope.$emit('dt:lastElem');
-        }
-      }
-    };
   }).directive('datatable', [
     '$http',
-    'datatablesTemplateUrl',
+    'DT_DEFAULT_OPTIONS',
     '$timeout',
-    function ($http, datatablesTemplateUrl, $timeout) {
+    function ($http, DT_DEFAULT_OPTIONS, $timeout) {
       return {
         restrict: 'A',
         scope: {
@@ -140,65 +224,37 @@
           if (angular.isDefined($scope.dtOptions)) {
             var options = {};
             angular.extend(options, $scope.dtOptions);
+            // for Angular http inceptors
+            if (angular.isUndefined(options.fnServerData)) {
+              options.fnServerData = function (sSource, aoData, resultCb) {
+                $http.get(sSource).then(function (result) {
+                  resultCb(result.data);
+                });
+              };
+            }
             // Set the columns
             if (angular.isArray($scope.dtColumns)) {
               options.aoColumns = $scope.dtColumns;
             }
-            // Load the datatable! 
+            // Define defaults values in case it is an ajax datatables
+            if (angular.isDefined(options.sAjaxSource)) {
+              if (angular.isUndefined(options.sAjaxDataProp)) {
+                options.sAjaxDataProp = DT_DEFAULT_OPTIONS.sAjaxDataProp;
+              }
+              if (angular.isUndefined(options.aoColumns)) {
+                options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
+              }
+            }
             // Add $timeout to be sure that angular has finished rendering before calling datatables
             $timeout(function () {
               $elem.dataTable(options);
             }, 0, false);
           } else {
+            // Add $timeout to be sure that angular has finished rendering before calling datatables
             $timeout(function () {
               $elem.dataTable();
             }, 0, false);
           }
-        }
-      };
-    }
-  ]).directive('datatableAjax', [
-    '$http',
-    'DT_DEFAULT_OPTIONS',
-    'datatablesTemplateUrl',
-    '$timeout',
-    function ($http, DT_DEFAULT_OPTIONS, datatablesTemplateUrl, $timeout) {
-      return {
-        restrict: 'A',
-        scope: {
-          dtOptions: '=',
-          dtColumns: '='
-        },
-        templateUrl: datatablesTemplateUrl,
-        link: function ($scope, $elem) {
-          var options = DT_DEFAULT_OPTIONS;
-          if (angular.isUndefined($scope.dtOptions)) {
-            throw new Error('The option must be defined!');
-          }
-          angular.extend(options, $scope.dtOptions);
-          // Just some basic validation.
-          if (angular.isUndefined(options.sAjaxSource)) {
-            throw new Error('"sAjaxSource" must be defined!');
-          }
-          // for Angular http inceptors
-          if (angular.isUndefined(options.fnServerData)) {
-            options.fnServerData = function (sSource, aoData, resultCb) {
-              $http.get(sSource).then(function (result) {
-                resultCb(result.data);
-              });
-            };
-          }
-          // Set the columns
-          if (angular.isArray($scope.dtColumns)) {
-            options.aoColumns = $scope.dtColumns;
-          }
-          // Load the datatable! 
-          $scope.$on('dt:lastElem', function () {
-            // Add $timeout to be sure that angular has finished rendering before calling datatables
-            $timeout(function () {
-              $elem.dataTable(options);
-            }, 0, false);
-          });
         }
       };
     }
@@ -409,8 +465,7 @@
              */
         this.withColReorderOrder = function (aiOrder) {
           if (angular.isArray(aiOrder)) {
-            this.oColReorder = fromNullable(this.oColReorder).orEmptyObj();
-            this.oColReorder.aiOrder = aiOrder;
+            this.withColReorderOption('aiOrder', aiOrder);
           }
           return this;
         };
@@ -421,8 +476,7 @@
              */
         this.withColReorderCallback = function (fnReorderCallback) {
           if (angular.isFunction(fnReorderCallback)) {
-            this.oColReorder = fromNullable(this.oColReorder).orEmptyObj();
-            this.oColReorder.fnReorderCallback = fnReorderCallback;
+            this.withColReorderOption('fnReorderCallback', fnReorderCallback);
           } else {
             throw new Error('The reorder callback must be a function');
           }
@@ -448,7 +502,7 @@
              * @returns {DTOptions} the options
              */
         this.withColVis = function () {
-          var colVisPrefix = 'C<"clear">';
+          var colVisPrefix = 'C';
           this.sDom = colVisPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
           return this;
         };
@@ -459,10 +513,48 @@
              */
         this.withColVisStateChange = function (fnStateChange) {
           if (angular.isFunction(fnStateChange)) {
-            this.oColVis = fromNullable(this.oColVis).orEmptyObj();
-            this.oColVis.fnStateChange = fnStateChange;
+            this.withColVisOption('fnStateChange', fnStateChange);
           } else {
             throw new Error('The state change must be a function');
+          }
+          return this;
+        };
+        // TABLE TOOLS DATATABLES PLUGIN ---------
+        // See https://datatables.net/extras/tabletools/
+        /**
+             * Add option to "oTableTools" option
+             * @param key the key of the option to add
+             * @param value an object or a function of the function
+             * @returns {DTOptions} the options
+             */
+        this.withTableToolsOption = function (key, value) {
+          if (angular.isString(key)) {
+            this.oTableTools = fromNullable(this.oTableTools).orEmptyObj();
+            this.oTableTools[key] = value;
+          }
+          return this;
+        };
+        /**
+             * Add table tools compatibility
+             * @param sSwfPath the path to the swf file to export in csv/xls
+             * @returns {DTOptions} the options
+             */
+        this.withTableTools = function (sSwfPath) {
+          var tableToolsPrefix = 'T';
+          this.sDom = tableToolsPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+          if (angular.isString(sSwfPath)) {
+            this.withTableToolsOption('sSwfPath', sSwfPath);
+          }
+          return this;
+        };
+        /**
+             * Set the table tools buttons to display
+             * @param aButtons the array of buttons to display
+             * @returns {DTOptions} the options
+             */
+        this.withTableToolsButtons = function (aButtons) {
+          if (angular.isArray(aButtons)) {
+            this.withTableToolsOption('aButtons', aButtons);
           }
           return this;
         };
@@ -480,14 +572,14 @@
     /**
          * The wrapped datatables column 
          * @param mData the data to display of the column
-         * @param label the label of the column title to display in the DOM
+         * @param sTitle the sTitle of the column title to display in the DOM
          */
-    var DTColumn = function (mData, label) {
+    var DTColumn = function (mData, sTitle) {
       if (angular.isUndefined(mData)) {
-        throw new Error('The parametr "mData" is not defined!');
+        throw new Error('The parameter "mData" is not defined!');
       }
       this.mData = mData;
-      this.label = label || '';
+      this.sTitle = sTitle || '';
       /**
              * Add the option of the column
              * @param key the key of the option
@@ -501,12 +593,12 @@
         return this;
       };
       /**
-             * Set the label of the colum
-             * @param label the label of the column
+             * Set the title of the colum
+             * @param sTitle the sTitle of the column
              * @returns {DTColumn} the wrapped datatables column
              */
-      this.withLabel = function (label) {
-        this.label = label;
+      this.withTitle = function (sTitle) {
+        this.sTitle = sTitle;
         return this;
       };
       /**
@@ -545,8 +637,8 @@
       };
     };
     return {
-      newColumn: function (mData, label) {
-        return new DTColumn(mData, label);
+      newColumn: function (mData, sTitle) {
+        return new DTColumn(mData, sTitle);
       }
     };
   });
@@ -559,10 +651,3 @@
     'datatables.bootstrap'
   ]);
 }(angular));
-angular.module('datatables').run([
-  '$templateCache',
-  function ($templateCache) {
-    'use strict';
-    $templateCache.put('src/angular-datatables.html', '<thead>\n' + '    <tr>\n' + '        <th ng-repeat="column in dtColumns" dt-column-repeat>\n' + '            {{ column.label }}\n' + '        </th>\n' + '    </tr>\n' + '</thead>\n');
-  }
-]);
