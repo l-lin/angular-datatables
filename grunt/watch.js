@@ -5,8 +5,10 @@ module.exports = {
         },
         files: [
             '<%= yeoman.currentDir %>',
+            '<%= yeoman.demo %>/**/*.html',
+            '<%= yeoman.demo %>/**/*.js',
+            '<%= yeoman.styles %>/{,*/}*.css',
             '<%= yeoman.src %>/**/*.html',
-            '<%= yeoman.src %>/styles/{,*/}*.css',
             '<%= yeoman.src %>/{,*/}*.js',
             '<%= yeoman.src %>/{,*/}*.css',
             '<%= yeoman.src %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'

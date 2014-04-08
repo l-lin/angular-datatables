@@ -1,12 +1,11 @@
 (function(angular) {
     'use strict';
-    angular.module('datatablesSampleApp', ['datatables', 'ui.bootstrap']).
-    controller('sampleCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder) {
-        $scope.dtOptions = DTOptionsBuilder.fromSource('data.json');
-        $scope.dtColumns = [
-            DTColumnBuilder.newColumn('id').withLabel('ID').withClass('text-danger'),
-            DTColumnBuilder.newColumn('firstName').withLabel('First name'),
-            DTColumnBuilder.newColumn('lastName').withLabel('Last name').setVisible(false)
-        ];
+    angular.module('datatablesSampleApp', ['datatables']).
+    controller('apiCtrl', function($scope, DTOptionsBuilder) {
+        $scope.dtOptions = DTOptionsBuilder.newOptions()
+            .withDisplayLength(10)
+            .withColReorder()
+            .withColVis()
+            .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf');
     });
 })(angular);

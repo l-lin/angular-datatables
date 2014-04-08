@@ -20,7 +20,10 @@
   "smarttabs": true,
   "globals": {
     "angular": false,
-	  "after": false,
+    "jQuery": false,
+    "$": false,
+    "DataTable": false,
+    "after": false,
     "afterEach": false,
     "angular": false,
     "before": false,

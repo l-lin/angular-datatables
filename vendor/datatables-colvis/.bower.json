@@ -1,0 +1,22 @@
+{
+  "name": "datatables-colvis",
+  "version": "1.1.0",
+  "main": [
+    "js/dataTables.colVis.js",
+    "css/dataTables.colVis.css"
+  ],
+  "dependencies": {
+    "jquery": ">=1.7.0",
+    "datatables": ">=1.7.0"
+  },
+  "homepage": "https://github.com/DataTables/ColVis",
+  "_release": "1.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.1.0",
+    "commit": "52c87a5468557e4b9ae696ec5035b8a769d3372a"
+  },
+  "_source": "git://github.com/DataTables/ColVis.git",
+  "_target": "~1.1.0",
+  "_originalSource": "datatables-colvis"
+}

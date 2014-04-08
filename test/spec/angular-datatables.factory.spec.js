@@ -5,7 +5,7 @@ describe('angularDatatables.factory', function() {
 
     describe('DTColumnBuilder', function() {
         var DATA = 'foobar',
-            LABEL = 'FooBarLabel',
+            TITLE = 'FooBarTitle',
             CLASS = 'foo-bar-class',
             DTColumnBuilder,
             column;
@@ -19,9 +19,9 @@ describe('angularDatatables.factory', function() {
             expect(column.mData).toBe(DATA);
         });
         
-        it('should set the label', function() {
-            column.withLabel(LABEL);
-            expect(column.label).toBe(LABEL);
+        it('should set the title', function() {
+            column.withTitle(TITLE);
+            expect(column.sTitle).toBe(TITLE);
         });
         
         it('should set the class', function() {
@@ -29,9 +29,9 @@ describe('angularDatatables.factory', function() {
             expect(column.sClass).toBe(CLASS);
         });
         
-        it('should set the visibility', function() {
-            column.setVisible(true);
-            expect(column.bVisible).toBeTruthy();
+        it('should hide the column', function() {
+            column.notVisible();
+            expect(column.bVisible).toBeFalsy();
         });
     });
     
@@ -47,7 +47,7 @@ describe('angularDatatables.factory', function() {
         
         it('should create a new option', function() {
             expect(options).toBeDefined();
-            options.addSource(AJAX_SOURCE);
+            options.withSource(AJAX_SOURCE);
             expect(options.sAjaxSource).toBe(AJAX_SOURCE);
         });
         
@@ -57,18 +57,18 @@ describe('angularDatatables.factory', function() {
         });
         
         it('should be able to add a data prop', function() {
-            options.addDataProp(DATA_PROP);
+            options.withDataProp(DATA_PROP);
             expect(options.sAjaxDataProp).toBe(DATA_PROP);
         });
         
         it('should be able to define the function to fetch the data', function() {
             var fn = function() {};
-            options.addFnServerData(fn);
+            options.withFnServerData(fn);
             expect(options.fnServerData).toBe(fn);
         });
         
         it('should throw an error if the parameter is not a function when setting the server data function', function() {
-            expect(function() {options.addFnServerData({});}).toThrow(new Error('The parameter must be a function'));
+            expect(function() {options.withFnServerData({});}).toThrow(new Error('The parameter must be a function'));
         });
     });
 });

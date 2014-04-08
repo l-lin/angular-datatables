@@ -18,7 +18,7 @@ module.exports = {
         dest: '<%= yeoman.dist %>/angular-datatables.js'
     },
     bannerCSS: {
-        src: ['<%= yeoman.src %>/angular-datatables.css'],
-        dest: '<%= yeoman.dist %>/angular-datatables.css'
+        src: ['<%= yeoman.src %>/datatables.bootstrap.css'],
+        dest: '<%= yeoman.dist %>/datatables.boostrap.css'
     }
 };

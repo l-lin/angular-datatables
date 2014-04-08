@@ -1,6 +1,6 @@
 {
 	"name": "angular-datatables",
-	"version": "0.0.2",
+	"version": "0.0.1",
 	"author": "l-lin",
 	"main": [
         "dist/angular-datatables.js",
@@ -16,12 +16,24 @@
         "node_modules",
         "src",
         ".travis.yml",
-        "vendor"
+        "vendor",
+    	"data.json",
+    	"demo",
+    	"favicon.png",
+    	"index.html",
+    	"README.md",
+    	"server",
+    	"styles",
+    	"_config.yml",
+    	"grunt"
     ],
     "dependencies": {
         "angular": "1.2.6",
         "jquery": "1.11.0",
-        "datatables": "~1.9.4"
+        "datatables": "~1.9.4",
+        "datatables-colvis": "~1.1.0",
+        "datatables-colreorder": "~1.1.0",
+        "datatables-tabletools": "~2.2.0"
     },
     "devDependencies": {
         "angular-mocks": "1.2.6",

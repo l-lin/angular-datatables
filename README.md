@@ -1,8 +1,8 @@
 angular-datatables [![Build Status](https://travis-ci.org/l-lin/angular-datatables.png?branch=master)](https://travis-ci.org/l-lin/angular-datatables) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 ================
-> Ajax oriented datatables for Angular.
+> Datatables for Angular.
 
-See [demo](https://l-lin.github.io/angular-datatables).
+See [github page](https://l-lin.github.io/angular-datatables).
 
 License
 ================
