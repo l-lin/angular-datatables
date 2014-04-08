@@ -231,7 +231,7 @@
              * @param aiOrder the column order
              * @returns {DTOptions} the options
              */
-            this.withColOrder = function(aiOrder) {
+            this.withColReorderOrder = function(aiOrder) {
                 if (angular.isArray(aiOrder)) {
                     this.oColReorder = fromNullable(this.oColReorder).orEmptyObj();
                     this.oColReorder.aiOrder = aiOrder;
@@ -246,7 +246,7 @@
              * @param fnReorderCallback
              * @returns {DTOptions} the options
              */
-            this.withReorderCallback = function(fnReorderCallback) {
+            this.withColReorderCallback = function(fnReorderCallback) {
                 if (angular.isFunction(fnReorderCallback)) {
                     this.oColReorder = fromNullable(this.oColReorder).orEmptyObj();
                     this.oColReorder.fnReorderCallback = fnReorderCallback;
