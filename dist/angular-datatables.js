@@ -418,7 +418,7 @@
         };
         /**
              * Set the reorder callback function
-             * @param fnReorderCallback
+             * @param fnReorderCallback the callback
              * @returns {DTOptions} the options
              */
         this.withColReorderCallback = function (fnReorderCallback) {
@@ -452,6 +452,20 @@
         this.withColVis = function () {
           var colVisPrefix = 'C<"clear">';
           this.sDom = colVisPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+          return this;
+        };
+        /**
+             * Set the state change function
+             * @param fnStateChange  the state change function
+             * @returns {DTOptions} the options
+             */
+        this.withColVisStateChange = function (fnStateChange) {
+          if (angular.isFunction(fnStateChange)) {
+            this.oColVis = fromNullable(this.oColVis).orEmptyObj();
+            this.oColVis.fnStateChange = fnStateChange;
+          } else {
+            throw new Error('The state change must be a function');
+          }
           return this;
         };
       };
