@@ -48,7 +48,7 @@
                  * @return true if the wrapped object is defined, false otherwise
                  */
                 this.isPresent = function() {
-                    return angular.isDefined(this.obj) && !angular.isNull(this.obj);
+                    return angular.isDefined(this.obj) && this.obj !== null;
                 };
                 
                 /**

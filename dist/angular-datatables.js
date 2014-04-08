@@ -246,7 +246,7 @@
                  * @return true if the wrapped object is defined, false otherwise
                  */
           this.isPresent = function () {
-            return angular.isDefined(this.obj) && !angular.isNull(this.obj);
+            return angular.isDefined(this.obj) && this.obj !== null;
           };
           /**
                  * Return the wrapped object or an empty object
@@ -542,6 +542,6 @@ angular.module('datatables').run([
   '$templateCache',
   function ($templateCache) {
     'use strict';
-    $templateCache.put('src/angular-datatables.html', '<thead>\r' + '\n' + '    <tr>\r' + '\n' + '        <th ng-repeat="column in dtColumns" dt-column-repeat>\r' + '\n' + '            {{ column.label }}\r' + '\n' + '        </th>\r' + '\n' + '    </tr>\r' + '\n' + '</thead>\r' + '\n');
+    $templateCache.put('src/angular-datatables.html', '<thead>\n' + '    <tr>\n' + '        <th ng-repeat="column in dtColumns" dt-column-repeat>\n' + '            {{ column.label }}\n' + '        </th>\n' + '    </tr>\n' + '</thead>\n');
   }
 ]);
