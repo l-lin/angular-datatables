@@ -19,6 +19,6 @@ module.exports = {
     },
     bannerCSS: {
         src: ['<%= yeoman.src %>/datatables.bootstrap.css'],
-        dest: '<%= yeoman.dist %>/datatables.boostrap.css'
+        dest: '<%= yeoman.dist %>/datatables.bootstrap.css'
     }
 };

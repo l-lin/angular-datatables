@@ -77,7 +77,8 @@ div.dataTables_scrollFoot table {
 /*
  * TableTools styles
  */
- .table tbody tr.active td, .table tbody tr.active th {
+/*
+.table tbody tr.active td, .table tbody tr.active th {
     background-color: #08C;
     color: white;
 }
@@ -87,6 +88,7 @@ div.dataTables_scrollFoot table {
 .table-striped tbody tr.active:nth-child(odd) td, .table-striped tbody tr.active:nth-child(odd) th {
     background-color: #017ebc;
 }
+*/
 table.DTTT_selectable tbody tr {
     cursor: pointer;
 }
@@ -113,7 +115,7 @@ div.DTTT_collection_background {
     z-index: 2002;
 }
 /* TableTools information display */
- div.DTTT_print_info.modal {
+div.DTTT_print_info.modal {
     height: 150px;
     margin-top: -75px;
     text-align: center;
@@ -131,7 +133,7 @@ div.DTTT_print_info p {
 /*
  * FixedColumns styles
  */
- div.DTFC_LeftHeadWrapper table, div.DTFC_LeftFootWrapper table, div.DTFC_RightHeadWrapper table, div.DTFC_RightFootWrapper table, table.DTFC_Cloned tr.even {
+div.DTFC_LeftHeadWrapper table, div.DTFC_LeftFootWrapper table, div.DTFC_RightHeadWrapper table, div.DTFC_RightFootWrapper table, table.DTFC_Cloned tr.even {
     background-color: white;
 }
 div.DTFC_RightHeadWrapper table, div.DTFC_LeftHeadWrapper table {
