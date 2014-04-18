@@ -18,15 +18,6 @@
                     var options = {};
                     angular.extend(options, $scope.dtOptions);
                     
-                    // for Angular http inceptors
-                    if (angular.isUndefined(options.fnServerData)) {
-                        options.fnServerData = function(sSource, aoData, resultCb) {
-                            $http.get(sSource).then(function(result) {
-                                resultCb(result.data);
-                            });
-                        };
-                    }
-                    
                     // Set the columns
                     if (angular.isArray($scope.dtColumns)) {
                         options.aoColumns = $scope.dtColumns;
