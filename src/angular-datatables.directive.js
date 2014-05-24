@@ -28,7 +28,7 @@
                         options.aoColumns = $scope.dtColumns;
                     }
 
-                    if (angular.isDefined(options.dataPromise)) {
+                    if (angular.isObject(options.dataPromise)) {
                         options.dataPromise.then(function(data) {
                             options.aaData = data;
                             _renderDataTable($elem, options);
