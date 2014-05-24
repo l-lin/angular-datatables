@@ -57,7 +57,20 @@
         <tr>
             <td><code>DTOptions</code></td>
             <td><code>withOption(key, value)</code></td>
-            <td>Add an option to the wrapped datatables options.</td>
+            <td>
+                Add an option to the wrapped datatables options. For example, the following code add the option <code>fnRowCallback</code>:
+                <div class="highlight">
+<pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
+<span class="nx">controller</span><span class="p">(</span><span class="s1">'myCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">DTOptionsBuilder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">dtOptions</span> <span class="o">=</span> <span class="nx">DTOptionsBuilder</span><span class="p">.</span><span class="nx">newOptions</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">withOption</span><span class="p">(</span><span class="s1">'fnRowCallback'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nRow</span><span class="p">,</span> <span class="nx">aData</span><span class="p">,</span> <span class="nx">iDisplayIndex</span><span class="p">,</span> <span class="nx">iDisplayIndexFull</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">aData</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">nRow</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+                </div>
+            </td>
         </tr>
         <tr>
             <td><code>DTOptions</code></td>
@@ -152,7 +165,18 @@
         <tr>
             <td><code>DTColumn</code></td>
             <td><code>withOption(key, value)</code></td>
-            <td>Add the option of the column.</td>
+            <td>
+                Add the option of the column. For example, the following code add the option <code>sContentPadding</code>:
+                <div class="highlight">
+<pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
+    <span class="nx">controller</span><span class="p">(</span><span class="s1">'myCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">DTColumnBuilder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">dtColumns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nx">DTColumnBuilder</span><span class="p">.</span><span class="nx">newColumn</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">).</span><span class="nx">withOption</span><span class="p">(</span><span class="s1">'sContentPadding'</span><span class="p">,</span> <span class="s1">'mmm'</span><span class="p">)</span>
+    <span class="p">];</span>
+<span class="p">});</span>
+</code></pre>
+                </div>
+            </td>
         </tr>
         <tr>
             <td><code>DTColumn</code></td>

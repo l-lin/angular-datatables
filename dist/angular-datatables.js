@@ -214,6 +214,12 @@
     'DT_DEFAULT_OPTIONS',
     '$timeout',
     function ($http, DT_DEFAULT_OPTIONS, $timeout) {
+      var _renderDataTable = function ($elem, options) {
+        // Add $timeout to be sure that angular has finished rendering before calling datatables
+        $timeout(function () {
+          $elem.dataTable(options);
+        }, 0, false);
+      };
       return {
         restrict: 'A',
         scope: {
@@ -228,24 +234,25 @@
             if (angular.isArray($scope.dtColumns)) {
               options.aoColumns = $scope.dtColumns;
             }
-            // Define defaults values in case it is an ajax datatables
-            if (angular.isDefined(options.sAjaxSource)) {
-              if (angular.isUndefined(options.sAjaxDataProp)) {
-                options.sAjaxDataProp = DT_DEFAULT_OPTIONS.sAjaxDataProp;
+            if (angular.isDefined(options.dataPromise)) {
+              options.dataPromise.then(function (data) {
+                options.aaData = data;
+                _renderDataTable($elem, options);
+              });
+            } else {
+              // Define defaults values in case it is an ajax datatables
+              if (angular.isDefined(options.sAjaxSource)) {
+                if (angular.isUndefined(options.sAjaxDataProp)) {
+                  options.sAjaxDataProp = DT_DEFAULT_OPTIONS.sAjaxDataProp;
+                }
+                if (angular.isUndefined(options.aoColumns)) {
+                  options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
+                }
               }
-              if (angular.isUndefined(options.aoColumns)) {
-                options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
-              }
+              _renderDataTable($elem, options);
             }
-            // Add $timeout to be sure that angular has finished rendering before calling datatables
-            $timeout(function () {
-              $elem.dataTable(options);
-            }, 0, false);
           } else {
-            // Add $timeout to be sure that angular has finished rendering before calling datatables
-            $timeout(function () {
-              $elem.dataTable();
-            }, 0, false);
+            _renderDataTable($elem);
           }
         }
       };
@@ -289,9 +296,11 @@
       /**
          * The wrapped datatables options class
          * @param sAjaxSource the ajax source to fetch the data
+         * @param dataPromise the promise to fetch the data
          */
-      var DTOptions = function (sAjaxSource) {
+      var DTOptions = function (sAjaxSource, dataPromise) {
         this.sAjaxSource = sAjaxSource;
+        this.dataPromise = dataPromise;
         /**
              * Optional class to handle undefined or null
              * @param obj the object to wrap
@@ -414,6 +423,15 @@
              */
         this.withDisplayLength = function (iDisplayLength) {
           this.iDisplayLength = iDisplayLength;
+          return this;
+        };
+        /**
+             * Set the promise to fetch the data
+             * @param dataPromise the promise
+             * @returns {DTOptions} the options
+             */
+        this.withDataPromise = function (dataPromise) {
+          this.dataPromise = dataPromise;
           return this;
         };
         // BOOTSTRAP INTEGRATION ---------
@@ -556,7 +574,10 @@
           return new DTOptions();
         },
         fromSource: function (sAjaxSource) {
-          return new DTOptions(sAjaxSource);
+          return new DTOptions(sAjaxSource, null);
+        },
+        fromPromise: function (dataPromise) {
+          return new DTOptions(null, dataPromise);
         }
       };
     }

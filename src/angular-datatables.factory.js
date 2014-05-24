@@ -45,9 +45,11 @@
         /**
          * The wrapped datatables options class
          * @param sAjaxSource the ajax source to fetch the data
+         * @param dataPromise the promise to fetch the data
          */
-        var DTOptions = function(sAjaxSource) {
+        var DTOptions = function(sAjaxSource, dataPromise) {
             this.sAjaxSource = sAjaxSource;
+            this.dataPromise = dataPromise;
 
             /**
              * Optional class to handle undefined or null
@@ -184,6 +186,16 @@
              */
             this.withDisplayLength = function(iDisplayLength) {
                 this.iDisplayLength = iDisplayLength;
+                return this;
+            };
+
+            /**
+             * Set the promise to fetch the data
+             * @param dataPromise the promise
+             * @returns {DTOptions} the options
+             */
+            this.withDataPromise = function(dataPromise) {
+                this.dataPromise = dataPromise;
                 return this;
             };
 
@@ -351,7 +363,15 @@
              * @returns {DTOptions} a wrapped datatables option
              */
             fromSource: function(sAjaxSource) {
-                return new DTOptions(sAjaxSource);
+                return new DTOptions(sAjaxSource, null);
+            },
+            /**
+             * Create a wrapped datatables options with the data promise.
+             * @param dataPromise the promise to fetch the data
+             * @returns {DTOptions} a wrapped datatables option
+             */
+            fromPromise: function(dataPromise) {
+                return new DTOptions(null, dataPromise);
             }
         };
     }).
