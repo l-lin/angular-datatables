@@ -20,9 +20,9 @@
     };
     
     var userList = [];
-    for (var index = 0; index < 300; index++) {
+    for (var index = 0; index < 3000; index++) {
         userList.push({
-            id: randomNumber(1000),
+            id: randomNumber(10000),
             firstName: randomInArray(firstNameList),
             lastName: randomInArray(lastNameList)
         })

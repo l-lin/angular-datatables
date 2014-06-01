@@ -1,6 +1,61 @@
-<h3>DTOptionsBuilder</h3>
+<h3><code>$DTDefaultOptions</code></h3>
 <p>
-    <strong>Note</strong>: Of course, these helpers are not mandatory. You can directly pass the datatable options on the element attributes <code>dt-options</code> and <code>dt-columns</code>.
+    You can provide default options to set for all your datatables, such as the language, the number of items to display...
+</p>
+<table datatable dt-options="dtOptions">
+    <thead>
+    <tr>
+        <th>Helper/Wrapper</th>
+        <th>API</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>$DTDefaultOptions</code></td>
+        <td><code>setLanguageSource(sLanguageSource)</code></td>
+        <td>
+            Set the default language source for all datatables.
+            <div class="highlight">
+    <pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
+        <span class="nx">run</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$DTDefaultOptions</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$DTDefaultOptions</span><span class="p">.</span><span class="nx">setLanguageSource</span><span class="p">(</span><span class="s1">'/path/to/language'</span><span class="p">);</span>
+        <span class="p">});</span>
+    </code></pre>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>$DTDefaultOptions</code></td>
+        <td><code>setLanguage(oLanguage)</code></td>
+        <td>Set the default language for all datatables.</td>
+    </tr>
+    <tr>
+        <td><code>$DTDefaultOptions</code></td>
+        <td><code>setDisplayLength(iDisplayLength)</code></td>
+        <td>
+            Set the default numbers of items to display for all datatables.
+            <div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
+                <span class="nx">run</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$DTDefaultOptions</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Display 25 items per page by default</span>
+                <span class="nx">$DTDefaultOptions</span><span class="p">.</span><span class="nx">setDisplayLength</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
+                <span class="p">});</span>
+            </code></pre>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br />
+<hr />
+<h3><code>DTOptionsBuilder</code></h3>
+<p>
+    This service will help you build your datatables options.
+</p>
+<p>
+    <strong>Note</strong>: Of course, this helper is not mandatory. This helper only constructs a JSON object.
+    You can directly pass the datatable options on the element attributes <code>dt-options</code>.
 </p>
 <table datatable dt-options="dtOptions">
     <thead>
@@ -11,39 +66,6 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td><code>$DTDefaultOptions</code></td>
-            <td><code>setLanguageSource(sLanguageSource)</code></td>
-            <td>
-                Set the default language source for all datatables.
-                <div class="highlight">
-<pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
-<span class="nx">run</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$DTDefaultOptions</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$DTDefaultOptions</span><span class="p">.</span><span class="nx">setLanguageSource</span><span class="p">(</span><span class="s1">'/path/to/language'</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><code>$DTDefaultOptions</code></td>
-            <td><code>setLanguage(oLanguage)</code></td>
-            <td>Set the default language for all datatables.</td>
-        </tr>
-        <tr>
-            <td><code>$DTDefaultOptions</code></td>
-            <td><code>setDisplayLength(iDisplayLength)</code></td>
-            <td>
-                Set the default numbers of items to display for all datatables.
-                <div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
-<span class="nx">run</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$DTDefaultOptions</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Display 25 items per page by default</span>
-    <span class="nx">$DTDefaultOptions</span><span class="p">.</span><span class="nx">setDisplayLength</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre>
-                </div>
-            </td>
-        </tr>
         <tr>
             <td><code>DTOptionsBuilder</code></td>
             <td><code>newOptions()</code></td>
@@ -157,53 +179,75 @@
             <td><code>withTableToolsButtons(aButtons)</code></td>
             <td>Set the table tools buttons to display.</td>
         </tr>
-        <tr>
-            <td><code>DTColumnBuilder</code></td>
-            <td><code>newColumn(mData, labe)</code></td>
-            <td>Create a new wrapped <code>DTColumn</code>.</td>
-        </tr>
-        <tr>
-            <td><code>DTColumn</code></td>
-            <td><code>withOption(key, value)</code></td>
-            <td>
-                Add the option of the column. For example, the following code add the option <code>sContentPadding</code>:
-                <div class="highlight">
-<pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
-    <span class="nx">controller</span><span class="p">(</span><span class="s1">'myCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">DTColumnBuilder</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">dtColumns</span> <span class="o">=</span> <span class="p">[</span>
+    </tbody>
+</table>
+
+<br />
+<hr />
+<h3><code>DTColumnBuilder</code></h3>
+<p>
+    This service will help you build your datatables column options.
+</p>
+<p>
+    <strong>Note</strong>: Of course, this helper is not mandatory. This helper only constructs a JSON object.
+    You can directly pass the datatable column options on the element attributes and <code>dt-columns</code>.
+</p>
+<table datatable dt-options="dtOptions">
+    <thead>
+    <tr>
+        <th>Helper/Wrapper</th>
+        <th>API</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>DTColumnBuilder</code></td>
+        <td><code>newColumn(mData, labe)</code></td>
+        <td>Create a new wrapped <code>DTColumn</code>.</td>
+    </tr>
+    <tr>
+        <td><code>DTColumn</code></td>
+        <td><code>withOption(key, value)</code></td>
+        <td>
+            Add the option of the column. For example, the following code add the option <code>sContentPadding</code>:
+            <div class="highlight">
+    <pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
+        <span class="nx">controller</span><span class="p">(</span><span class="s1">'myCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">DTColumnBuilder</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$scope</span><span class="p">.</span><span class="nx">dtColumns</span> <span class="o">=</span> <span class="p">[</span>
         <span class="nx">DTColumnBuilder</span><span class="p">.</span><span class="nx">newColumn</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">).</span><span class="nx">withOption</span><span class="p">(</span><span class="s1">'sContentPadding'</span><span class="p">,</span> <span class="s1">'mmm'</span><span class="p">)</span>
-    <span class="p">];</span>
-<span class="p">});</span>
-</code></pre>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><code>DTColumn</code></td>
-            <td><code>withTitle(title)</code></td>
-            <td>Set the title of the colum.</td>
-        </tr>
-        <tr>
-            <td><code>DTColumn</code></td>
-            <td><code>withClass(sClass)</code></td>
-            <td>Set the CSS class of the column</td>
-        </tr>
-        <tr>
-            <td><code>DTColumn</code></td>
-            <td><code>notVisible()</code></td>
-            <td>Hide the column.</td>
-        </tr>
-        <tr>
-            <td><code>DTColumn</code></td>
-            <td><code>notSortable()</code></td>
-            <td>Set the column as not sortable</td>
-        </tr>
-        <tr>
-            <td><code>DTColumn</code></td>
-            <td><code>renderWith(mrender)</code></td>
-            <td>
-                Render each cell with the given parameter
-                <div class="highlight">
+        <span class="p">];</span>
+        <span class="p">});</span>
+    </code></pre>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTColumn</code></td>
+        <td><code>withTitle(title)</code></td>
+        <td>Set the title of the colum.</td>
+    </tr>
+    <tr>
+        <td><code>DTColumn</code></td>
+        <td><code>withClass(sClass)</code></td>
+        <td>Set the CSS class of the column</td>
+    </tr>
+    <tr>
+        <td><code>DTColumn</code></td>
+        <td><code>notVisible()</code></td>
+        <td>Hide the column.</td>
+    </tr>
+    <tr>
+        <td><code>DTColumn</code></td>
+        <td><code>notSortable()</code></td>
+        <td>Set the column as not sortable</td>
+    </tr>
+    <tr>
+        <td><code>DTColumn</code></td>
+        <td><code>renderWith(mrender)</code></td>
+        <td>
+            Render each cell with the given parameter
+            <div class="highlight">
 <pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
 <span class="nx">controller</span><span class="p">(</span><span class="s1">'myCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">DTColumnBuilder</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Data fetched: {gender: 'Mr', firstName: 'foo', lastName: 'bar'}</span>
@@ -214,8 +258,8 @@
     <span class="p">];</span>
 <span class="p">});</span>
 </code></pre>
-                </div>
-            </td>
-        </tr>
+            </div>
+        </td>
+    </tr>
     </tbody>
 </table>
