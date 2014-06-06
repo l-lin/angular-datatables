@@ -225,7 +225,7 @@
           $elem.dataTable(options);
         }, 0, false);
       };
-      var _renderDataTableIfNoNgRows = function ($elem, options, isNgDisplay) {
+      var _renderDataTableIfNoNgRows = function ($elem, isNgDisplay, options) {
         if (!isNgDisplay) {
           _doRenderDataTable($elem, options);
         }
@@ -252,20 +252,22 @@
             if (angular.isObject(options.dataPromise)) {
               options.dataPromise.then(function (data) {
                 options.aaData = data;
-                _renderDataTableIfNoNgRows($elem, options, isNgDisplay);
+                _renderDataTableIfNoNgRows($elem, isNgDisplay, options);
               });
-            } else if (angular.isDefined(options.sAjaxSource)) {
-              // Define default values in case it is an ajax datatables
-              if (angular.isUndefined(options.sAjaxDataProp)) {
-                options.sAjaxDataProp = DT_DEFAULT_OPTIONS.sAjaxDataProp;
+            } else {
+              if (angular.isDefined(options.sAjaxSource)) {
+                // Define default values in case it is an ajax datatables
+                if (angular.isUndefined(options.sAjaxDataProp)) {
+                  options.sAjaxDataProp = DT_DEFAULT_OPTIONS.sAjaxDataProp;
+                }
+                if (angular.isUndefined(options.aoColumns)) {
+                  options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
+                }
               }
-              if (angular.isUndefined(options.aoColumns)) {
-                options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
-              }
-              _renderDataTableIfNoNgRows($elem, options, isNgDisplay);
+              _renderDataTableIfNoNgRows($elem, isNgDisplay);
             }
           } else {
-            _renderDataTableIfNoNgRows($elem, options, isNgDisplay);
+            _renderDataTableIfNoNgRows($elem, isNgDisplay);
           }
           $scope.$on(DT_LAST_ROW_KEY, function () {
             _doRenderDataTable($elem, options);
