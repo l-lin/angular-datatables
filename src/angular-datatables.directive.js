@@ -60,7 +60,7 @@
                             }
                         }
 
-                        _renderDataTableIfNoNgRows($elem, isNgDisplay);
+                        _renderDataTableIfNoNgRows($elem, options, isNgDisplay);
                     }
                 } else {
                     _renderDataTableIfNoNgRows($elem, isNgDisplay);
