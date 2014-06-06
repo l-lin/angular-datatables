@@ -218,7 +218,7 @@
              * Add option to "oColReorder" option
              * @param key the key of the option to add
              * @param value an object or a function of the function
-             * @param {DTOption} the options
+             * @return {DTOptions} the options
              */
             this.withColReorderOption = function(key, value) {
                 if (angular.isString(key)) {

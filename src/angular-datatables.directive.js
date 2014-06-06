@@ -6,8 +6,7 @@
         sAjaxDataProp: '',
         aoColumns: []
     }).
-    directive('datatable', function($http, DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY, DT_HAS_NG_ROWS) {
-        var hasNgRows = false;
+    directive('datatable', function($http, DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY) {
         var $loading = angular.element('<h3>Loading...</h3>');
         var _doRenderDataTable = function($elem, options) {
             // Add $timeout to be sure that angular has finished rendering before calling datatables
@@ -18,20 +17,17 @@
                 $elem.dataTable(options);
             }, 0, false);
         };
-        var _renderDataTableIfNoNgRows = function ($elem, options) {
-            // Mmh ugly... I don't know how to do it in another way...
-            // Waiting in case we have ng rows
-            $timeout(function () {
-                if (!hasNgRows) {
-                    _doRenderDataTable($elem, options);
-                }
-            }, 100);
+        var _renderDataTableIfNoNgRows = function ($elem, options, isNgDisplay) {
+            if (!isNgDisplay) {
+                _doRenderDataTable($elem, options);
+            }
         };
         return {
             restrict: 'A',
             scope: {
                 dtOptions: '=',
-                dtColumns: '='
+                dtColumns: '=',
+                datatable: '@'
             },
             link: function($scope, $elem) {
                 // Display loading
@@ -61,11 +57,8 @@
                         }
                     }
                 }
-                _renderDataTableIfNoNgRows($elem, options);
-
-                $scope.$on(DT_HAS_NG_ROWS, function () {
-                    hasNgRows = true;
-                });
+                var isNgDisplay = $scope.datatable && $scope.datatable === 'ng';
+                _renderDataTableIfNoNgRows($elem, options, isNgDisplay);
 
                 $scope.$on(DT_LAST_ROW_KEY, function () {
                     _doRenderDataTable($elem, options);
@@ -73,11 +66,10 @@
             }
         };
     }).
-    directive('dtRows', function ($rootScope, DT_LAST_ROW_KEY, DT_HAS_NG_ROWS) {
+    directive('dtRows', function ($rootScope, DT_LAST_ROW_KEY) {
         return {
             restrict: 'A',
             link: function($scope) {
-                $rootScope.$broadcast(DT_HAS_NG_ROWS);
                 if ($scope.$last === true) {
                     $rootScope.$broadcast(DT_LAST_ROW_KEY);
                 }
