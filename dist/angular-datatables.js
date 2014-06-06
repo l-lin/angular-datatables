@@ -241,7 +241,7 @@
           // Display loading
           $elem.after($loading);
           $elem.hide();
-          var options;
+          var isNgDisplay = $scope.datatable && $scope.datatable === 'ng', options;
           if (angular.isDefined($scope.dtOptions)) {
             options = {};
             angular.extend(options, $scope.dtOptions);
@@ -252,6 +252,7 @@
             if (angular.isObject(options.dataPromise)) {
               options.dataPromise.then(function (data) {
                 options.aaData = data;
+                _renderDataTableIfNoNgRows($elem, options, isNgDisplay);
               });
             } else if (angular.isDefined(options.sAjaxSource)) {
               // Define default values in case it is an ajax datatables
@@ -261,10 +262,11 @@
               if (angular.isUndefined(options.aoColumns)) {
                 options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
               }
+              _renderDataTableIfNoNgRows($elem, options, isNgDisplay);
             }
+          } else {
+            _renderDataTableIfNoNgRows($elem, options, isNgDisplay);
           }
-          var isNgDisplay = $scope.datatable && $scope.datatable === 'ng';
-          _renderDataTableIfNoNgRows($elem, options, isNgDisplay);
           $scope.$on(DT_LAST_ROW_KEY, function () {
             _doRenderDataTable($elem, options);
           });
