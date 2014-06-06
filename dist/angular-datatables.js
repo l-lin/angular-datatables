@@ -264,7 +264,7 @@
                   options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
                 }
               }
-              _renderDataTableIfNoNgRows($elem, options, isNgDisplay);
+              _renderDataTableIfNoNgRows($elem, isNgDisplay, options);
             }
           } else {
             _renderDataTableIfNoNgRows($elem, isNgDisplay);
