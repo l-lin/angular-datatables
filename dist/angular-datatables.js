@@ -221,10 +221,12 @@
           // Show datatable & hide loading
           $elem.show();
           $loading.hide();
-          // Condition to refresh the dataTable
-          $elem.dataTable(options);
+          $elem.DataTable(options);
         }, 0, false);
       };
+      /**
+         * Factory that build a renderer given the options
+         */
       var RendererFactory = {
           fromOptions: function (options, isNgDisplay) {
             if (isNgDisplay) {
@@ -234,7 +236,7 @@
               if (angular.isObject(options.dataPromise)) {
                 return new PromiseDTRenderer(options);
               }
-              if (angular.isDefined(options.sAjaxDataProp)) {
+              if (angular.isDefined(options.sAjaxSource)) {
                 return new AjaxRenderer(options);
               }
               return new DefaultRenderer(options);
@@ -253,8 +255,14 @@
         };
         return renderer;
       };
+      /**
+         * Renderer for displaying the Angular way
+         * @param options
+         * @returns {{options: *}} the renderer
+         * @constructor
+         */
       var NGRenderer = function (options) {
-        var renderer = new DefaultRenderer(options);
+        var renderer = { options: options };
         renderer.render = function ($scope, $elem) {
           $scope.$on(DT_LAST_ROW_KEY, function () {
             _doRenderDataTable($elem, renderer.options);
@@ -262,6 +270,12 @@
         };
         return renderer;
       };
+      /**
+         * Renderer for displaying with a promise
+         * @param options the options
+         * @returns {{options: *}} the renderer
+         * @constructor
+         */
       var PromiseDTRenderer = function (options) {
         var renderer = { options: options }, oTable;
         renderer.render = function ($scope, $elem) {
@@ -282,7 +296,7 @@
                   oTable.fnDraw();
                   oTable.fnAddData(options.aaData);
                 } else {
-                  oTable = $elem.dataTable(options);
+                  oTable = $elem.DataTable(options);
                 }
               }, 0, false);
             });
@@ -290,8 +304,14 @@
         };
         return renderer;
       };
+      /**
+         * Renderer for displaying with Ajax
+         * @param options the options
+         * @returns {{options: *}} the renderer
+         * @constructor
+         */
       var AjaxRenderer = function (options) {
-        var renderer = { options: options };
+        var renderer = { options: options }, oTable;
         renderer.render = function ($scope, $elem) {
           // Define default values in case it is an ajax datatables
           if (angular.isUndefined(options.sAjaxDataProp)) {
@@ -302,9 +322,30 @@
           }
           $scope.$watch('dtOptions.sAjaxSource', function (sAjaxSource) {
             options.sAjaxSource = sAjaxSource;
+            options.ajax = sAjaxSource;
             // Set it to true in order to be able to redraw the dataTable
             options.bDestroy = true;
-            _doRenderDataTable($elem, renderer.options);
+            // Add $timeout to be sure that angular has finished rendering before calling datatables
+            $timeout(function () {
+              // Show datatable & hide loading
+              $elem.show();
+              $loading.hide();
+              // Condition to refresh the dataTable
+              if (oTable) {
+                if (angular.isDefined(oTable.fnReloadAjax) && angular.isFunction(oTable.fnReloadAjax)) {
+                  // Reload Ajax data using the plugin "fnReloadAjax": https://next.datatables.net/plug-ins/api/fnReloadAjax
+                  // For DataTable v1.9.4
+                  oTable.fnReloadAjax(options.sAjaxSource);
+                } else if (angular.isDefined(oTable.ajax) && angular.isFunction(oTable.ajax.reload)) {
+                  // For DataTable v1.10+, DT provides methods https://datatables.net/reference/api/ajax.url()
+                  oTable.ajax.url(options.sAjaxSource).load();
+                } else {
+                  throw new Error('Reload Ajax not supported. Please use the plugin "fnReloadAjax" (https://next.datatables.net/plug-ins/api/fnReloadAjax) or use a more recent version of DataTables (v1.10+)');
+                }
+              } else {
+                oTable = $elem.DataTable(options);
+              }
+            }, 0, false);
           });
         };
         return renderer;
