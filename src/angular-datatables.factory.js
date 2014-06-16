@@ -48,6 +48,7 @@
          * @param dataPromise the promise to fetch the data
          */
         var DTOptions = function(sAjaxSource, dataPromise) {
+            this.reload = false;
             this.sAjaxSource = sAjaxSource;
             this.dataPromise = dataPromise;
 
@@ -95,6 +96,11 @@
              */
             var fromNullable = function(obj) {
                 return new Optional(obj);
+            };
+
+            this.reloadData = function() {
+                this.reload = true;
+                return this;
             };
 
             /**

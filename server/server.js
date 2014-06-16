@@ -19,16 +19,15 @@
         return array[randomNumber(array.length)];
     };
     
-    var userList = [];
-    for (var index = 0; index < 3000; index++) {
-        userList.push({
-            id: randomNumber(10000),
-            firstName: randomInArray(firstNameList),
-            lastName: randomInArray(lastNameList)
-        })
-    }
-    
     app.get('/data', function(req, res) {
+        var userList = [];
+        for (var index = 0; index < 3000; index++) {
+            userList.push({
+                id: randomNumber(10000),
+                firstName: randomInArray(firstNameList),
+                lastName: randomInArray(lastNameList)
+            })
+        }
         res.json(userList);
     });
     

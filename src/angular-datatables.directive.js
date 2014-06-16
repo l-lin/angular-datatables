@@ -8,12 +8,18 @@
     }).
     directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY) {
         var $loading = angular.element('<h3>Loading...</h3>');
+        var _showLoading = function ($elem) {
+            $elem.after($loading);
+            $elem.hide();
+        };
+        var _hideLoading = function ($elem) {
+            $elem.show();
+            $loading.hide();
+        };
         var _doRenderDataTable = function($elem, options) {
             // Add $timeout to be sure that angular has finished rendering before calling datatables
             $timeout(function() {
-                // Show datatable & hide loading
-                $elem.show();
-                $loading.hide();
+                _hideLoading($elem);
                 $elem.DataTable(options);
             }, 0, false);
         };
@@ -28,7 +34,7 @@
                 }
                 if (angular.isDefined(options)) {
                     if (angular.isObject(options.dataPromise)) {
-                        return new PromiseDTRenderer(options);
+                        return new PromiseRenderer(options);
                     }
                     if (angular.isDefined(options.sAjaxSource)) {
                         return new AjaxRenderer(options);
@@ -44,13 +50,12 @@
          * @constructor
          */
         var DefaultRenderer = function(options) {
-            var renderer = {
-                options: options
+            return {
+                options: options,
+                render: function ($scope, $elem) {
+                    _doRenderDataTable($elem, this.options);
+                }
             };
-            renderer.render = function($scope, $elem) {
-                _doRenderDataTable($elem, renderer.options);
-            };
-            return renderer;
         };
 
         /**
@@ -60,15 +65,15 @@
          * @constructor
          */
         var NGRenderer = function(options) {
-            var renderer = {
-                options: options
+            return {
+                options: options,
+                render: function ($scope, $elem) {
+                    var _this = this;
+                    $scope.$on(DT_LAST_ROW_KEY, function () {
+                        _doRenderDataTable($elem, _this.options);
+                    });
+                }
             };
-            renderer.render = function ($scope, $elem) {
-                $scope.$on(DT_LAST_ROW_KEY, function () {
-                    _doRenderDataTable($elem, renderer.options);
-                });
-            };
-            return renderer;
         };
 
         /**
@@ -77,35 +82,47 @@
          * @returns {{options: *}} the renderer
          * @constructor
          */
-        var PromiseDTRenderer = function(options) {
-            var renderer = {
-                options: options
-            }, oTable;
-            renderer.render = function($scope, $elem) {
-                // Watch changes
-                $scope.$watch('dtOptions.dataPromise', function(promise) {
-                    promise.then(function(data) {
-                        options.aaData = data;
-                        // Add $timeout to be sure that angular has finished rendering before calling datatables
-                        $timeout(function() {
-                            // Show datatable & hide loading
-                            $elem.show();
-                            $loading.hide();
-                            // Set it to true in order to be able to redraw the dataTable
-                            options.bDestroy = true;
-                            // Condition to refresh the dataTable
-                            if (oTable) {
-                                oTable.fnClearTable();
-                                oTable.fnDraw();
-                                oTable.fnAddData(options.aaData);
-                            } else {
-                                oTable = $elem.DataTable(options);
-                            }
-                        }, 0, false);
-                    });
-                });
+        var PromiseRenderer = function(options) {
+            var oTable;
+            var _render = function (options, $elem, data) {
+                options.aaData = data;
+                // Add $timeout to be sure that angular has finished rendering before calling datatables
+                $timeout(function () {
+                    _hideLoading($elem);
+                    // Set it to true in order to be able to redraw the dataTable
+                    options.bDestroy = true;
+                    // Condition to refresh the dataTable
+                    if (oTable) {
+                        oTable.fnClearTable();
+                        oTable.fnDraw();
+                        oTable.fnAddData(options.aaData);
+                    } else {
+                        oTable = $elem.DataTable(options);
+                    }
+                }, 0, false);
             };
-            return renderer;
+            return {
+                options: options,
+                render: function ($scope, $elem) {
+                    var _this = this;
+                    // Watch changes
+                    $scope.$watch('dtOptions.dataPromise', function (promise) {
+                        _showLoading($elem);
+                        promise.then(function (data) {
+                            _render(_this.options, $elem, data);
+                        });
+                    });
+                    $scope.$watch('dtOptions.reload', function (reload) {
+                        if (reload) {
+                            $scope.dtOptions.reload = false;
+                            _showLoading($elem);
+                            $scope.dtOptions.dataPromise.then(function (data) {
+                                _render(_this.options, $elem, data);
+                            });
+                        }
+                    });
+                }
+            };
         };
 
         /**
@@ -115,46 +132,54 @@
          * @constructor
          */
         var AjaxRenderer = function (options) {
-            var renderer = {
-                options: options
-            }, oTable;
-            renderer.render = function($scope, $elem) {
-                // Define default values in case it is an ajax datatables
-                if (angular.isUndefined(options.sAjaxDataProp)) {
-                    options.sAjaxDataProp = DT_DEFAULT_OPTIONS.sAjaxDataProp;
-                }
-                if (angular.isUndefined(options.aoColumns)) {
-                    options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
-                }
-                $scope.$watch('dtOptions.sAjaxSource', function(sAjaxSource) {
-                    options.sAjaxSource = sAjaxSource;
-                    options.ajax = sAjaxSource;
-                    // Set it to true in order to be able to redraw the dataTable
-                    options.bDestroy = true;
-                    // Add $timeout to be sure that angular has finished rendering before calling datatables
-                    $timeout(function() {
-                        // Show datatable & hide loading
-                        $elem.show();
-                        $loading.hide();
-                        // Condition to refresh the dataTable
-                        if (oTable) {
-                            if (angular.isDefined(oTable.fnReloadAjax) && angular.isFunction(oTable.fnReloadAjax)) {
-                                // Reload Ajax data using the plugin "fnReloadAjax": https://next.datatables.net/plug-ins/api/fnReloadAjax
-                                // For DataTable v1.9.4
-                                oTable.fnReloadAjax(options.sAjaxSource);
-                            } else if (angular.isDefined(oTable.ajax) && angular.isFunction(oTable.ajax.reload)) {
-                                // For DataTable v1.10+, DT provides methods https://datatables.net/reference/api/ajax.url()
-                                oTable.ajax.url(options.sAjaxSource).load();
-                            } else {
-                                throw new Error('Reload Ajax not supported. Please use the plugin "fnReloadAjax" (https://next.datatables.net/plug-ins/api/fnReloadAjax) or use a more recent version of DataTables (v1.10+)');
-                            }
+            var oTable;
+            var _render = function (options, $elem) {
+                // Set it to true in order to be able to redraw the dataTable
+                options.bDestroy = true;
+                // Add $timeout to be sure that angular has finished rendering before calling datatables
+                $timeout(function () {
+                    _hideLoading($elem);
+                    // Condition to refresh the dataTable
+                    if (oTable) {
+                        if (angular.isDefined(oTable.fnReloadAjax) && angular.isFunction(oTable.fnReloadAjax)) {
+                            // Reload Ajax data using the plugin "fnReloadAjax": https://next.datatables.net/plug-ins/api/fnReloadAjax
+                            // For DataTable v1.9.4
+                            oTable.fnReloadAjax(options.sAjaxSource);
+                        } else if (angular.isDefined(oTable.ajax) && angular.isFunction(oTable.ajax.load)) {
+                            // For DataTable v1.10+, DT provides methods https://datatables.net/reference/api/ajax.url()
+                            oTable.ajax.url(options.sAjaxSource).load();
                         } else {
-                            oTable = $elem.DataTable(options);
+                            throw new Error('Reload Ajax not supported. Please use the plugin "fnReloadAjax" (https://next.datatables.net/plug-ins/api/fnReloadAjax) or use a more recent version of DataTables (v1.10+)');
                         }
-                    }, 0, false);
-                });
+                    } else {
+                        oTable = $elem.DataTable(options);
+                    }
+                }, 0, false);
             };
-            return renderer;
+            return {
+                options: options,
+                render: function ($scope, $elem) {
+                    var _this = this;
+                    // Define default values in case it is an ajax datatables
+                    if (angular.isUndefined(_this.options.sAjaxDataProp)) {
+                        _this.options.sAjaxDataProp = DT_DEFAULT_OPTIONS.sAjaxDataProp;
+                    }
+                    if (angular.isUndefined(_this.options.aoColumns)) {
+                        _this.options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
+                    }
+                    $scope.$watch('dtOptions.sAjaxSource', function (sAjaxSource) {
+                        _this.options.sAjaxSource = sAjaxSource;
+                        _this.options.ajax = sAjaxSource;
+                        _render(options, $elem);
+                    });
+                    $scope.$watch('dtOptions.reload', function (reload) {
+                        if (reload) {
+                            $scope.dtOptions.reload = false;
+                            _render(options, $elem);
+                        }
+                    });
+                }
+            };
         };
 
         return {
@@ -165,9 +190,7 @@
                 datatable: '@'
             },
             link: function($scope, $elem) {
-                // Display loading
-                $elem.after($loading);
-                $elem.hide();
+                _showLoading($elem);
 
                 // Build options
                 var isNgDisplay = $scope.datatable && $scope.datatable === 'ng',

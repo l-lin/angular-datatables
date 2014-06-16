@@ -43,20 +43,26 @@
     			</header>
     			<section class="article-content" ng-include="'demo/partials/getting_started.html'"></section>
     		</article>
-    		<article class="main-content">
+    		<article class="main-content showcases">
     		    <header class="article-header">
     			    <h1><i class="fa fa-play faa-horizontal animated"></i>&nbsp;Usage</h1>
     		    </header>
-                <section id="example-zero-config" class="article-content" ng-include="'demo/partials/zero_config.html'"></section>
-                <section id="example-with-options" class="article-content" ng-include="'demo/partials/with_options.html'"></section>
-                <section id="example-with-promise" class="article-content" ng-include="'demo/partials/with_promise.html'"></section>
-                <section id="example-with-ajax" class="article-content" ng-include="'demo/partials/with_ajax.html'"></section>
-                <section id="example-with-angular-way" class="article-content" ng-include="'demo/partials/angular_way.html'"></section>
-                <section id="example-with-col-reorder" class="article-content" ng-include="'demo/partials/with_col_reorder.html'"></section>
-                <section id="example-with-col-vis" class="article-content" ng-include="'demo/partials/with_col_vis.html'"></section>
-                <section id="example-with-table-tools" class="article-content" ng-include="'demo/partials/with_table_tools.html'"></section>
-                <section id="example-bootstrap" class="article-content" ng-include="'demo/partials/bootstrap.html'"></section>
-                <section id="example-all-in-one" class="article-content" ng-include="'demo/partials/all_in_one.html'"></section>
+
+                <!-- For test purpose -->
+                <!--<section id="test" class="showcase" ng-include="'demo/partials/test.html'"></section>-->
+
+                <section id="example-zero-config" class="showcase" ng-include="'demo/partials/zero_config.html'"></section>
+                <section id="example-with-options" class="showcase" ng-include="'demo/partials/with_options.html'"></section>
+                <section id="example-with-promise" class="showcase" ng-include="'demo/partials/with_promise.html'"></section>
+                <section id="example-with-promise" class="showcase" ng-include="'demo/partials/data_reload_with_promise.html'"></section>
+                <section id="example-with-ajax" class="showcase" ng-include="'demo/partials/with_ajax.html'"></section>
+                <section id="example-with-promise" class="showcase" ng-include="'demo/partials/data_reload_with_ajax.html'"></section>
+                <section id="example-with-angular-way" class="showcase" ng-include="'demo/partials/angular_way.html'"></section>
+                <section id="example-with-col-reorder" class="showcase" ng-include="'demo/partials/with_col_reorder.html'"></section>
+                <section id="example-with-col-vis" class="showcase" ng-include="'demo/partials/with_col_vis.html'"></section>
+                <section id="example-with-table-tools" class="showcase" ng-include="'demo/partials/with_table_tools.html'"></section>
+                <section id="example-bootstrap" class="showcase" ng-include="'demo/partials/bootstrap.html'"></section>
+                <section id="example-all-in-one" class="showcase" ng-include="'demo/partials/all_in_one.html'"></section>
     		</article>
     		<article class="main-content">
     		    <header class="article-header">
@@ -75,7 +81,9 @@
 
     <script src="vendor/jquery/dist/jquery.min.js"></script>
 	<script src="vendor/angular/angular.min.js"></script>
+    <script src="vendor/angular-resource/angular-resource.min.js"></script>
 	<script src="vendor/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/505bef35b56/api/fnReloadAjax.js"></script>
 	<script src="vendor/datatables-colreorder/js/dataTables.colReorder.js"></script>
 	<script src="vendor/datatables-colvis/js/dataTables.colVis.js"></script>
 	<script src="vendor/datatables-tabletools/js/dataTables.tableTools.js"></script>
