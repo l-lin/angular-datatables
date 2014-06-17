@@ -33,7 +33,7 @@
                     return new NGRenderer(options);
                 }
                 if (angular.isDefined(options)) {
-                    if (angular.isObject(options.dataPromise)) {
+                    if (angular.isFunction(options.fnPromise)) {
                         return new PromiseRenderer(options);
                     }
                     if (angular.isDefined(options.sAjaxSource)) {
@@ -105,20 +105,36 @@
                 options: options,
                 render: function ($scope, $elem) {
                     var _this = this;
-                    // Watch changes
-                    $scope.$watch('dtOptions.dataPromise', function (promise) {
+                    var _loadedPromise = null;
+                    var _whenLoaded = function (data) {
+                        _render(_this.options, $elem, data);
+                        _loadedPromise = null;
+                    };
+                    var _startLoading = function (fnPromise) {
+                        _loadedPromise = fnPromise();
                         _showLoading($elem);
-                        promise.then(function (data) {
-                            _render(_this.options, $elem, data);
-                        });
+                        _loadedPromise.then(_whenLoaded);
+                    };
+                    var _reload = function (fnPromise) {
+                        if (_loadedPromise) {
+                            _loadedPromise.then(function() {
+                                _startLoading(fnPromise);
+                            });
+                        } else {
+                            _startLoading(fnPromise);
+                        }
+                    };
+                    $scope.$watch('dtOptions.fnPromise', function (fnPromise) {
+                        if (angular.isFunction(fnPromise)) {
+                            _reload(fnPromise);
+                        } else {
+                            throw new Error('You must provide a function that returns a promise!');
+                        }
                     });
                     $scope.$watch('dtOptions.reload', function (reload) {
                         if (reload) {
                             $scope.dtOptions.reload = false;
-                            _showLoading($elem);
-                            $scope.dtOptions.dataPromise.then(function (data) {
-                                _render(_this.options, $elem, data);
-                            });
+                            _reload($scope.dtOptions.fnPromise);
                         }
                     });
                 }

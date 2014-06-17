@@ -22,11 +22,11 @@
     controller('sampleCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder, sampleFactory) {
         $scope.reload = function() {
             $scope.dtOptions.reloadData();
-//            $scope.dtOptions.dataPromise = sampleFactory.getData();
+//            $scope.dtOptions.fnPromise = sampleFactory.getData();
         };
         $scope.changeData = function() {
-            $scope.dtOptions.sAjaxSource = 'data1.json';
-            $scope.dtOptions.dataPromise = sampleFactory.getData1();
+//            $scope.dtOptions.sAjaxSource = 'data1.json';
+            $scope.dtOptions.fnPromise = sampleFactory.getData1;
         };
 
         $scope.persons = [];
@@ -34,8 +34,8 @@
             $scope.persons = persons;
         });
 
-        $scope.dtOptions = DTOptionsBuilder.fromSource('data').withPaginationType('full_numbers');
-//        $scope.dtOptions = DTOptionsBuilder.fromPromise(sampleFactory.getData()).withPaginationType('full_numbers');
+//        $scope.dtOptions = DTOptionsBuilder.fromSource('data').withPaginationType('full_numbers');
+        $scope.dtOptions = DTOptionsBuilder.fromFnPromise(sampleFactory.getData).withPaginationType('full_numbers');
 //        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
 
         $scope.dtColumns = [
