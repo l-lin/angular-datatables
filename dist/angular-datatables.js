@@ -335,7 +335,7 @@
               if (angular.isDefined(fnPromise)) {
                 _reload(fnPromise);
               } else {
-                throw new Error('You must provide a function that returns a promise!');
+                throw new Error('You must provide a promise or a function that returns a promise!');
               }
             });
             $scope.$watch('dtOptions.reload', function (reload) {
