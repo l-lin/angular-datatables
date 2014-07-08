@@ -33,7 +33,7 @@
                     return new NGRenderer(options);
                 }
                 if (angular.isDefined(options)) {
-                    if (angular.isFunction(options.fnPromise)) {
+                    if (angular.isDefined(options.fnPromise)) {
                         return new PromiseRenderer(options);
                     }
                     if (angular.isDefined(options.sAjaxSource)) {
@@ -111,7 +111,11 @@
                         _loadedPromise = null;
                     };
                     var _startLoading = function (fnPromise) {
-                        _loadedPromise = fnPromise();
+                        if(angular.isFunction(fnPromise)){
+                            _loadedPromise = fnPromise();
+                        } else {
+                            _loadedPromise = fnPromise;
+                        }
                         _showLoading($elem);
                         _loadedPromise.then(_whenLoaded);
                     };
@@ -125,7 +129,7 @@
                         }
                     };
                     $scope.$watch('dtOptions.fnPromise', function (fnPromise) {
-                        if (angular.isFunction(fnPromise)) {
+                        if (angular.isDefined(fnPromise)) {
                             _reload(fnPromise);
                         } else {
                             throw new Error('You must provide a function that returns a promise!');
