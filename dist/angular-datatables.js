@@ -239,10 +239,10 @@
               return new NGRenderer(options);
             }
             if (angular.isDefined(options)) {
-              if (angular.isDefined(options.fnPromise)) {
+              if (angular.isDefined(options.fnPromise) && options.fnPromise !== null) {
                 return new PromiseRenderer(options);
               }
-              if (angular.isDefined(options.sAjaxSource)) {
+              if (angular.isDefined(options.sAjaxSource) && options.sAjaxSource !== null) {
                 return new AjaxRenderer(options);
               }
               return new DefaultRenderer(options);
