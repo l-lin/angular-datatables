@@ -16,11 +16,12 @@
             $elem.show();
             $loading.hide();
         };
-        var _doRenderDataTable = function($elem, options) {
+        var _doRenderDataTable = function($elem, options, $scope) {
             // Add $timeout to be sure that angular has finished rendering before calling datatables
             $timeout(function() {
                 _hideLoading($elem);
                 $elem.DataTable(options);
+                $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id') });
             }, 0, false);
         };
 
@@ -53,7 +54,7 @@
             return {
                 options: options,
                 render: function ($scope, $elem) {
-                    _doRenderDataTable($elem, this.options);
+                    _doRenderDataTable($elem, this.options, $scope);
                 }
             };
         };
@@ -70,7 +71,7 @@
                 render: function ($scope, $elem) {
                     var _this = this;
                     $scope.$on(DT_LAST_ROW_KEY, function () {
-                        _doRenderDataTable($elem, _this.options);
+                        _doRenderDataTable($elem, _this.options, $scope);
                     });
                 }
             };
