@@ -59,15 +59,29 @@ Declare dependencies on your module app like this:
 angular.module('myModule', ['datatables']);
 ```
 
-Additional notes
-----------------
-
-This module does not support multiple datatables in the same page YET!
-
 Usage
 -----
 
 See [github page](https://l-lin.github.io/angular-datatables).
+
+Additional notes
+----------------
+
+Each time a datatable is rendered, a message is sent to the parent scopes with the id of the table.
+
+For instance, for the given dataTable:
+
+```html
+<table id="foobar" datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
+```
+
+You can catch the event like this in your parent directive or controller:
+
+```js
+$scope.$on('event:dataTableLoaded', function(event, loadedDT) {
+    // loadedDT === {"id": "foobar"}
+});
+```
 
 License
 ================

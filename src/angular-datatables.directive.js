@@ -16,12 +16,16 @@
             $elem.show();
             $loading.hide();
         };
+        var _renderDataTableAndEmitEvent = function ($elem, options, $scope) {
+            var oTable = $elem.DataTable(options);
+            $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id') });
+            return oTable;
+        };
         var _doRenderDataTable = function($elem, options, $scope) {
             // Add $timeout to be sure that angular has finished rendering before calling datatables
             $timeout(function() {
                 _hideLoading($elem);
-                $elem.DataTable(options);
-                $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id') });
+                _renderDataTableAndEmitEvent($elem, options, $scope);
             }, 0, false);
         };
 
@@ -85,7 +89,7 @@
          */
         var PromiseRenderer = function(options) {
             var oTable;
-            var _render = function (options, $elem, data) {
+            var _render = function (options, $elem, data, $scope) {
                 options.aaData = data;
                 // Add $timeout to be sure that angular has finished rendering before calling datatables
                 $timeout(function () {
@@ -98,7 +102,7 @@
                         oTable.fnDraw();
                         oTable.fnAddData(options.aaData);
                     } else {
-                        oTable = $elem.DataTable(options);
+                        oTable = _renderDataTableAndEmitEvent($elem, options, $scope);
                     }
                 }, 0, false);
             };
@@ -108,7 +112,7 @@
                     var _this = this;
                     var _loadedPromise = null;
                     var _whenLoaded = function (data) {
-                        _render(_this.options, $elem, data);
+                        _render(_this.options, $elem, data, $scope);
                         _loadedPromise = null;
                     };
                     var _startLoading = function (fnPromise) {
@@ -154,7 +158,7 @@
          */
         var AjaxRenderer = function (options) {
             var oTable;
-            var _render = function (options, $elem) {
+            var _render = function (options, $elem, $scope) {
                 // Set it to true in order to be able to redraw the dataTable
                 options.bDestroy = true;
                 // Add $timeout to be sure that angular has finished rendering before calling datatables
@@ -173,7 +177,7 @@
                             throw new Error('Reload Ajax not supported. Please use the plugin "fnReloadAjax" (https://next.datatables.net/plug-ins/api/fnReloadAjax) or use a more recent version of DataTables (v1.10+)');
                         }
                     } else {
-                        oTable = $elem.DataTable(options);
+                        oTable = _renderDataTableAndEmitEvent($elem, options, $scope);
                     }
                 }, 0, false);
             };
@@ -191,12 +195,12 @@
                     $scope.$watch('dtOptions.sAjaxSource', function (sAjaxSource) {
                         _this.options.sAjaxSource = sAjaxSource;
                         _this.options.ajax = sAjaxSource;
-                        _render(options, $elem);
+                        _render(options, $elem, $scope);
                     });
                     $scope.$watch('dtOptions.reload', function (reload) {
                         if (reload) {
                             $scope.dtOptions.reload = false;
-                            _render(options, $elem);
+                            _render(options, $elem, $scope);
                         }
                     });
                 }
