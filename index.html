@@ -12,12 +12,13 @@
 	<link rel="icon" type="image/png" href="favicon.png">
 
 	<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="vendor/font-awesome-animation/font-awesome-animation.min.css">
+	<link rel="stylesheet" href="vendor/font-awesome-animation/dist/font-awesome-animation.min.css">
 	<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="vendor/datatables/media/css/jquery.dataTables.css">
 	<link rel="stylesheet" href="vendor/datatables-colreorder/css/dataTables.colReorder.css">
 	<link rel="stylesheet" href="vendor/datatables-colvis/css/dataTables.colVis.css">
 	<link rel="stylesheet" href="vendor/datatables-tabletools/css/dataTables.tableTools.css">
+    <link rel="stylesheet" href="vendor/backtotop/backtotop.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="styles/main.css">
 	<link rel="stylesheet" href="styles/monokai.css">
@@ -36,41 +37,8 @@
 	</header>
 
 	<div class="main-container">
-    	<div class="container">
-    		<article class="main-content">
-    			<header class="article-header">
-    			    <h1><i class="fa fa-gear faa-spin animated"></i>&nbsp;Getting started</h1>
-    			</header>
-    			<section class="article-content" ng-include="'demo/partials/getting_started.html'"></section>
-    		</article>
-    		<article class="main-content showcases">
-    		    <header class="article-header">
-    			    <h1><i class="fa fa-play faa-horizontal animated"></i>&nbsp;Usage</h1>
-    		    </header>
-
-                <!-- For test purpose -->
-                <!--<section id="test" class="showcase" ng-include="'demo/partials/test.html'"></section>-->
-
-                <section id="example-zero-config" class="showcase" ng-include="'demo/partials/zero_config.html'"></section>
-                <section id="example-with-options" class="showcase" ng-include="'demo/partials/with_options.html'"></section>
-                <section id="example-with-promise" class="showcase" ng-include="'demo/partials/with_promise.html'"></section>
-                <section id="example-data-reload-with-promise" class="showcase" ng-include="'demo/partials/data_reload_with_promise.html'"></section>
-                <section id="example-with-ajax" class="showcase" ng-include="'demo/partials/with_ajax.html'"></section>
-                <section id="example-data-reload-with-ajax" class="showcase" ng-include="'demo/partials/data_reload_with_ajax.html'"></section>
-                <section id="example-with-angular-way" class="showcase" ng-include="'demo/partials/angular_way.html'"></section>
-                <section id="example-with-col-reorder" class="showcase" ng-include="'demo/partials/with_col_reorder.html'"></section>
-                <section id="example-with-col-vis" class="showcase" ng-include="'demo/partials/with_col_vis.html'"></section>
-                <section id="example-with-table-tools" class="showcase" ng-include="'demo/partials/with_table_tools.html'"></section>
-                <section id="example-bootstrap" class="showcase" ng-include="'demo/partials/bootstrap.html'"></section>
-                <section id="example-all-in-one" class="showcase" ng-include="'demo/partials/all_in_one.html'"></section>
-    		</article>
-    		<article class="main-content">
-    		    <header class="article-header">
-    		        <h1><i class="fa fa-book"></i>&nbsp;API</h1>
-    		    </header>
-    		    <section ng-controller="apiCtrl" class="article-content" ng-include="'demo/partials/api.html'"></section>
-    		</article>
-    	</div>
+        <aside class="sidebar" ng-include="'demo/partials/sidebar.html'"></aside>
+        <article ui-view class="main-content"></article>
 	</div>
 
 	<footer class="footer">
@@ -80,8 +48,10 @@
 	</footer>
 
     <script src="vendor/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/backtotop/backtotop.min.js"></script>
 	<script src="vendor/angular/angular.min.js"></script>
     <script src="vendor/angular-resource/angular-resource.min.js"></script>
+    <script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script src="vendor/datatables/media/js/jquery.dataTables.js"></script>
     <script src="//cdn.datatables.net/plug-ins/505bef35b56/api/fnReloadAjax.js"></script>
 	<script src="vendor/datatables-colreorder/js/dataTables.colReorder.js"></script>

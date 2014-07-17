@@ -1,37 +1,39 @@
-<h3 ng-click="isCollapsed = !isCollapsed" class="btn btn-info">
-    The Angular way
-</h3>
-<div class="article-content" collapse="!isCollapsed">
-    <p>
-        You can construct your table the "angular" way, eg using the directive <code>ng-repeat</code> on <code>tr</code> tag.
-        All you need to do is to add the directive <code>datatable</code> and <code>dt-rows</code> on your table in order
-        to make it rendered with DataTables.
-    </p>
-    <iframe class="demo-preview" height="420px" src="http://embed.plnkr.co/zVJ1nLLPgExl3N2Sfqrj/preview"></iframe>
-    <p>
-        You can also provide datatable options and datatable column options with the directive
-        <code>dt-options</code> and <code>dt-columns</code>:
-    </p>
-    <iframe class="demo-preview" height="200px" src="http://embed.plnkr.co/QI2Nv8KoARStqCzc69ko/preview"></iframe>
-    <p>
-        <strong>Note:</strong>
-    </p>
-    <ul>
-        <li>
-            The options do not override what you define in your template. It will just append its properties.
-        </li>
-        <li>
-            If you use the Angular way of rendering the table along with the Ajax or the promise solution, the latter
-            will be display.
-        </li>
-        <li>
-            The Angular way is less performant than fetching the data with the Ajax/promise solutions. The lack of
-            performance is due to the fact that Angular add the 2 way databinding to the data, which the ajax/promise solutions
-            does not. However, you can use Angular directive (<code>ng-click</code>, <code>ng-controller</code>...) in there!
-        </li>
-        <li>
-            Don't forget to set the properties <code>ng</code> in the directive <code>datatable</code> in order to tell the directive to use
-            the Angular way!
-        </li>
-    </ul>
-</div>
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;The Angular way</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            You can construct your table the "angular" way, eg using the directive <code>ng-repeat</code> on <code>tr</code> tag.
+            All you need to do is to add the directive <code>datatable</code> and <code>dt-rows</code> on your table in order
+            to make it rendered with DataTables.
+        </p>
+        <iframe class="demo-preview" height="420px" src="http://embed.plnkr.co/zVJ1nLLPgExl3N2Sfqrj/preview"></iframe>
+        <p>
+            You can also provide datatable options and datatable column options with the directive
+            <code>dt-options</code> and <code>dt-columns</code>:
+        </p>
+        <iframe class="demo-preview" height="200px" src="http://embed.plnkr.co/QI2Nv8KoARStqCzc69ko/preview"></iframe>
+        <p>
+            <strong>Note:</strong>
+        </p>
+        <ul>
+            <li>
+                The options do not override what you define in your template. It will just append its properties.
+            </li>
+            <li>
+                If you use the Angular way of rendering the table along with the Ajax or the promise solution, the latter
+                will be display.
+            </li>
+            <li>
+                The Angular way is less performant than fetching the data with the Ajax/promise solutions. The lack of
+                performance is due to the fact that Angular add the 2 way databinding to the data, which the ajax/promise solutions
+                does not. However, you can use Angular directive (<code>ng-click</code>, <code>ng-controller</code>...) in there!
+            </li>
+            <li>
+                Don't forget to set the properties <code>ng</code> in the directive <code>datatable</code> in order to tell the directive to use
+                the Angular way!
+            </li>
+        </ul>
+    </section>
+</article>

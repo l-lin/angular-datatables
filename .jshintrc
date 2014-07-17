@@ -25,7 +25,7 @@
     "DataTable": false,
     "after": false,
     "afterEach": false,
-    "angular": false,
+    "backToTop": false,
     "before": false,
     "beforeEach": false,
     "browser": false,
