@@ -1,4 +1,4 @@
-<article class="main-content">
+<article class="main-content api">
     <header class="article-header">
         <h1><i class="fa fa-book"></i>&nbsp;API</h1>
     </header>
@@ -21,13 +21,11 @@
             <td><code>setLanguageSource(sLanguageSource)</code></td>
             <td>
                 Set the default language source for all datatables.
-                <div class="highlight">
-    <pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
-        <span class="nx">run</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$DTDefaultOptions</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">$DTDefaultOptions</span><span class="p">.</span><span class="nx">setLanguageSource</span><span class="p">(</span><span class="s1">'/path/to/language'</span><span class="p">);</span>
-        <span class="p">});</span>
-    </code></pre>
-                </div>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function($DTDefaultOptions) {
+    $DTDefaultOptions.setLanguageSource('/path/to/language');
+});
+</div>
             </td>
         </tr>
         <tr>
@@ -40,13 +38,12 @@
             <td><code>setDisplayLength(iDisplayLength)</code></td>
             <td>
                 Set the default numbers of items to display for all datatables.
-                <div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
-                    <span class="nx">run</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$DTDefaultOptions</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="c1">// Display 25 items per page by default</span>
-                    <span class="nx">$DTDefaultOptions</span><span class="p">.</span><span class="nx">setDisplayLength</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
-                    <span class="p">});</span>
-                </code></pre>
-                </div>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function($DTDefaultOptions) {
+    // Display 25 items per page by default
+    $DTDefaultOptions.setDisplayLength(25);
+});
+</div>
             </td>
         </tr>
         </tbody>
@@ -86,17 +83,15 @@
             <td><code>withOption(key, value)</code></td>
             <td>
                 Add an option to the wrapped datatables options. For example, the following code add the option <code>fnRowCallback</code>:
-                <div class="highlight">
-<pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
-    <span class="nx">controller</span><span class="p">(</span><span class="s1">'myCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">DTOptionsBuilder</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">dtOptions</span> <span class="o">=</span> <span class="nx">DTOptionsBuilder</span><span class="p">.</span><span class="nx">newOptions</span><span class="p">()</span>
-    <span class="p">.</span><span class="nx">withOption</span><span class="p">(</span><span class="s1">'fnRowCallback'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nRow</span><span class="p">,</span> <span class="nx">aData</span><span class="p">,</span> <span class="nx">iDisplayIndex</span><span class="p">,</span> <span class="nx">iDisplayIndexFull</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">aData</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nx">nRow</span><span class="p">;</span>
-    <span class="p">});</span>
-    <span class="p">});</span>
-</code></pre>
-                </div>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('myCtrl', function($scope, DTOptionsBuilder) {
+    $scope.dtOptions = DTOptionsBuilder.newOptions()
+        .withOption('fnRowCallback', function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            console.log(aData);
+            return nRow;
+        });
+});
+</div>
             </td>
         </tr>
         <tr>
@@ -216,15 +211,13 @@
             <td><code>withOption(key, value)</code></td>
             <td>
                 Add the option of the column. For example, the following code add the option <code>sContentPadding</code>:
-                <div class="highlight">
-    <pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
-        <span class="nx">controller</span><span class="p">(</span><span class="s1">'myCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">DTColumnBuilder</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">$scope</span><span class="p">.</span><span class="nx">dtColumns</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="nx">DTColumnBuilder</span><span class="p">.</span><span class="nx">newColumn</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">).</span><span class="nx">withOption</span><span class="p">(</span><span class="s1">'sContentPadding'</span><span class="p">,</span> <span class="s1">'mmm'</span><span class="p">)</span>
-        <span class="p">];</span>
-        <span class="p">});</span>
-    </code></pre>
-                </div>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('myCtrl', function($scope, DTColumnBuilder) {
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('foo').withOption('sContentPadding', 'mmm')
+    ];
+});
+</div>
             </td>
         </tr>
         <tr>
@@ -252,22 +245,22 @@
             <td><code>renderWith(mrender)</code></td>
             <td>
                 Render each cell with the given parameter
-                <div class="highlight">
-<pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myModule'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'datatables'</span><span class="p">]).</span>
-    <span class="nx">controller</span><span class="p">(</span><span class="s1">'myCtrl'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">DTColumnBuilder</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Data fetched: {gender: 'Mr', firstName: 'foo', lastName: 'bar'}</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">dtColumns</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="nx">DTColumnBuilder</span><span class="p">.</span><span class="nx">newColumn</span><span class="p">(</span><span class="s1">'firstName'</span><span class="p">).</span><span class="nx">withLabel</span><span class="p">(</span><span class="s1">'First name'</span><span class="p">).</span><span class="nx">renderWith</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">full</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">full</span><span class="p">.</span><span class="nx">gender</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="nx">full</span><span class="p">.</span><span class="nx">firstName</span><span class="p">;</span>
-    <span class="p">});</span>
-    <span class="p">];</span>
-    <span class="p">});</span>
-</code></pre>
-                </div>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('myCtrl', function($scope, DTColumnBuilder) {
+    // Data fetched: {gender: 'Mr', firstName: 'foo', lastName: 'bar'}
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('firstName').withLabel('First name').renderWith(function(data, type, full) {
+            return full.gender + ' ' + full.firstName;
+        });
+    ];
+});
+</div>
             </td>
         </tr>
         </tbody>
     </table>
 
     </section>
+
+    <section class="showcase"></section>
 </article>

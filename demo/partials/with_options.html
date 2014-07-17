@@ -9,6 +9,80 @@
         <p>
             See the API for the complete list of methods of the helper.
         </p>
-        <iframe class="demo-preview" height="230px" src="http://embed.plnkr.co/IPK3ubVDFp6SRoVHzlpW/preview"></iframe>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="withOptionsCtrl">
+                        <table datatable dt-options="dtOptions">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Foo</td>
+                                <td>Bar</td>
+                            </tr>
+                            <tr>
+                                <td>123</td>
+                                <td>Someone</td>
+                                <td>Youknow</td>
+                            </tr>
+                            <tr>
+                                <td>987</td>
+                                <td>Iamout</td>
+                                <td>Ofinspiration</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="withOptionsCtrl">
+    <table datatable dt-options="dtOptions">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Foo</td>
+            <td>Bar</td>
+        </tr>
+        <tr>
+            <td>123</td>
+            <td>Someone</td>
+            <td>Youknow</td>
+        </tr>
+        <tr>
+            <td>987</td>
+            <td>Iamout</td>
+            <td>Ofinspiration</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['datatables']).controller('withOptionsCtrl', function ($scope, DTOptionsBuilder) {
+    $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(2);
+});
+</div>
+            </tab>
+        </tabset>
     </section>
 </article>

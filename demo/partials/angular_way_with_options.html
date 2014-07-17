@@ -1,0 +1,97 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;The Angular way with options</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            You can also provide datatable options and datatable column options with the directive
+            <code>dt-options</code> and <code>dt-columns</code>:
+        </p>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="angularWayWithOptionsCtrl">
+                        <table datatable="ng" dt-options="dtOptions" dt-columns="dtColumns">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dt-rows ng-repeat="person in persons">
+                                <td>{{ person.id }}</td>
+                                <td>{{ person.firstName }}</td>
+                                <td>{{ person.lastName }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="angularWayWithOptionsCtrl">
+    <table datatable="ng" dt-options="dtOptions" dt-columns="dtColumns">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr dt-rows ng-repeat="person in persons">
+            <td>{{ person.id }}</td>
+            <td>{{ person.firstName }}</td>
+            <td>{{ person.lastName }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
+.controller('angularWayWithOptionsCtrl', function ($scope, $resource, DTOptionsBuilder, DTColumnBuilder) {
+    $scope.persons = $resource('data.json').query();
+    $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(2);
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+});
+</div>
+            </tab>
+        </tabset>
+    </section>
+
+    <section class="article-content">
+        <p>
+            <strong>Note:</strong>
+        </p>
+        <ul>
+            <li>
+                The options do not override what you define in your template. It will just append its properties.
+            </li>
+            <li>
+                If you use the Angular way of rendering the table along with the Ajax or the promise solution, the latter
+                will be display.
+            </li>
+            <li>
+                The Angular way is less efficient than fetching the data with the Ajax/promise solutions. The lack of
+                performance is due to the fact that Angular add the 2 way databinding to the data, which the ajax/promise solutions
+                does not. However, you can use Angular directive (<code>ng-click</code>, <code>ng-controller</code>...) in there!
+            </li>
+            <li>
+                Don't forget to set the properties <code>ng</code> in the directive <code>datatable</code> in order to tell the directive to use
+                the Angular way!
+            </li>
+        </ul>
+    </section>
+</article>

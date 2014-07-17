@@ -14,6 +14,50 @@
                 If you need to reload the data, you just have to call the function <code>dtOptions.reloadData();</code>.
             </li>
         </ul>
-        <iframe class="demo-preview" height="420px" src="http://embed.plnkr.co/dyySAQcMedAINzZobYPv/preview"></iframe>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="dataReloadWithPromiseCtrl">
+                        <input ng-click="reloadData()" type="button" value="Reload data"/>
+                        <input ng-click="changeData()" type="button" value="Change data"/>
+                        <table datatable="" dt-options="dtOptions" dt-columns="dtColumns"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="dataReloadWithPromiseCtrl">
+    <input ng-click="reloadData()" type="button" value="Reload data"/>
+    <input ng-click="changeData()" type="button" value="Change data"/>
+    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
+.controller('dataReloadWithPromiseCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder, $resource) {
+    $scope.reloadData = function() {
+        $scope.dtOptions.reloadData();
+    };
+    $scope.changeData = function() {
+        $scope.dtOptions.fnPromise = $resource('data1.json').query().$promise;
+    };
+
+    $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+            return $resource('data.json').query().$promise;
+        }).withPaginationType('full_numbers');
+
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+});
+</div>
+            </tab>
+        </tabset>
     </section>
 </article>

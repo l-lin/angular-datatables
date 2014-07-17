@@ -6,6 +6,75 @@
         <p>
             The <code>angular-datatables</code> provides a <code>datatables</code> directive you can add to your <code>&lt;table&gt;</code>:
         </p>
-        <iframe class="demo-preview" style="height: 230px;" src="http://embed.plnkr.co/t0Mx7vQfNHfcNkpJyLOe/preview"></iframe>
+        <!--<iframe class="demo-preview" style="height: 230px;" src="http://embed.plnkr.co/t0Mx7vQfNHfcNkpJyLOe/preview"></iframe>-->
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <table datatable>
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Foo</td>
+                            <td>Bar</td>
+                        </tr>
+                        <tr>
+                            <td>123</td>
+                            <td>Someone</td>
+                            <td>Youknow</td>
+                        </tr>
+                        <tr>
+                            <td>987</td>
+                            <td>Iamout</td>
+                            <td>Ofinspiration</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<table datatable>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>Foo</td>
+        <td>Bar</td>
+    </tr>
+    <tr>
+        <td>123</td>
+        <td>Someone</td>
+        <td>Youknow</td>
+    </tr>
+    <tr>
+        <td>987</td>
+        <td>Iamout</td>
+        <td>Ofinspiration</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['datatables']);
+</div>
+            </tab>
+        </tabset>
     </section>
 </article>

@@ -1,6 +1,6 @@
 (function(angular, backToTop) {
     'use strict';
-    angular.module('datatablesSampleApp', ['ngResource', 'datatables', 'ui.bootstrap.collapse', 'ui.bootstrap.tabs', 'ui.router']).
+    angular.module('datatablesSampleApp', ['ngResource', 'datatables', 'ui.bootstrap', 'ui.router', 'hljs']).
     controller('apiCtrl', function($scope, DTOptionsBuilder) {
         $scope.dtOptions = DTOptionsBuilder.newOptions()
             .withDisplayLength(10)
@@ -8,6 +8,12 @@
             .withColVis()
             .withOption('bAutoWidth', false)
             .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf');
+    }).
+    config(function (hljsServiceProvider) {
+        hljsServiceProvider.setOptions({
+            // replace tab with 4 spaces
+            tabReplace: '    '
+        });
     }).
     config(function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/gettingStarted');
@@ -44,6 +50,10 @@
                 url: '/angularWay',
                 templateUrl: 'demo/partials/angular_way.html'
             })
+            .state('angularWayWithOptions', {
+                url: '/angularWayWithOptions',
+                templateUrl: 'demo/partials/angular_way_with_options.html'
+            })
             .state('withColReorder', {
                 url: '/withColReorder',
                 templateUrl: 'demo/partials/with_col_reorder.html'
@@ -56,9 +66,9 @@
                 url: '/withTableTools',
                 templateUrl: 'demo/partials/with_table_tools.html'
             })
-            .state('bootstrap', {
-                url: '/bootstrap',
-                templateUrl: 'demo/partials/bootstrap.html'
+            .state('bootstrapIntegration', {
+                url: '/bootstrapIntegration',
+                templateUrl: 'demo/partials/bootstrap_integration.html'
             })
             .state('allInOne', {
                 url: '/allInOne',
@@ -68,41 +78,6 @@
                 url: '/api',
                 templateUrl: 'demo/partials/api.html'
             });
-    }).
-    factory('sampleFactory', function($resource) {
-        return {
-            getData: function() {
-                return $resource('data').query().$promise;
-            },
-            getData1: function() {
-                return $resource('data1.json').query().$promise;
-            }
-        };
-    }).
-    controller('sampleCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder, sampleFactory) {
-        $scope.reload = function() {
-            $scope.dtOptions.reloadData();
-//            $scope.dtOptions.fnPromise = sampleFactory.getData();
-        };
-        $scope.changeData = function() {
-//            $scope.dtOptions.sAjaxSource = 'data1.json';
-            $scope.dtOptions.fnPromise = sampleFactory.getData1;
-        };
-
-        $scope.persons = [];
-        sampleFactory.getData().then(function(persons) {
-            $scope.persons = persons;
-        });
-
-//        $scope.dtOptions = DTOptionsBuilder.fromSource('data').withPaginationType('full_numbers');
-        $scope.dtOptions = DTOptionsBuilder.fromFnPromise(sampleFactory.getData).withPaginationType('full_numbers');
-//        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
-
-        $scope.dtColumns = [
-            DTColumnBuilder.newColumn('id').withTitle('ID'),
-            DTColumnBuilder.newColumn('firstName').withTitle('First name'),
-            DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
-        ];
     });
 
     backToTop.init({

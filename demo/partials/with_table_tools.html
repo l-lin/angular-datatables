@@ -6,6 +6,46 @@
         <p>
             The <code>angular-datatables</code> also provides an API in order to make the plugin <code>TableTools</code> works with datatables.
         </p>
-        <iframe class="demo-preview" height="420px" src="http://embed.plnkr.co/rhITVp2zz0NAUY29N4Oz/preview"></iframe>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="withTableToolsCtrl">
+                        <table datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="withTableToolsCtrl">
+    <table datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['datatables']).controller('withTableToolsCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
+    $scope.dtOptions = DTOptionsBuilder
+        .fromSource('data.json')
+        // Add Table tools compatibility
+        .withTableTools('https://github.com/DataTables/TableTools/raw/master/swf/copy_csv_xls_pdf.swf')
+        .withTableToolsButtons([
+            'copy',
+            'print', {
+                'sExtends': 'collection',
+                'sButtonText': 'Save',
+                'aButtons': ['csv', 'xls', 'pdf']
+            }
+        ]);
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID').withClass('text-danger'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name')
+    ];
+});
+</div>
+            </tab>
+        </tabset>
     </section>
 </article>

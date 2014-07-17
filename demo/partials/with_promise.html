@@ -13,6 +13,39 @@
         <p>
             See the API for the complete list of methods of the helper.
         </p>
-        <iframe class="demo-preview" height="420px" src="http://embed.plnkr.co/B9ltNzIRCwswgHqKD5Pp/preview"></iframe>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="withPromiseCtrl">
+                        <table datatable="" dt-options="dtOptions" dt-columns="dtColumns"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="withPromiseCtrl">
+    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
+.controller('withPromiseCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder, sampleFactory) {
+    $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+            return $resource('data.json').query().$promise;
+        }).withPaginationType('full_numbers');
+
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+});
+</div>
+            </tab>
+        </tabset>
     </section>
 </article>

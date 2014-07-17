@@ -201,29 +201,29 @@ pre code {
     padding: 30px;
     border-top: 2px solid #ededed;
     border-left: 1px solid #c2c2c2;
+}
+
+.showcase {
+    border-left: 1px solid #c2c2c2;
     border-bottom: 1px solid #c2c2c2;
 }
 
-.showcase .btn {
-    width: 100%;
-    margin-top: 5px;
+.preview {
+    padding: 15px;
 }
 
-.showcase h3 {
-    margin-bottom: 0;
+.showcase pre,
+.api pre {
+    padding: 0;
+    margin: 0;
 }
 
-.showcase .article-content {
-    background-color: #fff;
+.showcase pre {
+    border: none;
 }
 
-.main-content.showcases {
-    background: #fbfbfb 50% 100% no-repeat;
-}
-
-.demo-preview {
-    width: 100%;
-    border: 1px solid #e5e5e5;
+.api pre {
+    border-radius: 0px;
 }
 
 /* ---------------------------------------- */
@@ -234,7 +234,7 @@ pre code {
     font-family: 'Open Sans', serif;
     width: 200px;
     float: left;
-    position: relative;
+    position: absolute;
     border: 1px solid #ccc;
     border-width: 0 1px 0 0;
     background-color: #f2f2f2;
@@ -358,5 +358,5 @@ pre code {
 /* ---------------------------------------- */
 
 .dataTables_wrapper {
-    display: inline-block;
+    margin-bottom: 15px;
 }

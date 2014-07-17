@@ -19,9 +19,10 @@
 	<link rel="stylesheet" href="vendor/datatables-colvis/css/dataTables.colVis.css">
 	<link rel="stylesheet" href="vendor/datatables-tabletools/css/dataTables.tableTools.css">
     <link rel="stylesheet" href="vendor/backtotop/backtotop.min.css">
-	<link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="styles/main.css">
-	<link rel="stylesheet" href="styles/monokai.css">
+    <link rel="stylesheet" href="vendor/highlightjs/styles/github.css">
+    <link href='http://fonts.googleapis.com/css?family=Gilda+Display' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="dist/datatables.bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body ng-app="datatablesSampleApp">
     <div class="github-ribbon">
@@ -47,9 +48,11 @@
 		</div>
 	</footer>
 
+    <script src="vendor/highlightjs/highlight.pack.js"></script>
     <script src="vendor/jquery/dist/jquery.min.js"></script>
     <script src="vendor/backtotop/backtotop.min.js"></script>
 	<script src="vendor/angular/angular.min.js"></script>
+    <script src="vendor/angular-highlightjs/angular-highlightjs.min.js"></script>
     <script src="vendor/angular-resource/angular-resource.min.js"></script>
     <script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
 	<script src="vendor/datatables/media/js/jquery.dataTables.js"></script>
@@ -68,5 +71,17 @@
 	<script src="src/angular-datatables.bootstrap.js"></script>
 
 	<script src="demo/app.js"></script>
+    <script src="demo/withOptions.js"></script>
+    <script src="demo/withPromise.js"></script>
+    <script src="demo/dataReloadWithPromise.js"></script>
+    <script src="demo/withAjax.js"></script>
+    <script src="demo/dataReloadWithAjax.js"></script>
+    <script src="demo/angularWay.js"></script>
+    <script src="demo/angularWayWithOptions.js"></script>
+    <script src="demo/withColReorder.js"></script>
+    <script src="demo/withColVis.js"></script>
+    <script src="demo/withTableTools.js"></script>
+    <script src="demo/bootstrapIntegration.js"></script>
+    <script src="demo/allInOne.js"></script>
 </body>
 </html>

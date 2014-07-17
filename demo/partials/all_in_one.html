@@ -6,6 +6,68 @@
         <p>
             Example with everything in da box!
         </p>
-        <iframe style="width: 100%; height: 650px; border: 1px solid #e5e5e5;" src="http://embed.plnkr.co/Eh4n7TlW1l77obVxWFNT/preview"></iframe>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="allInOneCtrl">
+                        <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped table-bordered"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="allInOneCtrl">
+    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped table-bordered"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['datatables']).controller('allInOneCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
+    $scope.dtOptions = DTOptionsBuilder
+        .fromSource('data.json')
+        // Add Bootstrap compatibility
+        .withBootstrap()
+
+        // Add ColVis compatibility
+        .withColVis()
+        // Add a state change function
+        .withColVisStateChange(function(iColumn, bVisible) {
+            console.log('The column' + iColumn + ' has changed its status to ' + bVisible)
+        })
+        // Exclude the last column from the list
+        .withColVisOption('aiExclude', [2])
+
+        // Add ColReorder compatibility
+        .withColReorder()
+        // Set order
+        .withColReorderOrder([1, 0, 2])
+        // Fix last right column
+        .withColReorderOption('iFixedColumnsRight', 1)
+        .withColReorderCallback(function() {
+            console.log('Columns order has been changed with: ' + this.fnOrder());
+        })
+
+        // Add Table tools compatibility
+        .withTableTools('https://github.com/DataTables/TableTools/raw/master/swf/copy_csv_xls_pdf.swf')
+        .withTableToolsButtons([
+            'copy',
+            'print', {
+                'sExtends': 'collection',
+                'sButtonText': 'Save',
+                'aButtons': ['csv', 'xls', 'pdf']
+            }
+        ]);
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID').withClass('text-danger'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name')
+    ];
+});
+</div>
+            </tab>
+        </tabset>
     </section>
 </article>

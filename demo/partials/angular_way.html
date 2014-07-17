@@ -8,32 +8,60 @@
             All you need to do is to add the directive <code>datatable</code> and <code>dt-rows</code> on your table in order
             to make it rendered with DataTables.
         </p>
-        <iframe class="demo-preview" height="420px" src="http://embed.plnkr.co/zVJ1nLLPgExl3N2Sfqrj/preview"></iframe>
-        <p>
-            You can also provide datatable options and datatable column options with the directive
-            <code>dt-options</code> and <code>dt-columns</code>:
-        </p>
-        <iframe class="demo-preview" height="200px" src="http://embed.plnkr.co/QI2Nv8KoARStqCzc69ko/preview"></iframe>
-        <p>
-            <strong>Note:</strong>
-        </p>
-        <ul>
-            <li>
-                The options do not override what you define in your template. It will just append its properties.
-            </li>
-            <li>
-                If you use the Angular way of rendering the table along with the Ajax or the promise solution, the latter
-                will be display.
-            </li>
-            <li>
-                The Angular way is less performant than fetching the data with the Ajax/promise solutions. The lack of
-                performance is due to the fact that Angular add the 2 way databinding to the data, which the ajax/promise solutions
-                does not. However, you can use Angular directive (<code>ng-click</code>, <code>ng-controller</code>...) in there!
-            </li>
-            <li>
-                Don't forget to set the properties <code>ng</code> in the directive <code>datatable</code> in order to tell the directive to use
-                the Angular way!
-            </li>
-        </ul>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="angularWayCtrl">
+                        <table datatable="ng">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dt-rows ng-repeat="person in persons">
+                                <td>{{ person.id }}</td>
+                                <td>{{ person.firstName }}</td>
+                                <td>{{ person.lastName }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="angularWayCtrl">
+    <table datatable="ng">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr dt-rows ng-repeat="person in persons">
+            <td>{{ person.id }}</td>
+            <td>{{ person.firstName }}</td>
+            <td>{{ person.lastName }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('angularWayCtrl', function ($scope, $resource) {
+    $scope.persons = $resource('data.json').query();
+});
+</div>
+            </tab>
+        </tabset>
     </section>
 </article>
