@@ -1,83 +1,83 @@
-<ul class="sidebar-item nav nav-list">
-    <li>
+<ul class="sidebar-item nav nav-list" ng-controller="sidebarCtrl">
+    <li ng-class="{'active': isActive('gettingStarted')}">
         <a ui-sref="gettingStarted" class="faa-parent animated-hover">
             <i class="fa fa-gear faa-spin"></i>&nbsp;Getting started
         </a>
     </li>
-    <li>
+    <li ng-class="{'active': isUsageActive()}">
         <a class="faa-parent animated-hover" ng-click="isCollapsed = !isCollapsed; $event.stopProgragation()">
             <i class="fa fa-play faa-horizontal"></i>&nbsp;Usage
             <b class="arrow fa fa-angle-down"></b>
         </a>
-        <ul class="submenu" collapse="isCollapsed">
-            <li>
+        <ul class="submenu" collapse="!isCollapsed">
+            <li ng-class="{'active': isActive('zeroConfig')}">
                 <a ui-sref="zeroConfig">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;Zero configuration
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('withOptions')}">
                 <a ui-sref="withOptions">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;With options
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('withPromise')}">
                 <a ui-sref="withPromise">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;With promise
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('dataReloadWithPromise')}">
                 <a ui-sref="dataReloadWithPromise">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;Data reload with promise
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('withAjax')}">
                 <a ui-sref="withAjax">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;With ajax
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('dataReloadWithAjax')}">
                 <a ui-sref="dataReloadWithAjax">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;Data reload with Ajax
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('angularWay')}">
                 <a ui-sref="angularWay">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;The Angular way
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('angularWayWithOptions')}">
                 <a ui-sref="angularWayWithOptions">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;The Angular way with options
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('withColReorder')}">
                 <a ui-sref="withColReorder">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;With ColReorder
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('withColVis')}">
                 <a ui-sref="withColVis">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;With ColVis
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('withTableTools')}">
                 <a ui-sref="withTableTools">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;With TableTools
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('bootstrapIntegration')}">
                 <a ui-sref="bootstrapIntegration">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;Bootstrap integration
                 </a>
             </li>
-            <li>
+            <li ng-class="{'active': isActive('allInOne')}">
                 <a ui-sref="allInOne">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;All in one
                 </a>
             </li>
         </ul>
     </li>
-    <li>
+    <li ng-class="{'active': isActive('api')}">
         <a ui-sref="api">
             <i class="fa fa-book"></i>&nbsp;API
         </a>

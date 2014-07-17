@@ -223,7 +223,7 @@ pre code {
 }
 
 .api pre {
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 /* ---------------------------------------- */
@@ -344,12 +344,14 @@ pre code {
     margin: 0;
 }
 
-.sidebar-item.nav-list>li .submenu>li>a:hover {
+.sidebar-item.nav-list>li .submenu>li>a:hover,
+.sidebar-item.nav-list>li .submenu>li.active>a {
     color: #4b88b7;
     background-color: #f1f5f9;
 }
 
-.sidebar-item.nav-list>li .submenu>li>a:hover>i.fa {
+.sidebar-item.nav-list>li .submenu>li>a:hover>i.fa,
+.sidebar-item.nav-list>li .submenu>li.active>a>i.fa {
     display: inline-block;
 }
 
