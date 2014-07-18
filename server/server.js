@@ -1,7 +1,8 @@
 (function() {
     'use strict';
 
-    var express = require('express');
+    var express = require('express'),
+        $ = require('./vendor/jquery/jquery.min');
         
     var app = express();
     app.configure(function() {
@@ -18,6 +19,31 @@
     var randomInArray = function(array) {
         return array[randomNumber(array.length)];
     };
+    var userList = [];
+    for (var index = 0; index < 3000; index++) {
+        userList.push({
+            id: randomNumber(10000),
+            firstName: randomInArray(firstNameList),
+            lastName: randomInArray(lastNameList)
+        });
+    }
+
+    var findData = function (dataList, parameters) {
+        var userList = [];
+        for (var index = 0; index < parameters.length; index++) {
+            userList.push({
+                id: randomNumber(10000),
+                firstName: randomInArray(firstNameList),
+                lastName: randomInArray(lastNameList)
+            });
+        }
+        return {
+            draw: parameters.draw,
+            recordsTotal: userList.length,
+            recoredsFiltered: parameters.length,
+            data: userList
+        };
+    };
     
     app.get('/data', function(req, res) {
         var userList = [];
@@ -26,9 +52,15 @@
                 id: randomNumber(10000),
                 firstName: randomInArray(firstNameList),
                 lastName: randomInArray(lastNameList)
-            })
+            });
         }
         res.json(userList);
+    });
+
+    app.post('/data/serverSideProcessing', function (req, res) {
+        var parameters = req.body;
+
+        res.json(findData(userList, parameters));
     });
     
     module.exports = app;

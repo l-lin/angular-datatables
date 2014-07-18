@@ -59,6 +59,13 @@
                     $rootScope.$broadcast('event:changeView', 'dataReloadWithAjax');
                 }
             })
+            .state('serverSideProcessing', {
+                url: '/serverSideProcessing',
+                templateUrl: 'demo/partials/server_side_processing.html',
+                controller: function($rootScope) {
+                    $rootScope.$broadcast('event:changeView', 'serverSideProcessing');
+                }
+            })
             .state('angularWay', {
                 url: '/angularWay',
                 templateUrl: 'demo/partials/angular_way.html',

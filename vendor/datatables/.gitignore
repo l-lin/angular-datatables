@@ -1,6 +1,7 @@
 extras
+extensions
 docs
 cdn
-media/js/jquery.dataTables.min.js
+media/css/jquery.dataTables_themeroller.min.css
 .DS_Store
 Plugins

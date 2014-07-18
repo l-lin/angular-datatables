@@ -30,7 +30,7 @@
     "dependencies": {
         "angular": "1.2.6",
         "jquery": "1.11.0",
-        "datatables": "~1.9.4",
+        "datatables": ">=1.9.4",
         "datatables-colvis": "~1.1.0",
         "datatables-colreorder": "~1.1.0",
         "datatables-tabletools": "~2.2.0"

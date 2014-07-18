@@ -40,6 +40,11 @@
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;Data reload with Ajax
                 </a>
             </li>
+            <li ng-class="{'active': isActive('serverSideProcessing')}">
+                <a ui-sref="serverSideProcessing">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Server side processing
+                </a>
+            </li>
             <li ng-class="{'active': isActive('angularWay')}">
                 <a ui-sref="angularWay">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;The Angular way
