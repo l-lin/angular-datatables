@@ -9,7 +9,10 @@
             $scope.dtOptions.reloadData();
         };
         $scope.changeData = function() {
-            $scope.dtOptions.fnPromise = $resource('data1.json').query().$promise;
+            $scope.dtOptions.fnPromise = function() {
+                return $resource('data1.json').query().$promise;
+            };
+            // Or $scope.dtOptions.fnPromise = $resource('data1.json').query().$promise;
         };
 
         $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {

@@ -8,7 +8,7 @@
         </p>
         <ul>
             <li>
-                If you need to load data, you just need to override the <code>dtOptions.fnPromise</code> with a new function that returns a promise.
+                If you need to load new data, you just need to override the <code>dtOptions.fnPromise</code> with a new function that returns a promise or a promise.
             </li>
             <li>
                 If you need to reload the data, you just have to call the function <code>dtOptions.reloadData();</code>.
@@ -22,16 +22,16 @@
                     <div ng-controller="dataReloadWithPromiseCtrl">
                         <input ng-click="reloadData()" type="button" value="Reload data"/>
                         <input ng-click="changeData()" type="button" value="Change data"/>
-                        <table datatable="" dt-options="dtOptions" dt-columns="dtColumns"></table>
+                        <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
             <tab heading="HTML">
-<div hljs>
+<div hljs language="html">
 <div ng-controller="dataReloadWithPromiseCtrl">
     <input ng-click="reloadData()" type="button" value="Reload data"/>
     <input ng-click="changeData()" type="button" value="Change data"/>
-    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns"></table>
+    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
 </div>
 </div>
             </tab>
@@ -43,7 +43,10 @@ angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
         $scope.dtOptions.reloadData();
     };
     $scope.changeData = function() {
-        $scope.dtOptions.fnPromise = $resource('data1.json').query().$promise;
+        $scope.dtOptions.fnPromise = function() {
+            return $resource('data1.json').query().$promise;
+        };
+        // Or $scope.dtOptions.fnPromise = $resource('data1.json').query().$promise;
     };
 
     $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {

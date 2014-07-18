@@ -5,7 +5,7 @@
     <section class="article-content">
         <p>
             You can also provide datatable options and datatable column options with the directive
-            <code>dt-options</code> and <code>dt-columns</code>:
+            <code>dt-options</code>:
         </p>
     </section>
     <section class="showcase">
@@ -13,7 +13,7 @@
             <tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="angularWayWithOptionsCtrl">
-                        <table datatable="ng" dt-options="dtOptions" dt-columns="dtColumns">
+                        <table datatable="ng" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -35,7 +35,7 @@
             <tab heading="HTML">
 <div hljs>
 <div ng-controller="angularWayWithOptionsCtrl">
-    <table datatable="ng" dt-options="dtOptions" dt-columns="dtColumns">
+    <table datatable="ng" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover">
         <thead>
         <tr>
             <th>ID</th>

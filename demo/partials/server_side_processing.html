@@ -25,20 +25,23 @@
         <p>
             For more information, please check out <a href="https://datatables.net/manual/server-side">DataTable's documentation</a>.
         </p>
+        <p class="text-danger">
+            <b><i class="fa fa-warning"></i>&nbsp;Note</b>: This feature is only available with Ajax rendering!
+        </p>
     </section>
     <section class="showcase">
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="serverSideProcessingCtrl">
-                        <table datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
+                        <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
             <tab heading="HTML">
 <div hljs>
 <div ng-controller="serverSideProcessingCtrl">
-    <table datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
+    <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
 </div>
 </div>
             </tab>

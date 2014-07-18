@@ -67,7 +67,8 @@ See [github page](https://l-lin.github.io/angular-datatables).
 Additional notes
 ----------------
 
-Each time a datatable is rendered, a message is sent to the parent scopes with the id of the table.
+* This module does not support multiple datatables in the same page (YET)! You can do it, but expect some side effects!
+* Each time a datatable is rendered, a message is sent to the parent scopes with the id of the table.
 
 For instance, for the given dataTable:
 

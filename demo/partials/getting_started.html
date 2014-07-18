@@ -60,9 +60,30 @@ angular.module('myModule', ['datatables']);
         </section>
         <section>
             <h3>Additional Notes</h3>
-            <p>
-                This module does not support multiple datatables in the same page (YET)! You can do it, but expect some side effects!
-            </p>
+            <ul>
+                <li>
+                    This module does not support multiple datatables in the same page (YET)! You can do it, but expect some side effects!
+                </li>
+                <li>
+                    <p>
+                        Each time a datatable is rendered, a message is sent to the parent scopes with the id of the table.
+                        <br />
+                        For instance, for the given dataTable:
+                    </p>
+<div hljs language="html">
+<table id="foobar" datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
+</div>
+                    <p>
+                        You can catch the event like this in your parent directive or controller:
+                    </p>
+<div hljs language="js">
+$scope.$on('event:dataTableLoaded', function(event, loadedDT) {
+    // loadedDT === {"id": "foobar"}
+});
+</div>
+                </li>
+            </ul>
+
         </section>
     </section>
     <section class="showcase"></section>

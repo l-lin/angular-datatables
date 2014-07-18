@@ -7,27 +7,36 @@
         aoColumns: []
     }).
     directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY) {
-        var $loading = angular.element('<h3>Loading...</h3>');
-        var _showLoading = function ($elem) {
-            $elem.after($loading);
-            $elem.hide();
-        };
-        var _hideLoading = function ($elem) {
-            $elem.show();
-            $loading.hide();
-        };
-        var _renderDataTableAndEmitEvent = function ($elem, options, $scope) {
-            var oTable = $elem.DataTable(options);
-            $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id') });
-            return oTable;
-        };
-        var _doRenderDataTable = function($elem, options, $scope) {
-            // Add $timeout to be sure that angular has finished rendering before calling datatables
-            $timeout(function() {
-                _hideLoading($elem);
-                _renderDataTableAndEmitEvent($elem, options, $scope);
-            }, 0, false);
-        };
+        var $loading = angular.element('<h3>Loading...</h3>'),
+            _showLoading = function ($elem) {
+                $elem.after($loading);
+                $elem.hide();
+            },
+            _hideLoading = function ($elem) {
+                $elem.show();
+                $loading.hide();
+            }, _renderDataTableAndEmitEvent = function ($elem, options, $scope) {
+                var oTable = $elem.DataTable(options);
+                $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id') });
+                return oTable;
+            }, _doRenderDataTable = function($elem, options, $scope) {
+                // Add $timeout to be sure that angular has finished rendering before calling datatables
+                $timeout(function() {
+                    _hideLoading($elem);
+                    _renderDataTableAndEmitEvent($elem, options, $scope);
+                }, 0, false);
+            },
+            /**
+             * Check if the given table is a using DataTable version 1.9.4
+             * @param oTable the datatable
+             * @private
+             */
+            _isDTOldVersion = function(oTable) {
+                return angular.isDefined(oTable) && angular.isFunction(oTable.fnClearTable);
+            },
+            _hasReloadAjaxPlugin = function(oTable) {
+                return angular.isDefined(oTable.fnReloadAjax) && angular.isFunction(oTable.fnReloadAjax);
+            };
 
         /**
          * Factory that build a renderer given the options
@@ -98,9 +107,14 @@
                     options.bDestroy = true;
                     // Condition to refresh the dataTable
                     if (oTable) {
-                        oTable.fnClearTable();
-                        oTable.fnDraw();
-                        oTable.fnAddData(options.aaData);
+                        if (_isDTOldVersion(oTable)) {
+                            oTable.fnClearTable();
+                            oTable.fnDraw();
+                            oTable.fnAddData(options.aaData);
+                        } else {
+                            oTable.clear();
+                            oTable.rows.add(options.aaData).draw();
+                        }
                     } else {
                         oTable = _renderDataTableAndEmitEvent($elem, options, $scope);
                     }
@@ -166,11 +180,11 @@
                     _hideLoading($elem);
                     // Condition to refresh the dataTable
                     if (oTable) {
-                        if (angular.isDefined(oTable.fnReloadAjax) && angular.isFunction(oTable.fnReloadAjax)) {
+                        if (_hasReloadAjaxPlugin(oTable)) {
                             // Reload Ajax data using the plugin "fnReloadAjax": https://next.datatables.net/plug-ins/api/fnReloadAjax
                             // For DataTable v1.9.4
                             oTable.fnReloadAjax(options.sAjaxSource);
-                        } else if (angular.isDefined(oTable.ajax) && angular.isFunction(oTable.ajax.load)) {
+                        } else if (!_isDTOldVersion(oTable)) {
                             // For DataTable v1.10+, DT provides methods https://datatables.net/reference/api/ajax.url()
                             oTable.ajax.url(options.sAjaxSource).load();
                         } else {

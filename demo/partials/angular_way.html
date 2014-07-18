@@ -5,7 +5,7 @@
     <section class="article-content">
         <p>
             You can construct your table the "angular" way, eg using the directive <code>ng-repeat</code> on <code>tr</code> tag.
-            All you need to do is to add the directive <code>datatable</code> and <code>dt-rows</code> on your table in order
+            All you need to do is to add the directive <code>datatable</code> with the value <code>ng</code> and <code>dt-rows</code> on your table in order
             to make it rendered with DataTables.
         </p>
     </section>
@@ -14,7 +14,7 @@
             <tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="angularWayCtrl">
-                        <table datatable="ng">
+                        <table datatable="ng" class="row-border hover">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -36,7 +36,7 @@
             <tab heading="HTML">
 <div hljs>
 <div ng-controller="angularWayCtrl">
-    <table datatable="ng">
+    <table datatable="ng" class="row-border hover">
         <thead>
         <tr>
             <th>ID</th>
