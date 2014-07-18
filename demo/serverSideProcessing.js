@@ -6,7 +6,6 @@
     'use strict';
     angular.module('datatablesSampleApp').controller('serverSideProcessingCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
         $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
-            .withOption('serverSide', true)
             .withPaginationType('full_numbers');
 //        $scope.dtOptions = DTOptionsBuilder.newOptions()
 //            .withOption('ajax', {
