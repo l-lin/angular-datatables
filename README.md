@@ -47,6 +47,8 @@ Include the JS file in your `index.html` file:
 <script src="angular-datatables.min.js"></script>
 ```
 
+**IMPORTANT**: You must include the JS **AFTER** `jQuery` and `DataTables`!
+
 If you want the `Twitter Bootstrap` support, then add the CSS file:
 
 ```html

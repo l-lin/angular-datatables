@@ -102,7 +102,7 @@
                 }
             })
             .state('bootstrapIntegration', {
-                url: '/bootstrapIntegration',
+                url: '/integrateBootstrap',
                 templateUrl: 'demo/partials/bootstrap_integration.html',
                 controller: function($rootScope) {
                     $rootScope.$broadcast('event:changeView', 'bootstrapIntegration');

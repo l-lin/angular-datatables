@@ -6,7 +6,7 @@
         sAjaxDataProp: '',
         aoColumns: []
     }).
-    directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY) {
+    directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY, $DTBootstrap) {
         var $loading = angular.element('<h3>Loading...</h3>'),
             _showLoading = function ($elem) {
                 $elem.after($loading);
@@ -240,6 +240,11 @@
                     // Set the columns
                     if (angular.isArray($scope.dtColumns)) {
                         options.aoColumns = $scope.dtColumns;
+                    }
+                    if (options.integrateBootstrap) {
+                        $DTBootstrap.integrate(options);
+                    } else {
+                        $DTBootstrap.deIntegrate();
                     }
                 }
                 // Render dataTable

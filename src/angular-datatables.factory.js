@@ -41,7 +41,7 @@
             return this;
         };
     }).
-    factory('DTOptionsBuilder', function($DTBootstrap, DT_DEFAULT_DOM) {
+    factory('DTOptionsBuilder', function(DT_DEFAULT_DOM) {
         /**
          * The wrapped datatables options class
          * @param sAjaxSource the ajax source to fetch the data
@@ -50,6 +50,7 @@
         var DTOptions = function(sAjaxSource, fnPromise) {
             this.sAjaxSource = sAjaxSource;
             this.fnPromise = fnPromise;
+            this.integrateBootstrap = false;
 
             /**
              * Optional class to handle undefined or null
@@ -212,7 +213,15 @@
              * @returns {DTOptions} the options
              */
             this.withBootstrap = function() {
-                $DTBootstrap.integrate(this);
+                this.integrateBootstrap = true;
+                // Override page button active CSS class
+                if (angular.isObject(this.oClasses)) {
+                    this.oClasses.sPageButtonActive = 'active';
+                } else {
+                    this.oClasses = {
+                        sPageButtonActive: 'active'
+                    };
+                }
                 return this;
             };
 

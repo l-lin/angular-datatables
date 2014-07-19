@@ -73,7 +73,16 @@
     '$DTBootstrapTableTools',
     '$DTBootstrapColVis',
     function ($DTBootstrapTableTools, $DTBootstrapColVis) {
-      var _initialized = false, _drawCallbackFunctionList = [];
+      var _initialized = false, _drawCallbackFunctionList = [], _savedFn = {};
+      var _saveFnToBeOverrided = function () {
+          _savedFn.oStdClasses = angular.copy($.fn.dataTableExt.oStdClasses);
+          _savedFn.fnPagingInfo = $.fn.dataTableExt.oApi.fnPagingInfo;
+          _savedFn.renderer = angular.copy($.fn.DataTable.ext.renderer);
+        }, _revertToDTFn = function () {
+          $.extend($.fn.dataTableExt.oStdClasses, _savedFn.oStdClasses);
+          $.fn.dataTableExt.oApi.fnPagingInfo = _savedFn.fnPagingInfo;
+          $.extend(true, $.fn.DataTable.ext.renderer, _savedFn.renderer);
+        };
       var _overrideClasses = function () {
         /* Default class modification */
         $.extend($.fn.dataTableExt.oStdClasses, {
@@ -99,68 +108,112 @@
         };
       };
       var _overridePagination = function () {
-        var _fnInit = function (oSettings, nPaging, fnDraw) {
-          var oLang = oSettings.oLanguage.oPaginate;
-          var fnClickHandler = function (e) {
-            e.preventDefault();
-            if (oSettings.oApi._fnPageChange(oSettings, e.data.action)) {
-              fnDraw(oSettings);
+        // Note: Copy paste with some changes from DataTables v1.10.1 source code
+        $.extend(true, $.fn.DataTable.ext.renderer, {
+          pageButton: {
+            _: function (settings, host, idx, buttons, page, pages) {
+              var classes = settings.oClasses;
+              var lang = settings.oLanguage.oPaginate;
+              var btnDisplay, btnClass, counter = 0;
+              var $paginationContainer = $('<ul></ul>', { 'class': 'pagination' });
+              var attach = function (container, buttons) {
+                var i, ien, node, button;
+                var clickHandler = function (e) {
+                  e.preventDefault();
+                  // IMPORTANT: Reference to internal functions of DT. It might change between versions
+                  $.fn.DataTable.ext.internal._fnPageChange(settings, e.data.action, true);
+                };
+                for (i = 0, ien = buttons.length; i < ien; i++) {
+                  button = buttons[i];
+                  if ($.isArray(button)) {
+                    // Override DT element
+                    button.DT_el = 'li';
+                    var inner = $('<' + (button.DT_el || 'div') + '/>').appendTo($paginationContainer);
+                    attach(inner, button);
+                  } else {
+                    btnDisplay = '';
+                    btnClass = '';
+                    var $paginationBtn = $('<li></li>'), isDisabled;
+                    switch (button) {
+                    case 'ellipsis':
+                      $paginationContainer.append('<li class="disabled"><a href="#" onClick="event.preventDefault()">&hellip;</a></li>');
+                      break;
+                    case 'first':
+                      btnDisplay = lang.sFirst;
+                      btnClass = button;
+                      if (page <= 0) {
+                        $paginationBtn.addClass(classes.sPageButtonDisabled);
+                        isDisabled = true;
+                      }
+                      break;
+                    case 'previous':
+                      btnDisplay = lang.sPrevious;
+                      btnClass = button;
+                      if (page <= 0) {
+                        $paginationBtn.addClass(classes.sPageButtonDisabled);
+                        isDisabled = true;
+                      }
+                      break;
+                    case 'next':
+                      btnDisplay = lang.sNext;
+                      btnClass = button;
+                      if (page >= pages - 1) {
+                        $paginationBtn.addClass(classes.sPageButtonDisabled);
+                        isDisabled = true;
+                      }
+                      break;
+                    case 'last':
+                      btnDisplay = lang.sLast;
+                      btnClass = button;
+                      if (page >= pages - 1) {
+                        $paginationBtn.addClass(classes.sPageButtonDisabled);
+                        isDisabled = true;
+                      }
+                      break;
+                    default:
+                      btnDisplay = button + 1;
+                      btnClass = '';
+                      if (page === button) {
+                        $paginationBtn.addClass(classes.sPageButtonActive);
+                      }
+                      break;
+                    }
+                    if (btnDisplay) {
+                      $paginationBtn.appendTo($paginationContainer);
+                      node = $('<a>', {
+                        'href': '#',
+                        'class': btnClass,
+                        'aria-controls': settings.sTableId,
+                        'data-dt-idx': counter,
+                        'tabindex': settings.iTabIndex,
+                        'id': idx === 0 && typeof button === 'string' ? settings.sTableId + '_' + button : null
+                      }).html(btnDisplay).appendTo($paginationBtn);
+                      // IMPORTANT: Reference to internal functions of DT. It might change between versions
+                      $.fn.DataTable.ext.internal._fnBindAction(node, { action: button }, clickHandler);
+                      counter++;
+                    }
+                  }
+                }
+              };
+              // IE9 throws an 'unknown error' if document.activeElement is used
+              // inside an iframe or frame. Try / catch the error. Not good for
+              // accessibility, but neither are frames.
+              try {
+                // Because this approach is destroying and recreating the paging
+                // elements, focus is lost on the select button which is bad for
+                // accessibility. So we want to restore focus once the draw has
+                // completed
+                var activeEl = $(document.activeElement).data('dt-idx');
+                // Add <ul> to the pagination
+                var container = $(host).empty();
+                $paginationContainer.appendTo(container);
+                attach(container, buttons);
+                if (activeEl !== null) {
+                  $(host).find('[data-dt-idx=' + activeEl + ']').focus();
+                }
+              } catch (e) {
+              }
             }
-          };
-          $(nPaging).append('<ul class="pagination">' + '<li class="prev disabled"><a href="#">&larr; ' + oLang.sPrevious + '</a></li>' + '<li class="next disabled"><a href="#">' + oLang.sNext + ' &rarr; </a></li>' + '</ul>');
-          var els = $('a', nPaging);
-          $(els[0]).bind('click.DT', { action: 'previous' }, fnClickHandler);
-          $(els[1]).bind('click.DT', { action: 'next' }, fnClickHandler);
-        };
-        var _fnUpdate = function (oSettings, fnDraw) {
-          var iListLength = 5;
-          var oPaging = oSettings.oInstance.fnPagingInfo();
-          var an = oSettings.aanFeatures.p;
-          var i, ien, j, sClass, iStart, iEnd, iHalf = Math.floor(iListLength / 2);
-          if (oPaging.iTotalPages < iListLength) {
-            iStart = 1;
-            iEnd = oPaging.iTotalPages;
-          } else if (oPaging.iPage <= iHalf) {
-            iStart = 1;
-            iEnd = iListLength;
-          } else if (oPaging.iPage >= oPaging.iTotalPages - iHalf) {
-            iStart = oPaging.iTotalPages - iListLength + 1;
-            iEnd = oPaging.iTotalPages;
-          } else {
-            iStart = oPaging.iPage - iHalf + 1;
-            iEnd = iStart + iListLength - 1;
-          }
-          var fnPaging = function (e) {
-            e.preventDefault();
-            oSettings._iDisplayStart = (parseInt($('a', this).text(), 10) - 1) * oPaging.iLength;
-            fnDraw(oSettings);
-          };
-          for (i = 0, ien = an.length; i < ien; i++) {
-            // Remove the middle elements
-            $('li:gt(0)', an[i]).filter(':not(:last)').remove();
-            // Add the new list items and their event handlers
-            for (j = iStart; j <= iEnd; j++) {
-              sClass = j === oPaging.iPage + 1 ? 'class="active"' : '';
-              $('<li ' + sClass + '><a href="#">' + j + '</a></li>').insertBefore($('li:last', an[i])[0]).bind('click', fnPaging);
-            }
-            // Add / remove disabled classes from the static elements
-            if (oPaging.iPage === 0) {
-              $('li:first', an[i]).addClass('disabled');
-            } else {
-              $('li:first', an[i]).removeClass('disabled');
-            }
-            if (oPaging.iPage === oPaging.iTotalPages - 1 || oPaging.iTotalPages === 0) {
-              $('li:last', an[i]).addClass('disabled');
-            } else {
-              $('li:last', an[i]).removeClass('disabled');
-            }
-          }
-        };
-        /* Bootstrap style pagination control */
-        $.extend($.fn.dataTableExt.oPagination, {
-          'bootstrap': {
-            fnInit: _fnInit,
-            fnUpdate: _fnUpdate
           }
         });
       };
@@ -171,6 +224,7 @@
       };
       var _init = function () {
         if (!_initialized) {
+          _saveFnToBeOverrided();
           _overrideClasses();
           _overridePagingInfo();
           _overridePagination();
@@ -191,7 +245,6 @@
         $DTBootstrapColVis.integrate(_addDrawCallbackFunction);
         // TODO: It currently applies the bootstrap integration to all tables...
         options.sDom = '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>';
-        options.sPaginationType = 'bootstrap';
         if (angular.isUndefined(options.fnDrawCallback)) {
           // Call every drawcallback functions
           options.fnDrawCallback = function () {
@@ -199,6 +252,12 @@
               _drawCallbackFunctionList[index]();
             }
           };
+        }
+      };
+      this.deIntegrate = function () {
+        if (_initialized) {
+          _revertToDTFn();
+          _initialized = false;
         }
       };
     }
@@ -213,7 +272,8 @@
     'DT_DEFAULT_OPTIONS',
     '$timeout',
     'DT_LAST_ROW_KEY',
-    function (DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY) {
+    '$DTBootstrap',
+    function (DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY, $DTBootstrap) {
       var $loading = angular.element('<h3>Loading...</h3>'), _showLoading = function ($elem) {
           $elem.after($loading);
           $elem.hide();
@@ -437,6 +497,11 @@
             if (angular.isArray($scope.dtColumns)) {
               options.aoColumns = $scope.dtColumns;
             }
+            if (options.integrateBootstrap) {
+              $DTBootstrap.integrate(options);
+            } else {
+              $DTBootstrap.deIntegrate();
+            }
           }
           // Render dataTable
           RendererFactory.fromOptions(options, isNgDisplay).render($scope, $elem);
@@ -489,9 +554,8 @@
       return this;
     };
   }).factory('DTOptionsBuilder', [
-    '$DTBootstrap',
     'DT_DEFAULT_DOM',
-    function ($DTBootstrap, DT_DEFAULT_DOM) {
+    function (DT_DEFAULT_DOM) {
       /**
          * The wrapped datatables options class
          * @param sAjaxSource the ajax source to fetch the data
@@ -500,6 +564,7 @@
       var DTOptions = function (sAjaxSource, fnPromise) {
         this.sAjaxSource = sAjaxSource;
         this.fnPromise = fnPromise;
+        this.integrateBootstrap = false;
         /**
              * Optional class to handle undefined or null
              * @param obj the object to wrap
@@ -644,7 +709,13 @@
              * @returns {DTOptions} the options
              */
         this.withBootstrap = function () {
-          $DTBootstrap.integrate(this);
+          this.integrateBootstrap = true;
+          // Override page button active CSS class
+          if (angular.isObject(this.oClasses)) {
+            this.oClasses.sPageButtonActive = 'active';
+          } else {
+            this.oClasses = { sPageButtonActive: 'active' };
+          }
           return this;
         };
         // COL REORDER DATATABLES PLUGIN ---------

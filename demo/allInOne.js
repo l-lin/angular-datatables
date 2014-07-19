@@ -7,6 +7,15 @@
     angular.module('datatablesSampleApp').controller('allInOneCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
         $scope.dtOptions = DTOptionsBuilder
             .fromSource('data.json')
+            .withPaginationType('full_numbers')
+            .withOption('language', {
+                paginate: {
+                    first: "&laquo;",
+                    last: "&raquo;",
+                    next: "&rarr;",
+                    previous: "&larr;"
+                }
+            })
             // Add Bootstrap compatibility
             .withBootstrap()
 
