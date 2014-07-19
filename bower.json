@@ -1,6 +1,6 @@
 {
 	"name": "angular-datatables",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"author": "l-lin",
 	"main": [
         "dist/angular-datatables.js",
@@ -28,8 +28,8 @@
     	"grunt"
     ],
     "dependencies": {
-        "angular": "1.2.6",
-        "jquery": "1.11.0",
+        "angular": ">=1.2.6",
+        "jquery": ">=1.11.0",
         "datatables": ">=1.9.4",
         "datatables-colvis": "~1.1.0",
         "datatables-colreorder": "~1.1.0",
