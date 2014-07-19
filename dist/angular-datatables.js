@@ -1,9 +1,9 @@
 /*!
- * angular-datatables - v0.0.1
+ * angular-datatables - v0.0.3
  * https://github.com/l-lin/angular-datatables
  */
 /*!
- * angular-datatables - v0.0.1
+ * angular-datatables - v0.0.3
  * https://github.com/l-lin/angular-datatables
  */
 /*jshint camelcase: false */
