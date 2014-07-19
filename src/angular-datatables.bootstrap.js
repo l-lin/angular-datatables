@@ -3,9 +3,20 @@
     'use strict';
 
     angular.module('datatable.bootstrap.tabletools', []).service('$DTBootstrapTableTools', function() {
-        var _initializedTableTools = false;
+        var _initializedTableTools = false,
+            _savedFn = {};
+        var _saveFnToBeOverrided = function() {
+            if ($.fn.DataTable.TableTools) {
+                _savedFn.TableTools = {
+                    classes: angular.copy($.fn.DataTable.TableTools.classes),
+                    oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
+                };
+            }
+        };
         this.integrate = function() {
             if (!_initializedTableTools) {
+                _saveFnToBeOverrided();
+
                 /*
                  * TableTools Bootstrap compatibility
                  * Required TableTools 2.1+
@@ -46,6 +57,13 @@
                 _initializedTableTools = true;
             }
         };
+        this.deIntegrate = function () {
+            if (_initializedTableTools && $.fn.DataTable.TableTools && _savedFn.TableTools) {
+                $.extend(true, $.fn.DataTable.TableTools.classes, _savedFn.TableTools.classes);
+                $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, _savedFn.TableTools.oTags);
+                _initializedTableTools =  false;
+            }
+        };
     });
     
     angular.module('datatables.bootstrap.colvis', []).service('$DTBootstrapColVis', function() {
@@ -69,7 +87,8 @@
      * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
      */
     angular.module('datatables.bootstrap', ['datatable.bootstrap.tabletools', 'datatables.bootstrap.colvis']).
-    service('$DTBootstrap', function($DTBootstrapTableTools, $DTBootstrapColVis) {
+    value('DT_BOOTSTRAP_DEFAULT_DOM', '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>').
+    service('$DTBootstrap', function($DTBootstrapTableTools, $DTBootstrapColVis, DT_BOOTSTRAP_DEFAULT_DOM) {
         var _initialized = false,
             _drawCallbackFunctionList = [],
             _savedFn = {};
@@ -78,6 +97,12 @@
             _savedFn.oStdClasses = angular.copy($.fn.dataTableExt.oStdClasses);
             _savedFn.fnPagingInfo = $.fn.dataTableExt.oApi.fnPagingInfo;
             _savedFn.renderer = angular.copy($.fn.DataTable.ext.renderer);
+            if ($.fn.DataTable.TableTools) {
+                _savedFn.TableTools = {
+                    classes: angular.copy($.fn.DataTable.TableTools.classes),
+                    oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
+                };
+            }
         }, _revertToDTFn = function() {
             $.extend($.fn.dataTableExt.oStdClasses, _savedFn.oStdClasses);
             $.fn.dataTableExt.oApi.fnPagingInfo = _savedFn.fnPagingInfo;
@@ -266,6 +291,21 @@
     
                 _initialized = true;
             }
+        }, _setDom = function(options) {
+            if (!options.hasOverrideDom) {
+                var sDom = DT_BOOTSTRAP_DEFAULT_DOM;
+                if (options.hasColReorder) {
+                    sDom = 'R' + sDom;
+                }
+                if (options.hasColVis) {
+                    sDom = 'C' + sDom;
+                }
+                if (options.hasTableTools) {
+                    sDom = 'T' + sDom;
+                }
+                return sDom;
+            }
+            return options.sDom;
         };
 
         /**
@@ -276,9 +316,8 @@
             _init();
             $DTBootstrapTableTools.integrate();
             $DTBootstrapColVis.integrate(_addDrawCallbackFunction);
-            
-            // TODO: It currently applies the bootstrap integration to all tables...
-            options.sDom = '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>';
+
+            options.sDom = _setDom(options);
             if (angular.isUndefined(options.fnDrawCallback)) {
                 // Call every drawcallback functions
                 options.fnDrawCallback = function() {
@@ -292,6 +331,7 @@
         this.deIntegrate = function () {
             if (_initialized) {
                 _revertToDTFn();
+                $DTBootstrapTableTools.deIntegrate();
                 _initialized = false;
             }
         };

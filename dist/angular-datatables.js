@@ -10,9 +10,18 @@
 (function (window, document, $, angular) {
   'use strict';
   angular.module('datatable.bootstrap.tabletools', []).service('$DTBootstrapTableTools', function () {
-    var _initializedTableTools = false;
+    var _initializedTableTools = false, _savedFn = {};
+    var _saveFnToBeOverrided = function () {
+      if ($.fn.DataTable.TableTools) {
+        _savedFn.TableTools = {
+          classes: angular.copy($.fn.DataTable.TableTools.classes),
+          oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
+        };
+      }
+    };
     this.integrate = function () {
       if (!_initializedTableTools) {
+        _saveFnToBeOverrided();
         /*
                  * TableTools Bootstrap compatibility
                  * Required TableTools 2.1+
@@ -47,6 +56,13 @@
         _initializedTableTools = true;
       }
     };
+    this.deIntegrate = function () {
+      if (_initializedTableTools && $.fn.DataTable.TableTools && _savedFn.TableTools) {
+        $.extend(true, $.fn.DataTable.TableTools.classes, _savedFn.TableTools.classes);
+        $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, _savedFn.TableTools.oTags);
+        _initializedTableTools = false;
+      }
+    };
   });
   angular.module('datatables.bootstrap.colvis', []).service('$DTBootstrapColVis', function () {
     var _initializedColVis = false;
@@ -69,15 +85,22 @@
   angular.module('datatables.bootstrap', [
     'datatable.bootstrap.tabletools',
     'datatables.bootstrap.colvis'
-  ]).service('$DTBootstrap', [
+  ]).value('DT_BOOTSTRAP_DEFAULT_DOM', '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>').service('$DTBootstrap', [
     '$DTBootstrapTableTools',
     '$DTBootstrapColVis',
-    function ($DTBootstrapTableTools, $DTBootstrapColVis) {
+    'DT_BOOTSTRAP_DEFAULT_DOM',
+    function ($DTBootstrapTableTools, $DTBootstrapColVis, DT_BOOTSTRAP_DEFAULT_DOM) {
       var _initialized = false, _drawCallbackFunctionList = [], _savedFn = {};
       var _saveFnToBeOverrided = function () {
           _savedFn.oStdClasses = angular.copy($.fn.dataTableExt.oStdClasses);
           _savedFn.fnPagingInfo = $.fn.dataTableExt.oApi.fnPagingInfo;
           _savedFn.renderer = angular.copy($.fn.DataTable.ext.renderer);
+          if ($.fn.DataTable.TableTools) {
+            _savedFn.TableTools = {
+              classes: angular.copy($.fn.DataTable.TableTools.classes),
+              oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
+            };
+          }
         }, _revertToDTFn = function () {
           $.extend($.fn.dataTableExt.oStdClasses, _savedFn.oStdClasses);
           $.fn.dataTableExt.oApi.fnPagingInfo = _savedFn.fnPagingInfo;
@@ -223,18 +246,33 @@
         }
       };
       var _init = function () {
-        if (!_initialized) {
-          _saveFnToBeOverrided();
-          _overrideClasses();
-          _overridePagingInfo();
-          _overridePagination();
-          _addDrawCallbackFunction(function () {
-            $('div.dataTables_filter').find('input').addClass('form-control');
-            $('div.dataTables_length').find('select').addClass('form-control');
-          });
-          _initialized = true;
-        }
-      };
+          if (!_initialized) {
+            _saveFnToBeOverrided();
+            _overrideClasses();
+            _overridePagingInfo();
+            _overridePagination();
+            _addDrawCallbackFunction(function () {
+              $('div.dataTables_filter').find('input').addClass('form-control');
+              $('div.dataTables_length').find('select').addClass('form-control');
+            });
+            _initialized = true;
+          }
+        }, _setDom = function (options) {
+          if (!options.hasOverrideDom) {
+            var sDom = DT_BOOTSTRAP_DEFAULT_DOM;
+            if (options.hasColReorder) {
+              sDom = 'R' + sDom;
+            }
+            if (options.hasColVis) {
+              sDom = 'C' + sDom;
+            }
+            if (options.hasTableTools) {
+              sDom = 'T' + sDom;
+            }
+            return sDom;
+          }
+          return options.sDom;
+        };
       /**
          * Integrate Bootstrap
          * @param options the datatables options
@@ -243,8 +281,7 @@
         _init();
         $DTBootstrapTableTools.integrate();
         $DTBootstrapColVis.integrate(_addDrawCallbackFunction);
-        // TODO: It currently applies the bootstrap integration to all tables...
-        options.sDom = '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>';
+        options.sDom = _setDom(options);
         if (angular.isUndefined(options.fnDrawCallback)) {
           // Call every drawcallback functions
           options.fnDrawCallback = function () {
@@ -257,6 +294,7 @@
       this.deIntegrate = function () {
         if (_initialized) {
           _revertToDTFn();
+          $DTBootstrapTableTools.deIntegrate();
           _initialized = false;
         }
       };
@@ -565,6 +603,10 @@
         this.sAjaxSource = sAjaxSource;
         this.fnPromise = fnPromise;
         this.integrateBootstrap = false;
+        this.hasColVis = false;
+        this.hasColReorder = false;
+        this.hasTableTools = false;
+        this.hasOverrideDom = false;
         /**
              * Optional class to handle undefined or null
              * @param obj the object to wrap
@@ -702,6 +744,16 @@
           this.fnPromise = fnPromise;
           return this;
         };
+        /**
+             * Set the Dom of the DataTables.
+             * @param sDom the dom
+             * @returns {DTOptions} the options
+             */
+        this.withDOM = function (sDom) {
+          this.sDom = sDom;
+          this.hasOverrideDom = true;
+          return this;
+        };
         // BOOTSTRAP INTEGRATION ---------
         // See http://getbootstrap.com
         /**
@@ -740,6 +792,7 @@
         this.withColReorder = function () {
           var colReorderPrefix = 'R';
           this.sDom = colReorderPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+          this.hasColReorder = true;
           return this;
         };
         /**
@@ -788,6 +841,7 @@
         this.withColVis = function () {
           var colVisPrefix = 'C';
           this.sDom = colVisPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+          this.hasColVis = true;
           return this;
         };
         /**
@@ -826,6 +880,7 @@
         this.withTableTools = function (sSwfPath) {
           var tableToolsPrefix = 'T';
           this.sDom = tableToolsPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+          this.hasTableTools = true;
           if (angular.isString(sSwfPath)) {
             this.withTableToolsOption('sSwfPath', sSwfPath);
           }

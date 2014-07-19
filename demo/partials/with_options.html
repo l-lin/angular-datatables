@@ -79,7 +79,10 @@
             <tab heading="JS">
 <div hljs language="js">
 angular.module('datatablesSampleApp', ['datatables']).controller('withOptionsCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(2);
+    $scope.dtOptions = DTOptionsBuilder.newOptions()
+        .withPaginationType('full_numbers')
+        .withDisplayLength(2)
+        .withDOM('pitrfl');
 });
 </div>
             </tab>

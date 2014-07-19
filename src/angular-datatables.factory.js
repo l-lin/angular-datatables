@@ -51,6 +51,10 @@
             this.sAjaxSource = sAjaxSource;
             this.fnPromise = fnPromise;
             this.integrateBootstrap = false;
+            this.hasColVis = false;
+            this.hasColReorder = false;
+            this.hasTableTools = false;
+            this.hasOverrideDom = false;
 
             /**
              * Optional class to handle undefined or null
@@ -205,6 +209,17 @@
                 return this;
             };
 
+            /**
+             * Set the Dom of the DataTables.
+             * @param sDom the dom
+             * @returns {DTOptions} the options
+             */
+            this.withDOM = function(sDom) {
+                this.sDom = sDom;
+                this.hasOverrideDom = true;
+                return this;
+            };
+
             // BOOTSTRAP INTEGRATION ---------
             // See http://getbootstrap.com
 
@@ -249,6 +264,7 @@
             this.withColReorder = function() {
                 var colReorderPrefix = 'R';
                 this.sDom = colReorderPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+                this.hasColReorder = true;
                 return this;
             };
 
@@ -302,6 +318,7 @@
             this.withColVis = function() {
                 var colVisPrefix = 'C';
                 this.sDom = colVisPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+                this.hasColVis = true;
                 return this;
             };
 
@@ -344,6 +361,7 @@
             this.withTableTools = function(sSwfPath) {
                 var tableToolsPrefix = 'T';
                 this.sDom = tableToolsPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+                this.hasTableTools = true;
                 if (angular.isString(sSwfPath)) {
                     this.withTableToolsOption('sSwfPath', sSwfPath);
                 }
