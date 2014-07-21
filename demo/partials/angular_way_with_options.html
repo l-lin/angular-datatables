@@ -28,7 +28,13 @@
                 in order to tell the directive to use the Angular way!
             </li>
             <li class="text-danger">
-                <i class="fa fa-warning"></i>&nbsp;When using the angular way, you CANNOT use the <code>dt-column</code> directive. Indeed,
+                It is <strong>NOT</strong> possible to add/edit/delete rows when using the angular way. Indeed, DataTables does not include the
+                two-way-databinding natively. It renders only once and after you have to manually refresh your data.
+                So this issue is quite challenging and it's not implemented (yet? Don't know if I'm planning to do it.)
+                For now it's best that you use the <a href="http://editor.datatables.net/examples/styling/envelopeInTable.html">datatable editor</a>.
+            </li>
+            <li class="text-danger">
+                When using the angular way, you CANNOT use the <code>dt-column</code> directive. Indeed,
                 the module will render the datatable after the promise is resolved. So for DataTables, it's like rendering a static table.
                 If you need to provide some options to your columnn, your must provide the <code>dt-column-defs</code> directive (which corresponds
                 to the <a href="https://datatables.net/reference/option/columnDefs">DataTables columnDefs</a>).
