@@ -34,6 +34,38 @@ describe('angularDatatables.factory', function() {
             expect(column.bVisible).toBeFalsy();
         });
     });
+
+    describe('DTColumnDefBuilder', function () {
+        var targets = 0,
+            TITLE = 'FooBarTitle',
+            CLASS = 'foo-bar-class',
+            DTColumnDefBuilder,
+            columnDef;
+
+        beforeEach(inject(function($injector) {
+            DTColumnDefBuilder = $injector.get('DTColumnDefBuilder');
+            columnDef = DTColumnDefBuilder.newColumnDef(targets);
+        }));
+
+        it('should build the column', function() {
+            expect(columnDef.aTargets).toEqual([targets]);
+        });
+
+        it('should set the title', function() {
+            columnDef.withTitle(TITLE);
+            expect(columnDef.sTitle).toBe(TITLE);
+        });
+
+        it('should set the class', function() {
+            columnDef.withClass(CLASS);
+            expect(columnDef.sClass).toBe(CLASS);
+        });
+
+        it('should hide the column', function() {
+            columnDef.notVisible();
+            expect(columnDef.bVisible).toBeFalsy();
+        });
+    });
     
     describe('DTOptionsBuilder', function() {
         var AJAX_SOURCE = 'data.json',

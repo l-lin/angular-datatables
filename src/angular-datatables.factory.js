@@ -43,69 +43,67 @@
     }).
     factory('DTOptionsBuilder', function(DT_DEFAULT_DOM) {
         /**
+         * Optional class to handle undefined or null
+         * @param obj the object to wrap
+         */
+        var Optional = function(obj) {
+            this.obj = obj;
+            /**
+             * Check if the wrapped object is defined
+             * @returns true if the wrapped object is defined, false otherwise
+             */
+            this.isPresent = function() {
+                return angular.isDefined(this.obj) && this.obj !== null;
+            };
+
+            /**
+             * Return the wrapped object or an empty object
+             * @returns the wrapped objector an empty object
+             */
+            this.orEmptyObj = function() {
+                if (this.isPresent()) {
+                    return this.obj;
+                }
+                return {};
+            };
+
+            /**
+             * Return the wrapped object or the given second choice
+             * @returns the wrapped object or the given second choice
+             */
+            this.or = function(secondChoice) {
+                if (this.isPresent()) {
+                    return this.obj;
+                }
+                return secondChoice;
+            };
+        };
+
+        /**
+         * Wrap the given objec
+         * @param obj the object to wrap
+         * @returns {Optional} the optional of the wrapped object
+         */
+        var fromNullable = function(obj) {
+            return new Optional(obj);
+        };
+        
+        /**
          * The wrapped datatables options class
          * @param sAjaxSource the ajax source to fetch the data
          * @param fnPromise the function that returns a promise to fetch the data
          */
-        var DTOptions = function(sAjaxSource, fnPromise) {
-            this.sAjaxSource = sAjaxSource;
-            this.fnPromise = fnPromise;
-            this.integrateBootstrap = false;
-            this.hasColVis = false;
-            this.hasColReorder = false;
-            this.hasTableTools = false;
-            this.hasOverrideDom = false;
+        var DTOptions = {
+            integrateBootstrap : false,
+            hasColVis : false,
+            hasColReorder : false,
+            hasTableTools : false,
+            hasOverrideDom : false,
 
-            /**
-             * Optional class to handle undefined or null
-             * @param obj the object to wrap
-             */
-            var Optional = function(obj) {
-                this.obj = obj;
-                /**
-                 * Check if the wrapped object is defined
-                 * @returns true if the wrapped object is defined, false otherwise
-                 */
-                this.isPresent = function() {
-                    return angular.isDefined(this.obj) && this.obj !== null;
-                };
-
-                /**
-                 * Return the wrapped object or an empty object
-                 * @returns the wrapped objector an empty object
-                 */
-                this.orEmptyObj = function() {
-                    if (this.isPresent()) {
-                        return this.obj;
-                    }
-                    return {};
-                };
-
-                /**
-                 * Return the wrapped object or the given second choice
-                 * @returns the wrapped object or the given second choice
-                 */
-                this.or = function(secondChoice) {
-                    if (this.isPresent()) {
-                        return this.obj;
-                    }
-                    return secondChoice;
-                };
-            };
-
-            /**
-             * Wrap the given objec
-             * @param obj the object to wrap
-             * @returns {Optional} the optional of the wrapped object
-             */
-            var fromNullable = function(obj) {
-                return new Optional(obj);
-            };
-
-            this.reloadData = function() {
+            reloadData: function() {
                 this.reload = true;
                 return this;
-            };
+            },
 
             /**
              * Add the option to the datatables optoins
@@ -113,12 +111,12 @@
              * @param value an object or a function of the option
              * @returns {DTOptions} the options
              */
-            this.withOption = function(key, value) {
+            withOption: function(key, value) {
                 if (angular.isString(key)) {
                     this[key] = value;
                 }
                 return this;
-            };
+            },
 
             /**
              * Add the Ajax source to the options.
@@ -126,99 +124,99 @@
              * @param sAjaxSource the ajax source
              * @returns {DTOptions} the options
              */
-            this.withSource = function(sAjaxSource) {
+            withSource: function(sAjaxSource) {
                 this.sAjaxSource = sAjaxSource;
                 return this;
-            };
+            },
 
             /**
              * Add the ajax data properties.
              * @param sAjaxDataProp the ajax data property
              * @returns {DTOptions} the options
              */
-            this.withDataProp = function(sAjaxDataProp) {
+            withDataProp: function(sAjaxDataProp) {
                 this.sAjaxDataProp = sAjaxDataProp;
                 return this;
-            };
+            },
 
             /**
              * Set the server data function.
              * @param fn the function of the server retrieval
              * @returns {DTOptions} the options
              */
-            this.withFnServerData = function(fn) {
+            withFnServerData: function(fn) {
                 if (!angular.isFunction(fn)) {
                     throw new Error('The parameter must be a function');
                 }
                 this.fnServerData = fn;
                 return this;
-            };
+            },
 
             /**
              * Set the pagination type.
              * @param sPaginationType the pagination type
              * @returns {DTOptions} the options
              */
-            this.withPaginationType = function(sPaginationType) {
+            withPaginationType: function(sPaginationType) {
                 if (angular.isString(sPaginationType)) {
                     this.sPaginationType = sPaginationType;
                 } else {
                     throw new Error('The pagination type must be provided');
                 }
                 return this;
-            };
+            },
 
             /**
              * Set the language of the datatables
              * @param oLanguage the language
              * @returns {DTOptions} the options
              */
-            this.withLanguage = function(oLanguage) {
+            withLanguage: function(oLanguage) {
                 this.oLanguage = oLanguage;
                 return this;
-            };
+            },
 
             /**
              * Set the language source
              * @param sLanguageSource the language source
              * @returns {DTOptions} the options
              */
-            this.withLanguageSource = function(sLanguageSource) {
+            withLanguageSource: function(sLanguageSource) {
                 return this.withLanguage({
                     sUrl: sLanguageSource
                 });
-            };
+            },
 
             /**
              * Set default number of items per page to display
              * @param iDisplayLength the number of items per page
              * @returns {DTOptions} the options
              */
-            this.withDisplayLength = function(iDisplayLength) {
+            withDisplayLength: function(iDisplayLength) {
                 this.iDisplayLength = iDisplayLength;
                 return this;
-            };
+            },
 
             /**
              * Set the promise to fetch the data
              * @param fnPromise the function that returns a promise
              * @returns {DTOptions} the options
              */
-            this.withFnPromise = function(fnPromise) {
+            withFnPromise: function(fnPromise) {
                 this.fnPromise = fnPromise;
                 return this;
-            };
+            },
 
             /**
              * Set the Dom of the DataTables.
              * @param sDom the dom
              * @returns {DTOptions} the options
              */
-            this.withDOM = function(sDom) {
+            withDOM: function(sDom) {
                 this.sDom = sDom;
                 this.hasOverrideDom = true;
                 return this;
-            };
+            },
 
             // BOOTSTRAP INTEGRATION ---------
             // See http://getbootstrap.com
@@ -227,7 +225,7 @@
              * Add bootstrap compatibility
              * @returns {DTOptions} the options
              */
-            this.withBootstrap = function() {
+            withBootstrap: function() {
                 this.integrateBootstrap = true;
                 // Override page button active CSS class
                 if (angular.isObject(this.oClasses)) {
@@ -238,7 +236,7 @@
                     };
                 }
                 return this;
-            };
+            },
 
             // COL REORDER DATATABLES PLUGIN ---------
             // See https://datatables.net/extras/colreorder/
@@ -249,50 +247,50 @@
              * @param value an object or a function of the function
              * @return {DTOptions} the options
              */
-            this.withColReorderOption = function(key, value) {
+            withColReorderOption: function(key, value) {
                 if (angular.isString(key)) {
                     this.oColReorder = fromNullable(this.oColReorder).orEmptyObj();
                     this.oColReorder[key] = value;
                 }
                 return this;
-            };
+            },
 
             /**
              * Add colReorder compatibility
              * @returns {DTOptions} the options
              */
-            this.withColReorder = function() {
+            withColReorder: function() {
                 var colReorderPrefix = 'R';
                 this.sDom = colReorderPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
                 this.hasColReorder = true;
                 return this;
-            };
+            },
 
             /**
              * Set the default column order
              * @param aiOrder the column order
              * @returns {DTOptions} the options
              */
-            this.withColReorderOrder = function(aiOrder) {
+            withColReorderOrder: function(aiOrder) {
                 if (angular.isArray(aiOrder)) {
                     this.withColReorderOption('aiOrder', aiOrder);
                 }
                 return this;
-            };
+            },
 
             /**
              * Set the reorder callback function
              * @param fnReorderCallback the callback
              * @returns {DTOptions} the options
              */
-            this.withColReorderCallback = function(fnReorderCallback) {
+            withColReorderCallback: function(fnReorderCallback) {
                 if (angular.isFunction(fnReorderCallback)) {
                     this.withColReorderOption('fnReorderCallback', fnReorderCallback);
                 } else {
                     throw new Error('The reorder callback must be a function');
                 }
                 return this;
-            };
+            },
 
             // COL VIS DATATABLES PLUGIN ---------
             // See https://datatables.net/extras/colvis/
@@ -303,38 +301,38 @@
              * @param value an object or a function of the function
              * @returns {DTOptions} the options
              */
-            this.withColVisOption = function(key, value) {
+            withColVisOption: function(key, value) {
                 if (angular.isString(key)) {
                     this.oColVis = fromNullable(this.oColVis).orEmptyObj();
                     this.oColVis[key] = value;
                 }
                 return this;
-            };
+            },
 
             /**
              * Add colVis compatibility
              * @returns {DTOptions} the options
              */
-            this.withColVis = function() {
+            withColVis: function() {
                 var colVisPrefix = 'C';
                 this.sDom = colVisPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
                 this.hasColVis = true;
                 return this;
-            };
+            },
 
             /**
              * Set the state change function
              * @param fnStateChange  the state change function
              * @returns {DTOptions} the options
              */
-            this.withColVisStateChange = function(fnStateChange) {
+            withColVisStateChange: function(fnStateChange) {
                 if (angular.isFunction(fnStateChange)) {
                     this.withColVisOption('fnStateChange', fnStateChange);
                 } else {
                     throw new Error('The state change must be a function');
                 }
                 return this;
-            };
+            },
 
             // TABLE TOOLS DATATABLES PLUGIN ---------
             // See https://datatables.net/extras/tabletools/
@@ -345,20 +343,20 @@
              * @param value an object or a function of the function
              * @returns {DTOptions} the options
              */
-            this.withTableToolsOption = function(key, value) {
+            withTableToolsOption: function(key, value) {
                 if (angular.isString(key)) {
                     this.oTableTools = fromNullable(this.oTableTools).orEmptyObj();
                     this.oTableTools[key] = value;
                 }
                 return this;
-            };
+            },
 
             /**
              * Add table tools compatibility
              * @param sSwfPath the path to the swf file to export in csv/xls
              * @returns {DTOptions} the options
              */
-            this.withTableTools = function(sSwfPath) {
+            withTableTools: function(sSwfPath) {
                 var tableToolsPrefix = 'T';
                 this.sDom = tableToolsPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
                 this.hasTableTools = true;
@@ -366,19 +364,19 @@
                     this.withTableToolsOption('sSwfPath', sSwfPath);
                 }
                 return this;
-            };
+            },
             
             /**
              * Set the table tools buttons to display
              * @param aButtons the array of buttons to display
              * @returns {DTOptions} the options
              */
-            this.withTableToolsButtons = function(aButtons) {
+            withTableToolsButtons: function(aButtons) {
                 if (angular.isArray(aButtons)) {
                     this.withTableToolsOption('aButtons', aButtons);
                 }
                 return this;
-            };
+            }
         };
 
         return {
@@ -387,7 +385,7 @@
              * @returns {DTOptions} a wrapped datatables option
              */
             newOptions: function() {
-                return new DTOptions();
+                return Object.create(DTOptions);
             },
             /**
              * Create a wrapped datatables options with the ajax source setted
@@ -395,7 +393,9 @@
              * @returns {DTOptions} a wrapped datatables option
              */
             fromSource: function(sAjaxSource) {
-                return new DTOptions(sAjaxSource, null);
+                var options = Object.create(DTOptions);
+                options.sAjaxSource = sAjaxSource;
+                return options;
             },
             /**
              * Create a wrapped datatables options with the data promise.
@@ -403,7 +403,9 @@
              * @returns {DTOptions} a wrapped datatables option
              */
             fromFnPromise: function(fnPromise) {
-                return new DTOptions(null, fnPromise);
+                var options = Object.create(DTOptions);
+                options.fnPromise = fnPromise;
+                return options;
             }
         };
     }).
@@ -413,73 +415,67 @@
          * @param mData the data to display of the column
          * @param sTitle the sTitle of the column title to display in the DOM
          */
-        var DTColumn = function(mData, sTitle) {
-            if (angular.isUndefined(mData)) {
-                throw new Error('The parameter "mData" is not defined!');
-            }
-            this.mData = mData;
-            this.sTitle = sTitle || '';
-
+        var DTColumn = {
             /**
              * Add the option of the column
              * @param key the key of the option
              * @param value an object or a function of the option
              * @returns {DTColumn} the wrapped datatables column
              */
-            this.withOption = function(key, value) {
+            withOption: function(key, value) {
                 if (angular.isString(key)) {
                     this[key] = value;
                 }
                 return this;
-            };
+            },
 
             /**
              * Set the title of the colum
              * @param sTitle the sTitle of the column
              * @returns {DTColumn} the wrapped datatables column
              */
-            this.withTitle = function(sTitle) {
+            withTitle: function(sTitle) {
                 this.sTitle = sTitle;
                 return this;
-            };
+            },
 
             /**
              * Set the CSS class of the column
              * @param sClass the CSS class
              * @returns {DTColumn} the wrapped datatables column
              */
-            this.withClass = function(sClass) {
+            withClass: function(sClass) {
                 this.sClass = sClass;
                 return this;
-            };
+            },
 
             /**
              * Hide the column
              * @returns {DTColumn} the wrapped datatables column
              */
-            this.notVisible = function() {
+            notVisible: function() {
                 this.bVisible = false;
                 return this;
-            };
+            },
 
             /**
              * Set the column as not sortable
              * @returns {DTColumn} the wrapped datatables column
              */
-            this.notSortable = function() {
+            notSortable: function() {
                 this.bSortable = false;
                 return this;
-            };
+            },
 
             /**
              * Render each cell with the given parameter
              * @mRender mRender the function/string to render the data
              * @returns {DTColumn} the wrapped datatables column
              */
-            this.renderWith = function(mRender) {
+            renderWith: function(mRender) {
                 this.mRender = mRender;
                 return this;
-            };
+            }
         };
 
         return {
@@ -490,7 +486,30 @@
              * @returns {DTColumn} the wrapped datatables column
              */
             newColumn: function(mData, sTitle) {
-                return new DTColumn(mData, sTitle);
+                if (angular.isUndefined(mData)) {
+                    throw new Error('The parameter "mData" is not defined!');
+                }
+                var column = Object.create(DTColumn);
+                column.mData = mData;
+                column.sTitle = sTitle || '';
+                return column;
+            },
+            DTColumn: DTColumn
+        };
+    }).
+    factory('DTColumnDefBuilder', function(DTColumnBuilder) {
+        return {
+            newColumnDef: function(targets) {
+                if (angular.isUndefined(targets)) {
+                    throw new Error('The parameter "targets" must be defined! See https://datatables.net/reference/option/columnDefs.targets');
+                }
+                var column = Object.create(DTColumnBuilder.DTColumn);
+                if (angular.isArray(targets)) {
+                    column.aTargets = targets;
+                } else {
+                    column.aTargets = [targets];
+                }
+                return column;
             }
         };
     });

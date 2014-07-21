@@ -226,6 +226,7 @@
             scope: {
                 dtOptions: '=',
                 dtColumns: '=',
+                dtColumnDefs: '=',
                 datatable: '@'
             },
             link: function($scope, $elem) {
@@ -241,6 +242,11 @@
                     if (angular.isArray($scope.dtColumns)) {
                         options.aoColumns = $scope.dtColumns;
                     }
+                    // Set the column defs
+                    if (angular.isArray($scope.dtColumnDefs)) {
+                        options.aoColumnDefs = $scope.dtColumnDefs;
+                    }
+                    // Integrate bootstrap (or not)
                     if (options.integrateBootstrap) {
                         $DTBootstrap.integrate(options);
                     } else {
