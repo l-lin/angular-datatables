@@ -208,6 +208,10 @@ pre code {
     border-bottom: 1px solid #c2c2c2;
 }
 
+.showcase.no-tab {
+    border-top: 1px solid #c2c2c2;
+}
+
 .api .showcase .tab-content {
     padding: 10px
 }

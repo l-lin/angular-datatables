@@ -24,6 +24,13 @@
                     $rootScope.$broadcast('event:changeView', 'zeroConfig');
                 }
             })
+            .state('overrideLoadingTpl', {
+                url: '/overrideLoadingTpl',
+                templateUrl: 'demo/partials/override_loading_tpl.html',
+                controller: function($rootScope) {
+                    $rootScope.$broadcast('event:changeView', 'overrideLoadingTpl');
+                }
+            })
             .state('withOptions', {
                 url: '/withOptions',
                 templateUrl: 'demo/partials/with_options.html',
@@ -144,6 +151,11 @@
             .withColVis()
             .withOption('bAutoWidth', false)
             .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf');
+    })
+    .factory('DTLoadingTemplate', function() {
+        return {
+            html: '<h3>Loading great stuffs!!!</h3>'
+        };
     });
 
     backToTop.init({

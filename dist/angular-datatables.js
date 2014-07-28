@@ -311,8 +311,9 @@
     '$timeout',
     'DT_LAST_ROW_KEY',
     '$DTBootstrap',
-    function (DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY, $DTBootstrap) {
-      var $loading = angular.element('<h3>Loading...</h3>'), _showLoading = function ($elem) {
+    'DTLoadingTemplate',
+    function (DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY, $DTBootstrap, DTLoadingTemplate) {
+      var $loading = angular.element(DTLoadingTemplate.html), _showLoading = function ($elem) {
           $elem.after($loading);
           $elem.hide();
         }, _hideLoading = function ($elem) {
@@ -867,7 +868,9 @@
         }
       };
     }
-  ]);
+  ]).factory('DTLoadingTemplate', function () {
+    return { html: '<h3 class="dt-loading">Loading...</h3>' };
+  });
 }(jQuery, angular));
 (function (angular) {
   'use strict';

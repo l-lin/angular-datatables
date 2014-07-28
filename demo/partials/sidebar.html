@@ -40,6 +40,11 @@
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;Data reload with promise
                 </a>
             </li>
+            <li ng-class="{'active': isActive('overrideLoadingTpl')}">
+                <a ui-sref="overrideLoadingTpl">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Custom loading HTML
+                </a>
+            </li>
             <li ng-class="{'active': isActive('serverSideProcessing')}">
                 <a ui-sref="serverSideProcessing">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;Server side processing

@@ -512,5 +512,10 @@
                 return column;
             }
         };
+    }).
+    factory('DTLoadingTemplate', function() {
+        return {
+            html: '<h3 class="dt-loading">Loading...</h3>'
+        };
     });
 })(jQuery, angular);
