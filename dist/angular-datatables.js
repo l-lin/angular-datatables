@@ -352,7 +352,7 @@
               if (angular.isDefined(options.fnPromise) && options.fnPromise !== null) {
                 return new PromiseRenderer(options);
               }
-              if (angular.isDefined(options.sAjaxSource) && options.sAjaxSource !== null) {
+              if (angular.isDefined(options.sAjaxSource) && options.sAjaxSource !== null || options.ajax !== null) {
                 return new AjaxRenderer(options);
               }
               return new DefaultRenderer(options);
@@ -484,7 +484,8 @@
                 oTable.fnReloadAjax(options.sAjaxSource);
               } else if (!_isDTOldVersion(oTable)) {
                 // For DataTable v1.10+, DT provides methods https://datatables.net/reference/api/ajax.url()
-                oTable.ajax.url(options.sAjaxSource).load();
+                var ajaxUrl = options.sAjaxSource || options.ajax.url || options.ajax;
+                oTable.ajax.url(ajaxUrl).load();
               } else {
                 throw new Error('Reload Ajax not supported. Please use the plugin "fnReloadAjax" (https://next.datatables.net/plug-ins/api/fnReloadAjax) or use a more recent version of DataTables (v1.10+)');
               }
@@ -505,8 +506,16 @@
               _this.options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
             }
             $scope.$watch('dtOptions.sAjaxSource', function (sAjaxSource) {
-              _this.options.sAjaxSource = sAjaxSource;
-              _this.options.ajax = sAjaxSource;
+              if (angular.isDefined(sAjaxSource)) {
+                _this.options.sAjaxSource = sAjaxSource;
+                if (angular.isDefined(_this.options.ajax)) {
+                  if (angular.isObject(_this.options.ajax)) {
+                    _this.options.ajax.url = sAjaxSource;
+                  } else {
+                    _this.options.ajax = { url: sAjaxSource };
+                  }
+                }
+              }
               _render(options, $elem, $scope);
             });
             $scope.$watch('dtOptions.reload', function (reload) {
