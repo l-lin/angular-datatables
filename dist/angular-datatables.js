@@ -352,7 +352,7 @@
               if (angular.isDefined(options.fnPromise) && options.fnPromise !== null) {
                 return new PromiseRenderer(options);
               }
-              if (angular.isDefined(options.sAjaxSource) && options.sAjaxSource !== null || options.ajax !== null) {
+              if (angular.isDefined(options.sAjaxSource) && options.sAjaxSource !== null || angular.isDefined(options.ajax) && options.ajax !== null) {
                 return new AjaxRenderer(options);
               }
               return new DefaultRenderer(options);
