@@ -122,6 +122,13 @@
                     $rootScope.$broadcast('event:changeView', 'allInOne');
                 }
             })
+            .state('rowClickEvent', {
+                url: '/rowClickEvent',
+                templateUrl: 'demo/partials/row_click_event.html',
+                controller: function($rootScope) {
+                    $rootScope.$broadcast('event:changeView', 'rowClickEvent');
+                }
+            })
             .state('api', {
                 url: '/api',
                 templateUrl: 'demo/partials/api.html',
