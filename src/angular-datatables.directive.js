@@ -16,6 +16,11 @@
                 $elem.show();
                 $loading.hide();
             }, _renderDataTableAndEmitEvent = function ($elem, options, $scope) {
+                var tableId = '#' + $elem.attr('id');
+                if($.fn.dataTable.isDataTable( tableId )) {
+                    return $(tableId).DataTable();
+                }
+                
                 var oTable = $elem.DataTable(options);
                 $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id') });
                 return oTable;
