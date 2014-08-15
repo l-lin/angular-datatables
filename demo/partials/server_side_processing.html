@@ -28,6 +28,9 @@
         <p class="text-danger">
             <b><i class="fa fa-warning"></i>&nbsp;Note</b>: This feature is only available with Ajax rendering!
         </p>
+        <p>
+            <i class="fa fa-info-circle"></i>&nbsp;By default, <code>angular-datatables</code> set the <a href="http://datatables.net/reference/option/ajax.dataSrc"><code>AjaxDataProp</code></a> to <code>''</code>. So you need to provide the <code>AjaxDataProp</code> with either <code>.withDataProp('data')</code> or specifying the option <code>dataSrc</code> in the <code>ajax</code> option.
+        </p>
     </section>
     <section class="showcase">
         <tabset>
@@ -51,9 +54,13 @@ angular.module('datatablesSampleApp', ['datatables'])
 .controller('serverSideProcessingCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
     $scope.dtOptions = DTOptionsBuilder.newOptions()
         .withOption('ajax', {
+            // Either you specify the AjaxDataProp here
+            // dataSrc: 'data',
             url: 'data/serverSideProcessing',
             type: 'POST'
         })
+        // or here
+        .withDataProp('data')
         .withOption('serverSide', true)
         .withPaginationType('full_numbers');
     $scope.dtColumns = [
