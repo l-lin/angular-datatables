@@ -23,6 +23,7 @@ module.exports = function(grunt) {
                 banner: '/*!\n' +
                     ' * <%= pkg.name %> - v<%= pkg.version %>\n' +
                     ' * https://github.com/<%= pkg.author %>/<%= pkg.name %>\n' +
+                    ' * License: MIT\n' +
                     ' */\n'
             }
         }

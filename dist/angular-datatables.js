@@ -1,84 +1,85 @@
 /*!
- * angular-datatables - v0.0.3
+ * angular-datatables - v0.0.4
  * https://github.com/l-lin/angular-datatables
+ * License: MIT
  */
 /*!
- * angular-datatables - v0.0.3
+ * angular-datatables - v0.0.4
  * https://github.com/l-lin/angular-datatables
+ * License: MIT
  */
 /*jshint camelcase: false */
 (function (window, document, $, angular) {
   'use strict';
-  angular.module('datatable.bootstrap.tabletools', []).service('$DTBootstrapTableTools', function () {
-    var _initializedTableTools = false, _savedFn = {};
-    var _saveFnToBeOverrided = function () {
-      if ($.fn.DataTable.TableTools) {
-        _savedFn.TableTools = {
-          classes: angular.copy($.fn.DataTable.TableTools.classes),
-          oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
+  angular.module('datatable.bootstrap.tabletools', [
+    'datatables.bootstrap.options',
+    'datatables.service'
+  ]).service('$DTBootstrapTableTools', [
+    'DT_BOOTSTRAP_DEFAULT_OPTIONS',
+    '$DTPropertyService',
+    function (DT_BOOTSTRAP_DEFAULT_OPTIONS, $DTPropertyService) {
+      var _initializedTableTools = false, _savedFn = {}, _saveFnToBeOverrided = function () {
+          if ($.fn.DataTable.TableTools) {
+            _savedFn.TableTools = {
+              classes: angular.copy($.fn.DataTable.TableTools.classes),
+              oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
+            };
+          }
         };
-      }
-    };
-    this.integrate = function () {
-      if (!_initializedTableTools) {
-        _saveFnToBeOverrided();
-        /*
+      this.integrate = function (bootstrapOptions) {
+        if (!_initializedTableTools) {
+          _saveFnToBeOverrided();
+          /*
                  * TableTools Bootstrap compatibility
                  * Required TableTools 2.1+
                  */
-        if ($.fn.DataTable.TableTools) {
-          // Set the classes that TableTools uses to something suitable for Bootstrap
-          $.extend(true, $.fn.DataTable.TableTools.classes, {
-            container: 'DTTT btn-group',
-            buttons: {
-              normal: 'btn btn-default',
-              disabled: 'disabled'
-            },
-            collection: {
-              container: 'DTTT_dropdown dropdown-menu',
-              buttons: {
-                normal: '',
-                disabled: 'disabled'
-              }
-            },
-            print: { info: 'DTTT_print_info modal' },
-            select: { row: 'active' }
-          });
-          // Have the collection use a bootstrap compatible dropdown
-          $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, {
-            collection: {
-              container: 'ul',
-              button: 'li',
-              liner: 'a'
-            }
-          });
+          if ($.fn.DataTable.TableTools) {
+            var tableToolsOptions = $DTPropertyService.overrideProperties(DT_BOOTSTRAP_DEFAULT_OPTIONS.TableTools, bootstrapOptions ? bootstrapOptions.TableTools : null);
+            // Set the classes that TableTools uses to something suitable for Bootstrap
+            $.extend(true, $.fn.DataTable.TableTools.classes, tableToolsOptions.classes);
+            // Have the collection use a bootstrap compatible dropdown
+            $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, tableToolsOptions.DEFAULTS.oTags);
+          }
+          _initializedTableTools = true;
         }
-        _initializedTableTools = true;
-      }
-    };
-    this.deIntegrate = function () {
-      if (_initializedTableTools && $.fn.DataTable.TableTools && _savedFn.TableTools) {
-        $.extend(true, $.fn.DataTable.TableTools.classes, _savedFn.TableTools.classes);
-        $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, _savedFn.TableTools.oTags);
-        _initializedTableTools = false;
-      }
-    };
-  });
-  angular.module('datatables.bootstrap.colvis', []).service('$DTBootstrapColVis', function () {
-    var _initializedColVis = false;
-    this.integrate = function (addDrawCallbackFunction) {
-      if (!_initializedColVis) {
-        /* ColVis Bootstrap compatibility */
-        if ($.fn.DataTable.ColVis) {
-          addDrawCallbackFunction(function () {
-            $('.ColVis_MasterButton').addClass('btn btn-default');
-            $('.ColVis_Button').removeClass('ColVis_Button');
-          });
+      };
+      this.deIntegrate = function () {
+        if (_initializedTableTools && $.fn.DataTable.TableTools && _savedFn.TableTools) {
+          $.extend(true, $.fn.DataTable.TableTools.classes, _savedFn.TableTools.classes);
+          $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, _savedFn.TableTools.oTags);
+          _initializedTableTools = false;
         }
-        _initializedColVis = true;
-      }
-    };
-  });
+      };
+    }
+  ]);
+  angular.module('datatables.bootstrap.colvis', [
+    'datatables.bootstrap.options',
+    'datatables.service'
+  ]).service('$DTBootstrapColVis', [
+    'DT_BOOTSTRAP_DEFAULT_OPTIONS',
+    '$DTPropertyService',
+    function (DT_BOOTSTRAP_DEFAULT_OPTIONS, $DTPropertyService) {
+      var _initializedColVis = false;
+      this.integrate = function (addDrawCallbackFunction, bootstrapOptions) {
+        if (!_initializedColVis) {
+          var colVisProperties = $DTPropertyService.overrideProperties(DT_BOOTSTRAP_DEFAULT_OPTIONS.ColVis, bootstrapOptions ? bootstrapOptions.ColVis : null);
+          /* ColVis Bootstrap compatibility */
+          if ($.fn.DataTable.ColVis) {
+            addDrawCallbackFunction(function () {
+              $('.ColVis_MasterButton').attr('class', 'ColVis_MasterButton ' + colVisProperties.classes.masterButton);
+              $('.ColVis_Button').removeClass('ColVis_Button');
+            });
+          }
+          _initializedColVis = true;
+        }
+      };
+      this.deIntegrate = function () {
+        if (_initializedColVis && $.fn.DataTable.ColVis) {
+          _initializedColVis = false;
+        }
+      };
+    }
+  ]);
   /**
      * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
      */
@@ -279,8 +280,8 @@
          */
       this.integrate = function (options) {
         _init();
-        $DTBootstrapTableTools.integrate();
-        $DTBootstrapColVis.integrate(_addDrawCallbackFunction);
+        $DTBootstrapTableTools.integrate(options.bootstrap);
+        $DTBootstrapColVis.integrate(_addDrawCallbackFunction, options.bootstrap);
         options.sDom = _setDom(options);
         if (angular.isUndefined(options.fnDrawCallback)) {
           // Call every drawcallback functions
@@ -295,12 +296,49 @@
         if (_initialized) {
           _revertToDTFn();
           $DTBootstrapTableTools.deIntegrate();
+          $DTBootstrapColVis.deIntegrate();
           _initialized = false;
         }
       };
     }
   ]);
 }(window, document, jQuery, angular));
+/**
+ * Created by llin on 16/08/14.
+ */
+(function (angular) {
+  'use strict';
+  angular.module('datatables.bootstrap.options', []).constant('DT_BOOTSTRAP_DEFAULT_OPTIONS', {
+    TableTools: {
+      classes: {
+        container: 'DTTT btn-group',
+        buttons: {
+          normal: 'btn btn-default',
+          disabled: 'disabled'
+        },
+        collection: {
+          container: 'DTTT_dropdown dropdown-menu',
+          buttons: {
+            normal: '',
+            disabled: 'disabled'
+          }
+        },
+        print: { info: 'DTTT_print_info modal' },
+        select: { row: 'active' }
+      },
+      DEFAULTS: {
+        oTags: {
+          collection: {
+            container: 'ul',
+            button: 'li',
+            liner: 'a'
+          }
+        }
+      }
+    },
+    ColVis: { classes: { masterButton: 'btn btn-default' } }
+  });
+}(angular));
 (function (angular) {
   'use strict';
   angular.module('datatables.directive', []).constant('DT_DEFAULT_OPTIONS', {
@@ -726,6 +764,10 @@
             }
             return this;
           },
+          withBootstrapOptions: function (bootstrapOptions) {
+            this.bootstrap = bootstrapOptions;
+            return this;
+          },
           withColReorderOption: function (key, value) {
             if (angular.isString(key)) {
               this.oColReorder = fromNullable(this.oColReorder).orEmptyObj();
@@ -885,7 +927,34 @@
   'use strict';
   angular.module('datatables', [
     'datatables.directive',
+    'datatables.service',
     'datatables.factory',
     'datatables.bootstrap'
   ]).value('DT_LAST_ROW_KEY', 'datatable:lastRow');
+}(angular));
+(function (angular) {
+  'use strict';
+  angular.module('datatables.service', []).factory('$DTPropertyService', function () {
+    return {
+      overrideProperties: function (source, target) {
+        var result = angular.copy(source);
+        if (angular.isUndefined(result) || result === null) {
+          result = {};
+        }
+        if (angular.isUndefined(target) || target === null) {
+          return result;
+        }
+        if (angular.isObject(target)) {
+          for (var prop in target) {
+            if (target.hasOwnProperty(prop)) {
+              result[prop] = this.overrideProperties(result[prop], target[prop]);
+            }
+          }
+        } else {
+          result = angular.copy(target);
+        }
+        return result;
+      }
+    };
+  });
 }(angular));

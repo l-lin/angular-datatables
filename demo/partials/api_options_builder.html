@@ -261,6 +261,51 @@ angular.module('myModule', ['datatables'])
         </tr>
         <tr>
             <td><code>DTOptions</code></td>
+            <td><code>withBootstrapOptions(oBootstrapOptions)</code></td>
+            <td>
+                <p>Override Bootstrap options. It's mainly used to override CSS classes used for Bootstrap compatibility.</p>
+                <p>
+                    Angular datatables provides default options. You can check them out on <a href="https://github.com/l-lin/angular-datatables/blob/dev/src/angular-datatables.bootstrap.options.js">Github</a>.
+                </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function ($scope, DTOptionsBuilder) {
+    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withBootstrap()
+        // Overriding the classes
+        .withBootstrapOptions({
+            TableTools: {
+                classes: {
+                    container: 'btn-group',
+                    buttons: {
+                        normal: 'btn btn-danger'
+                    }
+                }
+            },
+            ColVis: {
+                classes: {
+                    masterButton: 'btn btn-primary'
+                }
+            }
+        })
+        // Add ColVis compatibility
+        .withColVis()
+        // Add Table tools compatibility
+        .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
+        .withTableToolsButtons([
+                'copy',
+                'print', {
+                'sExtends': 'collection',
+                'sButtonText': 'Save',
+                'aButtons': ['csv', 'xls', 'pdf']
+            }
+        ]);
+});
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
             <td><code>withColReorder()</code></td>
             <td>
                 <p>Add <a href="https://datatables.net/extras/colreorder/">ColReorder compatibility.</a></p>

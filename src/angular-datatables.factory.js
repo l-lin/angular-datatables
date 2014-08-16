@@ -238,6 +238,16 @@
                 return this;
             },
 
+            /**
+             * Add bootstrap options
+             * @param bootstrapOptions the bootstrap options
+             * @returns {DTOptions} the options
+             */
+            withBootstrapOptions: function(bootstrapOptions) {
+                this.bootstrap = bootstrapOptions;
+                return this;
+            },
+
             // COL REORDER DATATABLES PLUGIN ---------
             // See https://datatables.net/extras/colreorder/
 

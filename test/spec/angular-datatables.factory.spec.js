@@ -1,7 +1,7 @@
-describe('angularDatatables.factory', function() {
+describe('datatables.factory', function() {
     'use strict';
 
-    beforeEach(module('datatables'));
+    beforeEach(module('datatables.factory'));
 
     describe('DTColumnBuilder', function() {
         var DATA = 'foobar',

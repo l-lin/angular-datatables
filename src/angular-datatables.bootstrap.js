@@ -2,18 +2,19 @@
 (function(window, document, $, angular) {
     'use strict';
 
-    angular.module('datatable.bootstrap.tabletools', []).service('$DTBootstrapTableTools', function() {
+    angular.module('datatable.bootstrap.tabletools', ['datatables.bootstrap.options', 'datatables.service']).
+    service('$DTBootstrapTableTools', function(DT_BOOTSTRAP_DEFAULT_OPTIONS, $DTPropertyService) {
         var _initializedTableTools = false,
-            _savedFn = {};
-        var _saveFnToBeOverrided = function() {
-            if ($.fn.DataTable.TableTools) {
-                _savedFn.TableTools = {
-                    classes: angular.copy($.fn.DataTable.TableTools.classes),
-                    oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
-                };
-            }
-        };
-        this.integrate = function() {
+            _savedFn = {},
+            _saveFnToBeOverrided = function () {
+                if ($.fn.DataTable.TableTools) {
+                    _savedFn.TableTools = {
+                        classes: angular.copy($.fn.DataTable.TableTools.classes),
+                        oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
+                    };
+                }
+            };
+        this.integrate = function(bootstrapOptions) {
             if (!_initializedTableTools) {
                 _saveFnToBeOverrided();
 
@@ -22,38 +23,17 @@
                  * Required TableTools 2.1+
                  */
                 if ($.fn.DataTable.TableTools) {
+                    var tableToolsOptions = $DTPropertyService.overrideProperties(
+                        DT_BOOTSTRAP_DEFAULT_OPTIONS.TableTools,
+                        bootstrapOptions ? bootstrapOptions.TableTools : null
+                    );
                     // Set the classes that TableTools uses to something suitable for Bootstrap
-                    $.extend(true, $.fn.DataTable.TableTools.classes, {
-                        container: 'DTTT btn-group',
-                        buttons: {
-                            normal: 'btn btn-default',
-                            disabled: 'disabled'
-                        },
-                        collection: {
-                            container: 'DTTT_dropdown dropdown-menu',
-                            buttons: {
-                                normal: '',
-                                disabled: 'disabled'
-                            }
-                        },
-                        print: {
-                            info: 'DTTT_print_info modal'
-                        },
-                        select: {
-                            row: 'active'
-                        }
-                    });
-    
+                    $.extend(true, $.fn.DataTable.TableTools.classes, tableToolsOptions.classes);
+
                     // Have the collection use a bootstrap compatible dropdown
-                    $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, {
-                        collection: {
-                            container: 'ul',
-                            button: 'li',
-                            liner: 'a'
-                        }
-                    });
+                    $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, tableToolsOptions.DEFAULTS.oTags);
                 }
-    
+
                 _initializedTableTools = true;
             }
         };
@@ -65,24 +45,34 @@
             }
         };
     });
-    
-    angular.module('datatables.bootstrap.colvis', []).service('$DTBootstrapColVis', function() {
+
+    angular.module('datatables.bootstrap.colvis', ['datatables.bootstrap.options', 'datatables.service']).
+    service('$DTBootstrapColVis', function(DT_BOOTSTRAP_DEFAULT_OPTIONS, $DTPropertyService) {
         var _initializedColVis = false;
-        this.integrate = function(addDrawCallbackFunction) {
+        this.integrate = function(addDrawCallbackFunction, bootstrapOptions) {
             if (!_initializedColVis) {
+                var colVisProperties = $DTPropertyService.overrideProperties(
+                    DT_BOOTSTRAP_DEFAULT_OPTIONS.ColVis,
+                    bootstrapOptions ? bootstrapOptions.ColVis : null
+                );
                 /* ColVis Bootstrap compatibility */
                 if ($.fn.DataTable.ColVis) {
                     addDrawCallbackFunction(function() {
-                        $('.ColVis_MasterButton').addClass('btn btn-default');
+                        $('.ColVis_MasterButton').attr('class', 'ColVis_MasterButton ' + colVisProperties.classes.masterButton);
                         $('.ColVis_Button').removeClass('ColVis_Button');
                     });
                 }
-    
+
                 _initializedColVis = true;
             }
         };
+        this.deIntegrate = function() {
+            if (_initializedColVis && $.fn.DataTable.ColVis) {
+                _initializedColVis =  false;
+            }
+        };
     });
-    
+
     /**
      * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
      */
@@ -270,7 +260,7 @@
                 }
             });
         };
-        
+
         var _addDrawCallbackFunction = function(fn) {
             if (angular.isFunction(fn)) {
                 _drawCallbackFunctionList.push(fn);
@@ -283,12 +273,12 @@
                 _overrideClasses();
                 _overridePagingInfo();
                 _overridePagination();
-    
+
                 _addDrawCallbackFunction(function() {
                     $('div.dataTables_filter').find('input').addClass('form-control');
                     $('div.dataTables_length').find('select').addClass('form-control');
                 });
-    
+
                 _initialized = true;
             }
         }, _setDom = function(options) {
@@ -314,8 +304,8 @@
          */
         this.integrate = function(options) {
             _init();
-            $DTBootstrapTableTools.integrate();
-            $DTBootstrapColVis.integrate(_addDrawCallbackFunction);
+            $DTBootstrapTableTools.integrate(options.bootstrap);
+            $DTBootstrapColVis.integrate(_addDrawCallbackFunction, options.bootstrap);
 
             options.sDom = _setDom(options);
             if (angular.isUndefined(options.fnDrawCallback)) {
@@ -332,6 +322,7 @@
             if (_initialized) {
                 _revertToDTFn();
                 $DTBootstrapTableTools.deIntegrate();
+                $DTBootstrapColVis.deIntegrate();
                 _initialized = false;
             }
         };

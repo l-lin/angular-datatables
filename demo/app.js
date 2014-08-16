@@ -109,10 +109,17 @@
                 }
             })
             .state('bootstrapIntegration', {
-                url: '/integrateBootstrap',
+                url: '/bootstrapIntegration',
                 templateUrl: 'demo/partials/bootstrap_integration.html',
                 controller: function($rootScope) {
                     $rootScope.$broadcast('event:changeView', 'bootstrapIntegration');
+                }
+            })
+            .state('overrideBootstrapOptions', {
+                url: '/overrideBootstrapOptions',
+                templateUrl: 'demo/partials/override_bootstrap_options.html',
+                controller: function($rootScope) {
+                    $rootScope.$broadcast('event:changeView', 'overrideBootstrapOptions');
                 }
             })
             .state('allInOne', {
