@@ -7,9 +7,9 @@ Notes
 
 The required dependencies are:
 
-* [AngularJS](http://angular.org) (tested with version 1.2.6)
+* [AngularJS](http://angular.org) (tested with version 1.2.6+)
 * [jQuery](http://jquery.com) (tested with version 1.11.0)
-* [Datatables](https://datatables.net) (tested with version 1.9.4)
+* [Datatables](https://datatables.net) (tested with version 1.9.4 and 1.10+)
 
 This module has been tested with the following datatables modules:
 
