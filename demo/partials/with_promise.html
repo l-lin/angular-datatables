@@ -33,7 +33,7 @@
             <tab heading="JS">
 <div hljs language="js">
 angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
-.controller('withPromiseCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder, sampleFactory) {
+.controller('withPromiseCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder, $resource) {
     $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
             return $resource('data.json').query().$promise;
         }).withPaginationType('full_numbers');
