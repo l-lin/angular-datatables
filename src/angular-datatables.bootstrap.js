@@ -2,7 +2,7 @@
 (function(window, document, $, angular) {
     'use strict';
 
-    angular.module('datatable.bootstrap.tabletools', ['datatables.bootstrap.options', 'datatables.service']).
+    angular.module('datatables.bootstrap.tabletools', ['datatables.bootstrap.options', 'datatables.service']).
     service('$DTBootstrapTableTools', function(DT_BOOTSTRAP_DEFAULT_OPTIONS, $DTPropertyService) {
         var _initializedTableTools = false,
             _savedFn = {},
@@ -76,9 +76,8 @@
     /**
      * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
      */
-    angular.module('datatables.bootstrap', ['datatable.bootstrap.tabletools', 'datatables.bootstrap.colvis']).
-    value('DT_BOOTSTRAP_DEFAULT_DOM', '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>').
-    service('$DTBootstrap', function($DTBootstrapTableTools, $DTBootstrapColVis, DT_BOOTSTRAP_DEFAULT_DOM) {
+    angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatables.bootstrap.tabletools', 'datatables.bootstrap.colvis']).
+    service('$DTBootstrap', function($DTBootstrapTableTools, $DTBootstrapColVis, DT_BOOTSTRAP_DEFAULT_OPTIONS) {
         var _initialized = false,
             _drawCallbackFunctionList = [],
             _savedFn = {};
@@ -283,7 +282,7 @@
             }
         }, _setDom = function(options) {
             if (!options.hasOverrideDom) {
-                var sDom = DT_BOOTSTRAP_DEFAULT_DOM;
+                var sDom = DT_BOOTSTRAP_DEFAULT_OPTIONS.dom;
                 if (options.hasColReorder) {
                     sDom = 'R' + sDom;
                 }
