@@ -1,47 +1,7 @@
 (function($, angular) {
     'use strict';
-    angular.module('datatables.factory', ['datatables.bootstrap']).
-    value('DT_DEFAULT_DOM', 'lfrtip').
-    service('$DTDefaultOptions', function() {
-        /**
-         * Set the default language source for all datatables
-         * @param sLanguageSource the language source
-         * @returns {$DTDefaultOptions} the default option config
-         */
-        this.setLanguageSource = function(sLanguageSource) {
-            $.extend($.fn.dataTable.defaults, {
-                oLanguage: {
-                    sUrl: sLanguageSource
-                }
-            });
-            return this;
-        };
-
-        /**
-         * Set the language for all datatables
-         * @param oLanguage the language
-         * @returns {$DTDefaultOptions} the default option config
-         */
-        this.setLanguage = function(oLanguage) {
-            $.extend(true, $.fn.dataTable.defaults, {
-                oLanguage: oLanguage
-            });
-            return this;
-        };
-
-        /**
-         * Set the default number of items to display for all datatables
-         * @param iDisplayLength the number of items to display
-         * @returns {$DTDefaultOptions} the default option config
-         */
-        this.setDisplayLength = function(iDisplayLength) {
-            $.extend($.fn.dataTable.defaults, {
-                iDisplayLength: iDisplayLength
-            });
-            return this;
-        };
-    }).
-    factory('DTOptionsBuilder', function(DT_DEFAULT_DOM) {
+    angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.options']).
+    factory('DTOptionsBuilder', function(DT_DEFAULT_OPTIONS) {
         /**
          * Optional class to handle undefined or null
          * @param obj the object to wrap
@@ -271,7 +231,7 @@
              */
             withColReorder: function() {
                 var colReorderPrefix = 'R';
-                this.sDom = colReorderPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+                this.sDom = colReorderPrefix + fromNullable(this.sDom).or(DT_DEFAULT_OPTIONS.dom);
                 this.hasColReorder = true;
                 return this;
             },
@@ -325,7 +285,7 @@
              */
             withColVis: function() {
                 var colVisPrefix = 'C';
-                this.sDom = colVisPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+                this.sDom = colVisPrefix + fromNullable(this.sDom).or(DT_DEFAULT_OPTIONS.dom);
                 this.hasColVis = true;
                 return this;
             },
@@ -368,7 +328,7 @@
              */
             withTableTools: function(sSwfPath) {
                 var tableToolsPrefix = 'T';
-                this.sDom = tableToolsPrefix + fromNullable(this.sDom).or(DT_DEFAULT_DOM);
+                this.sDom = tableToolsPrefix + fromNullable(this.sDom).or(DT_DEFAULT_OPTIONS.dom);
                 this.hasTableTools = true;
                 if (angular.isString(sSwfPath)) {
                     this.withTableToolsOption('sSwfPath', sSwfPath);

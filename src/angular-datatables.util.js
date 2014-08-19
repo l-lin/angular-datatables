@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('datatables.service', []).factory('$DTPropertyService', function () {
+    angular.module('datatables.util', []).factory('$DTPropertyUtil', function () {
         return {
             /**
              * Overrides the source property with the given target properties.

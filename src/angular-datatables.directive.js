@@ -1,12 +1,8 @@
 (function(angular) {
     'use strict';
 
-    angular.module('datatables.directive', []).
-    constant('DT_DEFAULT_OPTIONS', {
-        sAjaxDataProp: '',
-        aoColumns: []
-    }).
-    directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, DT_LAST_ROW_KEY, $DTBootstrap, DTLoadingTemplate) {
+    angular.module('datatables.directive', ['datatables.options']).
+    directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, $DTBootstrap, DTLoadingTemplate) {
         var $loading = angular.element(DTLoadingTemplate.html),
             _showLoading = function ($elem) {
                 $elem.after($loading);
@@ -84,7 +80,7 @@
                 options: options,
                 render: function ($scope, $elem) {
                     var _this = this;
-                    $scope.$on(DT_LAST_ROW_KEY, function () {
+                    $scope.$on(DT_DEFAULT_OPTIONS.lastRowKey, function () {
                         _doRenderDataTable($elem, _this.options, $scope);
                     });
                 }
@@ -268,12 +264,12 @@
             }
         };
     }).
-    directive('dtRows', function ($rootScope, DT_LAST_ROW_KEY) {
+    directive('dtRows', function ($rootScope, DT_DEFAULT_OPTIONS) {
         return {
             restrict: 'A',
             link: function($scope) {
                 if ($scope.$last === true) {
-                    $rootScope.$broadcast(DT_LAST_ROW_KEY);
+                    $rootScope.$broadcast(DT_DEFAULT_OPTIONS.lastRowKey);
                 }
             }
         };

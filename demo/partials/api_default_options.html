@@ -50,5 +50,32 @@ angular.module('myModule', ['datatables']).run(function($DTDefaultOptions) {
 </div>
         </td>
     </tr>
+    <tr>
+        <td><code>$DTDefaultOptions</code></td>
+        <td><code>setBootstrapOptions(oBootstrapOptions)</code></td>
+        <td>
+            Set the default options for Bootstrap integration.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function($DTDefaultOptions) {
+    // Override the Bootstrap default options
+    $DTDefaultOptions.setBootstrapOptions({
+        TableTools: {
+            classes: {
+                container: 'btn-group',
+                buttons: {
+                    normal: 'btn btn-danger'
+                }
+            }
+        },
+        ColVis: {
+            classes: {
+                masterButton: 'btn btn-primary'
+            }
+        }
+    });
+});
+</div>
+        </td>
+    </tr>
     </tbody>
 </table>

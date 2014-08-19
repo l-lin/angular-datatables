@@ -18,8 +18,9 @@ module.exports = function(config) {
             'src/angular-datatables.bootstrap.options.js',
             'src/angular-datatables.bootstrap.js',
             'src/angular-datatables.factory.js',
-            'src/angular-datatables.service.js',
+            'src/angular-datatables.util.js',
             'src/angular-datatables.directive.js',
+            'src/angular-datatables.options.js',
             'src/angular-datatables.js',
             'test/spec/*.spec.js'
         ],

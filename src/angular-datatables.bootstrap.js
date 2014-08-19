@@ -2,8 +2,8 @@
 (function(window, document, $, angular) {
     'use strict';
 
-    angular.module('datatables.bootstrap.tabletools', ['datatables.bootstrap.options', 'datatables.service']).
-    service('$DTBootstrapTableTools', function(DT_BOOTSTRAP_DEFAULT_OPTIONS, $DTPropertyService) {
+    angular.module('datatables.bootstrap.tabletools', ['datatables.bootstrap.options', 'datatables.util']).
+    service('$DTBootstrapTableTools', function($DTPropertyUtil, $DTBootstrapDefaultOptions) {
         var _initializedTableTools = false,
             _savedFn = {},
             _saveFnToBeOverrided = function () {
@@ -23,8 +23,8 @@
                  * Required TableTools 2.1+
                  */
                 if ($.fn.DataTable.TableTools) {
-                    var tableToolsOptions = $DTPropertyService.overrideProperties(
-                        DT_BOOTSTRAP_DEFAULT_OPTIONS.TableTools,
+                    var tableToolsOptions = $DTPropertyUtil.overrideProperties(
+                        $DTBootstrapDefaultOptions.getOptions().TableTools,
                         bootstrapOptions ? bootstrapOptions.TableTools : null
                     );
                     // Set the classes that TableTools uses to something suitable for Bootstrap
@@ -46,13 +46,13 @@
         };
     });
 
-    angular.module('datatables.bootstrap.colvis', ['datatables.bootstrap.options', 'datatables.service']).
-    service('$DTBootstrapColVis', function(DT_BOOTSTRAP_DEFAULT_OPTIONS, $DTPropertyService) {
+    angular.module('datatables.bootstrap.colvis', ['datatables.bootstrap.options', 'datatables.util']).
+    service('$DTBootstrapColVis', function($DTPropertyUtil, $DTBootstrapDefaultOptions) {
         var _initializedColVis = false;
         this.integrate = function(addDrawCallbackFunction, bootstrapOptions) {
             if (!_initializedColVis) {
-                var colVisProperties = $DTPropertyService.overrideProperties(
-                    DT_BOOTSTRAP_DEFAULT_OPTIONS.ColVis,
+                var colVisProperties = $DTPropertyUtil.overrideProperties(
+                    $DTBootstrapDefaultOptions.getOptions().ColVis,
                     bootstrapOptions ? bootstrapOptions.ColVis : null
                 );
                 /* ColVis Bootstrap compatibility */
@@ -77,7 +77,7 @@
      * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
      */
     angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatables.bootstrap.tabletools', 'datatables.bootstrap.colvis']).
-    service('$DTBootstrap', function($DTBootstrapTableTools, $DTBootstrapColVis, DT_BOOTSTRAP_DEFAULT_OPTIONS) {
+    service('$DTBootstrap', function($DTBootstrapTableTools, $DTBootstrapColVis, $DTBootstrapDefaultOptions) {
         var _initialized = false,
             _drawCallbackFunctionList = [],
             _savedFn = {};
@@ -282,7 +282,7 @@
             }
         }, _setDom = function(options) {
             if (!options.hasOverrideDom) {
-                var sDom = DT_BOOTSTRAP_DEFAULT_OPTIONS.dom;
+                var sDom = $DTBootstrapDefaultOptions.getOptions().dom;
                 if (options.hasColReorder) {
                     sDom = 'R' + sDom;
                 }
