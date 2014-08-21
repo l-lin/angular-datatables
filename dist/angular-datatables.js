@@ -359,12 +359,16 @@
 }(angular));
 (function (angular) {
   'use strict';
-  angular.module('datatables.directive', ['datatables.options']).directive('datatable', [
+  angular.module('datatables.directive', [
+    'datatables.options',
+    'datatables.util'
+  ]).directive('datatable', [
     'DT_DEFAULT_OPTIONS',
     '$timeout',
     '$DTBootstrap',
     'DTLoadingTemplate',
-    function (DT_DEFAULT_OPTIONS, $timeout, $DTBootstrap, DTLoadingTemplate) {
+    '$DTPropertyUtil',
+    function (DT_DEFAULT_OPTIONS, $timeout, $DTBootstrap, DTLoadingTemplate, $DTPropertyUtil) {
       var $loading = angular.element(DTLoadingTemplate.html), _showLoading = function ($elem) {
           $elem.after($loading);
           $elem.hide();
@@ -434,7 +438,10 @@
         return {
           options: options,
           render: function ($scope, $elem) {
-            var _this = this;
+            var _this = this, parentScope = $scope.$parent, dataProp = $DTPropertyUtil.findDataPropFromScope(parentScope);
+            if (parentScope[dataProp].length === 0) {
+              _doRenderDataTable($elem, _this.options, $scope);
+            }
             $scope.$on(DT_DEFAULT_OPTIONS.lastRowKey, function () {
               _doRenderDataTable($elem, _this.options, $scope);
             });
@@ -991,6 +998,14 @@
           result = angular.copy(target);
         }
         return result;
+      },
+      findDataPropFromScope: function (scope) {
+        for (var prop in scope) {
+          if (prop.indexOf('$', 0) !== 0 && scope.hasOwnProperty(prop) && angular.isArray(scope[prop])) {
+            return prop;
+          }
+        }
+        throw new Error('Cannot find the data property from the scope');
       }
     };
   });

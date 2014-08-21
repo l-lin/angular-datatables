@@ -15,7 +15,7 @@
                 if (angular.isUndefined(result) || result === null) {
                     result = {};
                 }
-                if (angular.isUndefined(target) || target ===  null) {
+                if (angular.isUndefined(target) || target === null) {
                     return result;
                 }
                 if (angular.isObject(target)) {
@@ -28,6 +28,20 @@
                     result = angular.copy(target);
                 }
                 return result;
+            },
+            /**
+             * Find the first array data property from the given scope.
+             * It
+             * @param scope the scope
+             * @returns {string} the property
+             */
+            findDataPropFromScope: function (scope) {
+                for (var prop in scope) {
+                    if (prop.indexOf('$', 0) !== 0 && scope.hasOwnProperty(prop) && angular.isArray(scope[prop])) {
+                        return prop;
+                    }
+                }
+                throw new Error('Cannot find the data property from the scope');
             }
         };
     });
