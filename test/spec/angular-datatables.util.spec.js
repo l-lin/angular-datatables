@@ -52,17 +52,5 @@ describe('datatables.service', function () {
                 expect($DTPropertyUtil.overrideProperties(source, null)).toEqual(source);
             });
         });
-
-        describe(', when fetching the data array from the scope,', function () {
-            it('should fetch the correct data array', inject(function ($rootScope) {
-                var scope = $rootScope.$new();
-                scope.persons = ['foo', 'bar'];
-                expect($DTPropertyUtil.findDataPropFromScope(scope)).toBe('persons');
-            }));
-            it('should throw an error if the scope does not contain any array', inject(function ($rootScope) {
-                var scope = $rootScope.$new();
-                expect(function() {$DTPropertyUtil.findDataPropFromScope(scope);}).toThrow(new Error('Cannot find the data property from the scope'));
-            }));
-        });
     });
 });

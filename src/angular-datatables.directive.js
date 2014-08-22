@@ -1,8 +1,8 @@
 (function(angular) {
     'use strict';
 
-    angular.module('datatables.directive', ['datatables.options', 'datatables.util']).
-    directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, $DTBootstrap, DTLoadingTemplate, $DTPropertyUtil) {
+    angular.module('datatables.directive', ['datatables.options']).
+    directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, $DTBootstrap, DTLoadingTemplate) {
         var $loading = angular.element(DTLoadingTemplate.html),
             _showLoading = function ($elem) {
                 $elem.after($loading);
@@ -16,11 +16,8 @@
                 $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id') });
                 return oTable;
             }, _doRenderDataTable = function($elem, options, $scope) {
-                // Add $timeout to be sure that angular has finished rendering before calling datatables
-                $timeout(function() {
-                    _hideLoading($elem);
-                    _renderDataTableAndEmitEvent($elem, options, $scope);
-                }, 0, false);
+                _hideLoading($elem);
+                return _renderDataTableAndEmitEvent($elem, options, $scope);
             },
             /**
              * Check if the given table is a using DataTable version 1.9.4
@@ -64,7 +61,10 @@
             return {
                 options: options,
                 render: function ($scope, $elem) {
-                    _doRenderDataTable($elem, this.options, $scope);
+                    // Add $timeout to be sure that angular has finished rendering before calling datatables
+                    $timeout(function() {
+                        _doRenderDataTable($elem, this.options, $scope);
+                    }, 0, false);
                 }
             };
         };
@@ -80,13 +80,35 @@
                 options: options,
                 render: function ($scope, $elem) {
                     var _this = this,
-                        parentScope = $scope.$parent,
-                        dataProp = $DTPropertyUtil.findDataPropFromScope(parentScope);
-//                    if (parentScope[dataProp].length === 0) {
-//                        _doRenderDataTable($elem, _this.options, $scope);
-//                    }
-                    $scope.$on(DT_DEFAULT_OPTIONS.lastRowKey, function () {
-                        _doRenderDataTable($elem, _this.options, $scope);
+                        expression = $elem.find('tbody').html(),
+                        // Find the resources from the comment <!-- ngRepeat: item in items --> displayed by angular in the DOM
+                        // This regexp is inspired by the one used in the "ngRepeat" directive
+                        match = expression.match(/^\s*.+\s+in\s+(\w*)\s*/),
+                        ngRepeatAttr = match[1];
+
+                    if (!match) {
+                        throw new Error('Expected expression in form of "_item_ in _collection_[ track by _id_]" but got "{0}".', expression);
+                    }
+
+                    var oTable,
+                        firstCall = true,
+                        alreadyRendered = false;
+                    $scope.$parent.$watchCollection(ngRepeatAttr, function () {
+                        // This condition handles the case the array is empty
+                        if (firstCall) {
+                            firstCall = false;
+                            $timeout(function() {
+                                if (!alreadyRendered) {
+                                    oTable = _doRenderDataTable($elem, _this.options, $scope);
+                                    alreadyRendered = true;
+                                }
+                            }, 1000, false); // Hack I'm not proud of... Don't know how to do it otherwise...
+                        } else {
+                            $timeout(function() {
+                                oTable = _doRenderDataTable($elem, _this.options, $scope);
+                                alreadyRendered = true;
+                            }, 0, false);
+                        }
                     });
                 }
             };
@@ -269,12 +291,14 @@
             }
         };
     }).
-    directive('dtRows', function ($rootScope, DT_DEFAULT_OPTIONS) {
+    directive('dtRows', function ($log) {
+        var hasWarned;
         return {
             restrict: 'A',
-            link: function($scope) {
-                if ($scope.$last === true) {
-                    $rootScope.$broadcast(DT_DEFAULT_OPTIONS.lastRowKey);
+            link: function() {
+                if (!hasWarned) {
+                    $log.warn('As of v0.1.0, the directive "dtRows" is deprecated. This directive is no longer needed. It will be removed completly from v0.2.0');
+                    hasWarned = true;
                 }
             }
         };

@@ -2,8 +2,6 @@
     'use strict';
     angular.module('datatables.options', []).
     constant('DT_DEFAULT_OPTIONS', {
-        // Event key emit when the last element of the list is rendered when using the angular way
-        lastRowKey: 'datatable:lastRow',
         // Default dom
         dom: 'lfrtip',
         // Default ajax properties. See http://legacy.datatables.net/usage/options#sAjaxDataProp
