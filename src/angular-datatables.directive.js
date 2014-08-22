@@ -82,9 +82,9 @@
                     var _this = this,
                         parentScope = $scope.$parent,
                         dataProp = $DTPropertyUtil.findDataPropFromScope(parentScope);
-                    if (parentScope[dataProp].length === 0) {
-                        _doRenderDataTable($elem, _this.options, $scope);
-                    }
+//                    if (parentScope[dataProp].length === 0) {
+//                        _doRenderDataTable($elem, _this.options, $scope);
+//                    }
                     $scope.$on(DT_DEFAULT_OPTIONS.lastRowKey, function () {
                         _doRenderDataTable($elem, _this.options, $scope);
                     });
