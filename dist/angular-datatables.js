@@ -417,9 +417,10 @@
         return {
           options: options,
           render: function ($scope, $elem) {
+            var _this = this;
             // Add $timeout to be sure that angular has finished rendering before calling datatables
             $timeout(function () {
-              _doRenderDataTable($elem, this.options, $scope);
+              _doRenderDataTable($elem, _this.options, $scope);
             }, 0, false);
           }
         };
