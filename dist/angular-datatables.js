@@ -369,6 +369,7 @@
           $loading.show();
           $elem.after($loading);
           $elem.hide();
+          $loading.show();
         }, _hideLoading = function ($elem) {
           $elem.show();
           $loading.hide();

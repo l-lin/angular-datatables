@@ -8,8 +8,15 @@
         });
     })
     .config(function($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/gettingStarted');
+        $urlRouterProvider.otherwise('/welcome');
         $stateProvider
+            .state('welcome', {
+                url: '/welcome',
+                templateUrl: 'demo/partials/welcome.html',
+                controller: function($rootScope) {
+                    $rootScope.$broadcast('event:changeView', 'welcome');
+                }
+            })
             .state('gettingStarted', {
                 url: '/gettingStarted',
                 templateUrl: 'demo/partials/getting_started.html',
@@ -151,6 +158,11 @@
                 }
             });
     })
+    .factory('DTLoadingTemplate', function() {
+        return {
+            html: '<img src="images/loading.gif" />'
+        };
+    })
     .controller('sidebarCtrl', function($scope) {
         $scope.currentView = 'gettingStarted';
         $scope.$on('event:changeView', function (event, view) {
@@ -161,23 +173,11 @@
             return $scope.currentView === view;
         };
         $scope.isUsageActive = function () {
-            return 'gettingStarted' !== $scope.currentView && 'api' !== $scope.currentView;
+            return 'welcome' !== $scope.currentView && 'gettingStarted' !== $scope.currentView && 'api' !== $scope.currentView;
         };
         $scope.isCollapsed = !('gettingStarted' === $scope.currentView || 'api' === $scope.currentView);
     })
-    .controller('apiCtrl', function($scope, DTOptionsBuilder) {
-        $scope.dtOptions = DTOptionsBuilder.newOptions()
-            .withDisplayLength(10)
-            .withColReorder()
-            .withColVis()
-            .withOption('bAutoWidth', false)
-            .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf');
-    })
-    .factory('DTLoadingTemplate', function() {
-        return {
-            html: '<img src="images/loading.gif" />'
-        };
-    });
+    ;
 
     backToTop.init({
         theme: 'classic', // Available themes: 'classic', 'sky', 'slate'

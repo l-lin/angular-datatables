@@ -6,10 +6,6 @@
     margin: 0;
 }
 
-body {
-    padding-top: 20px;
-}
-
 a, a:visited {
     color: #045FB4;
     text-decoration: none;
@@ -73,10 +69,17 @@ hr {
     margin: 0;
     font-weight: bold;
     line-height: 38px;
+    position: relative;
 }
 
 .header p {
     margin: 0;
+}
+
+.header-icon {
+    position: absolute;
+    right: 4em;
+    top: 0;
 }
 
 /* ---------------------------------------- */
@@ -125,12 +128,7 @@ pre code {
 /* MAIN CONTENT */
 /* ---------------------------------------- */
 
-.main-container {
-}
-
 .container {
-    padding-top: 30px;
-    margin: 0 auto;
     font: 13px Helvetica, arial, freesans, clean, sans-serif;
 }
 
@@ -226,6 +224,22 @@ pre code {
 .api pre {
     border-radius: 0;
 }
+
+.welcome .article-header h1 {
+    text-align: center;
+    padding-right: 200px;
+}
+
+.welcome .article-header h1 a {
+    color: #000;
+    text-shadow: 1px 1px #ccc;
+}
+
+.welcome .article-header h1.notice {
+    font-size: 25px;
+    font-style: italic;
+}
+
 
 /* ---------------------------------------- */
 /* Sidebar
