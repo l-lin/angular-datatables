@@ -1,10 +1,10 @@
 /*!
- * angular-datatables - v0.0.4
+ * angular-datatables - v0.1.0
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
 /*!
- * angular-datatables - v0.0.4
+ * angular-datatables - v0.1.0
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
