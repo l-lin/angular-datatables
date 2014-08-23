@@ -97,7 +97,7 @@
                         alreadyRendered = false,
                         parentScope = $scope.$parent;
                     parentScope.$watch(ngRepeatAttr, function () {
-                        if (oTable && alreadyRendered) {
+                        if (oTable && alreadyRendered && !_isDTOldVersion(oTable)) {
                             oTable.ngDestroy();
                         }
                         // This condition handles the case the array is empty
@@ -259,7 +259,6 @@
         };
 
         return {
-            priority: 9999,
             restrict: 'A',
             scope: {
                 dtOptions: '=',
@@ -296,7 +295,10 @@
             }
         };
     }).
-    // FIXME: Remove me when dealing with version 0.2.0
+    /**
+     * FIXME: Remove me when dealing with version 0.2.0
+     * @deprecated Since v0.1.0
+     */
     directive('dtRows', function ($log) {
         var hasWarned;
         return {
