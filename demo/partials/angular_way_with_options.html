@@ -14,25 +14,6 @@
             <li>
                 The options do not override what you define in your template. It will just append its properties.
             </li>
-            <li>
-                If you use the Angular way of rendering the table along with the Ajax or the promise solution, the latter
-                will be display.
-            </li>
-            <li>
-                The Angular way is less efficient than fetching the data with the Ajax/promise solutions. The lack of
-                performance is due to the fact that Angular add the 2 way databinding to the data, which the ajax/promise solutions
-                does not. However, you can use Angular directive (<code>ng-click</code>, <code>ng-controller</code>...) in there!
-            </li>
-            <li>
-                Don't forget to set the properties <code>ng</code> in the directive <code>datatable</code> and the <code>dt-rows</code>
-                in order to tell the directive to use the Angular way!
-            </li>
-            <li class="text-danger">
-                It is <strong>NOT</strong> possible to add/edit/delete rows when using the angular way. Indeed, DataTables does not include the
-                two-way-databinding natively. It renders only once and after you have to manually refresh your data.
-                So this issue is quite challenging and it's not implemented (yet? Don't know if I'm planning to do it.)
-                For now it's best that you use the <a href="http://editor.datatables.net/examples/styling/envelopeInTable.html">datatable editor</a>.
-            </li>
             <li class="text-danger">
                 When using the angular way, you CANNOT use the <code>dt-column</code> directive. Indeed,
                 the module will render the datatable after the promise is resolved. So for DataTables, it's like rendering a static table.
@@ -55,7 +36,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr dt-rows ng-repeat="person in persons">
+                            <tr ng-repeat="person in persons">
                                 <td>{{ person.id }}</td>
                                 <td>{{ person.firstName }}</td>
                                 <td>{{ person.lastName }}</td>
@@ -77,7 +58,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr dt-rows ng-repeat="person in persons">
+        <tr ng-repeat="person in persons">
             <td>{{ person.id }}</td>
             <td>{{ person.firstName }}</td>
             <td>{{ person.lastName }}</td>

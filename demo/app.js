@@ -87,6 +87,13 @@
                     $rootScope.$broadcast('event:changeView', 'angularWayWithOptions');
                 }
             })
+            .state('angularWayDataChange', {
+                url: '/angularWayDataChange',
+                templateUrl: 'demo/partials/angular_way_data_change.html',
+                controller: function($rootScope) {
+                    $rootScope.$broadcast('event:changeView', 'angularWayDataChange');
+                }
+            })
             .state('withColReorder', {
                 url: '/withColReorder',
                 templateUrl: 'demo/partials/with_col_reorder.html',
@@ -168,7 +175,7 @@
     })
     .factory('DTLoadingTemplate', function() {
         return {
-            html: '<h3>Loading great stuffs!!!</h3>'
+            html: '<img src="images/loading.gif" />'
         };
     });
 

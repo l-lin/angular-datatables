@@ -5,10 +5,10 @@
     directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, $DTBootstrap, DTLoadingTemplate) {
         var $loading = angular.element(DTLoadingTemplate.html),
             _showLoading = function ($elem) {
+                $loading.show();
                 $elem.after($loading);
                 $elem.hide();
-            },
-            _hideLoading = function ($elem) {
+            }, _hideLoading = function ($elem) {
                 $elem.show();
                 $loading.hide();
             }, _renderDataTableAndEmitEvent = function ($elem, options, $scope) {
@@ -93,8 +93,12 @@
 
                     var oTable,
                         firstCall = true,
-                        alreadyRendered = false;
-                    $scope.$parent.$watchCollection(ngRepeatAttr, function () {
+                        alreadyRendered = false,
+                        parentScope = $scope.$parent;
+                    parentScope.$watch(ngRepeatAttr, function () {
+                        if (oTable && alreadyRendered) {
+                            oTable.ngDestroy();
+                        }
                         // This condition handles the case the array is empty
                         if (firstCall) {
                             firstCall = false;
@@ -110,7 +114,7 @@
                                 alreadyRendered = true;
                             }, 0, false);
                         }
-                    });
+                    }, true);
                 }
             };
         };
@@ -148,30 +152,28 @@
             return {
                 options: options,
                 render: function ($scope, $elem) {
-                    var _this = this;
-                    var _loadedPromise = null;
-                    var _whenLoaded = function (data) {
-                        _render(_this.options, $elem, data, $scope);
-                        _loadedPromise = null;
-                    };
-                    var _startLoading = function (fnPromise) {
-                        if(angular.isFunction(fnPromise)){
-                            _loadedPromise = fnPromise();
-                        } else {
-                            _loadedPromise = fnPromise;
-                        }
-                        _showLoading($elem);
-                        _loadedPromise.then(_whenLoaded);
-                    };
-                    var _reload = function (fnPromise) {
-                        if (_loadedPromise) {
-                            _loadedPromise.then(function() {
+                    var _this = this,
+                        _loadedPromise = null,
+                        _whenLoaded = function (data) {
+                            _render(_this.options, $elem, data, $scope);
+                            _loadedPromise = null;
+                        }, _startLoading = function (fnPromise) {
+                            if(angular.isFunction(fnPromise)){
+                                _loadedPromise = fnPromise();
+                            } else {
+                                _loadedPromise = fnPromise;
+                            }
+                            _showLoading($elem);
+                            _loadedPromise.then(_whenLoaded);
+                        }, _reload = function (fnPromise) {
+                            if (_loadedPromise) {
+                                _loadedPromise.then(function() {
+                                    _startLoading(fnPromise);
+                                });
+                            } else {
                                 _startLoading(fnPromise);
-                            });
-                        } else {
-                            _startLoading(fnPromise);
-                        }
-                    };
+                            }
+                        };
                     $scope.$watch('dtOptions.fnPromise', function (fnPromise) {
                         if (angular.isDefined(fnPromise)) {
                             _reload(fnPromise);
@@ -256,6 +258,7 @@
         };
 
         return {
+            priority: 9999,
             restrict: 'A',
             scope: {
                 dtOptions: '=',
@@ -292,13 +295,15 @@
             }
         };
     }).
+    // FIXME: Remove me when dealing with version 0.2.0
     directive('dtRows', function ($log) {
         var hasWarned;
         return {
             restrict: 'A',
+            priority: 1001,
             link: function() {
                 if (!hasWarned) {
-                    $log.warn('As of v0.1.0, the directive "dtRows" is deprecated. This directive is no longer needed. It will be removed completly from v0.2.0');
+                    $log.warn('As of v0.1.0, the directive "dtRows" is deprecated. This directive is no longer needed. It will be removed completely from v0.2.0');
                     hasWarned = true;
                 }
             }

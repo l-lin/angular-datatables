@@ -60,6 +60,11 @@
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;The Angular way with options
                 </a>
             </li>
+            <li ng-class="{'active': isActive('angularWayDataChange')}">
+                <a ui-sref="angularWayDataChange">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Update data with the Angular way
+                </a>
+            </li>
             <li ng-class="{'active': isActive('withColReorder')}">
                 <a ui-sref="withColReorder">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;With ColReorder
@@ -99,7 +104,7 @@
     </li>
     <li ng-class="{'active': isActive('api')}">
         <a ui-sref="api">
-            <i class="fa fa-book"></i>&nbsp;API
+            <i class="fa fa-code"></i>&nbsp;API
         </a>
     </li>
 </ul>

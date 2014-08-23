@@ -26,21 +26,6 @@ hr {
     margin: 10px 0;
 }
 
-input[type="text"] {
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    line-height: 20px;
-    color: #555555;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    height: 20px;
-    padding: 4px 6px;
-}
-
 /* ---------------------------------------- */
 /* HEADER */
 /* ---------------------------------------- */
@@ -175,11 +160,15 @@ pre code {
     cursor: pointer;
 }
 
-.code .nav-tabs>li.active>a,
-.code .nav-tabs>li.active>a:hover,
-.code .nav-tabs>li.active>a:focus {
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
+.nav-tabs {
+    border-bottom-color: #c2c2c2;
+    margin-left: -1px;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+    border-color: #c2c2c2;
     border-bottom-color: transparent;
 }
 

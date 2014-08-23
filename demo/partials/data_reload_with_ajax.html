@@ -24,8 +24,14 @@
             <tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="dataReloadWithAjaxCtrl">
-                        <input ng-click="reloadData()" type="button" value="Reload data"/>
-                        <input ng-click="changeData()" type="button" value="Change data"/>
+                        <p>
+                            <button ng-click="reloadData()" type="button" class="btn btn-info">
+                                <i class="fa fa-refresh"></i>&nbsp;Reload data
+                            </button>
+                            <button ng-click="changeData()" type="button" class="btn btn-info">
+                                <i class="fa fa-exchange"></i>&nbsp;Change data
+                            </button>
+                        </p>
                         <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
@@ -33,8 +39,14 @@
             <tab heading="HTML">
 <div hljs language="html">
 <div ng-controller="dataReloadWithAjaxCtrl">
-    <input ng-click="reloadData()" type="button" value="Reload data"/>
-    <input ng-click="changeData()" type="button" value="Change data"/>
+    <p>
+        <button ng-click="reloadData()" type="button" class="btn btn-info">
+            <i class="fa fa-refresh"></i>&nbsp;Reload data
+        </button>
+        <button ng-click="changeData()" type="button" class="btn btn-info">
+            <i class="fa fa-exchange"></i>&nbsp;Change data
+        </button>
+    </p>
     <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
 </div>
 </div>

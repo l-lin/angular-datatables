@@ -4,7 +4,7 @@
     </header>
     <section class="article-content">
         <p>
-            When loading data, the angular module will display <code>&lt;h3 class="dt-loading"&gt;Loading...&lt;/h3&gt;</code>.
+            When loading data, the angular module will display by default <code>&lt;h3 class="dt-loading"&gt;Loading...&lt;/h3&gt;</code>.
         </p>
         <p>
             You can make your own custom loading html by override the <code>DTLoadingTemplate</code> like this:
@@ -15,7 +15,7 @@
 angular.module('datatablesSampleApp', ['datatables']).
 factory('DTLoadingTemplate', function() {
     return {
-        html: '<h1>CUSTOM LOADING</h1>'
+        html: '<img src="images/loading.gif" />'
     };
 });
 </div>
