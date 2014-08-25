@@ -55,7 +55,7 @@
                                     <th>ID</th>
                                     <th>FirstName</th>
                                     <th>LastName</th>
-                                    <th>Actions</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -63,10 +63,7 @@
                                     <td>{{ person.id }}</td>
                                     <td>{{ person.firstName }}</td>
                                     <td>{{ person.lastName }}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning" ng-click="editPerson($index)"><i class="fa fa-edit"></i></button>
-                                        <button type="button" class="btn btn-danger" ng-click="removePerson($index)"><i class="fa fa-trash-o"></i></button>
-                                    </td>
+                                    <td></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -112,7 +109,7 @@
                 <th>ID</th>
                 <th>FirstName</th>
                 <th>LastName</th>
-                <th>Actions</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -120,10 +117,7 @@
                 <td>{{ person.id }}</td>
                 <td>{{ person.firstName }}</td>
                 <td>{{ person.lastName }}</td>
-                <td>
-                    <button type="button" class="btn btn-warning" ng-click="editPerson($index)"><i class="fa fa-edit"></i></button>
-                    <button type="button" class="btn btn-danger" ng-click="removePerson($index)"><i class="fa fa-trash-o"></i></button>
-                </td>
+                <td></td>
             </tr>
             </tbody>
         </table>
@@ -156,15 +150,6 @@ controller('angularWayChangeDataCtrl', function ($scope, $resource, DTOptionsBui
     $scope.addPerson = function () {
         $scope.persons.push(angular.copy($scope.person2Add));
         $scope.person2Add = _buildPerson2Add($scope.person2Add.id + 1);
-    };
-    $scope.editPerson = function ($index) {
-        // BEWARE: $scope.persons[$index] = $scope.person2Add; does not work!
-        $scope.persons[$index].id = $scope.person2Add.id;
-        $scope.persons[$index].firstName = $scope.person2Add.firstName;
-        $scope.persons[$index].lastName = $scope.person2Add.lastName;
-    };
-    $scope.removePerson = function ($index) {
-        $scope.persons.splice($index, 1);
     };
 });
 </div>

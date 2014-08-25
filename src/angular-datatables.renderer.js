@@ -74,7 +74,7 @@
                         alreadyRendered = false,
                         parentScope = $scope.$parent;
 
-                    parentScope.$watch(ngRepeatAttr, function () {
+                    parentScope.$watchCollection(ngRepeatAttr, function () {
                         if (oTable && alreadyRendered && !_isDTOldVersion(oTable)) {
                             oTable.ngDestroy();
                         }

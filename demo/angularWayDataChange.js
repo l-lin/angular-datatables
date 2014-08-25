@@ -10,7 +10,7 @@
                 id: id,
                 firstName: 'Foo' + id,
                 lastName: 'Bar' + id
-            }
+            };
         };
 
         $scope.persons = $resource('data1.json').query();
@@ -26,17 +26,6 @@
         $scope.addPerson = function () {
             $scope.persons.push(angular.copy($scope.person2Add));
             $scope.person2Add = _buildPerson2Add($scope.person2Add.id + 1);
-        };
-        $scope.editPerson = function ($index) {
-            console.log('editPerson');
-            // BEWARE: $scope.persons[$index] = $scope.person2Add; does not work!
-            $scope.persons[$index].id = $scope.person2Add.id;
-            $scope.persons[$index].firstName = $scope.person2Add.firstName;
-            $scope.persons[$index].lastName = $scope.person2Add.lastName;
-        };
-        $scope.removePerson = function ($index) {
-            console.log('removePerson');
-            $scope.persons.splice($index, 1);
         };
     });
 })();
