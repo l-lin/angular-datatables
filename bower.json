@@ -26,7 +26,8 @@
     	"server",
     	"styles",
     	"_config.yml",
-    	"grunt"
+    	"grunt",
+        "images"
     ],
     "dependencies": {
         "angular": ">=1.2.6",
