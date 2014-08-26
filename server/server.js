@@ -39,8 +39,8 @@
         }
         return {
             draw: parameters.draw,
-            recordsTotal: userList.length,
-            recoredsFiltered: parameters.length,
+            recordsTotal: userList.length * 10,
+            recordsFiltered: userList.length * 10,
             data: userList
         };
     };
