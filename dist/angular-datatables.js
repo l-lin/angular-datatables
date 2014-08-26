@@ -14,10 +14,10 @@
   angular.module('datatables.bootstrap.tabletools', [
     'datatables.bootstrap.options',
     'datatables.util'
-  ]).service('$DTBootstrapTableTools', [
-    '$DTPropertyUtil',
-    '$DTBootstrapDefaultOptions',
-    function ($DTPropertyUtil, $DTBootstrapDefaultOptions) {
+  ]).service('DTBootstrapTableTools', [
+    'DTPropertyUtil',
+    'DTBootstrapDefaultOptions',
+    function (DTPropertyUtil, DTBootstrapDefaultOptions) {
       var _initializedTableTools = false, _savedFn = {}, _saveFnToBeOverrided = function () {
           if ($.fn.DataTable.TableTools) {
             _savedFn.TableTools = {
@@ -34,7 +34,7 @@
                  * Required TableTools 2.1+
                  */
           if ($.fn.DataTable.TableTools) {
-            var tableToolsOptions = $DTPropertyUtil.overrideProperties($DTBootstrapDefaultOptions.getOptions().TableTools, bootstrapOptions ? bootstrapOptions.TableTools : null);
+            var tableToolsOptions = DTPropertyUtil.overrideProperties(DTBootstrapDefaultOptions.getOptions().TableTools, bootstrapOptions ? bootstrapOptions.TableTools : null);
             // Set the classes that TableTools uses to something suitable for Bootstrap
             $.extend(true, $.fn.DataTable.TableTools.classes, tableToolsOptions.classes);
             // Have the collection use a bootstrap compatible dropdown
@@ -55,14 +55,14 @@
   angular.module('datatables.bootstrap.colvis', [
     'datatables.bootstrap.options',
     'datatables.util'
-  ]).service('$DTBootstrapColVis', [
-    '$DTPropertyUtil',
-    '$DTBootstrapDefaultOptions',
-    function ($DTPropertyUtil, $DTBootstrapDefaultOptions) {
+  ]).service('DTBootstrapColVis', [
+    'DTPropertyUtil',
+    'DTBootstrapDefaultOptions',
+    function (DTPropertyUtil, DTBootstrapDefaultOptions) {
       var _initializedColVis = false;
       this.integrate = function (addDrawCallbackFunction, bootstrapOptions) {
         if (!_initializedColVis) {
-          var colVisProperties = $DTPropertyUtil.overrideProperties($DTBootstrapDefaultOptions.getOptions().ColVis, bootstrapOptions ? bootstrapOptions.ColVis : null);
+          var colVisProperties = DTPropertyUtil.overrideProperties(DTBootstrapDefaultOptions.getOptions().ColVis, bootstrapOptions ? bootstrapOptions.ColVis : null);
           /* ColVis Bootstrap compatibility */
           if ($.fn.DataTable.ColVis) {
             addDrawCallbackFunction(function () {
@@ -87,11 +87,11 @@
     'datatables.bootstrap.options',
     'datatables.bootstrap.tabletools',
     'datatables.bootstrap.colvis'
-  ]).service('$DTBootstrap', [
-    '$DTBootstrapTableTools',
-    '$DTBootstrapColVis',
-    '$DTBootstrapDefaultOptions',
-    function ($DTBootstrapTableTools, $DTBootstrapColVis, $DTBootstrapDefaultOptions) {
+  ]).service('DTBootstrap', [
+    'DTBootstrapTableTools',
+    'DTBootstrapColVis',
+    'DTBootstrapDefaultOptions',
+    function (DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions) {
       var _initialized = false, _drawCallbackFunctionList = [], _savedFn = {};
       var _saveFnToBeOverrided = function () {
           _savedFn.oStdClasses = angular.copy($.fn.dataTableExt.oStdClasses);
@@ -261,7 +261,7 @@
           }
         }, _setDom = function (options) {
           if (!options.hasOverrideDom) {
-            var sDom = $DTBootstrapDefaultOptions.getOptions().dom;
+            var sDom = DTBootstrapDefaultOptions.getOptions().dom;
             if (options.hasColReorder) {
               sDom = 'R' + sDom;
             }
@@ -281,8 +281,8 @@
          */
       this.integrate = function (options) {
         _init();
-        $DTBootstrapTableTools.integrate(options.bootstrap);
-        $DTBootstrapColVis.integrate(_addDrawCallbackFunction, options.bootstrap);
+        DTBootstrapTableTools.integrate(options.bootstrap);
+        DTBootstrapColVis.integrate(_addDrawCallbackFunction, options.bootstrap);
         options.sDom = _setDom(options);
         if (angular.isUndefined(options.fnDrawCallback)) {
           // Call every drawcallback functions
@@ -296,8 +296,8 @@
       this.deIntegrate = function () {
         if (_initialized) {
           _revertToDTFn();
-          $DTBootstrapTableTools.deIntegrate();
-          $DTBootstrapColVis.deIntegrate();
+          DTBootstrapTableTools.deIntegrate();
+          DTBootstrapColVis.deIntegrate();
           _initialized = false;
         }
       };
@@ -342,17 +342,17 @@
     },
     ColVis: { classes: { masterButton: 'btn btn-default' } },
     dom: '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>'
-  }).service('$DTBootstrapDefaultOptions', [
-    '$DTDefaultOptions',
-    '$DTPropertyUtil',
+  }).service('DTBootstrapDefaultOptions', [
+    'DTDefaultOptions',
+    'DTPropertyUtil',
     'DT_BOOTSTRAP_DEFAULT_OPTIONS',
-    function ($DTDefaultOptions, $DTPropertyUtil, DT_BOOTSTRAP_DEFAULT_OPTIONS) {
+    function (DTDefaultOptions, DTPropertyUtil, DT_BOOTSTRAP_DEFAULT_OPTIONS) {
       /**
          * Get the default options for bootstrap integration
          * @returns {*} the bootstrap default options
          */
       this.getOptions = function () {
-        return $DTPropertyUtil.overrideProperties(DT_BOOTSTRAP_DEFAULT_OPTIONS, $DTDefaultOptions.bootstrapOptions);
+        return DTPropertyUtil.overrideProperties(DT_BOOTSTRAP_DEFAULT_OPTIONS, DTDefaultOptions.bootstrapOptions);
       };
     }
   ]);
@@ -365,9 +365,9 @@
   ]).directive('datatable', [
     'DT_DEFAULT_OPTIONS',
     '$timeout',
-    '$DTBootstrap',
+    'DTBootstrap',
     'DTRendererFactory',
-    function (DT_DEFAULT_OPTIONS, $timeout, $DTBootstrap, DTRendererFactory) {
+    function (DT_DEFAULT_OPTIONS, $timeout, DTBootstrap, DTRendererFactory) {
       return {
         restrict: 'A',
         scope: {
@@ -393,9 +393,9 @@
             }
             // Integrate bootstrap (or not)
             if (options.integrateBootstrap) {
-              $DTBootstrap.integrate(options);
+              DTBootstrap.integrate(options);
             } else {
-              $DTBootstrap.deIntegrate();
+              DTBootstrap.deIntegrate();
             }
           }
           // Render dataTable
@@ -809,12 +809,12 @@
     dom: 'lfrtip',
     sAjaxDataProp: '',
     aoColumns: []
-  }).service('$DTDefaultOptions', function () {
+  }).service('DTDefaultOptions', function () {
     this.bootstrapOptions = {};
     /**
          * Set the default language source for all datatables
          * @param sLanguageSource the language source
-         * @returns {$DTDefaultOptions} the default option config
+         * @returns {DTDefaultOptions} the default option config
          */
     this.setLanguageSource = function (sLanguageSource) {
       $.extend($.fn.dataTable.defaults, { oLanguage: { sUrl: sLanguageSource } });
@@ -823,7 +823,7 @@
     /**
          * Set the language for all datatables
          * @param oLanguage the language
-         * @returns {$DTDefaultOptions} the default option config
+         * @returns {DTDefaultOptions} the default option config
          */
     this.setLanguage = function (oLanguage) {
       $.extend(true, $.fn.dataTable.defaults, { oLanguage: oLanguage });
@@ -832,7 +832,7 @@
     /**
          * Set the default number of items to display for all datatables
          * @param iDisplayLength the number of items to display
-         * @returns {$DTDefaultOptions} the default option config
+         * @returns {DTDefaultOptions} the default option config
          */
     this.setDisplayLength = function (iDisplayLength) {
       $.extend($.fn.dataTable.defaults, { iDisplayLength: iDisplayLength });
@@ -843,7 +843,7 @@
          * See https://github.com/l-lin/angular-datatables/blob/dev/src/angular-datatables.bootstrap.options.js to check
          * what default options Angular DataTables is using.
          * @param oBootstrapOptions an object containing the default options for Bootstreap integration
-         * @returns {$DTDefaultOptions} the default option config
+         * @returns {DTDefaultOptions} the default option config
          */
     this.setBootstrapOptions = function (oBootstrapOptions) {
       this.bootstrapOptions = oBootstrapOptions;
@@ -1101,7 +1101,7 @@
 }(angular));
 (function (angular) {
   'use strict';
-  angular.module('datatables.util', []).factory('$DTPropertyUtil', function () {
+  angular.module('datatables.util', []).factory('DTPropertyUtil', function () {
     return {
       overrideProperties: function (source, target) {
         var result = angular.copy(source);

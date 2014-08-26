@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('datatables.directive', ['datatables.renderer', 'datatables.options']).
-    directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, $DTBootstrap, DTRendererFactory) {
+    directive('datatable', function(DT_DEFAULT_OPTIONS, $timeout, DTBootstrap, DTRendererFactory) {
         return {
             restrict: 'A',
             scope: {
@@ -30,9 +30,9 @@
                     }
                     // Integrate bootstrap (or not)
                     if (options.integrateBootstrap) {
-                        $DTBootstrap.integrate(options);
+                        DTBootstrap.integrate(options);
                     } else {
-                        $DTBootstrap.deIntegrate();
+                        DTBootstrap.deIntegrate();
                     }
                 }
                 // Render dataTable

@@ -43,13 +43,13 @@
         },
         dom: '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>'
     }).
-    service('$DTBootstrapDefaultOptions', function ($DTDefaultOptions, $DTPropertyUtil, DT_BOOTSTRAP_DEFAULT_OPTIONS) {
+    service('DTBootstrapDefaultOptions', function (DTDefaultOptions, DTPropertyUtil, DT_BOOTSTRAP_DEFAULT_OPTIONS) {
         /**
          * Get the default options for bootstrap integration
          * @returns {*} the bootstrap default options
          */
         this.getOptions = function() {
-            return $DTPropertyUtil.overrideProperties(DT_BOOTSTRAP_DEFAULT_OPTIONS, $DTDefaultOptions.bootstrapOptions);
+            return DTPropertyUtil.overrideProperties(DT_BOOTSTRAP_DEFAULT_OPTIONS, DTDefaultOptions.bootstrapOptions);
         };
     });
 })(angular);

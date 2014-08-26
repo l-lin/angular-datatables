@@ -2,8 +2,8 @@ describe('datatables.service', function () {
     'use strict';
     beforeEach(module('datatables.util'));
 
-    describe('$DTPropertyUtil', function () {
-        var $DTPropertyUtil,
+    describe('DTPropertyUtil', function () {
+        var DTPropertyUtil,
             source = {
                 a: 'a',
                 b: 'b',
@@ -25,12 +25,12 @@ describe('datatables.service', function () {
             };
 
         beforeEach(inject(function ($injector) {
-            $DTPropertyUtil = $injector.get('$DTPropertyUtil');
+            DTPropertyUtil = $injector.get('DTPropertyUtil');
         }));
 
         describe(', when overriding the properties,', function () {
             it('should overrides the properties', function () {
-                var result = $DTPropertyUtil.overrideProperties(source, target);
+                var result = DTPropertyUtil.overrideProperties(source, target);
                 expect(result).not.toBeNull();
                 expect(result).toEqual({
                     a: 'ta',
@@ -48,8 +48,8 @@ describe('datatables.service', function () {
             });
 
             it('should return the source if the target is null or undefined', function () {
-                expect($DTPropertyUtil.overrideProperties(source)).toEqual(source);
-                expect($DTPropertyUtil.overrideProperties(source, null)).toEqual(source);
+                expect(DTPropertyUtil.overrideProperties(source)).toEqual(source);
+                expect(DTPropertyUtil.overrideProperties(source, null)).toEqual(source);
             });
         });
     });
