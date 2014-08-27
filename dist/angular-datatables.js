@@ -871,7 +871,10 @@
           $loading.hide();
         }, _renderDataTableAndEmitEvent = function ($elem, options, $scope) {
           var oTable = $elem.DataTable(options);
-          $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id') });
+          $scope.$emit('event:dataTableLoaded', {
+            id: $elem.attr('id'),
+            dt: oTable
+          });
           return oTable;
         }, _doRenderDataTable = function ($elem, options, $scope) {
           _hideLoading($elem);
@@ -921,7 +924,7 @@
               throw new Error('Expected expression in form of "_item_ in _collection_[ track by _id_]" but got "{0}".', expression);
             }
             var oTable, firstCall = true, alreadyRendered = false, parentScope = $scope.$parent;
-            parentScope.$watch(ngRepeatAttr, function () {
+            parentScope.$watchCollection(ngRepeatAttr, function () {
               if (oTable && alreadyRendered && !_isDTOldVersion(oTable)) {
                 oTable.ngDestroy();
               }

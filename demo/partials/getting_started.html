@@ -64,7 +64,7 @@ angular.module('myModule', ['datatables']);
                 </li>
                 <li>
                     <p>
-                        Each time a datatable is rendered, a message is sent to the parent scopes with the id of the table.
+                        Each time a datatable is rendered, a message is sent to the parent scopes with the id of the table and the DataTable itself.
                         <br />
                         For instance, for the given dataTable:
                     </p>
@@ -76,7 +76,7 @@ angular.module('myModule', ['datatables']);
                     </p>
 <div hljs language="js">
 $scope.$on('event:dataTableLoaded', function(event, loadedDT) {
-    // loadedDT === {"id": "foobar"}
+    // loadedDT === {"id": "foobar", dt: oTable}
 });
 </div>
                 </li>

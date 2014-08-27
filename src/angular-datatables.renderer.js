@@ -13,7 +13,7 @@
                 $loading.hide();
             }, _renderDataTableAndEmitEvent = function ($elem, options, $scope) {
                 var oTable = $elem.DataTable(options);
-                $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id') });
+                $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id'), dt: oTable });
                 return oTable;
             }, _doRenderDataTable = function($elem, options, $scope) {
                 _hideLoading($elem);

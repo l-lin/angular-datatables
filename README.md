@@ -70,7 +70,7 @@ Additional notes
 ----------------
 
 * This module does not support multiple datatables in the same page (YET)! You can do it, but expect some side effects!
-* Each time a datatable is rendered, a message is sent to the parent scopes with the id of the table.
+* Each time a datatable is rendered, a message is sent to the parent scopes with the id of the table and the DataTable itself.
 
 For instance, for the given dataTable:
 
@@ -82,7 +82,7 @@ You can catch the event like this in your parent directive or controller:
 
 ```js
 $scope.$on('event:dataTableLoaded', function(event, loadedDT) {
-    // loadedDT === {"id": "foobar"}
+    // loadedDT === {"id": "foobar", dt: oTable}
 });
 ```
 
