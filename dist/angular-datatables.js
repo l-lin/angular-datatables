@@ -364,10 +364,9 @@
     'datatables.options'
   ]).directive('datatable', [
     'DT_DEFAULT_OPTIONS',
-    '$timeout',
     '$DTBootstrap',
     'DTRendererFactory',
-    function (DT_DEFAULT_OPTIONS, $timeout, $DTBootstrap, DTRendererFactory) {
+    function (DT_DEFAULT_OPTIONS, $DTBootstrap, DTRendererFactory) {
       return {
         restrict: 'A',
         scope: {
@@ -376,31 +375,49 @@
           dtColumnDefs: '=',
           datatable: '@'
         },
-        link: function ($scope, $elem) {
-          DTRendererFactory.showLoading($elem);
-          // Build options
-          var isNgDisplay = $scope.datatable && $scope.datatable === 'ng', options;
-          if (angular.isDefined($scope.dtOptions)) {
-            options = {};
-            angular.extend(options, $scope.dtOptions);
-            // Set the columns
-            if (angular.isArray($scope.dtColumns)) {
-              options.aoColumns = $scope.dtColumns;
-            }
-            // Set the column defs
-            if (angular.isArray($scope.dtColumnDefs)) {
-              options.aoColumnDefs = $scope.dtColumnDefs;
-            }
-            // Integrate bootstrap (or not)
-            if (options.integrateBootstrap) {
-              $DTBootstrap.integrate(options);
-            } else {
-              $DTBootstrap.deIntegrate();
-            }
+        compile: function (tElm) {
+          var _staticHTML = tElm[0].innerHTML;
+          return function postLink($scope, $elem, iAttrs, ctrl) {
+            ctrl.showLoading($elem);
+            ctrl.render($elem, ctrl.buildOptions(), _staticHTML);
+          };
+        },
+        controller: [
+          '$scope',
+          function ($scope) {
+            this.showLoading = function ($elem) {
+              DTRendererFactory.showLoading($elem);
+            };
+            this.buildOptions = function () {
+              // Build options
+              var options;
+              if (angular.isDefined($scope.dtOptions)) {
+                options = {};
+                angular.extend(options, $scope.dtOptions);
+                // Set the columns
+                if (angular.isArray($scope.dtColumns)) {
+                  options.aoColumns = $scope.dtColumns;
+                }
+                // Set the column defs
+                if (angular.isArray($scope.dtColumnDefs)) {
+                  options.aoColumnDefs = $scope.dtColumnDefs;
+                }
+                // Integrate bootstrap (or not)
+                if (options.integrateBootstrap) {
+                  $DTBootstrap.integrate(options);
+                } else {
+                  $DTBootstrap.deIntegrate();
+                }
+              }
+              return options;
+            };
+            this.render = function ($elem, options, staticHTML) {
+              var isNgDisplay = $scope.datatable && $scope.datatable === 'ng';
+              // Render dataTable
+              DTRendererFactory.fromOptions(options, isNgDisplay).render($scope, $elem, staticHTML);
+            };
           }
-          // Render dataTable
-          DTRendererFactory.fromOptions(options, isNgDisplay).render($scope, $elem);
-        }
+        ]
       };
     }
   ]).directive('dtRows', [
@@ -858,9 +875,10 @@
     'datatables.options'
   ]).factory('DTRendererFactory', [
     '$timeout',
+    '$compile',
     'DTLoadingTemplate',
     'DT_DEFAULT_OPTIONS',
-    function ($timeout, DTLoadingTemplate, DT_DEFAULT_OPTIONS) {
+    function ($timeout, $compile, DTLoadingTemplate, DT_DEFAULT_OPTIONS) {
       var $loading = angular.element(DTLoadingTemplate.html), _showLoading = function ($elem) {
           $loading.show();
           $elem.after($loading);
@@ -915,7 +933,7 @@
       var NGRenderer = function (options) {
         return {
           options: options,
-          render: function ($scope, $elem) {
+          render: function ($scope, $elem, staticHTML) {
             var _this = this, expression = $elem.find('tbody').html(),
               // Find the resources from the comment <!-- ngRepeat: item in items --> displayed by angular in the DOM
               // This regexp is inspired by the one used in the "ngRepeat" directive
@@ -927,6 +945,9 @@
             parentScope.$watchCollection(ngRepeatAttr, function () {
               if (oTable && alreadyRendered && !_isDTOldVersion(oTable)) {
                 oTable.ngDestroy();
+                // Re-compile because we lost the angular binding to the existing data
+                $elem.html(staticHTML);
+                $compile($elem.contents())(parentScope);
               }
               // This condition handles the case the array is empty
               if (firstCall) {

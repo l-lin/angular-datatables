@@ -63,7 +63,10 @@
                                     <td>{{ person.id }}</td>
                                     <td>{{ person.firstName }}</td>
                                     <td>{{ person.lastName }}</td>
-                                    <td></td>
+                                    <td>
+                                        <button type="button" ng-click="modifyPerson($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                                        <button type="button" ng-click="removePerson($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -117,7 +120,10 @@
                 <td>{{ person.id }}</td>
                 <td>{{ person.firstName }}</td>
                 <td>{{ person.lastName }}</td>
-                <td></td>
+                <td>
+                    <button type="button" ng-click="modifyPerson($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                    <button type="button" ng-click="removePerson($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -150,6 +156,15 @@ controller('angularWayChangeDataCtrl', function ($scope, $resource, DTOptionsBui
     $scope.addPerson = function () {
         $scope.persons.push(angular.copy($scope.person2Add));
         $scope.person2Add = _buildPerson2Add($scope.person2Add.id + 1);
+    };
+
+    $scope.modifyPerson = function (index) {
+        $scope.persons.splice(index, 1, angular.copy($scope.person2Add))
+        $scope.person2Add = _buildPerson2Add($scope.person2Add.id + 1);
+    };
+
+    $scope.removePerson = function (index) {
+        $scope.persons.splice(index, 1);
     };
 });
 </div>

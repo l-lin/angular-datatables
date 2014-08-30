@@ -27,5 +27,14 @@
             $scope.persons.push(angular.copy($scope.person2Add));
             $scope.person2Add = _buildPerson2Add($scope.person2Add.id + 1);
         };
+
+        $scope.modifyPerson = function (index) {
+            $scope.persons.splice(index, 1, angular.copy($scope.person2Add))
+            $scope.person2Add = _buildPerson2Add($scope.person2Add.id + 1);
+        };
+
+        $scope.removePerson = function (index) {
+            $scope.persons.splice(index, 1);
+        };
     });
 })();

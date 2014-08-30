@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
     angular.module('datatables.renderer', ['datatables.factory', 'datatables.options']).
-    factory('DTRendererFactory', function($timeout, DTLoadingTemplate, DT_DEFAULT_OPTIONS) {
+    factory('DTRendererFactory', function($timeout, $compile, DTLoadingTemplate, DT_DEFAULT_OPTIONS) {
         var $loading = angular.element(DTLoadingTemplate.html),
             _showLoading = function ($elem) {
                 $loading.show();
@@ -24,7 +24,7 @@
              * @param oTable the datatable
              * @private
              */
-                _isDTOldVersion = function(oTable) {
+            _isDTOldVersion = function(oTable) {
                 return angular.isDefined(oTable) && angular.isFunction(oTable.fnClearTable);
             },
             _hasReloadAjaxPlugin = function(oTable) {
@@ -57,11 +57,11 @@
         var NGRenderer = function(options) {
             return {
                 options: options,
-                render: function ($scope, $elem) {
+                render: function ($scope, $elem, staticHTML) {
                     var _this = this,
                         expression = $elem.find('tbody').html(),
-                    // Find the resources from the comment <!-- ngRepeat: item in items --> displayed by angular in the DOM
-                    // This regexp is inspired by the one used in the "ngRepeat" directive
+                        // Find the resources from the comment <!-- ngRepeat: item in items --> displayed by angular in the DOM
+                        // This regexp is inspired by the one used in the "ngRepeat" directive
                         match = expression.match(/^\s*.+\s+in\s+(\w*)\s*/),
                         ngRepeatAttr = match[1];
 
@@ -77,6 +77,9 @@
                     parentScope.$watchCollection(ngRepeatAttr, function () {
                         if (oTable && alreadyRendered && !_isDTOldVersion(oTable)) {
                             oTable.ngDestroy();
+                            // Re-compile because we lost the angular binding to the existing data
+                            $elem.html(staticHTML);
+                            $compile($elem.contents())(parentScope);
                         }
                         // This condition handles the case the array is empty
                         if (firstCall) {
