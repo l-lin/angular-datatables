@@ -14,11 +14,11 @@
             See the <a ui-sref="api">API</a> for the complete list of methods of the helper.
         </p>
     </section>
-    <section class="showcase">
+    <section class="showcase" ng-controller="withAjaxCtrl">
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="withAjaxCtrl">
+                    <div>
                         <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
@@ -41,6 +41,32 @@ angular.module('datatablesSampleApp', ['datatables']).controller('withAjaxCtrl',
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
 });
+</div>
+            </tab>
+            <tab heading="Example data">
+                <p class="example-data">
+                    <a target="_blank" href="/data.json" tooltip="data.json">data.json&nbsp;<i class="fa fa-external-link"></i></a>
+                </p>
+<div hljs language="json">
+[{
+    "id": 860,
+    "firstName": "Superman",
+    "lastName": "Yoda"
+}, {
+    "id": 870,
+    "firstName": "Foo",
+    "lastName": "Whateveryournameis"
+}, {
+    "id": 590,
+    "firstName": "Toto",
+    "lastName": "Titi"
+}, {
+    "id": 803,
+    "firstName": "Luke",
+    "lastName": "Kyle"
+},
+...
+]
 </div>
             </tab>
         </tabset>

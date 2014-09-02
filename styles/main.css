@@ -240,6 +240,11 @@ pre code {
     font-style: italic;
 }
 
+.example-data {
+    margin-bottom: 0;
+    padding: 20px;
+    border-bottom: 1px solid #c2c2c2;
+}
 
 /* ---------------------------------------- */
 /* Sidebar
@@ -377,19 +382,3 @@ pre code {
 .dataTables_wrapper {
     margin-bottom: 15px;
 }
-
-/*table.dataTable.hover tbody tr:hover,*/
-/*table.dataTable.hover tbody tr.odd:hover,*/
-/*table.dataTable.hover tbody tr.even:hover,*/
-/*table.dataTable.display tbody tr:hover,*/
-/*table.dataTable.display tbody tr.odd:hover,*/
-/*table.dataTable.display tbody tr.even:hover {*/
-    /*background-color: #f5f5f5;*/
-/*}*/
-
-/*table.dataTable.row-border tbody th,*/
-/*table.dataTable.row-border tbody td,*/
-/*table.dataTable.display tbody th,*/
-/*table.dataTable.display tbody td {*/
-    /*border-top: 1px solid #ddd;*/
-/*}*/
