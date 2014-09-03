@@ -1,11 +1,11 @@
-/*! DataTables 1.10.1
+/*! DataTables 1.10.2
  * ©2008-2014 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     DataTables
  * @description Paginate, search and order HTML tables
- * @version     1.10.1
+ * @version     1.10.2
  * @file        jquery.dataTables.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
@@ -2973,34 +2973,40 @@
 					if ( column.bSearchable ) {
 						cellData = _fnGetCellData( settings, i, j, 'filter' );
 	
-						cellData = fomatters[ column.sType ] ?
-							fomatters[ column.sType ]( cellData ) :
-							cellData !== null ?
-								cellData :
-								'';
+						if ( fomatters[ column.sType ] ) {
+							cellData = fomatters[ column.sType ]( cellData );
+						}
+	
+						// Search in DataTables 1.10 is string based. In 1.11 this
+						// should be altered to also allow strict type checking.
+						if ( cellData === null ) {
+							cellData = '';
+						}
+	
+						if ( typeof cellData !== 'string' && cellData.toString ) {
+							cellData = cellData.toString();
+						}
 					}
 					else {
 						cellData = '';
 					}
 	
-					if ( cellData ) {
-						// If it looks like there is an HTML entity in the string,
-						// attempt to decode it so sorting works as expected. Note that
-						// we could use a single line of jQuery to do this, but the DOM
-						// method used here is much faster http://jsperf.com/html-decode
-						if ( cellData.indexOf && cellData.indexOf('&') !== -1 ) {
-							__filter_div.innerHTML = cellData;
-							cellData = __filter_div_textContent ?
-								__filter_div.textContent :
-								__filter_div.innerText;
-						}
-	
-						if ( cellData.replace ) {
-							cellData = cellData.replace(/[\r\n]/g, '');
-						}
-	
-						filterData.push( cellData );
+					// If it looks like there is an HTML entity in the string,
+					// attempt to decode it so sorting works as expected. Note that
+					// we could use a single line of jQuery to do this, but the DOM
+					// method used here is much faster http://jsperf.com/html-decode
+					if ( cellData.indexOf && cellData.indexOf('&') !== -1 ) {
+						__filter_div.innerHTML = cellData;
+						cellData = __filter_div_textContent ?
+							__filter_div.textContent :
+							__filter_div.innerText;
 					}
+	
+					if ( cellData.replace ) {
+						cellData = cellData.replace(/[\r\n]/g, '');
+					}
+	
+					filterData.push( cellData );
 				}
 	
 				row._aFilterData = filterData;
@@ -7983,7 +7989,7 @@
 	// can be an array of these items, comma separated list, or an array of comma
 	// separated lists
 	
-	var __re_column_selector = /^(.*):(name|visIdx|visible)$/;
+	var __re_column_selector = /^(.+):(name|visIdx|visible)$/;
 	
 	var __column_selector = function ( settings, selector, opts )
 	{
@@ -8051,7 +8057,7 @@
 	
 	
 	
-	var __setColumnVis = function ( settings, column, vis ) {
+	var __setColumnVis = function ( settings, column, vis, recalc ) {
 		var
 			cols = settings.aoColumns,
 			col  = cols[ column ],
@@ -8094,12 +8100,14 @@
 		_fnDrawHead( settings, settings.aoHeader );
 		_fnDrawHead( settings, settings.aoFooter );
 	
-		// Automatically adjust column sizing
-		_fnAdjustColumnSizing( settings );
+		if ( recalc === undefined || recalc ) {
+			// Automatically adjust column sizing
+			_fnAdjustColumnSizing( settings );
 	
-		// Realign columns for scrolling
-		if ( settings.oScroll.sX || settings.oScroll.sY ) {
-			_fnScrollDraw( settings );
+			// Realign columns for scrolling
+			if ( settings.oScroll.sX || settings.oScroll.sY ) {
+				_fnScrollDraw( settings );
+			}
 		}
 	
 		_fnCallbackFire( settings, null, 'column-visibility', [settings, column, vis] );
@@ -8186,11 +8194,11 @@
 	
 	
 	
-	_api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis ) {
+	_api_registerPlural( 'columns().visible()', 'column().visible()', function ( vis, calc ) {
 		return this.iterator( 'column', function ( settings, column ) {
 			return vis === undefined ?
 				settings.aoColumns[ column ].bVisible :
-				__setColumnVis( settings, column, vis );
+				__setColumnVis( settings, column, vis, calc );
 		} );
 	} );
 	
@@ -8547,33 +8555,34 @@
 	} );
 	
 	
-	_api_register( [
+	_api_registerPlural(
 		'columns().search()',
-		'column().search()'
-	], function ( input, regex, smart, caseInsen ) {
-		return this.iterator( 'column', function ( settings, column ) {
-			var preSearch = settings.aoPreSearchCols;
+		'column().search()',
+		function ( input, regex, smart, caseInsen ) {
+			return this.iterator( 'column', function ( settings, column ) {
+				var preSearch = settings.aoPreSearchCols;
 	
-			if ( input === undefined ) {
-				// get
-				return preSearch[ column ].sSearch;
-			}
+				if ( input === undefined ) {
+					// get
+					return preSearch[ column ].sSearch;
+				}
 	
-			// set
-			if ( ! settings.oFeatures.bFilter ) {
-				return;
-			}
+				// set
+				if ( ! settings.oFeatures.bFilter ) {
+					return;
+				}
 	
-			$.extend( preSearch[ column ], {
-				"sSearch": input+"",
-				"bRegex":  regex === null ? false : regex,
-				"bSmart":  smart === null ? true  : smart,
-				"bCaseInsensitive": caseInsen === null ? true : caseInsen
+				$.extend( preSearch[ column ], {
+					"sSearch": input+"",
+					"bRegex":  regex === null ? false : regex,
+					"bSmart":  smart === null ? true  : smart,
+					"bCaseInsensitive": caseInsen === null ? true : caseInsen
+				} );
+	
+				_fnFilterComplete( settings, settings.oPreviousSearch, 1 );
 			} );
-	
-			_fnFilterComplete( settings, settings.oPreviousSearch, 1 );
-		} );
-	} );
+		}
+	);
 	
 	/*
 	 * State API methods
@@ -8882,7 +8891,7 @@
 	 *  @type string
 	 *  @default Version number
 	 */
-	DataTable.version = "1.10.1";
+	DataTable.version = "1.10.2";
 
 	/**
 	 * Private data store, containing all of the settings objects that are

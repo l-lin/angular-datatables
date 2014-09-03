@@ -122,6 +122,13 @@
                     $rootScope.$broadcast('event:changeView', 'withTableTools');
                 }
             })
+            .state('withResponsive', {
+                url: '/withResponsive',
+                templateUrl: 'demo/partials/with_responsive.html',
+                controller: function($rootScope) {
+                    $rootScope.$broadcast('event:changeView', 'withResponsive');
+                }
+            })
             .state('bootstrapIntegration', {
                 url: '/bootstrapIntegration',
                 templateUrl: 'demo/partials/bootstrap_integration.html',
@@ -134,13 +141,6 @@
                 templateUrl: 'demo/partials/override_bootstrap_options.html',
                 controller: function($rootScope) {
                     $rootScope.$broadcast('event:changeView', 'overrideBootstrapOptions');
-                }
-            })
-            .state('allInOne', {
-                url: '/allInOne',
-                templateUrl: 'demo/partials/all_in_one.html',
-                controller: function($rootScope) {
-                    $rootScope.$broadcast('event:changeView', 'allInOne');
                 }
             })
             .state('rowClickEvent', {

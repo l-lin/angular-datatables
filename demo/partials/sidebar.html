@@ -80,6 +80,11 @@
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;With TableTools
                 </a>
             </li>
+            <li ng-class="{'active': isActive('withResponsive')}">
+                <a ui-sref="withResponsive">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;With Responsive
+                </a>
+            </li>
             <li ng-class="{'active': isActive('bootstrapIntegration')}">
                 <a ui-sref="bootstrapIntegration">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;Bootstrap integration
@@ -88,11 +93,6 @@
             <li ng-class="{'active': isActive('overrideBootstrapOptions')}">
                 <a ui-sref="overrideBootstrapOptions">
                     <i class="menu-icon fa fa-caret-right"></i>&nbsp;Override Bootstrap options
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('allInOne')}">
-                <a ui-sref="allInOne">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;All in one
                 </a>
             </li>
             <li ng-class="{'active': isActive('rowClickEvent')}">
