@@ -42,11 +42,14 @@ $ bower install angular-datatables
                 Include the JS file in your <code>index.html</code> file:
                 <br />
             </p>
-            <div class="highlight">
-                <pre><code class="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"angular-datatables.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre>
-            </div>
+<div hljs language="html">
+<script src="jquery.min.js"></script>
+<script src="jquery.dataTables.min.js"></script>
+<script src="angular.min.js"></script>
+<script src="angular-datatables.min.js"></script>
+</div>
             <p class="text-danger">
-                <i class="fa fa-warning"></i>&nbsp;You must include the JS file <strong>AFTER</strong>&nbsp;<code>jQuery</code> and <code>DataTables</code>!
+                <i class="fa fa-warning"></i>&nbsp;You must include the JS file in this order. AngularJS <strong>MUST</strong> use <code>jQuery</code> and not its <code>jqLite</code>!
             </p>
             <p>
                 Declare dependencies on your module app like this:
