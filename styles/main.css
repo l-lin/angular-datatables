@@ -163,6 +163,10 @@ pre code {
     margin-left: -1px;
 }
 
+.nav-tabs>li>a:hover {
+    border-bottom-color: #c2c2c2;
+}
+
 .nav-tabs>li.active>a,
 .nav-tabs>li.active>a:hover,
 .nav-tabs>li.active>a:focus {
