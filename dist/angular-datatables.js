@@ -420,21 +420,6 @@
         ]
       };
     }
-  ]).directive('dtRows', [
-    '$log',
-    function ($log) {
-      var hasWarned;
-      return {
-        restrict: 'A',
-        priority: 1001,
-        link: function () {
-          if (!hasWarned) {
-            $log.warn('As of v0.1.0, the directive "dtRows" is deprecated. This directive is no longer needed. It will be removed completely from v0.2.0');
-            hasWarned = true;
-          }
-        }
-      };
-    }
   ]);
 }(angular));
 (function ($, angular) {
@@ -897,16 +882,6 @@
         }, _doRenderDataTable = function ($elem, options, $scope) {
           _hideLoading($elem);
           return _renderDataTableAndEmitEvent($elem, options, $scope);
-        },
-        /**
-             * Check if the given table is a using DataTable version 1.9.4
-             * @param oTable the datatable
-             * @private
-             */
-        _isDTOldVersion = function (oTable) {
-          return angular.isDefined(oTable) && angular.isFunction(oTable.fnClearTable);
-        }, _hasReloadAjaxPlugin = function (oTable) {
-          return angular.isDefined(oTable.fnReloadAjax) && angular.isFunction(oTable.fnReloadAjax);
         };
       /**
          * Default renderer without any server call
@@ -943,7 +918,7 @@
             }
             var oTable, firstCall = true, alreadyRendered = false, parentScope = $scope.$parent;
             parentScope.$watchCollection(ngRepeatAttr, function () {
-              if (oTable && alreadyRendered && !_isDTOldVersion(oTable)) {
+              if (oTable && alreadyRendered) {
                 oTable.ngDestroy();
                 // Re-compile because we lost the angular binding to the existing data
                 $elem.html(staticHTML);
@@ -985,14 +960,8 @@
             options.bDestroy = true;
             // Condition to refresh the dataTable
             if (oTable) {
-              if (_isDTOldVersion(oTable)) {
-                oTable.fnClearTable();
-                oTable.fnDraw();
-                oTable.fnAddData(options.aaData);
-              } else {
-                oTable.clear();
-                oTable.rows.add(options.aaData).draw();
-              }
+              oTable.clear();
+              oTable.rows.add(options.aaData).draw();
             } else {
               oTable = _renderDataTableAndEmitEvent($elem, options, $scope);
             }
@@ -1053,17 +1022,8 @@
             _hideLoading($elem);
             // Condition to refresh the dataTable
             if (oTable) {
-              if (_hasReloadAjaxPlugin(oTable)) {
-                // Reload Ajax data using the plugin "fnReloadAjax": https://next.datatables.net/plug-ins/api/fnReloadAjax
-                // For DataTable v1.9.4
-                oTable.fnReloadAjax(options.sAjaxSource);
-              } else if (!_isDTOldVersion(oTable)) {
-                // For DataTable v1.10+, DT provides methods https://datatables.net/reference/api/ajax.url()
-                var ajaxUrl = options.sAjaxSource || options.ajax.url || options.ajax;
-                oTable.ajax.url(ajaxUrl).load();
-              } else {
-                throw new Error('Reload Ajax not supported. Please use the plugin "fnReloadAjax" (https://next.datatables.net/plug-ins/api/fnReloadAjax) or use a more recent version of DataTables (v1.10+)');
-              }
+              var ajaxUrl = options.sAjaxSource || options.ajax.url || options.ajax;
+              oTable.ajax.url(ajaxUrl).load();
             } else {
               oTable = _renderDataTableAndEmitEvent($elem, options, $scope);
             }

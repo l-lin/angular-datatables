@@ -52,22 +52,5 @@
                 };
             }
         };
-    }).
-    /**
-     * FIXME: Remove me when dealing with version 0.2.0
-     * @deprecated Since v0.1.0
-     */
-    directive('dtRows', function ($log) {
-        var hasWarned;
-        return {
-            restrict: 'A',
-            priority: 1001,
-            link: function() {
-                if (!hasWarned) {
-                    $log.warn('As of v0.1.0, the directive "dtRows" is deprecated. This directive is no longer needed. It will be removed completely from v0.2.0');
-                    hasWarned = true;
-                }
-            }
-        };
     });
 })(angular);
