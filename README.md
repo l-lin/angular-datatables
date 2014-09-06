@@ -72,6 +72,7 @@ See [github page](https://l-lin.github.io/angular-datatables).
 Additional notes
 ----------------
 
+* [RequireJS](http://requirejs.org/) is not supported.
 * Each time a datatable is rendered, a message is sent to the parent scopes with the id of the table and the DataTable itself.
 
 For instance, for the given dataTable:
