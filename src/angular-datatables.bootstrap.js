@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('datatables.bootstrap.tabletools', ['datatables.bootstrap.options', 'datatables.util']).
-    service('$DTBootstrapTableTools', function($DTPropertyUtil, $DTBootstrapDefaultOptions) {
+    service('DTBootstrapTableTools', function(DTPropertyUtil, DTBootstrapDefaultOptions) {
         var _initializedTableTools = false,
             _savedFn = {},
             _saveFnToBeOverrided = function () {
@@ -23,8 +23,8 @@
                  * Required TableTools 2.1+
                  */
                 if ($.fn.DataTable.TableTools) {
-                    var tableToolsOptions = $DTPropertyUtil.overrideProperties(
-                        $DTBootstrapDefaultOptions.getOptions().TableTools,
+                    var tableToolsOptions = DTPropertyUtil.overrideProperties(
+                        DTBootstrapDefaultOptions.getOptions().TableTools,
                         bootstrapOptions ? bootstrapOptions.TableTools : null
                     );
                     // Set the classes that TableTools uses to something suitable for Bootstrap
@@ -47,12 +47,12 @@
     });
 
     angular.module('datatables.bootstrap.colvis', ['datatables.bootstrap.options', 'datatables.util']).
-    service('$DTBootstrapColVis', function($DTPropertyUtil, $DTBootstrapDefaultOptions) {
+    service('DTBootstrapColVis', function(DTPropertyUtil, DTBootstrapDefaultOptions) {
         var _initializedColVis = false;
         this.integrate = function(addDrawCallbackFunction, bootstrapOptions) {
             if (!_initializedColVis) {
-                var colVisProperties = $DTPropertyUtil.overrideProperties(
-                    $DTBootstrapDefaultOptions.getOptions().ColVis,
+                var colVisProperties = DTPropertyUtil.overrideProperties(
+                    DTBootstrapDefaultOptions.getOptions().ColVis,
                     bootstrapOptions ? bootstrapOptions.ColVis : null
                 );
                 /* ColVis Bootstrap compatibility */
@@ -77,7 +77,7 @@
      * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
      */
     angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatables.bootstrap.tabletools', 'datatables.bootstrap.colvis']).
-    service('$DTBootstrap', function($DTBootstrapTableTools, $DTBootstrapColVis, $DTBootstrapDefaultOptions) {
+    service('DTBootstrap', function(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions) {
         var _initialized = false,
             _drawCallbackFunctionList = [],
             _savedFn = {};
@@ -282,7 +282,7 @@
             }
         }, _setDom = function(options) {
             if (!options.hasOverrideDom) {
-                var sDom = $DTBootstrapDefaultOptions.getOptions().dom;
+                var sDom = DTBootstrapDefaultOptions.getOptions().dom;
                 if (options.hasColReorder) {
                     sDom = 'R' + sDom;
                 }
@@ -303,8 +303,8 @@
          */
         this.integrate = function(options) {
             _init();
-            $DTBootstrapTableTools.integrate(options.bootstrap);
-            $DTBootstrapColVis.integrate(_addDrawCallbackFunction, options.bootstrap);
+            DTBootstrapTableTools.integrate(options.bootstrap);
+            DTBootstrapColVis.integrate(_addDrawCallbackFunction, options.bootstrap);
 
             options.sDom = _setDom(options);
             if (angular.isUndefined(options.fnDrawCallback)) {
@@ -320,8 +320,8 @@
         this.deIntegrate = function () {
             if (_initialized) {
                 _revertToDTFn();
-                $DTBootstrapTableTools.deIntegrate();
-                $DTBootstrapColVis.deIntegrate();
+                DTBootstrapTableTools.deIntegrate();
+                DTBootstrapColVis.deIntegrate();
                 _initialized = false;
             }
         };
