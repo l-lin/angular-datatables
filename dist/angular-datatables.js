@@ -916,7 +916,7 @@
             if (!match) {
               throw new Error('Expected expression in form of "_item_ in _collection_[ track by _id_]" but got "{0}".', expression);
             }
-            var oTable, firstCall = true, alreadyRendered = false, parentScope = $scope.$parent;
+            var oTable, alreadyRendered = false, parentScope = $scope.$parent;
             parentScope.$watchCollection(ngRepeatAttr, function () {
               if (oTable && alreadyRendered) {
                 oTable.ngDestroy();
@@ -924,21 +924,10 @@
                 $elem.html(staticHTML);
                 $compile($elem.contents())(parentScope);
               }
-              // This condition handles the case the array is empty
-              if (firstCall) {
-                firstCall = false;
-                $timeout(function () {
-                  if (!alreadyRendered) {
-                    oTable = _doRenderDataTable($elem, _this.options, $scope);
-                    alreadyRendered = true;
-                  }
-                }, 1000, false);  // Hack I'm not proud of... Don't know how to do it otherwise...
-              } else {
-                $timeout(function () {
-                  oTable = _doRenderDataTable($elem, _this.options, $scope);
-                  alreadyRendered = true;
-                }, 0, false);
-              }
+              $timeout(function () {
+                alreadyRendered = true;
+                oTable = _doRenderDataTable($elem, _this.options, $scope);
+              }, 0, false);
             }, true);
           }
         };
