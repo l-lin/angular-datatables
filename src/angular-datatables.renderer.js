@@ -12,8 +12,12 @@
                 $elem.show();
                 $loading.hide();
             }, _renderDataTableAndEmitEvent = function ($elem, options, $scope) {
+                var dtId = '#' + $elem.attr('id');
+                if ($.fn.dataTable.isDataTable(dtId)) {
+                    options.destroy = true;
+                }
                 var oTable = $elem.DataTable(options);
-                $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id'), dt: oTable });
+                $scope.$emit('event:dataTableLoaded', { id: dtId, dt: oTable });
                 return oTable;
             }, _doRenderDataTable = function($elem, options, $scope) {
                 _hideLoading($elem);
@@ -115,7 +119,6 @@
                             } else {
                                 _loadedPromise = fnPromise;
                             }
-                            _showLoading($elem);
                             _loadedPromise.then(_whenLoaded);
                         }, _reload = function (fnPromise) {
                             if (_loadedPromise) {

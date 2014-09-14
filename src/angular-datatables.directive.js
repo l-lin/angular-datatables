@@ -15,7 +15,9 @@
                 var _staticHTML = tElm[0].innerHTML;
                 return function postLink($scope, $elem, iAttrs, ctrl) {
                     ctrl.showLoading($elem);
-                    ctrl.render($elem, ctrl.buildOptions(), _staticHTML);
+                    $scope.$watch('[dtOptions, dtColumns, dtColumnDefs]', function() {
+                        ctrl.render($elem, ctrl.buildOptions(), _staticHTML);
+                    }, true);
                 };
             },
             controller: function ($scope) {

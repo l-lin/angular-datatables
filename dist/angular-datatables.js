@@ -379,7 +379,9 @@
           var _staticHTML = tElm[0].innerHTML;
           return function postLink($scope, $elem, iAttrs, ctrl) {
             ctrl.showLoading($elem);
-            ctrl.render($elem, ctrl.buildOptions(), _staticHTML);
+            $scope.$watch('[dtOptions, dtColumns, dtColumnDefs]', function () {
+              ctrl.render($elem, ctrl.buildOptions(), _staticHTML);
+            }, true);
           };
         },
         controller: [
@@ -873,9 +875,13 @@
           $elem.show();
           $loading.hide();
         }, _renderDataTableAndEmitEvent = function ($elem, options, $scope) {
+          var dtId = '#' + $elem.attr('id');
+          if ($.fn.dataTable.isDataTable(dtId)) {
+            options.destroy = true;
+          }
           var oTable = $elem.DataTable(options);
           $scope.$emit('event:dataTableLoaded', {
-            id: $elem.attr('id'),
+            id: dtId,
             dt: oTable
           });
           return oTable;
@@ -968,7 +974,6 @@
                 } else {
                   _loadedPromise = fnPromise;
                 }
-                _showLoading($elem);
                 _loadedPromise.then(_whenLoaded);
               }, _reload = function (fnPromise) {
                 if (_loadedPromise) {

@@ -150,6 +150,13 @@
                     $rootScope.$broadcast('event:changeView', 'rowClickEvent');
                 }
             })
+            .state('changeOptions', {
+                url: '/changeOptions',
+                templateUrl: 'demo/partials/change_options.html',
+                controller: function($rootScope) {
+                    $rootScope.$broadcast('event:changeView', 'changeOptions');
+                }
+            })
             .state('api', {
                 url: '/api',
                 templateUrl: 'demo/partials/api.html',

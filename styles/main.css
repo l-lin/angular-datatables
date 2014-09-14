@@ -267,6 +267,7 @@ pre code {
     -o-transition: all .1s linear 0s;
     -ms-transition: all .1s linear 0s;
     transition: all .1s linear 0s;
+    z-index: 100;
 }
 
 .sidebar .fa {
