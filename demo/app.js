@@ -150,6 +150,13 @@
                     $rootScope.$broadcast('event:changeView', 'rowClickEvent');
                 }
             })
+            .state('bindAngularDirective', {
+                url: '/bindAngularDirective',
+                templateUrl: 'demo/partials/bind_angular_directive.html',
+                controller: function($rootScope) {
+                    $rootScope.$broadcast('event:changeView', 'bindAngularDirective');
+                }
+            })
             .state('changeOptions', {
                 url: '/changeOptions',
                 templateUrl: 'demo/partials/change_options.html',
