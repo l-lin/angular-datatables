@@ -19,16 +19,16 @@
             $scope.dtOptions.reloadData();
         };
 
-        $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        $scope.dtOptions = DTOptionsBuilder.fromSource('data1.json')
             .withPaginationType('full_numbers')
-            .withOption('initComplete', function(settings) {
+            .withOption('createdRow', function(row, data, dataIndex) {
                 // Recompiling so we can bind Angular directive to the DT
-                $compile(angular.element('#' + settings.sTableId).contents())($scope);
+                $compile(angular.element(row).contents())($scope);
             });
         $scope.dtColumns = [
             DTColumnBuilder.newColumn('id').withTitle('ID'),
             DTColumnBuilder.newColumn('firstName').withTitle('First name'),
-            DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible(),
+            DTColumnBuilder.newColumn('lastName').withTitle('Last name'),
             DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
                 .renderWith(function(data, type, full, meta) {
                     return '<button class="btn btn-warning" ng-click="edit(' + data.id + ')">' +
