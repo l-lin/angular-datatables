@@ -4,7 +4,6 @@
     factory('DTRendererFactory', function($timeout, $compile, DTLoadingTemplate, DT_DEFAULT_OPTIONS) {
         var $loading = angular.element(DTLoadingTemplate.html),
             _showLoading = function ($elem) {
-                $loading.show();
                 $elem.after($loading);
                 $elem.hide();
                 $loading.show();
