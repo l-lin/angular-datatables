@@ -83,6 +83,14 @@ $scope.$on('event:dataTableLoaded', function(event, loadedDT) {
 });
 </div>
                 </li>
+                <li>
+                    <p>
+                        <code>Angular Datatables</code> is using <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/create"><code>Object.create()</code></a> to instanciate options and columns.
+                    </p>
+                    <p>
+                        If you need to support IE8, then you need to add this <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill"><code>Polyfill</code></a>.
+                    </p>
+                </li>
             </ul>
 
         </section>
