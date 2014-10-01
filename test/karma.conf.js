@@ -17,6 +17,7 @@ module.exports = function(config) {
             'vendor/angular-mocks/angular-mocks.js',
             'src/angular-datatables.bootstrap.options.js',
             'src/angular-datatables.bootstrap.js',
+            'src/angular-datatables.renderer.js',
             'src/angular-datatables.factory.js',
             'src/angular-datatables.util.js',
             'src/angular-datatables.directive.js',

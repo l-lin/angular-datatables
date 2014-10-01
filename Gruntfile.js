@@ -51,6 +51,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'concat:build',
+        'wrap',
         'ngmin',
         'cssmin',
         'uglify',
