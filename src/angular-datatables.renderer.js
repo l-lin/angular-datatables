@@ -3,6 +3,9 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
 .factory('DTRendererService', function(DTLoadingTemplate) {
     var $loading = angular.element(DTLoadingTemplate.html);
     return {
+        getLoadingElem: function() {
+            return $loading;
+        },
         showLoading: function ($elem) {
             $elem.after($loading);
             $elem.hide();
@@ -44,6 +47,7 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
     return {
         create: function (options) {
             var renderer = Object.create(DTRenderer);
+            renderer.name = 'DTDefaultRenderer';
             renderer.options = options;
             renderer.render = function ($scope, $elem) {
                 var _this = this;
@@ -67,6 +71,7 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
     return {
         create: function (options) {
             var renderer = Object.create(DTRenderer);
+            renderer.name = 'DTNGRenderer';
             renderer.options = options;
             renderer.render = function ($scope, $elem, staticHTML) {
                 var _this = this,
@@ -130,6 +135,7 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
                 };
 
             var renderer = Object.create(DTRenderer);
+            renderer.name = 'DTPromiseRenderer';
             renderer.options = options;
             renderer.render = function ($scope, $elem) {
                 var _this = this,
@@ -211,6 +217,7 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
                     }, 0, false);
                 };
             var renderer = Object.create(DTRenderer);
+            renderer.name = 'DTAjaxRenderer';
             renderer.options = options;
             renderer.render = function ($scope, $elem) {
                 var _this = this;
