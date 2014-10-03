@@ -18,7 +18,8 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
                 options.destroy = true;
             }
             var oTable = $elem.DataTable(options);
-            $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id'), dt: oTable });
+            // See http://datatables.net/manual/api#Accessing-the-API to understand the difference between DataTable and dataTable
+            $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id'), DataTable: oTable, dataTable: $elem.dataTable() });
             return oTable;
         },
         doRenderDataTable: function($elem, options, $scope) {

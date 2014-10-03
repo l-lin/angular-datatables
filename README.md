@@ -85,7 +85,11 @@ You can catch the event like this in your parent directive or controller:
 
 ```js
 $scope.$on('event:dataTableLoaded', function(event, loadedDT) {
-    // loadedDT === {"id": "foobar", dt: oTable}
+    // loadedDT === {"id": "foobar", "DataTable": oTable, "dataTable": $oTable}
+
+    // loadedDT.DataTable is the DataTable API instance
+    // loadedDT.dataTable is the jQuery Object
+    // See http://datatables.net/manual/api#Accessing-the-API
 });
 ```
 

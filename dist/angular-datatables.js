@@ -863,9 +863,11 @@
             options.destroy = true;
           }
           var oTable = $elem.DataTable(options);
+          // See http://datatables.net/manual/api#Accessing-the-API to understand the difference between DataTable and dataTable
           $scope.$emit('event:dataTableLoaded', {
             id: $elem.attr('id'),
-            dt: oTable
+            DataTable: oTable,
+            dataTable: $elem.dataTable()
           });
           return oTable;
         },
