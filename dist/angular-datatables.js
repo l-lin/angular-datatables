@@ -374,7 +374,16 @@
           return function postLink($scope, $elem, iAttrs, ctrl) {
             $scope.$watch('[dtOptions, dtColumns, dtColumnDefs]', function (newVal, oldVal) {
               if (newVal !== oldVal) {
-                ctrl.render($elem, ctrl.buildOptions(), _staticHTML);
+                var newDTOptions = newVal[0], oldDTOptions = oldVal[0];
+                // Do not rerender if we want to reload. There are already
+                // some watchers in the renderers.
+                if (!newDTOptions.reload || newDTOptions.sAjaxSource !== oldDTOptions.sAjaxSource) {
+                  ctrl.render($elem, ctrl.buildOptions(), _staticHTML);
+                } else {
+                  // The reload attribute is set to false here in order
+                  // to recall this watcher again
+                  newDTOptions.reload = false;
+                }
               }
             }, true);
             ctrl.showLoading($elem);
@@ -970,7 +979,10 @@
      */
       return {
         create: function (options) {
-          var oTable, _render = function (options, $elem, data, $scope) {
+          var oTable,
+            // Reloading data call the "render()" function again, so it
+            // might $watch again. So this flag is here to prevent that!
+            _watcherInitialized = false, _render = function (options, $elem, data, $scope) {
               options.aaData = data;
               // Add $timeout to be sure that angular has finished rendering before calling datatables
               $timeout(function () {
@@ -1001,27 +1013,27 @@
                 }
                 _loadedPromise.then(_whenLoaded);
               }, _reload = function (fnPromise) {
-                if (_loadedPromise) {
-                  _loadedPromise.then(function () {
+                if (angular.isDefined(fnPromise)) {
+                  if (_loadedPromise) {
+                    _loadedPromise.then(function () {
+                      _startLoading(fnPromise);
+                    });
+                  } else {
                     _startLoading(fnPromise);
-                  });
+                  }
                 } else {
-                  _startLoading(fnPromise);
+                  throw new Error('You must provide a promise or a function that returns a promise!');
                 }
               };
-            $scope.$watch('dtOptions.fnPromise', function (fnPromise) {
-              if (angular.isDefined(fnPromise)) {
-                _reload(fnPromise);
-              } else {
-                throw new Error('You must provide a promise or a function that returns a promise!');
-              }
-            });
-            $scope.$watch('dtOptions.reload', function (reload) {
-              if (reload) {
-                $scope.dtOptions.reload = false;
-                _reload($scope.dtOptions.fnPromise);
-              }
-            });
+            if (!_watcherInitialized) {
+              $scope.$watch('dtOptions.fnPromise', function (fnPromise, oldPromise) {
+                if (fnPromise !== oldPromise) {
+                  _reload(fnPromise);
+                }
+              });
+              _watcherInitialized = true;
+            }
+            _reload($scope.dtOptions.fnPromise);
             return _this;
           };
           return renderer;
@@ -1081,20 +1093,7 @@
             if (angular.isUndefined(_this.options.aoColumns)) {
               _this.options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
             }
-            $scope.$watch('dtOptions.sAjaxSource', function (sAjaxSource, oldAjaxSource) {
-              if (sAjaxSource !== oldAjaxSource) {
-                _setOptionsAndRender(_this.options, sAjaxSource, $elem, $scope);
-              }
-            }, true);
-            $scope.$watch('dtOptions.reload', function (reload, oldReload) {
-              if (reload !== oldReload) {
-                if (reload) {
-                  $scope.dtOptions.reload = false;
-                  _render(options, $elem, $scope);
-                }
-              }
-            }, true);
-            _setOptionsAndRender(_this.options, _this.options.sAjaxDSource, $elem, $scope);
+            _setOptionsAndRender(_this.options, _this.options.sAjaxSource, $elem, $scope);
             return this;
           };
           return renderer;

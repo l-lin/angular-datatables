@@ -117,6 +117,9 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
     return {
         create: function (options) {
             var oTable,
+                // Reloading data call the "render()" function again, so it
+                // might $watch again. So this flag is here to prevent that!
+                _watcherInitialized = false,
                 _render = function (options, $elem, data, $scope) {
                     options.aaData = data;
                     // Add $timeout to be sure that angular has finished rendering before calling datatables
@@ -151,27 +154,27 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
                         }
                         _loadedPromise.then(_whenLoaded);
                     }, _reload = function (fnPromise) {
-                        if (_loadedPromise) {
-                            _loadedPromise.then(function() {
+                        if (angular.isDefined(fnPromise)) {
+                            if (_loadedPromise) {
+                                _loadedPromise.then(function() {
+                                    _startLoading(fnPromise);
+                                });
+                            } else {
                                 _startLoading(fnPromise);
-                            });
-                        } else {
-                            _startLoading(fnPromise);
+                            }
+                        } else {
+                            throw new Error('You must provide a promise or a function that returns a promise!');
                         }
                     };
-                $scope.$watch('dtOptions.fnPromise', function (fnPromise) {
-                    if (angular.isDefined(fnPromise)) {
-                        _reload(fnPromise);
-                    } else {
-                        throw new Error('You must provide a promise or a function that returns a promise!');
-                    }
-                });
-                $scope.$watch('dtOptions.reload', function (reload) {
-                    if (reload) {
-                        $scope.dtOptions.reload = false;
-                        _reload($scope.dtOptions.fnPromise);
-                    }
-                });
+                if (!_watcherInitialized) {
+                    $scope.$watch('dtOptions.fnPromise', function (fnPromise, oldPromise) {
+                        if (fnPromise !== oldPromise) {
+                            _reload(fnPromise);
+                        }
+                    });
+                    _watcherInitialized = true;
+                }
+                _reload($scope.dtOptions.fnPromise);
                 return _this;
             };
             return renderer;
@@ -228,20 +231,7 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
                 if (angular.isUndefined(_this.options.aoColumns)) {
                     _this.options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
                 }
-                $scope.$watch('dtOptions.sAjaxSource', function (sAjaxSource, oldAjaxSource) {
-                    if (sAjaxSource !== oldAjaxSource) {
-                        _setOptionsAndRender(_this.options, sAjaxSource, $elem, $scope);
-                    }
-                }, true);
-                $scope.$watch('dtOptions.reload', function (reload, oldReload) {
-                    if (reload !== oldReload) {
-                        if (reload) {
-                            $scope.dtOptions.reload = false;
-                            _render(options, $elem, $scope);
-                        }
-                    }
-                }, true);
-                _setOptionsAndRender(_this.options, _this.options.sAjaxDSource, $elem, $scope);
+                _setOptionsAndRender(_this.options, _this.options.sAjaxSource, $elem, $scope);
                 return this;
             };
             return renderer;
