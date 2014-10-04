@@ -174,7 +174,7 @@
     })
     .factory('DTLoadingTemplate', function() {
         return {
-            html: '<img src="images/loading.gif" />'
+            html: '<img src="../../images/loading.gif" />'
         };
     })
     .controller('sidebarCtrl', function($scope, $resource) {
@@ -190,7 +190,6 @@
             return 'welcome' !== $scope.currentView && 'gettingStarted' !== $scope.currentView && 'api' !== $scope.currentView;
         };
         $scope.isCollapsed = !('gettingStarted' === $scope.currentView || 'api' === $scope.currentView);
-
         $scope.archives = $resource('/archives.json').query();
     });
 

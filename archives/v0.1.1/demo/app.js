@@ -150,20 +150,6 @@
                     $rootScope.$broadcast('event:changeView', 'rowClickEvent');
                 }
             })
-            .state('bindAngularDirective', {
-                url: '/bindAngularDirective',
-                templateUrl: 'demo/partials/bind_angular_directive.html',
-                controller: function($rootScope) {
-                    $rootScope.$broadcast('event:changeView', 'bindAngularDirective');
-                }
-            })
-            .state('changeOptions', {
-                url: '/changeOptions',
-                templateUrl: 'demo/partials/change_options.html',
-                controller: function($rootScope) {
-                    $rootScope.$broadcast('event:changeView', 'changeOptions');
-                }
-            })
             .state('api', {
                 url: '/api',
                 templateUrl: 'demo/partials/api.html',
@@ -174,7 +160,7 @@
     })
     .factory('DTLoadingTemplate', function() {
         return {
-            html: '<img src="images/loading.gif" />'
+            html: '<img src="../../images/loading.gif" />'
         };
     })
     .controller('sidebarCtrl', function($scope, $resource) {
@@ -190,7 +176,6 @@
             return 'welcome' !== $scope.currentView && 'gettingStarted' !== $scope.currentView && 'api' !== $scope.currentView;
         };
         $scope.isCollapsed = !('gettingStarted' === $scope.currentView || 'api' === $scope.currentView);
-
         $scope.archives = $resource('/archives.json').query();
     });
 
