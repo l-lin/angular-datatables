@@ -1,6 +1,6 @@
 'use strict';
 angular.module('datatables', ['datatables.directive', 'datatables.factory', 'datatables.bootstrap']).
-run(function () {
+run(function ($log) {
     if ($.fn.DataTable.Api) {
         /**
          * Register an API to destroy a DataTable without detaching the tbody so that we can add new data
@@ -76,14 +76,18 @@ run(function () {
                     });
                 }
 
-                if (!remove && orig) {
-                    // insertBefore acts like appendChild if !arg[1]
-                    orig.insertBefore(table, settings.nTableReinsertBefore);
-                }
-
                 // -------------------------------------------------------------------------
                 // This is the only change with the "destroy()" API (with DT v1.10.1)
                 // -------------------------------------------------------------------------
+                if (!remove && orig) {
+                    // insertBefore acts like appendChild if !arg[1]
+                    try {
+                        orig.insertBefore(table, settings.nTableReinsertBefore);
+                    } catch (ex) {
+                        $log.warn(ex);
+                        orig.appendChild(table);
+                    }
+                }
                 // Add the TR elements back into the table in their original order
                 // jqTbody.children().detach();
                 // jqTbody.append( rows );
