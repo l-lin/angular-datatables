@@ -25,7 +25,8 @@
     	"_config.yml",
     	"grunt",
         "images",
-        "package.json"
+        "package.json",
+        "archives"
     ],
     "dependencies": {
         "angular": ">=1.2.6",
