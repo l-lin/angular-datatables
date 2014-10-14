@@ -26,7 +26,8 @@
     	"grunt",
         "images",
         "package.json",
-        "archives"
+        "archives",
+        "archives.json"
     ],
     "dependencies": {
         "angular": ">=1.2.6",
