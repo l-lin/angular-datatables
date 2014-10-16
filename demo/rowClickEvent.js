@@ -18,7 +18,6 @@
                 $('td', nRow).bind('click', function() {
                     $scope.$apply(function() {
                         $scope.someClickHandler(aData);
-                        console.log('foo')
                     });
                 });
                 return nRow;
