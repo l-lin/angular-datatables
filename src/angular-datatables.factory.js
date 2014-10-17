@@ -54,11 +54,11 @@ angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.option
      * @param fnPromise the function that returns a promise to fetch the data
      */
     var DTOptions = {
-        integrateBootstrap : false,
-        hasColVis : false,
-        hasColReorder : false,
-        hasTableTools : false,
-        hasOverrideDom : false,
+        integrateBootstrap: false,
+        hasColVis: false,
+        hasColReorder: false,
+        hasTableTools: false,
+        hasOverrideDom: false,
 
         reloadData: function() {
             this.reload = true;
@@ -345,6 +345,19 @@ angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.option
             if (angular.isArray(aButtons)) {
                 this.withTableToolsOption('aButtons', aButtons);
             }
+            return this;
+        },
+
+        // SCROLLER DATATABLES PLUGIN ---------
+        // See http://datatables.net/extensions/scroller/
+
+        /**
+         * Add scroller compatibility
+         * @returns {DTOptions} the options
+         */
+        withScroller: function() {
+            var scrollerSuffix = 'S';
+            this.sDom = fromNullable(this.sDom).or(DT_DEFAULT_OPTIONS.dom) + scrollerSuffix;
             return this;
         }
     };

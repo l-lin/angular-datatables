@@ -619,6 +619,11 @@
               this.withTableToolsOption('aButtons', aButtons);
             }
             return this;
+          },
+          withScroller: function () {
+            var scrollerSuffix = 'S';
+            this.sDom = fromNullable(this.sDom).or(DT_DEFAULT_OPTIONS.dom) + scrollerSuffix;
+            return this;
           }
         };
       return {

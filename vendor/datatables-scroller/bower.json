@@ -1,0 +1,12 @@
+{
+	"name": "datatables-scroller",
+	"version": "1.2.2",
+	"main": [
+		"js/dataTables.scroller.js",
+		"css/dataTables.scroller.css"
+	],
+	"dependencies": {
+		"jquery": ">=1.7.0",
+		"datatables": ">=1.9.0"
+	}
+}

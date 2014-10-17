@@ -129,6 +129,13 @@
                     $rootScope.$broadcast('event:changeView', 'withResponsive');
                 }
             })
+            .state('withScroller', {
+                url: '/withScroller',
+                templateUrl: 'demo/partials/with_scroller.html',
+                controller: function($rootScope) {
+                    $rootScope.$broadcast('event:changeView', 'withScroller');
+                }
+            })
             .state('bootstrapIntegration', {
                 url: '/bootstrapIntegration',
                 templateUrl: 'demo/partials/bootstrap_integration.html',

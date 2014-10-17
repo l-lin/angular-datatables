@@ -624,5 +624,31 @@ angular.module('myModule', ['datatables'])
                 </p>
             </td>
         </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withScroller()</code></td>
+            <td>
+                <p>Add <a href="http://datatables.net/extensions/scroller/">Scroller</a> compatibility.</p>
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function ($scope, DTOptionsBuilder) {
+    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withScroller();
+});
+</div>
+                <p>
+                    The above code will construct the following DataTables options:
+                </p>
+<div hljs language="json">
+{
+    "sAjaxSource": "data.json",
+    "sDom": "lfrtipS"
+}
+</div>
+                <p class="text-info">
+                    <i class="fa fa-info-circle"></i>&nbsp;By calling this API, the letter <code>S</code> is appended to the <a href="http://datatables.net/examples/basic_init/dom.html">DOM positioning</a>.
+                </p>
+            </td>
+        </tr>
         </tbody>
     </table>

@@ -1,10 +1,10 @@
 <article class="main-content">
     <header class="article-header">
-        <h1><i class="fa fa-play"></i>&nbsp;With the DataTables <a href="https://datatables.net/extensions/colvis/">ColVis</a></h1>
+        <h1><i class="fa fa-play"></i>&nbsp;With the DataTables <a href="http://datatables.net/extensions/scroller/">Scroller</a></h1>
     </header>
     <section class="article-content">
         <p>
-            The <code>angular-datatables</code> also provides an API in order to make the plugin <code>ColVis</code> works with datatables.
+            The <code>angular-datatables</code> also provides an API in order to make the plugin <code>Scroller</code> works with datatables.
         </p>
         <p>
             See the <a ui-sref="api">API</a> for the complete list of methods of the helper.
@@ -14,35 +14,31 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="withColVisCtrl">
+                    <div ng-controller="withScrollerCtrl">
                         <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
             <tab heading="HTML">
 <div hljs>
-<link rel="stylesheet" href="vendor/datatables-colvis/css/dataTables.colVis.css">
+<link rel="stylesheet" href="vendor/datatables-scroller/css/dataTables.scroller.css">
 <!-- ... -->
-<div ng-controller="withColVisCtrl">
+<div ng-controller="withScrollerCtrl">
     <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
 </div>
 <!-- ... -->
-<script src="vendor/datatables-colvis/js/dataTables.colVis.js"></script>
+<script src="vendor/datatables-scroller/js/dataTables.scroller.js"></script>
 </div>
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('withColVisCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
+angular.module('datatablesSampleApp', ['datatables'])
+.controller('withScrollerCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
     $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
-        .withPaginationType('full_numbers')
-        // Active ColVis plugin
-        .withColVis()
-        // Add a state change function
-        .withColVisStateChange(function(iColumn, bVisible) {
-            console.log('The column' + iColumn + ' has changed its status to ' + bVisible)
-            })
-        // Exclude the last column from the list
-        .withColVisOption('aiExclude', [2]);
+        .withScroller()
+        .withOption('deferRender', true)
+        // Do not forget to add the scorllY option!!!
+        .withOption('scrollY', 200);
     $scope.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
