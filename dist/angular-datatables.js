@@ -951,7 +951,7 @@
             var _this = this, expression = $elem.find('tbody').html(),
               // Find the resources from the comment <!-- ngRepeat: item in items --> displayed by angular in the DOM
               // This regexp is inspired by the one used in the "ngRepeat" directive
-              match = expression.match(/^\s*.+\s+in\s+(\S*)\s*/), ngRepeatAttr = match[1];
+              match = expression.match(/^\s*.+?\s+in\s+(\S*)\s*/), ngRepeatAttr = match[1];
             if (!match) {
               throw new Error('Expected expression in form of "_item_ in _collection_[ track by _id_]" but got "{0}".', expression);
             }
