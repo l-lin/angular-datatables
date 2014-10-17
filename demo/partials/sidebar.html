@@ -4,124 +4,56 @@
             <i class="fa fa-gear faa-spin"></i>&nbsp;Getting started
         </a>
     </li>
-    <li ng-class="{'active': isUsageActive()}">
-        <a class="faa-parent animated-hover" ng-click="isCollapsed = !isCollapsed; $event.stopProgragation()">
-            <i class="fa fa-play faa-horizontal"></i>&nbsp;Usage
+    <!-- ******************************************************************* -->
+    <li ng-class="{'active': isBasicUsageActive()}">
+        <a class="faa-parent animated-hover" ng-click="isBasicUsageCollapsed = !isBasicUsageCollapsed; $event.stopProgragation()">
+            <i class="fa fa-play faa-horizontal"></i>&nbsp;Basic usage
             <b class="arrow fa fa-angle-down"></b>
         </a>
-        <ul class="submenu" collapse="!isCollapsed">
-            <li ng-class="{'active': isActive('zeroConfig')}">
-                <a ui-sref="zeroConfig">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Zero configuration
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('withOptions')}">
-                <a ui-sref="withOptions">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;With options
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('withAjax')}">
-                <a ui-sref="withAjax">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;With ajax
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('dataReloadWithAjax')}">
-                <a ui-sref="dataReloadWithAjax">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Data reload with Ajax
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('withPromise')}">
-                <a ui-sref="withPromise">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;With promise
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('dataReloadWithPromise')}">
-                <a ui-sref="dataReloadWithPromise">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Data reload with promise
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('overrideLoadingTpl')}">
-                <a ui-sref="overrideLoadingTpl">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Custom loading HTML
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('serverSideProcessing')}">
-                <a ui-sref="serverSideProcessing">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Server side processing
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('angularWay')}">
-                <a ui-sref="angularWay">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;The Angular way
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('angularWayWithOptions')}">
-                <a ui-sref="angularWayWithOptions">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;The Angular way with options
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('angularWayDataChange')}">
-                <a ui-sref="angularWayDataChange">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Change data with the Angular way
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('withColReorder')}">
-                <a ui-sref="withColReorder">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;With ColReorder
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('withColVis')}">
-                <a ui-sref="withColVis">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;With ColVis
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('withTableTools')}">
-                <a ui-sref="withTableTools">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;With TableTools
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('withResponsive')}">
-                <a ui-sref="withResponsive">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;With Responsive
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('withScroller')}">
-                <a ui-sref="withScroller">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;With Scroller
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('bootstrapIntegration')}">
-                <a ui-sref="bootstrapIntegration">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Bootstrap integration
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('overrideBootstrapOptions')}">
-                <a ui-sref="overrideBootstrapOptions">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Override Bootstrap options
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('rowClickEvent')}">
-                <a ui-sref="rowClickEvent">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Row click event
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('bindAngularDirective')}">
-                <a ui-sref="bindAngularDirective">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Bind Angular directive
-                </a>
-            </li>
-            <li ng-class="{'active': isActive('changeOptions')}">
-                <a ui-sref="changeOptions">
-                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;Change options
+        <ul class="submenu" collapse="!isBasicUsageCollapsed">
+            <li ng-repeat="basicUsage in basicUsages"
+                ng-class="{'active': isActive(basicUsage.name)}">
+                <a ui-sref="{{ basicUsage.name }}">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;{{ basicUsage.label }}
                 </a>
             </li>
         </ul>
     </li>
+    <li ng-class="{'active': isAdvancedUsageActive()}">
+        <a class="faa-parent animated-hover" ng-click="isAdvancedUsageCollapsed = !isAdvancedUsageCollapsed; $event.stopProgragation()">
+            <i class="fa fa-play faa-horizontal"></i>&nbsp;Advanced usage
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="submenu" collapse="!isAdvancedUsageCollapsed">
+            <li ng-repeat="advancedUsage in advancedUsages"
+                ng-class="{'active': isActive(advancedUsage.name)}">
+                <a ui-sref="{{ advancedUsage.name }}">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;{{ advancedUsage.label }}
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li ng-class="{'active': isWithPluginsUsageActive()}">
+        <a class="faa-parent animated-hover" ng-click="isWithPluginsUsageCollapsed = !isWithPluginsUsageCollapsed; $event.stopProgragation()">
+            <i class="fa fa-play faa-horizontal"></i>&nbsp;With plugins
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="submenu" collapse="!isWithPluginsUsageCollapsed">
+            <li ng-repeat="withPluginsUsage in withPluginsUsages"
+                ng-class="{'active': isActive(withPluginsUsage.name)}">
+                <a ui-sref="{{ withPluginsUsage.name }}">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;{{ withPluginsUsage.label }}
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!-- ******************************************************************* -->
     <li ng-class="{'active': isActive('api')}">
         <a class="faa-parent animated-hover" ui-sref="api">
             <i class="fa fa-code faa-tada"></i>&nbsp;API
         </a>
     </li>
+
     <li>
         <a class="faa-parent animated-hover" ng-click="isArchiveCollapsed = !isArchiveCollapsed; $event.stopProgragation()">
             <i class="fa fa-archive faa-shake"></i>&nbsp;Archives
