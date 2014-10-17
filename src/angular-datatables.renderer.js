@@ -53,7 +53,7 @@
                         expression = $elem.find('tbody').html(),
                         // Find the resources from the comment <!-- ngRepeat: item in items --> displayed by angular in the DOM
                         // This regexp is inspired by the one used in the "ngRepeat" directive
-                        match = expression.match(/^\s*.+\s+in\s+(\S*)\s*/),
+                        match = expression.match(/^\s*.+?\s+in\s+(\S*)\s*/),
                         ngRepeatAttr = match[1];
 
                     if (!match) {
