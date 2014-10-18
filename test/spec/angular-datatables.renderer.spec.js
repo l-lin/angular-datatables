@@ -76,11 +76,9 @@ describe('datatables.renderer', function () {
                     });
             });
             it('should set the "destroy" option to true if we render again', inject(function ($timeout) {
-                // add $timeout in order to "wait" the DataTables to be renderer before calling the following codes
-                $timeout(function () {
-                    DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
-                    expect(options.destroy).toBeTruthy();
-                }, 0, false);
+                spyOn($.fn.dataTable, 'isDataTable').andReturn(true);
+                DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                expect(options.destroy).toBeTruthy();
             }));
         });
         describe(', when rendering the DataTable,', function () {
@@ -189,12 +187,12 @@ describe('datatables.renderer', function () {
         }));
 
         it('should render the DataTable', function () {
-            $timeout(function () {
-                renderer = DTDefaultRenderer.create();
-                var oTable = renderer.render($scope, $elem);
-                expect(DTRendererService.doRenderDataTable).toHaveBeenCalledWith($elem, options, $scope);
-                expect(oTable).toBeDefined();
-            }, 0, false);
+            renderer = DTDefaultRenderer.create();
+            renderer = renderer.render($scope, $elem);
+            $timeout.flush();
+            expect(DTRendererService.doRenderDataTable).toHaveBeenCalled();
+            expect(renderer).toBeDefined();
+            expect(renderer.name).toBe('DTDefaultRenderer');
         });
     });
 });
