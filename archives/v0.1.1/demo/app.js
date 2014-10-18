@@ -176,7 +176,7 @@
             return 'welcome' !== $scope.currentView && 'gettingStarted' !== $scope.currentView && 'api' !== $scope.currentView;
         };
         $scope.isCollapsed = !('gettingStarted' === $scope.currentView || 'api' === $scope.currentView);
-        $scope.archives = $resource('/archives.json').query();
+        $scope.archives = $resource('/angular-datatables/archives.json').query();
     });
 
     backToTop.init({
