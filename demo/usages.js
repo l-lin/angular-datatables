@@ -39,7 +39,7 @@ angular.module('datatablesSampleApp.usages', ['ngResource'])
         name: 'rowClickEvent',
         label: 'Row click event'
     }, {
-        name: 'bindAngulardirective',
+        name: 'bindAngularDirective',
         label: 'Bind Angular directive'
     }, {
         name: 'changeOptions',
