@@ -64,7 +64,7 @@ angular.module('datatablesSampleApp.usages', ['ngResource'])
         name: 'bootstrapIntegration',
         label: 'Bootstrap integration'
     }, {
-        name: 'overrideBootstrapoptions',
+        name: 'overrideBootstrapOptions',
         label: 'Override Bootstrap options'
     }]
 });
