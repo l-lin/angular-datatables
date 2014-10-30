@@ -44,6 +44,9 @@ angular.module('datatablesSampleApp.usages', ['ngResource'])
     }, {
         name: 'changeOptions',
         label: 'Change options'
+    }, {
+        name: 'loadOptionsWithPromise',
+        label: 'Load DT options with promise'
     }],
     withPlugins: [{
         name: 'withColReorder',

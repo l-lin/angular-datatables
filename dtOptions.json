@@ -1,0 +1,5 @@
+{
+    "ajax": "/angular-datatables/data.json",
+    "dom": "<'top'i>rt<'bottom'flp><'clear'>",
+    "pagingType": "full_numbers"
+}
