@@ -99,7 +99,7 @@ $scope.$on('event:dataTableLoaded', function(event, loadedDT) {
 Contributing
 ============
 
-See [https://github.com/angular/angular.js/blob/dev/CONTRIBUTING.md].
+See [CONTRIBUTING](https://github.com/l-lin/angular-datatables/blob/dev/CONTRIBUTING.md).
 
 License
 ================
