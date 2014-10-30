@@ -46,7 +46,7 @@ angular.module('datatablesSampleApp',
 })
 .factory('DTLoadingTemplate', function() {
     return {
-        html: '<img src="images/loading.gif" />'
+        html: '<img src="/angular-datatables/images/loading.gif" />'
     };
 });
 

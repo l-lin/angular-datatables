@@ -14,7 +14,7 @@ angular.module('datatablesSampleApp')
     $scope.basicUsages = USAGES.basic;
     $scope.advancedUsages = USAGES.advanced;
     $scope.withPluginsUsages = USAGES.withPlugins;
-    $scope.archives = $resource('archives.json').query();
+    $scope.archives = $resource('/angular-datatables/archives.json').query();
 
     // Functions
     $scope.isActive = function (view) {
