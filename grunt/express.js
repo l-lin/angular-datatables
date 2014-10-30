@@ -6,9 +6,9 @@ module.exports = {
     },
     livereload: {
         options: {
-            open: true,
+            open: 'http://127.0.0.1:9000/angular-datatables',
             bases: '<%= yeoman.currentDir %>',
-            server: 'server/server'
+            server: 'server'
         }
     },
     test: {
