@@ -143,7 +143,12 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
             renderer.render = function ($scope, $elem) {
                 var _this = this,
                     _loadedPromise = null,
-                    _whenLoaded = function (data) {
+                    _whenLoaded = function (result) {
+                        var data = result;
+                        // In case the data is nested in an object
+                        if (_this.options.sAjaxDataProp) {
+                            data = result[_this.options.sAjaxDataProp];
+                        }
                         _render(_this.options, $elem, data, $scope);
                         _loadedPromise = null;
                     }, _startLoading = function (fnPromise) {

@@ -1,11 +1,11 @@
 /*!
- * angular-datatables - v0.2.1
+ * angular-datatables - v0.3.0
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
 (function (window, document, $, angular) {
   /*!
- * angular-datatables - v0.2.1
+ * angular-datatables - v0.3.0
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
@@ -1015,7 +1015,12 @@
           renderer.name = 'DTPromiseRenderer';
           renderer.options = options;
           renderer.render = function ($scope, $elem) {
-            var _this = this, _loadedPromise = null, _whenLoaded = function (data) {
+            var _this = this, _loadedPromise = null, _whenLoaded = function (result) {
+                var data = result;
+                // In case the data is nested in an object
+                if (_this.options.sAjaxDataProp) {
+                  data = result[_this.options.sAjaxDataProp];
+                }
                 _render(_this.options, $elem, data, $scope);
                 _loadedPromise = null;
               }, _startLoading = function (fnPromise) {
