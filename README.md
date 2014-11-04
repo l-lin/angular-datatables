@@ -55,7 +55,7 @@ Include the JS file in your `index.html` file:
 If you want the `Twitter Bootstrap` support, then add the CSS file:
 
 ```html
-<link rel="datatables.bootstrap.min.css" rel="stylesheet">
+<link href="datatables.bootstrap.min.css" rel="stylesheet">
 ```
 
 Declare dependencies on your module app like this:
