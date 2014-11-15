@@ -1,5 +1,5 @@
 'use strict';
-angular.module('datatables.util', []).factory('DTPropertyUtil', function () {
+angular.module('datatables.util', []).factory('DTPropertyUtil', function() {
     return {
         /**
          * Overrides the source property with the given target properties.
@@ -8,7 +8,7 @@ angular.module('datatables.util', []).factory('DTPropertyUtil', function () {
          * @param target the target properties
          * @returns {*} the object overrided
          */
-        overrideProperties: function (source, target) {
+        overrideProperties: function(source, target) {
             var result = angular.copy(source);
 
             if (angular.isUndefined(result) || result === null) {
@@ -27,6 +27,11 @@ angular.module('datatables.util', []).factory('DTPropertyUtil', function () {
                 result = angular.copy(target);
             }
             return result;
+        },
+        deleteProperty: function(obj, propertyName) {
+            if (angular.isObject(obj)) {
+                delete obj[propertyName];
+            }
         }
     };
 });

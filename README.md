@@ -7,7 +7,7 @@ Notes
 
 The required dependencies are:
 
-* [AngularJS](http://angular.org) (tested with version 1.2.6+)
+* [AngularJS](http://angular.org) (tested with version 1.3.0+)
 * [jQuery](http://jquery.com) (tested with version 1.11.0)
 * [Datatables](https://datatables.net) (tested with version 1.10+)
 

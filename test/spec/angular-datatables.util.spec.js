@@ -1,8 +1,8 @@
-describe('datatables.service', function () {
+describe('datatables.service', function() {
     'use strict';
     beforeEach(module('datatables.util'));
 
-    describe('DTPropertyUtil', function () {
+    describe('DTPropertyUtil', function() {
         var DTPropertyUtil,
             source = {
                 a: 'a',
@@ -24,12 +24,12 @@ describe('datatables.service', function () {
                 }
             };
 
-        beforeEach(inject(function ($injector) {
+        beforeEach(inject(function($injector) {
             DTPropertyUtil = $injector.get('DTPropertyUtil');
         }));
 
-        describe(', when overriding the properties,', function () {
-            it('should overrides the properties', function () {
+        describe(', when overriding the properties,', function() {
+            it('should overrides the properties', function() {
                 var result = DTPropertyUtil.overrideProperties(source, target);
                 expect(result).not.toBeNull();
                 expect(result).toEqual({
@@ -47,9 +47,18 @@ describe('datatables.service', function () {
                 });
             });
 
-            it('should return the source if the target is null or undefined', function () {
+            it('should return the source if the target is null or undefined', function() {
                 expect(DTPropertyUtil.overrideProperties(source)).toEqual(source);
                 expect(DTPropertyUtil.overrideProperties(source, null)).toEqual(source);
+            });
+        });
+        describe(', when deleting a property from an object,', function() {
+            var foo = {
+                foo: 'Foo'
+            };
+            it('should remove the property if it exists', function() {
+                DTPropertyUtil.deleteProperty(foo, 'foo');
+                expect(foo.foo).toBeUndefined();
             });
         });
     });

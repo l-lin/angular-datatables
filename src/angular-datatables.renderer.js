@@ -121,6 +121,10 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
                 // might $watch again. So this flag is here to prevent that!
                 _watcherInitialized = false,
                 _render = function (options, $elem, data, $scope) {
+                    // Since Angular 1.3, the promise renderer is throwing "Maximum call stack size exceeded"
+                    // By removing the $promise attribute, we avoid an infinite loop when jquery is cloning the data
+                    // See https://github.com/l-lin/angular-datatables/issues/110
+                    delete data.$promise;
                     options.aaData = data;
                     // Add $timeout to be sure that angular has finished rendering before calling datatables
                     $timeout(function () {

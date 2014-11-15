@@ -354,14 +354,16 @@
   'use strict';
   angular.module('datatables.directive', [
     'datatables.renderer',
-    'datatables.options'
+    'datatables.options',
+    'datatables.util'
   ]).directive('datatable', [
     '$q',
     'DT_DEFAULT_OPTIONS',
     'DTBootstrap',
     'DTRendererFactory',
     'DTRendererService',
-    function ($q, DT_DEFAULT_OPTIONS, DTBootstrap, DTRendererFactory, DTRendererService) {
+    'DTPropertyUtil',
+    function ($q, DT_DEFAULT_OPTIONS, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
       return {
         restrict: 'A',
         scope: {
@@ -407,6 +409,11 @@
                 $q.when($scope.dtColumnDefs)
               ]).then(function (results) {
                 var dtOptions = results[0], dtColumns = results[1], dtColumnDefs = results[2];
+                // Since Angular 1.3, the promise throws a "Maximum call stack size exceeded" when cloning
+                // See https://github.com/l-lin/angular-datatables/issues/110
+                DTPropertyUtil.deleteProperty(dtOptions, '$promise');
+                DTPropertyUtil.deleteProperty(dtColumns, '$promise');
+                DTPropertyUtil.deleteProperty(dtColumnDefs, '$promise');
                 var options;
                 if (angular.isDefined($scope.dtOptions)) {
                   options = {};
@@ -1008,6 +1015,10 @@
             // Reloading data call the "render()" function again, so it
             // might $watch again. So this flag is here to prevent that!
             _watcherInitialized = false, _render = function (options, $elem, data, $scope) {
+              // Since Angular 1.3, the promise renderer is throwing "Maximum call stack size exceeded"
+              // By removing the $promise attribute, we avoid an infinite loop when jquery is cloning the data
+              // See https://github.com/l-lin/angular-datatables/issues/110
+              delete data.$promise;
               options.aaData = data;
               // Add $timeout to be sure that angular has finished rendering before calling datatables
               $timeout(function () {
@@ -1176,6 +1187,11 @@
           result = angular.copy(target);
         }
         return result;
+      },
+      deleteProperty: function (obj, propertyName) {
+        if (angular.isObject(obj)) {
+          delete obj[propertyName];
+        }
       }
     };
   });
