@@ -30,6 +30,14 @@
                 If your DataTable has a lot of rows, I <strong>STRONGLY</strong> advice you to use the Ajax solutions.
             </p>
         </div>
+        <div class="alert alert-info">
+            <p>
+                With Angular v1.3, the <a href="https://docs.angularjs.org/guide/expression#one-time-binding"><strong>one time binding</strong></a> can help you improve performance.
+            </p>
+            <p>
+                If you are using <a href="https://docs.angularjs.org/api/ngResource"><strong>angular-resource</strong></a>, then you must resolve the promise and then set to your <code>$scope</code> in order to use the <code>one time binding</code>.
+            </p>
+        </div>
     </section>
     <section class="showcase">
         <tabset>
@@ -81,6 +89,42 @@
 <div hljs language="js">
 angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('angularWayCtrl', function ($scope, $resource) {
     $scope.persons = $resource('data.json').query();
+});
+</div>
+            </tab>
+            <tab heading="HTML with One time binding">
+<div hljs>
+<div ng-controller="angularWayOneTimeBindingCtrl">
+    <table datatable="ng" class="row-border hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="person in ::persons">
+            <td>{{ person.id }}</td>
+            <td>{{ person.firstName }}</td>
+            <td>{{ person.lastName }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS with One time binding">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
+.controller('angularWayOneTimeBindingCtrl', function($scope, $resource) {
+    // This does not work if you want to bind once
+    // $scope.persons = $resource('data.json').query();
+
+    // This works
+    $resource('data.json').query().then(function(persons) {
+        $scope.persons = persons;
+    });
 });
 </div>
             </tab>
