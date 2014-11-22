@@ -1,11 +1,11 @@
 /*!
- * angular-datatables - v0.3.1
+ * angular-datatables - v0.3.0
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
 (function (window, document, $, angular) {
   /*!
- * angular-datatables - v0.3.1
+ * angular-datatables - v0.3.0
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
