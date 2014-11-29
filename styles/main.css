@@ -7,12 +7,12 @@
 }
 
 a, a:visited {
-    color: #045FB4;
+    color: #b4052c;
     text-decoration: none;
 }
 
 a:hover {
-    color: #b4052c;
+    color: #045FB4;
     text-decoration: none;
 }
 
@@ -36,10 +36,9 @@ hr {
 
 .header {
     text-align: center;
-    border-top: solid 2px #FFF;
-    border-bottom: solid 6px #5fc9e5;
+    border-bottom: solid 6px #dd1b16;
     position: relative;
-    padding-bottom: 13px;
+    background: #333;
 }
 
 .header::before,
@@ -54,22 +53,17 @@ hr {
     width: 33.33%;
     position: absolute;
     left: 33.33%;
-    background: #b1cf37;
+    background: #b3b3b3;
 }
 
 .header::after {
     left: 66.66%;
-    background: #f48123;
+    background: #8089d6;
 }
 
-.header h1 {
-    color: #045FB4;
-    font-family: 'Gilda Display', serif;
-    font-size: 2em;
+.header .container h1 {
     margin: 0;
-    font-weight: bold;
-    line-height: 38px;
-    position: relative;
+    text-shadow: -1px 1px #8f8f8f;
 }
 
 .header p {
@@ -80,6 +74,14 @@ hr {
     position: absolute;
     right: 4em;
     top: 0;
+}
+
+.header a {
+    color: #EFEFEF;
+}
+
+.header a:hover {
+    color: #fff;
 }
 
 /* ---------------------------------------- */
@@ -105,10 +107,10 @@ hr {
 code {
     padding: 2px 4px;
     font-size: 90%;
-    color: #254CC7;
     white-space: nowrap;
-    background-color: #F2F7F9;
     border-radius: 4px;
+    background-color: #F9F1F1;
+    color: #b4052c;
 }
 
 code, kbd, pre, samp {
@@ -165,6 +167,8 @@ pre code {
 
 .nav-tabs>li>a:hover {
     border-bottom-color: #c2c2c2;
+    background-color: #F9F1F1;
+    color: #b4052c;
 }
 
 .nav-tabs>li.active>a,
@@ -298,7 +302,7 @@ pre code {
 .sidebar .nav-list>li>a:hover,
 .sidebar .nav-list>li.active>a {
     background-color: #FFF;
-    color: #438eb9;
+    color: #D3433E;
 }
 
 .sidebar .nav-list>li.active>a:before,
@@ -312,7 +316,7 @@ pre code {
     width: 3px;
     max-width: 3px;
     overflow: hidden;
-    background-color: #5fc9e5;
+    background-color: #dd1b16;
 }
 
 .sidebar .nav-list>li:hover:before {
@@ -371,12 +375,15 @@ pre code {
     position: relative;
     padding: 7px 0 9px 40px;
     margin: 0;
+    color: #585858;
 }
 
 .sidebar-item.nav-list>li .submenu>li>a:hover,
+.sidebar-item.nav-list>li .submenu>li>a:focus,
 .sidebar-item.nav-list>li .submenu>li.active>a {
-    color: #4b88b7;
-    background-color: #f1f5f9;
+    color: #D3433E;
+    background-color: #F9F1F1;
+    text-decoration: none;
 }
 
 .sidebar-item.nav-list>li .submenu>li>a:hover>i.fa,
