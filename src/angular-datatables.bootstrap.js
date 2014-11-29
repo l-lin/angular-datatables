@@ -76,7 +76,7 @@ angular.module('datatables.bootstrap.colvis', ['datatables.bootstrap.options', '
  * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
  */
 angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatables.bootstrap.tabletools', 'datatables.bootstrap.colvis'])
-.service('DTBootstrap', function (DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions) {
+.service('DTBootstrap', function (DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions, DTPropertyUtil) {
     var _initialized = false,
         _drawCallbackFunctionList = [],
         _savedFn = {};
@@ -121,7 +121,7 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
             };
         };
     };
-    var _overridePagination = function () {
+    var _overridePagination = function (bootstrapOptions) {
         // Note: Copy paste with some changes from DataTables v1.10.1 source code
         $.extend(true, $.fn.DataTable.ext.renderer, {
             pageButton: {
@@ -129,8 +129,12 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
                     var classes = settings.oClasses;
                     var lang = settings.oLanguage.oPaginate;
                     var btnDisplay, btnClass, counter = 0;
+                    var paginationClasses = DTPropertyUtil.overrideProperties(
+                        DTBootstrapDefaultOptions.getOptions().pagination,
+                        bootstrapOptions ? bootstrapOptions.pagination : null
+                    );
                     var $paginationContainer = $('<ul></ul>', {
-                        'class': 'pagination'
+                        'class': paginationClasses.classes.ul
                     });
 
                     var attach = function (container, buttons) {
@@ -266,12 +270,12 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
         }
     };
 
-    var _init = function () {
+    var _init = function (bootstrapOptions) {
         if (!_initialized) {
             _saveFnToBeOverrided();
             _overrideClasses();
             _overridePagingInfo();
-            _overridePagination();
+            _overridePagination(bootstrapOptions);
 
             _addDrawCallbackFunction(function () {
                 $('div.dataTables_filter').find('input').addClass('form-control');
@@ -302,7 +306,7 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
      * @param options the datatables options
      */
     this.integrate = function (options) {
-        _init();
+        _init(options.bootstrap);
         DTBootstrapTableTools.integrate(options.bootstrap);
         DTBootstrapColVis.integrate(_addDrawCallbackFunction, options.bootstrap);
 

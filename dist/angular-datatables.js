@@ -91,7 +91,8 @@
     'DTBootstrapTableTools',
     'DTBootstrapColVis',
     'DTBootstrapDefaultOptions',
-    function (DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions) {
+    'DTPropertyUtil',
+    function (DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions, DTPropertyUtil) {
       var _initialized = false, _drawCallbackFunctionList = [], _savedFn = {};
       var _saveFnToBeOverrided = function () {
           _savedFn.oStdClasses = angular.copy($.fn.dataTableExt.oStdClasses);
@@ -132,7 +133,7 @@
           };
         };
       };
-      var _overridePagination = function () {
+      var _overridePagination = function (bootstrapOptions) {
         // Note: Copy paste with some changes from DataTables v1.10.1 source code
         $.extend(true, $.fn.DataTable.ext.renderer, {
           pageButton: {
@@ -140,7 +141,8 @@
               var classes = settings.oClasses;
               var lang = settings.oLanguage.oPaginate;
               var btnDisplay, btnClass, counter = 0;
-              var $paginationContainer = $('<ul></ul>', { 'class': 'pagination' });
+              var paginationClasses = DTPropertyUtil.overrideProperties(DTBootstrapDefaultOptions.getOptions().pagination, bootstrapOptions ? bootstrapOptions.pagination : null);
+              var $paginationContainer = $('<ul></ul>', { 'class': paginationClasses.classes.ul });
               var attach = function (container, buttons) {
                 var i, ien, node, button;
                 var clickHandler = function (e) {
@@ -247,12 +249,12 @@
           _drawCallbackFunctionList.push(fn);
         }
       };
-      var _init = function () {
+      var _init = function (bootstrapOptions) {
           if (!_initialized) {
             _saveFnToBeOverrided();
             _overrideClasses();
             _overridePagingInfo();
-            _overridePagination();
+            _overridePagination(bootstrapOptions);
             _addDrawCallbackFunction(function () {
               $('div.dataTables_filter').find('input').addClass('form-control');
               $('div.dataTables_length').find('select').addClass('form-control');
@@ -280,7 +282,7 @@
      * @param options the datatables options
      */
       this.integrate = function (options) {
-        _init();
+        _init(options.bootstrap);
         DTBootstrapTableTools.integrate(options.bootstrap);
         DTBootstrapColVis.integrate(_addDrawCallbackFunction, options.bootstrap);
         options.sDom = _setDom(options);
@@ -336,6 +338,7 @@
       }
     },
     ColVis: { classes: { masterButton: 'btn btn-default' } },
+    pagination: { classes: { ul: 'pagination' } },
     dom: '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>'
   }).service('DTBootstrapDefaultOptions', [
     'DTDefaultOptions',

@@ -37,6 +37,11 @@ angular.module('datatables.bootstrap.options', ['datatables.options', 'datatable
             masterButton: 'btn btn-default'
         }
     },
+    pagination: {
+        classes: {
+            ul: 'pagination'
+        }
+    },
     dom: '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>'
 })
 .service('DTBootstrapDefaultOptions', function (DTDefaultOptions, DTPropertyUtil, DT_BOOTSTRAP_DEFAULT_OPTIONS) {

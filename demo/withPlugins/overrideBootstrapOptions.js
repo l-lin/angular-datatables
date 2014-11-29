@@ -17,6 +17,11 @@ angular.module('datatablesSampleApp').controller('withBootstrapOptionsCtrl', fun
                 classes: {
                     masterButton: 'btn btn-primary'
                 }
+            },
+            pagination: {
+                classes: {
+                    ul: 'pagination pagination-sm'
+                }
             }
         })
 
