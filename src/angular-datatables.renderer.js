@@ -20,10 +20,14 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
             if ($.fn.dataTable.isDataTable(dtId)) {
                 options.destroy = true;
             }
-            var oTable = $elem.DataTable(options);
+            var DT = $elem.DataTable(options),
+                dt = $elem.dataTable();
             // See http://datatables.net/manual/api#Accessing-the-API to understand the difference between DataTable and dataTable
-            $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id'), DataTable: oTable, dataTable: $elem.dataTable() });
-            return oTable;
+            $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id'), DataTable: DT, dataTable: dt });
+            if (options && options.hasColumnFilter) {
+                dt.columnFilter(options.columnFilterOptions);
+            }
+            return DT;
         },
         doRenderDataTable: function($elem, options, $scope) {
             this.hideLoading($elem);

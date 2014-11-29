@@ -58,6 +58,7 @@ angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.option
         hasColVis: false,
         hasColReorder: false,
         hasTableTools: false,
+        hasColumnFilter: false,
         hasOverrideDom: false,
 
         reloadData: function() {
@@ -358,6 +359,22 @@ angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.option
         withScroller: function() {
             var scrollerSuffix = 'S';
             this.sDom = fromNullable(this.sDom).or(DT_DEFAULT_OPTIONS.dom) + scrollerSuffix;
+            return this;
+        },
+
+        // COLUMN FILTER DATATABLES PLUGIN ---------
+        // See http://jquery-datatables-column-filter.googlecode.com/svn/trunk/index.html
+
+        /**
+         * Add column filter support
+         * @param columnFilterOptions the plugins options
+         * @returns {DTOptions} the options
+         */
+        withColumnFilter: function(columnFilterOptions) {
+            this.hasColumnFilter = true;
+            if(angular.isDefined(columnFilterOptions) && columnFilterOptions) {
+                this.columnFilterOptions = columnFilterOptions;
+            }
             return this;
         }
     };

@@ -504,6 +504,7 @@
           hasColVis: false,
           hasColReorder: false,
           hasTableTools: false,
+          hasColumnFilter: false,
           hasOverrideDom: false,
           reloadData: function () {
             this.reload = true;
@@ -645,6 +646,13 @@
           withScroller: function () {
             var scrollerSuffix = 'S';
             this.sDom = fromNullable(this.sDom).or(DT_DEFAULT_OPTIONS.dom) + scrollerSuffix;
+            return this;
+          },
+          withColumnFilter: function (columnFilterOptions) {
+            this.hasColumnFilter = true;
+            if (angular.isDefined(columnFilterOptions) && columnFilterOptions) {
+              this.columnFilterOptions = columnFilterOptions;
+            }
             return this;
           }
         };
@@ -909,14 +917,17 @@
           if ($.fn.dataTable.isDataTable(dtId)) {
             options.destroy = true;
           }
-          var oTable = $elem.DataTable(options);
+          var DT = $elem.DataTable(options), dt = $elem.dataTable();
           // See http://datatables.net/manual/api#Accessing-the-API to understand the difference between DataTable and dataTable
           $scope.$emit('event:dataTableLoaded', {
             id: $elem.attr('id'),
-            DataTable: oTable,
-            dataTable: $elem.dataTable()
+            DataTable: DT,
+            dataTable: dt
           });
-          return oTable;
+          if (options && options.hasColumnFilter) {
+            dt.columnFilter(options.columnFilterOptions);
+          }
+          return DT;
         },
         doRenderDataTable: function ($elem, options, $scope) {
           this.hideLoading($elem);

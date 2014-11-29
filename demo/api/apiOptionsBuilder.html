@@ -125,14 +125,10 @@ angular.module('myModule', ['datatables'])
             <td><code>DTOptions</code></td>
             <td><code>withDataProp(sAjaxDataProp)</code></td>
             <td>
-                <p>
-                    Set the Ajax properties. It's only compatible with DataTables <span class="text-danger">v1.9.4</span>
-                </p>
-                <blockquote>By default DataTables will look for the property <code>aaData</code>aaData when obtaining data from an Ajax source or for server-side processing -
-                    this parameter allows that property to be changed. You can use Javascript dotted object notation to get a data source for multiple levels of nesting.</blockquote>
-                <p>
-                    See <a href="http://legacy.datatables.net/usage/options#sAjaxDataProp">DataTables documentation</a>.
-                </p>
+                <blockquote>
+                    By default DataTables will look for the property <code>aaData</code>aaData when obtaining data from an Ajax source or for server-side processing -
+                    this parameter allows that property to be changed. You can use Javascript dotted object notation to get a data source for multiple levels of nesting.
+                </blockquote>
 <div hljs language="js">
 // Get data from { "data": [...] }
 angular.module('myModule', ['datatables'])
@@ -187,24 +183,20 @@ angular.module('myModule', ['datatables'])
                 </p>
                 <ul>
                     <li>
-                        <code>two_buttons</code> <span class="text-danger">(only available for v1.9.4)</span>
-                    </li>
-                    <li>
                         <code>full_numbers</code> - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
                     </li>
                     <li>
-                        <code>full</code> - 'First', 'Previous', 'Next' and 'Last' buttons <span class="text-danger">(available for v1.10+)</span>
+                        <code>full</code> - 'First', 'Previous', 'Next' and 'Last' buttons
                     </li>
                     <li>
-                        <code>simple</code> - 'Previous' and 'Next' buttons only <span class="text-danger">(available for v1.10+)</span>
+                        <code>simple</code> - 'Previous' and 'Next' buttons only
                     </li>
                     <li>
-                        <code>simple_numbers</code> - 'Previous' and 'Next' buttons, plus page numbers <span class="text-danger">(available for v1.10+)</span>
+                        <code>simple_numbers</code> - 'Previous' and 'Next' buttons, plus page numbers
                     </li>
                 </ul>
                 <p>
-                    See <a href="http://legacy.datatables.net/usage/options#sPaginationType">DataTables 1.9.4 documentation</a> or
-                    <a href="http://datatables.net/examples/basic_init/alt_pagination.html">DataTables 1.10+ documentation</a>.
+                    See <a href="http://datatables.net/examples/basic_init/alt_pagination.html">DataTables documentation</a>.
                 </p>
 <div hljs language="js">
 angular.module('myModule', ['datatables'])
@@ -650,5 +642,22 @@ angular.module('myModule', ['datatables'])
                 </p>
             </td>
         </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withColumnFilter()</code></td>
+            <td>
+                <p>
+                    Add <a href="http://jquery-datatables-column-filter.googlecode.com/svn/trunk/index.html">Columnfilter</a> compatibility.
+                </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function ($scope, DTOptionsBuilder) {
+    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withColumnFilter({
+            ...
+        });
+});
+</div>
+            </td>
         </tbody>
     </table>

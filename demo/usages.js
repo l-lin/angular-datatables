@@ -64,6 +64,9 @@ angular.module('datatablesSampleApp.usages', ['ngResource'])
         name: 'withScroller',
         label: 'With Scroller'
     }, {
+        name: 'withColumnFilter',
+        label: 'With Column Filter'
+    },{
         name: 'bootstrapIntegration',
         label: 'Bootstrap integration'
     }, {

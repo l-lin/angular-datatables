@@ -14,6 +14,7 @@ module.exports = function(config) {
         files: [
             'vendor/jquery/dist/jquery.min.js',
             'vendor/datatables/media/js/jquery.dataTables.js',
+            'vendor/datatables-columnfilter/js/dataTables.columnFilter.js',
             'vendor/angular/angular.js',
             'vendor/angular-mocks/angular-mocks.js',
             'src/*.js',
