@@ -50,14 +50,9 @@ hr {
 .header::after {
     content: "";
     height: 6px;
-    width: 33.33%;
+    width: 50%;
     position: absolute;
-    left: 33.33%;
-    background: #b3b3b3;
-}
-
-.header::after {
-    left: 66.66%;
+    left: 50%;
     background: #8089d6;
 }
 
