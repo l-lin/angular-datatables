@@ -10,13 +10,13 @@ angular.module('datatables.directive', ['datatables.renderer', 'datatables.optio
                 dtColumnDefs: '=',
                 datatable: '@'
             },
-            compile: function(tElm) {
+            compile: function (tElm) {
                 var _staticHTML = tElm[0].innerHTML;
+
                 return function postLink($scope, $elem, iAttrs, ctrl) {
-                    $scope.$watch('[dtOptions, dtColumns, dtColumnDefs]', function(newVal, oldVal) {
+                    function handleChanges(newVal, oldVal){
                         if (newVal !== oldVal) {
-                            var newDTOptions = newVal[0],
-                                oldDTOptions = oldVal[0];
+                            var newDTOptions = newVal[0], oldDTOptions = oldVal[0];
                             // Do not rerender if we want to reload. There are already
                             // some watchers in the renderers.
                             if (!newDTOptions.reload || newDTOptions.sAjaxSource !== oldDTOptions.sAjaxSource) {
@@ -27,7 +27,14 @@ angular.module('datatables.directive', ['datatables.renderer', 'datatables.optio
                                 newDTOptions.reload = false;
                             }
                         }
-                    }, true);
+                    }
+
+                    // Options can hold heavy data, and other deep/large objects. 
+                    // watchcollection can improve this by only watching shallowly
+                    var watchFunction = iAttrs.disableDeepWatchers ? '$watchCollection' : '$watch';
+                    angular.forEach(['dtColumns', 'dtColumnDefs', 'dtOptions'], function(tableDefField){
+                        $scope[watchFunction].call($scope, tableDefField, handleChanges, true);
+                    });
                     ctrl.showLoading($elem);
                     ctrl.render($elem, ctrl.buildOptionsPromise(), _staticHTML);
                 };
