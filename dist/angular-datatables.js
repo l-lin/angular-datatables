@@ -943,10 +943,9 @@
       }
     };
   }).factory('DTDefaultRenderer', [
-    '$timeout',
     'DTRenderer',
     'DTRendererService',
-    function ($timeout, DTRenderer, DTRendererService) {
+    function (DTRenderer, DTRendererService) {
       /**
      * Default renderer without any server call
      * @constructor
@@ -957,12 +956,8 @@
           renderer.name = 'DTDefaultRenderer';
           renderer.options = options;
           renderer.render = function ($scope, $elem) {
-            var _this = this;
-            // Add $timeout to be sure that angular has finished rendering before calling datatables
-            $timeout(function () {
-              DTRendererService.doRenderDataTable($elem, _this.options, $scope);
-            }, 0, false);
-            return _this;
+            DTRendererService.doRenderDataTable($elem, this.options, $scope);
+            return this;
           };
           return renderer;
         }
@@ -1096,11 +1091,10 @@
       };
     }
   ]).factory('DTAjaxRenderer', [
-    '$timeout',
     'DTRenderer',
     'DTRendererService',
     'DT_DEFAULT_OPTIONS',
-    function ($timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTIONS) {
+    function (DTRenderer, DTRendererService, DT_DEFAULT_OPTIONS) {
       /**
      * Renderer for displaying with Ajax
      * @param options the options
@@ -1124,17 +1118,14 @@
             }, _render = function (options, $elem, $scope) {
               // Set it to true in order to be able to redraw the dataTable
               options.bDestroy = true;
-              // Add $timeout to be sure that angular has finished rendering before calling datatables
-              $timeout(function () {
-                DTRendererService.hideLoading($elem);
-                // Condition to refresh the dataTable
-                if (oTable) {
-                  var ajaxUrl = options.sAjaxSource || options.ajax.url || options.ajax;
-                  oTable.ajax.url(ajaxUrl).load();
-                } else {
-                  oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
-                }
-              }, 0, false);
+              DTRendererService.hideLoading($elem);
+              // Condition to refresh the dataTable
+              if (oTable) {
+                var ajaxUrl = options.sAjaxSource || options.ajax.url || options.ajax;
+                oTable.ajax.url(ajaxUrl).load();
+              } else {
+                oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+              }
             };
           var renderer = Object.create(DTRenderer);
           renderer.name = 'DTAjaxRenderer';
