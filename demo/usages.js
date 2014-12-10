@@ -28,10 +28,10 @@ angular.module('datatablesSampleApp.usages', ['ngResource'])
         label: 'Data reload with Ajax'
     }, {
         name: 'dataReloadWithPromise',
-        label: 'Data reload with promise',
+        label: 'Data reload with promise'
     }, {
         name: 'serverSideProcessing',
-        label: 'Server side processing',
+        label: 'Server side processing'
     }, {
         name: 'angularWayDataChange',
         label: 'Change data with the Angular way'
@@ -47,6 +47,9 @@ angular.module('datatablesSampleApp.usages', ['ngResource'])
     }, {
         name: 'loadOptionsWithPromise',
         label: 'Load DT options with promise'
+    }, {
+        name: 'disableDeepWatchers',
+        label: 'Disable deep watchers'
     }],
     withPlugins: [{
         name: 'withColReorder',

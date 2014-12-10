@@ -16,22 +16,21 @@ angular.module('datatables.directive', ['datatables.renderer', 'datatables.optio
                 return function postLink($scope, $elem, iAttrs, ctrl) {
                     function handleChanges(newVal, oldVal){
                         if (newVal !== oldVal) {
-                            var newDTOptions = newVal[0], oldDTOptions = oldVal[0];
                             // Do not rerender if we want to reload. There are already
                             // some watchers in the renderers.
-                            if (!newDTOptions.reload || newDTOptions.sAjaxSource !== oldDTOptions.sAjaxSource) {
+                            if (!newVal.reload || newVal.sAjaxSource !== oldVal.sAjaxSource) {
                                 ctrl.render($elem, ctrl.buildOptionsPromise(), _staticHTML);
                             } else {
                                 // The reload attribute is set to false here in order
                                 // to recall this watcher again
-                                newDTOptions.reload = false;
+                                newVal.reload = false;
                             }
                         }
                     }
 
-                    // Options can hold heavy data, and other deep/large objects. 
+                    // Options can hold heavy data, and other deep/large objects.
                     // watchcollection can improve this by only watching shallowly
-                    var watchFunction = iAttrs.disableDeepWatchers ? '$watchCollection' : '$watch';
+                    var watchFunction = iAttrs.dtDisableDeepWatchers ? '$watchCollection' : '$watch';
                     angular.forEach(['dtColumns', 'dtColumnDefs', 'dtOptions'], function(tableDefField){
                         $scope[watchFunction].call($scope, tableDefField, handleChanges, true);
                     });
