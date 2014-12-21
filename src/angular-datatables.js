@@ -1,6 +1,10 @@
 'use strict';
-angular.module('datatables', ['datatables.directive', 'datatables.factory', 'datatables.bootstrap']).
-run(function ($log) {
+
+angular.module('datatables', ['datatables.directive', 'datatables.factory', 'datatables.bootstrap'])
+.run(initAngularDataTables);
+
+/* @ngInject */
+function initAngularDataTables($log) {
     if ($.fn.DataTable.Api) {
         /**
          * Register an API to destroy a DataTable without detaching the tbody so that we can add new data
@@ -118,4 +122,4 @@ run(function ($log) {
             });
         });
     }
-});
+}

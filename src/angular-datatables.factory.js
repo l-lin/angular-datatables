@@ -1,6 +1,12 @@
 'use strict';
 angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.options'])
-.factory('DTOptionsBuilder', function(DT_DEFAULT_OPTIONS) {
+.factory('DTOptionsBuilder', dtOptionsBuilder)
+.factory('DTColumnBuilder', dtColumnBuilder)
+.factory('DTColumnDefBuilder', dtColumnDefBuilder)
+.factory('DTLoadingTemplate', dtLoadingTemplate);
+
+/* @ngInject */
+function dtOptionsBuilder(DT_DEFAULT_OPTIONS) {
     /**
      * Optional class to handle undefined or null
      * @param obj the object to wrap
@@ -408,8 +414,9 @@ angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.option
             return options;
         }
     };
-})
-.factory('DTColumnBuilder', function() {
+}
+
+function dtColumnBuilder() {
     /**
      * The wrapped datatables column
      * @param mData the data to display of the column
@@ -496,8 +503,10 @@ angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.option
         },
         DTColumn: DTColumn
     };
-})
-.factory('DTColumnDefBuilder', function(DTColumnBuilder) {
+}
+
+/* @ngInject */
+function dtColumnDefBuilder(DTColumnBuilder) {
     return {
         newColumnDef: function(targets) {
             if (angular.isUndefined(targets)) {
@@ -512,9 +521,10 @@ angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.option
             return column;
         }
     };
-})
-.factory('DTLoadingTemplate', function() {
+}
+
+function dtLoadingTemplate() {
     return {
         html: '<h3 class="dt-loading">Loading...</h3>'
     };
-});
+}

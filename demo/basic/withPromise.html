@@ -18,32 +18,34 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="withPromiseCtrl">
-                        <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+                    <div ng-controller="WithPromiseCtrl as showCase">
+                        <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
             <tab heading="HTML">
 <div hljs>
-<div ng-controller="withPromiseCtrl">
-    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+<div ng-controller="WithPromiseCtrl as showCase">
+    <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
 </div>
 </div>
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
-.controller('withPromiseCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder, $resource) {
-    $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
-            return $resource('data.json').query().$promise;
-        }).withPaginationType('full_numbers');
+angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('WithPromiseCtrl', WithPromiseCtrl);
 
-    $scope.dtColumns = [
+function WithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+        return $resource('data.json').query().$promise;
+    }).withPaginationType('full_numbers');
+
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-});
+}
 </div>
             </tab>
             <tab heading="Example data">

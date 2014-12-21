@@ -2,10 +2,10 @@
 
 module.exports = function(grunt) {
     var path = require('path');
-    
+
     require('load-grunt-tasks')(grunt);
     require('time-grunt')(grunt);
-    
+
     require('load-grunt-config')(grunt, {
         configPath: path.join(process.cwd(), 'grunt'),
         init: true, //auto grunt.initConfig
@@ -52,7 +52,7 @@ module.exports = function(grunt) {
         'clean:dist',
         'concat:build',
         'wrap',
-        'ngmin',
+        'ngAnnotate',
         'cssmin',
         'uglify',
         'concat:banner',

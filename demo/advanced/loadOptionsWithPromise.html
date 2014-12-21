@@ -19,27 +19,30 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="loadOptionsWithPromiseCtrl">
-                        <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover">
+                    <div ng-controller="LoadOptionsWithPromiseCtrl as showCase">
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
                         </table>
                     </div>
                 </article>
             </tab>
             <tab heading="HTML">
 <div hljs>
-<div ng-controller="loadOptionsWithPromiseCtrl">
-    <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover">
+<div ng-controller="LoadOptionsWithPromiseCtrl as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
     </table>
 </div>
 </div>
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp')
-.controller('loadOptionsWithPromiseCtrl', function ($q, $scope, $resource) {
-    $scope.dtOptions = $resource('/angular-datatables/dtOptions.json').get().$promise;
-    $scope.dtColumns = $resource('/angular-datatables/dtColumns.json').query().$promise;
-});
+angular.module('datatablesSampleApp', ['datatables']).controller('LoadOptionsWithPromiseCtrl', LoadOptionsWithPromiseCtrl);
+
+function LoadOptionsWithPromiseCtrl($q, $resource) {
+    var vm = this;
+    vm.dtOptions = $resource('/angular-datatables/dtOptions.json').get().$promise;
+    vm.dtColumns = $resource('/angular-datatables/dtColumns.json').query().$promise;
+}
+
 </div>
             </tab>
             <tab heading="Example data">

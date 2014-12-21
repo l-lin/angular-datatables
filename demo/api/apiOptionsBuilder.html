@@ -11,19 +11,19 @@
         For instance, the following code:
     </p>
 <div hljs language="js">
-$scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(2);
+vm.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(2);
 </div>
     <p class="text-info">
         is the same as writing:
     </p>
 <div hljs language="js">
-$scope.dtOptions = {
+vm.dtOptions = {
     paginationType: 'full_numbers',
     displayLength: 2
 };
 </div>
 <br />
-    <table datatable dt-options="dtOptions" class="row-border hover">
+    <table datatable dt-options="api.dtOptions" class="row-border hover">
         <thead>
         <tr>
             <th>Helper/Wrapper</th>
@@ -38,10 +38,11 @@ $scope.dtOptions = {
             <td>
                 <p>Create a wrapped datatables options.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.newOptions();
-});
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions();
+}
 </div>
             </td>
         </tr>
@@ -51,10 +52,11 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Create a wrapped datatables options with initialized ajax source.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json');
-});
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json');
+}
 </div>
             </td>
         </tr>
@@ -64,12 +66,13 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Create a wrapped datatables options with a function that returns a promise</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables', 'ngResource'])
-.controller('myCtrl', function($scope, DTOptionsBuilder, $resource) {
-    $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+angular.module('myModule', ['datatables', 'ngResource']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder, $resource) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(function () {
         return $resource('data.json').query().$promise;
     });
-});
+}
 </div>
             </td>
         </tr>
@@ -84,27 +87,32 @@ angular.module('myModule', ['datatables', 'ngResource'])
                     Add an option to the wrapped datatables options. For example, the following code add the option <code>fnRowCallback</code>:
                 </p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.newOptions()
-        .withOption('fnRowCallback',
-            function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                console.log(aData);
-                return nRow;
-            });
-});
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+        .withOption('fnRowCallback', rowCallback);
+
+    function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+        console.log(aData);
+        return nRow;
+    }
+}
 </div>
                 <p>
                     which is the same as:
                 </p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('myCtrl', function($scope) {
-$scope.dtOptions = {
-    'fnRowCallback': function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-        console.log(aData);
-        return nRow;
-    };
-});
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl() {
+    var vm = this;
+    vm.dtOptions = {
+        'fnRowCallback': function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            console.log(aData);
+            return nRow;
+        };
+    }
+}
 </div>
             </td>
         </tr>
@@ -114,10 +122,11 @@ $scope.dtOptions = {
             <td>
                 <p>Set the ajax source.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json');
-});
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json');
+}
 </div>
             </td>
         </tr>
@@ -131,18 +140,20 @@ angular.module('myModule', ['datatables'])
                 </blockquote>
 <div hljs language="js">
 // Get data from { "data": [...] }
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withDataProp('data');
-});
+}
 
 // Get data from { "data": { "inner": [...] } }
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withDataProp('data.inner');
-});
+}
 </div>
             </td>
         </tr>
@@ -159,18 +170,21 @@ angular.module('myModule', ['datatables'])
                     See <a href="http://legacy.datatables.net/usage/callbacks#fnServerData">DataTable documentation</a>.
                 </p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
-        .withFnServerData(function (sSource, aoData, fnCallback, oSettings) {
-            oSettings.jqXHR = $.ajax( {
-                'dataType': 'json',
-                'type': 'POST',
-                'url': sSource,
-                'data': aoData,
-                'success': fnCallback
-            });
-});
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withFnServerData(serverData);
+    function serverData(sSource, aoData, fnCallback, oSettings) {
+        oSettings.jqXHR = $.ajax({
+            'dataType': 'json',
+            'type': 'POST',
+            'url': sSource,
+            'data': aoData,
+            'success': fnCallback
+        });
+    }
+}
 </div>
             </td>
         </tr>
@@ -199,11 +213,12 @@ angular.module('myModule', ['datatables'])
                     See <a href="http://datatables.net/examples/basic_init/alt_pagination.html">DataTables documentation</a>.
                 </p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withPaginationType('full_numbers');
-});
+}
 </div>
             </td>
         </tr>
@@ -213,13 +228,14 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Set the language of the datatables. If not defined, it uses the default language set by datables, ie english.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withLanguage({
             sUrl: '/path/to/language'
         });
-});
+}
 </div>
             </td>
         </tr>
@@ -229,11 +245,12 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Set the number of items per page to display.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withDisplayLength(2);
-});
+}
 </div>
             </td>
         </tr>
@@ -243,11 +260,12 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Add <a href="http://getbootstrap.com">bootstrap</a> compatibility.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withBootstrap();
-});
+}
 </div>
             </td>
         </tr>
@@ -260,9 +278,10 @@ angular.module('myModule', ['datatables'])
                     Angular datatables provides default options. You can check them out on <a href="https://github.com/l-lin/angular-datatables/blob/dev/src/angular-datatables.bootstrap.options.js">Github</a>.
                 </p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withBootstrap()
         // Overriding the classes
         .withBootstrapOptions({
@@ -292,7 +311,7 @@ angular.module('myModule', ['datatables'])
                 'aButtons': ['csv', 'xls', 'pdf']
             }
         ]);
-});
+}
 </div>
             </td>
         </tr>
@@ -302,11 +321,12 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Add <a href="https://datatables.net/extras/colreorder/">ColReorder compatibility.</a></p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withColReorder();
-});
+}
 </div>
                 <p>
                     The above code will construct the following DataTables options:
@@ -328,13 +348,14 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Add option to the attribute <code>oColReorder</code>.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withColReorder()
         // Fix last right column
         .withColReorderOption('iFixedColumnsRight', 1);
-});
+}
 </div>
                 <p>
                     The above code will construct the following DataTables options:
@@ -356,13 +377,14 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Set the default column order.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withColReorder()
         // Set order
         .withColReorderOrder([1, 0, 2]);
-});
+}
 </div>
                 <p>
                     The above code will construct the following DataTables options:
@@ -384,14 +406,15 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Set the reorder callback function.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withColReorder()
-        .withColReorderCallback(function() {
+        .withColReorderCallback(function () {
             console.log('Columns order has been changed with: ' + this.fnOrder());
         });
-});
+}
 </div>
                 <p>
                     The above code will construct the following DataTables options:
@@ -401,7 +424,7 @@ angular.module('myModule', ['datatables'])
     "sAjaxSource": "data.json",
     "sDom": "Rlfrtip",
     "oColReorder": {
-        "fnReorderCallback": function() {
+        "fnReorderCallback": function () {
             console.log('Columns order has been changed with: ' + this.fnOrder());
         }
     }
@@ -415,11 +438,12 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Add <a href="https://datatables.net/extras/colvis/">ColVis</a> compatibility.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withColVis();
-});
+}
 </div>
                 <p>
                     The above code will construct the following DataTables options:
@@ -441,13 +465,14 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Add option to the attribute <code>oColVis</code>.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withColVis();
         // Exclude the column index 2 from the list
         .withColVisOption('aiExclude', [2]);
-});
+}
 </div>
                 <p>
                     The above code will construct the following DataTables options:
@@ -469,15 +494,17 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Set the state change function.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withColVis();
         // Add a state change function
-        .withColVisStateChange(function(iColumn, bVisible) {
-            console.log('The column' + iColumn + ' has changed its status to ' + bVisible)
-        });
-});
+        .withColVisStateChange(stateChange);
+    function stateChange(iColumn, bVisible) {
+        console.log('The column', iColumn, 'has changed its status to', bVisible);
+    }
+}
 </div>
                 <p>
                     The above code will construct the following DataTables options:
@@ -487,8 +514,8 @@ angular.module('myModule', ['datatables'])
     "sAjaxSource": "data.json",
     "sDom": "Clfrtip",
     "oColVis": {
-        "fnStateChange": function(iColumn, bVisible) {
-            console.log('The column' + iColumn + ' has changed its status to ' + bVisible)
+        "fnStateChange": function (iColumn, bVisible) {
+            console.log('The column', iColumn, 'has changed its status to', bVisible);
         }
     }
 }
@@ -501,11 +528,12 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Add <a href="https://datatables.net/extras/tabletools/">TableTools</a> compatibility.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
-});
+}
 </div>
                 <p class="text-danger">
                     <i class="fa fa-warning"></i>&nbsp;You must provide a valid path to the <code>SWF</code> file (which is provided by the TableTools plugin).
@@ -533,13 +561,14 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Add option to the attribute <code>oTableTools</code>.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
         // Single row selection at a time
         .withTableTools('sRowSelect', 'single');
-});
+}
 </div>
                 <p>
                     The above code will construct the following DataTables options:
@@ -562,9 +591,10 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Set the table tools buttons to display.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
         // Single row selection at a time
         .withTableToolsButtons([
@@ -575,7 +605,7 @@ angular.module('myModule', ['datatables'])
                 'aButtons': ['csv', 'xls', 'pdf']
             }
         ]);
-});
+}
 </div>
                 <p>
                     The above code will construct the following DataTables options:
@@ -585,7 +615,7 @@ angular.module('myModule', ['datatables'])
     "sAjaxSource": "data.json",
     "sDom": "Tlfrtip",
     "oTableTools": {
-        "sSwfPath": "https://github.com/DataTables/TableTools/raw/master/swf/copy_csv_xls_pdf.swf",
+        "sSwfPath": "vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf",
         "aButtons": [
             'copy',
             'print', {
@@ -605,11 +635,12 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Override the <a href="http://datatables.net/examples/basic_init/dom.html">DOM positioning</a> of the DataTable.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.newOptions()
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions()
         .withDOM('pitrfl');
-});
+}
 </div>
                 <p class="text-info">
                     <i class="fa fa-info-circle"></i>&nbsp;By default, the DOM positioning is set to <code>lfrtip</code>.
@@ -622,11 +653,12 @@ angular.module('myModule', ['datatables'])
             <td>
                 <p>Add <a href="http://datatables.net/extensions/scroller/">Scroller</a> compatibility.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withScroller();
-});
+}
 </div>
                 <p>
                     The above code will construct the following DataTables options:
@@ -650,13 +682,14 @@ angular.module('myModule', ['datatables'])
                     Add <a href="http://jquery-datatables-column-filter.googlecode.com/svn/trunk/index.html">Columnfilter</a> compatibility.
                 </p>
 <div hljs language="js">
-angular.module('myModule', ['datatables'])
-.controller('myCtrl', function ($scope, DTOptionsBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withColumnFilter({
             ...
         });
-});
+}
 </div>
             </td>
         </tbody>

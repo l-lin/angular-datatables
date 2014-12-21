@@ -1,8 +1,11 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('serverSideProcessingCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('datatablesSampleApp').controller('ServerSideProcessingCtrl', ServerSideProcessingCtrl);
+
+function ServerSideProcessingCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withPaginationType('full_numbers');
-    // $scope.dtOptions = DTOptionsBuilder.newOptions()
+    // vm.dtOptions = DTOptionsBuilder.newOptions()
     //     .withOption('ajax', {
     //      // Either you specify the AjaxDataProp here
     //      // dataSrc: 'data',
@@ -13,9 +16,9 @@ angular.module('datatablesSampleApp').controller('serverSideProcessingCtrl', fun
     //  .withDataProp('data')
     //     .withOption('serverSide', true)
     //     .withPaginationType('full_numbers');
-    $scope.dtColumns = [
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-});
+}

@@ -1,23 +1,29 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('changeOptionsCtrl', function ($scope, DTOptionsBuilder, DTColumnDefBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.newOptions();
-    $scope.dtColumnDefs = [
+angular.module('datatablesSampleApp').controller('ChangeOptionsCtrl', ChangeOptionsCtrl);
+
+function ChangeOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions();
+    vm.dtColumnDefs = [
         DTColumnDefBuilder.newColumnDef(0),
         DTColumnDefBuilder.newColumnDef(1).notVisible(),
         DTColumnDefBuilder.newColumnDef(2).notSortable()
     ];
 
-    $scope.changeOptions = function() {
-        $scope.dtOptions = DTOptionsBuilder.newOptions()
+    vm.changeOptions = changeOptions;
+    vm.changeColumnDefs = changeColumnDefs;
+
+    function changeOptions() {
+        vm.dtOptions = DTOptionsBuilder.newOptions()
             .withPaginationType('full_numbers')
             .withDisplayLength(2)
             .withDOM('pitrfl');
-    };
-    $scope.changeColumnDefs = function() {
-        $scope.dtColumnDefs = [
+    }
+    function changeColumnDefs() {
+        vm.dtColumnDefs = [
             DTColumnDefBuilder.newColumnDef(0).notVisible(),
             DTColumnDefBuilder.newColumnDef(1).notVisible(),
             DTColumnDefBuilder.newColumnDef(2).notSortable()
         ];
-    };
-});
+    }
+}

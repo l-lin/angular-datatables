@@ -1,6 +1,9 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('withColReorderCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('datatablesSampleApp').controller('WithColReorderCtrl', WithColReorderCtrl);
+
+function WithColReorderCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withPaginationType('full_numbers')
         // Activate col reorder plugin
         .withColReorder()
@@ -11,9 +14,9 @@ angular.module('datatablesSampleApp').controller('withColReorderCtrl', function 
         .withColReorderCallback(function() {
             console.log('Columns order has been changed with: ' + this.fnOrder());
         });
-    $scope.dtColumns = [
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('No move me!'),
         DTColumnBuilder.newColumn('firstName').withTitle('Try to move me!'),
         DTColumnBuilder.newColumn('lastName').withTitle('You cannot move me! *evil laugh*')
     ];
-});
+}

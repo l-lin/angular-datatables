@@ -11,12 +11,12 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="changeOptionsCtrl">
+                    <div ng-controller="ChangeOptionsCtrl as showCase">
                         <p>
-                            <button type="button" class="btn btn-primary" ng-click="changeOptions()">Change options</button>
-                            <button type="button" class="btn btn-primary" ng-click="changeColumnDefs()">Change column defs</button>
+                            <button type="button" class="btn btn-primary" ng-click="showCase.changeOptions()">Change options</button>
+                            <button type="button" class="btn btn-primary" ng-click="showCase.changeColumnDefs()">Change column defs</button>
                         </p>
-                        <table datatable dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="row-border hover">
+                        <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -47,12 +47,12 @@
             </tab>
             <tab heading="HTML">
 <div hljs>
-<div ng-controller="changeOptionsCtrl">
+<div ng-controller="ChangeOptionsCtrl as showCase">
     <p>
-        <button type="button" class="btn btn-primary" ng-click="changeOptions()">Change options</button>
-        <button type="button" class="btn btn-primary" ng-click="changeColumnDefs()">Change column defs</button>
+        <button type="button" class="btn btn-primary" ng-click="showCase.changeOptions()">Change options</button>
+        <button type="button" class="btn btn-primary" ng-click="showCase.changeColumnDefs()">Change column defs</button>
     </p>
-    <table datatable dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="row-border hover">
+    <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
         <thead>
         <tr>
             <th>ID</th>
@@ -83,29 +83,34 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).
-controller('withOptionsCtrl', function ($scope, DTOptionsBuilder, DTColumnDefBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.newOptions();
-    $scope.dtColumnDefs = [
+angular.module('datatablesSampleApp', ['datatables']).controller('ChangeOptionsCtrl', ChangeOptionsCtrl);
+
+function ChangeOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions();
+    vm.dtColumnDefs = [
         DTColumnDefBuilder.newColumnDef(0),
         DTColumnDefBuilder.newColumnDef(1).notVisible(),
         DTColumnDefBuilder.newColumnDef(2).notSortable()
     ];
 
-    $scope.changeOptions = function() {
-        $scope.dtOptions = DTOptionsBuilder.newOptions()
+    vm.changeOptions = changeOptions;
+    vm.changeColumnDefs = changeColumnDefs;
+
+    function changeOptions() {
+        vm.dtOptions = DTOptionsBuilder.newOptions()
             .withPaginationType('full_numbers')
             .withDisplayLength(2)
             .withDOM('pitrfl');
-    };
-    $scope.changeColumnDefs = function() {
-        $scope.dtColumnDefs = [
+    }
+    function changeColumnDefs() {
+        vm.dtColumnDefs = [
             DTColumnDefBuilder.newColumnDef(0).notVisible(),
             DTColumnDefBuilder.newColumnDef(1).notVisible(),
             DTColumnDefBuilder.newColumnDef(2).notSortable()
         ];
-    };
-});
+    }
+}
 </div>
             </tab>
         </tabset>

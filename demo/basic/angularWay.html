@@ -43,7 +43,7 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="angularWayCtrl">
+                    <div ng-controller="AngularWayCtrl as showCase">
                         <table datatable="ng" class="row-border hover">
                             <thead>
                             <tr>
@@ -53,7 +53,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="person in persons">
+                            <tr ng-repeat="person in ::showCase.persons">
                                 <td>{{ person.id }}</td>
                                 <td>{{ person.firstName }}</td>
                                 <td>{{ person.lastName }}</td>
@@ -65,7 +65,7 @@
             </tab>
             <tab heading="HTML">
 <div hljs>
-<div ng-controller="angularWayCtrl">
+<div ng-controller="AngularWayCtrl as showCase">
     <table datatable="ng" class="row-border hover">
         <thead>
         <tr>
@@ -75,7 +75,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="person in persons">
+        <tr ng-repeat="person in showCase.persons">
             <td>{{ person.id }}</td>
             <td>{{ person.firstName }}</td>
             <td>{{ person.lastName }}</td>
@@ -87,14 +87,19 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('angularWayCtrl', function ($scope, $resource) {
-    $scope.persons = $resource('data.json').query();
-});
+angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('AngularWayCtrl', AngularWayCtrl);
+
+function AngularWayCtrl($resource) {
+    var vm = this;
+    $resource('data.json').query().$promise.then(function(persons) {
+        vm.persons = persons;
+    });
+}
 </div>
             </tab>
             <tab heading="HTML with One time binding">
 <div hljs>
-<div ng-controller="angularWayOneTimeBindingCtrl">
+<div ng-controller="AngularWayOneTimeBindingCtrl as showCase">
     <table datatable="ng" class="row-border hover">
         <thead>
         <tr>
@@ -104,7 +109,7 @@ angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="person in ::persons">
+        <tr ng-repeat="person in ::showCase.persons">
             <td>{{ person.id }}</td>
             <td>{{ person.firstName }}</td>
             <td>{{ person.lastName }}</td>
@@ -117,15 +122,19 @@ angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('
             <tab heading="JS with One time binding">
 <div hljs language="js">
 angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
-.controller('angularWayOneTimeBindingCtrl', function($scope, $resource) {
+.controller('AngularWayOneTimeBindingCtrl', AngularWayOneTimeBindingCtrl);
+
+function AngularWayOneTimeBindingCtrl($resource) {
+    var vm = this;
+
     // This does not work if you want to bind once
-    // $scope.persons = $resource('data.json').query();
+    // vm.persons = $resource('data.json').query();
 
     // This works
-    $resource('data.json').query().then(function(persons) {
-        $scope.persons = persons;
+    $resource('data.json').query().$promise.then(function(persons) {
+        vm.persons = persons;
     });
-});
+}
 </div>
             </tab>
             <tab heading="Example data">

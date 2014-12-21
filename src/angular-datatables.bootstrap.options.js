@@ -44,12 +44,18 @@ angular.module('datatables.bootstrap.options', ['datatables.options', 'datatable
     },
     dom: '<\'row\'<\'col-xs-6\'l><\'col-xs-6\'f>r>t<\'row\'<\'col-xs-6\'i><\'col-xs-6\'p>>'
 })
-.service('DTBootstrapDefaultOptions', function (DTDefaultOptions, DTPropertyUtil, DT_BOOTSTRAP_DEFAULT_OPTIONS) {
+.factory('DTBootstrapDefaultOptions', dtBootstrapDefaultOptions);
+
+/* @ngInject */
+function dtBootstrapDefaultOptions(DTDefaultOptions, DTPropertyUtil, DT_BOOTSTRAP_DEFAULT_OPTIONS) {
+    return {
+        getOptions: getOptions
+    };
     /**
      * Get the default options for bootstrap integration
      * @returns {*} the bootstrap default options
      */
-    this.getOptions = function () {
+    function getOptions () {
         return DTPropertyUtil.overrideProperties(DT_BOOTSTRAP_DEFAULT_OPTIONS, DTDefaultOptions.bootstrapOptions);
-    };
-});
+    }
+}

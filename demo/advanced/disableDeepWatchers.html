@@ -12,33 +12,36 @@
             This would allow users to prevent big datasets from thrashing Angular's <code>$digest</code> cycle at their own discretion
         </p>
     </section>
-    <section class="showcase" ng-controller="withAjaxCtrl">
+    <section class="showcase" ng-controller="DisableDeepWatchers as showCase">
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
                     <div>
-                        <table datatable dt-options="dtOptions" dt-columns="dtColumns" dt-disable-deep-watchers="true" class="row-border hover"></table>
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-disable-deep-watchers="true" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
             <tab heading="HTML">
 <div hljs>
-<div ng-controller="withAjaxCtrl">
-    <table datatable dt-options="dtOptions" dt-columns="dtColumns" dt-disable-deep-watchers="true" class="row-border hover"></table>
+<div ng-controller="DisableDeepWatchers as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-disable-deep-watchers="true" class="row-border hover"></table>
 </div>
 </div>
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('withAjaxCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('datatablesSampleApp', ['datatables']).controller('DisableDeepWatchers', DisableDeepWatchers);
+
+function DisableDeepWatchers(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withPaginationType('full_numbers');
-    $scope.dtColumns = [
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-});
+}
 </div>
             </tab>
             <tab heading="Example data">

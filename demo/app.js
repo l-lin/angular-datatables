@@ -1,13 +1,23 @@
 'use strict';
 angular.module('datatablesSampleApp',
 ['datatablesSampleApp.usages', 'ngResource', 'datatables', 'ui.bootstrap', 'ui.router', 'hljs'])
-.config(function (hljsServiceProvider) {
+.config(sampleConfig)
+.config(routerConfig)
+.factory('DTLoadingTemplate', dtLoadingTemplate);
+
+backToTop.init({
+    theme: 'classic', // Available themes: 'classic', 'sky', 'slate'
+    animation: 'fade' // Available animations: 'fade', 'slide'
+});
+
+function sampleConfig(hljsServiceProvider) {
     hljsServiceProvider.setOptions({
         // replace tab with 4 spaces
         tabReplace: '    '
     });
-})
-.config(function($stateProvider, $urlRouterProvider, USAGES) {
+}
+
+function routerConfig($stateProvider, $urlRouterProvider, USAGES) {
     $urlRouterProvider.otherwise('/welcome');
     $stateProvider
         .state('welcome', {
@@ -43,14 +53,10 @@ angular.module('datatablesSampleApp',
                 });
             });
         });
-})
-.factory('DTLoadingTemplate', function() {
+}
+
+function dtLoadingTemplate() {
     return {
         html: '<img src="/angular-datatables/images/loading.gif" />'
     };
-});
-
-backToTop.init({
-    theme: 'classic', // Available themes: 'classic', 'sky', 'slate'
-    animation: 'fade' // Available animations: 'fade', 'slide'
-});
+}

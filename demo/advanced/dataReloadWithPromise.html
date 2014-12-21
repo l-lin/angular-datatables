@@ -19,58 +19,61 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="dataReloadWithPromiseCtrl">
+                    <div ng-controller="DataReloadWithPromiseCtrl as showCase">
                         <p>
-                            <button ng-click="reloadData()" type="button" class="btn btn-info">
+                            <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
                                 <i class="fa fa-refresh"></i>&nbsp;Reload data
                             </button>
-                            <button ng-click="changeData()" type="button" class="btn btn-info">
+                            <button ng-click="showCase.changeData()" type="button" class="btn btn-info">
                                 <i class="fa fa-exchange"></i>&nbsp;Change data
                             </button>
                         </p>
-                        <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+                        <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
             <tab heading="HTML">
 <div hljs language="html">
-<div ng-controller="dataReloadWithPromiseCtrl">
+<div ng-controller="DataReloadWithPromiseCtrl as showCase">
     <p>
-        <button ng-click="reloadData()" type="button" class="btn btn-info">
+        <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
             <i class="fa fa-refresh"></i>&nbsp;Reload data
         </button>
-        <button ng-click="changeData()" type="button" class="btn btn-info">
+        <button ng-click="showCase.changeData()" type="button" class="btn btn-info">
             <i class="fa fa-exchange"></i>&nbsp;Change data
         </button>
     </p>
-    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+    <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
 </div>
 </div>
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
-.controller('dataReloadWithPromiseCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder, $resource) {
-    $scope.reloadData = function() {
-        $scope.dtOptions.reloadData();
-    };
-    $scope.changeData = function() {
-        $scope.dtOptions.fnPromise = function() {
-            return $resource('data1.json').query().$promise;
-        };
-        // Or $scope.dtOptions.fnPromise = $resource('data1.json').query().$promise;
-    };
+angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('DataReloadWithPromiseCtrl', DataReloadWithPromiseCtrl);
 
-    $scope.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
-            return $resource('data.json').query().$promise;
-        }).withPaginationType('full_numbers');
-
-    $scope.dtColumns = [
+function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+        return $resource('data.json').query().$promise;
+    }).withPaginationType('full_numbers');
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-});
+    vm.reloadData = reloadData;
+    vm.changeData = changeData;
+
+    function reloadData() {
+        vm.dtOptions.reloadData();
+    }
+    function changeData() {
+        vm.dtOptions.fnPromise = function() {
+            return $resource('data1.json').query().$promise;
+        };
+        // Or vm.dtOptions.fnPromise = $resource('data1.json').query().$promise;
+    }
+}
 </div>
             </tab>
             <tab heading="Example data">

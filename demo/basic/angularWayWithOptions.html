@@ -26,8 +26,8 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="angularWayWithOptionsCtrl">
-                        <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="row-border hover">
+                    <div ng-controller="AngularWayWithOptionsCtrl as showCase">
+                        <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -36,7 +36,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="person in persons">
+                            <tr ng-repeat="person in showCase.persons">
                                 <td>{{ person.id }}</td>
                                 <td>{{ person.firstName }}</td>
                                 <td>{{ person.lastName }}</td>
@@ -48,8 +48,8 @@
             </tab>
             <tab heading="HTML">
 <div hljs>
-<div ng-controller="angularWayWithOptionsCtrl">
-    <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="row-border hover">
+<div ng-controller="AngularWayWithOptionsCtrl as showCase">
+    <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
         <thead>
         <tr>
             <th>ID</th>
@@ -58,7 +58,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="person in persons">
+        <tr ng-repeat="person in showCase.persons">
             <td>{{ person.id }}</td>
             <td>{{ person.firstName }}</td>
             <td>{{ person.lastName }}</td>
@@ -70,16 +70,18 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
-.controller('angularWayWithOptionsCtrl', function ($scope, $resource, DTOptionsBuilder, DTColumnDefBuilder) {
-    $scope.persons = $resource('data.json').query();
-    $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(2);
-    $scope.dtColumnDefs = [
+angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('AngularWayWithOptionsCtrl', AngularWayWithOptionsCtrl);
+
+function AngularWayWithOptionsCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
+    var vm = this;
+    vm.persons = $resource('data.json').query();
+    vm.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(2);
+    vm.dtColumnDefs = [
         DTColumnDefBuilder.newColumnDef(0),
         DTColumnDefBuilder.newColumnDef(1).notVisible(),
         DTColumnDefBuilder.newColumnDef(2).notSortable()
     ];
-});
+}
 </div>
             </tab>
             <tab heading="Example data">

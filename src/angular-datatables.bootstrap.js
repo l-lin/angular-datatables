@@ -2,18 +2,19 @@
 'use strict';
 
 angular.module('datatables.bootstrap.tabletools', ['datatables.bootstrap.options', 'datatables.util'])
-.service('DTBootstrapTableTools', function (DTPropertyUtil, DTBootstrapDefaultOptions) {
+.service('DTBootstrapTableTools', dtBootstrapTableTools);
+
+/* @ngInject */
+function dtBootstrapTableTools(DTPropertyUtil, DTBootstrapDefaultOptions) {
     var _initializedTableTools = false,
-        _savedFn = {},
-        _saveFnToBeOverrided = function () {
-            if ($.fn.DataTable.TableTools) {
-                _savedFn.TableTools = {
-                    classes: angular.copy($.fn.DataTable.TableTools.classes),
-                    oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
-                };
-            }
-        };
-    this.integrate = function (bootstrapOptions) {
+        _savedFn = {};
+
+    return {
+        integrate: integrate,
+        deIntegrate: deIntegrate
+    };
+
+    function integrate(bootstrapOptions) {
         if (!_initializedTableTools) {
             _saveFnToBeOverrided();
 
@@ -35,20 +36,37 @@ angular.module('datatables.bootstrap.tabletools', ['datatables.bootstrap.options
 
             _initializedTableTools = true;
         }
-    };
-    this.deIntegrate = function () {
+    }
+    function deIntegrate() {
         if (_initializedTableTools && $.fn.DataTable.TableTools && _savedFn.TableTools) {
             $.extend(true, $.fn.DataTable.TableTools.classes, _savedFn.TableTools.classes);
             $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, _savedFn.TableTools.oTags);
             _initializedTableTools = false;
         }
-    };
-});
+    }
+
+    function _saveFnToBeOverrided() {
+        if ($.fn.DataTable.TableTools) {
+            _savedFn.TableTools = {
+                classes: angular.copy($.fn.DataTable.TableTools.classes),
+                oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
+            };
+        }
+    }
+}
 
 angular.module('datatables.bootstrap.colvis', ['datatables.bootstrap.options', 'datatables.util'])
-.service('DTBootstrapColVis', function (DTPropertyUtil, DTBootstrapDefaultOptions) {
+.service('DTBootstrapColVis', dtBootstrapColVis);
+
+/* @ngInject */
+function dtBootstrapColVis(DTPropertyUtil, DTBootstrapDefaultOptions) {
     var _initializedColVis = false;
-    this.integrate = function (addDrawCallbackFunction, bootstrapOptions) {
+    return {
+        integrate: integrate,
+        deIntegrate: deIntegrate
+    };
+
+    function integrate(addDrawCallbackFunction, bootstrapOptions) {
         if (!_initializedColVis) {
             var colVisProperties = DTPropertyUtil.overrideProperties(
                 DTBootstrapDefaultOptions.getOptions().ColVis,
@@ -64,24 +82,32 @@ angular.module('datatables.bootstrap.colvis', ['datatables.bootstrap.options', '
 
             _initializedColVis = true;
         }
-    };
-    this.deIntegrate = function () {
+    }
+    function deIntegrate() {
         if (_initializedColVis && $.fn.DataTable.ColVis) {
             _initializedColVis = false;
         }
-    };
-});
+    }
+}
 
 /**
  * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
  */
 angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatables.bootstrap.tabletools', 'datatables.bootstrap.colvis'])
-.service('DTBootstrap', function (DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions, DTPropertyUtil) {
+.service('DTBootstrap', dtBootstrap);
+
+/* @ngInject */
+function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions, DTPropertyUtil) {
     var _initialized = false,
         _drawCallbackFunctionList = [],
         _savedFn = {};
 
-    var _saveFnToBeOverrided = function () {
+    return {
+        integrate: integrate,
+        deIntegrate: deIntegrate
+    };
+
+    function _saveFnToBeOverrided() {
         _savedFn.oStdClasses = angular.copy($.fn.dataTableExt.oStdClasses);
         _savedFn.fnPagingInfo = $.fn.dataTableExt.oApi.fnPagingInfo;
         _savedFn.renderer = angular.copy($.fn.DataTable.ext.renderer);
@@ -91,13 +117,13 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
                 oTags: angular.copy($.fn.DataTable.TableTools.DEFAULTS.oTags)
             };
         }
-    }, _revertToDTFn = function () {
+    }
+    function _revertToDTFn() {
         $.extend($.fn.dataTableExt.oStdClasses, _savedFn.oStdClasses);
         $.fn.dataTableExt.oApi.fnPagingInfo = _savedFn.fnPagingInfo;
         $.extend(true, $.fn.DataTable.ext.renderer, _savedFn.renderer);
-    };
-
-    var _overrideClasses = function () {
+    }
+    function _overrideClasses() {
         /* Default class modification */
         $.extend($.fn.dataTableExt.oStdClasses, {
             'sWrapper': 'dataTables_wrapper form-inline',
@@ -106,8 +132,8 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
             'sFilter': 'dataTables_filter',
             'sLength': 'dataTables_length'
         });
-    };
-    var _overridePagingInfo = function () {
+    }
+    function _overridePagingInfo() {
         /* API method to get paging information */
         $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
             return {
@@ -120,8 +146,8 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
                 'iTotalPages': oSettings._iDisplayLength === -1 ? 0 : Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
             };
         };
-    };
-    var _overridePagination = function (bootstrapOptions) {
+    }
+    function _overridePagination (bootstrapOptions) {
         // Note: Copy paste with some changes from DataTables v1.10.1 source code
         $.extend(true, $.fn.DataTable.ext.renderer, {
             pageButton: {
@@ -262,15 +288,14 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
                 }
             }
         });
-    };
-
-    var _addDrawCallbackFunction = function (fn) {
+    }
+    function _addDrawCallbackFunction(fn) {
         if (angular.isFunction(fn)) {
             _drawCallbackFunctionList.push(fn);
         }
-    };
+    }
 
-    var _init = function (bootstrapOptions) {
+    function _init(bootstrapOptions) {
         if (!_initialized) {
             _saveFnToBeOverrided();
             _overrideClasses();
@@ -284,7 +309,8 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
 
             _initialized = true;
         }
-    }, _setDom = function (options) {
+    }
+    function _setDom(options) {
         if (!options.hasOverrideDom) {
             var sDom = DTBootstrapDefaultOptions.getOptions().dom;
             if (options.hasColReorder) {
@@ -299,13 +325,12 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
             return sDom;
         }
         return options.sDom;
-    };
-
+    }
     /**
      * Integrate Bootstrap
      * @param options the datatables options
      */
-    this.integrate = function (options) {
+    function integrate(options) {
         _init(options.bootstrap);
         DTBootstrapTableTools.integrate(options.bootstrap);
         DTBootstrapColVis.integrate(_addDrawCallbackFunction, options.bootstrap);
@@ -319,14 +344,13 @@ angular.module('datatables.bootstrap', ['datatables.bootstrap.options', 'datatab
                 }
             };
         }
-    };
-
-    this.deIntegrate = function () {
+    }
+    function deIntegrate() {
         if (_initialized) {
             _revertToDTFn();
             DTBootstrapTableTools.deIntegrate();
             DTBootstrapColVis.deIntegrate();
             _initialized = false;
         }
-    };
-});
+    }
+}

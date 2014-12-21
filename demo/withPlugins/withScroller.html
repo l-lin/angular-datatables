@@ -14,8 +14,8 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="withScrollerCtrl">
-                        <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+                    <div ng-controller="WithScrollerCtrl as showCase">
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
@@ -23,8 +23,8 @@
 <div hljs>
 <link rel="stylesheet" href="vendor/datatables-scroller/css/dataTables.scroller.css">
 <!-- ... -->
-<div ng-controller="withScrollerCtrl">
-    <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+<div ng-controller="WithScrollerCtrl as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
 </div>
 <!-- ... -->
 <script src="vendor/datatables-scroller/js/dataTables.scroller.js"></script>
@@ -32,19 +32,21 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables'])
-.controller('withScrollerCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('datatablesSampleApp', ['datatables']).controller('WithScrollerCtrl', WithScrollerCtrl);
+
+function WithScrollerCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withScroller()
         .withOption('deferRender', true)
         // Do not forget to add the scorllY option!!!
         .withOption('scrollY', 200);
-    $scope.dtColumns = [
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name')
     ];
-});
+}
 </div>
             </tab>
         </tabset>

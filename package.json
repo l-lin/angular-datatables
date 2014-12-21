@@ -15,7 +15,7 @@
         "grunt-wrap": "~0.3.0",
         "grunt-jsbeautifier": "~0.2.2",
         "grunt-angular-templates": "~0.5.1",
-        "grunt-ngmin": "~0.0.2",
+        "grunt-ng-annotate": "~0.8.0",
         "express": "~4.10.1",
 		"body-parser": "~1.8.1",
         "load-grunt-config": "~0.7.2",

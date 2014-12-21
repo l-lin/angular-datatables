@@ -1,6 +1,9 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('withBootstrapOptionsCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
-    $scope.dtOptions = DTOptionsBuilder
+angular.module('datatablesSampleApp').controller('WithBootstrapOptionsCtrl', WithBootstrapOptionsCtrl);
+
+function WithBootstrapOptionsCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder
         .fromSource('data.json')
         // Add Bootstrap compatibility
         .withBootstrap()
@@ -38,9 +41,9 @@ angular.module('datatablesSampleApp').controller('withBootstrapOptionsCtrl', fun
                 'aButtons': ['csv', 'xls', 'pdf']
             }
         ]);
-    $scope.dtColumns = [
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID').withClass('text-danger'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name')
     ];
-});
+}

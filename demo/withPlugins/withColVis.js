@@ -1,18 +1,23 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('withColVisCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('datatablesSampleApp').controller('WithColVisCtrl', WithColVisCtrl);
+
+function WithColVisCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withPaginationType('full_numbers')
         // Active ColVis plugin
         .withColVis()
         // Add a state change function
-        .withColVisStateChange(function(iColumn, bVisible) {
-            console.log('The column' + iColumn + ' has changed its status to ' + bVisible)
-        })
+        .withColVisStateChange(stateChange)
         // Exclude the last column from the list
         .withColVisOption('aiExclude', [2]);
-    $scope.dtColumns = [
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name')
     ];
-});
+
+    function stateChange(iColumn, bVisible) {
+        console.log('The column', iColumn, ' has changed its status to', bVisible);
+    }
+}

@@ -1,6 +1,8 @@
 'use strict';
-angular.module('datatablesSampleApp')
-.controller('loadOptionsWithPromiseCtrl', function ($q, $scope, $resource) {
-    $scope.dtOptions = $resource('/angular-datatables/dtOptions.json').get().$promise;
-    $scope.dtColumns = $resource('/angular-datatables/dtColumns.json').query().$promise;
-});
+angular.module('datatablesSampleApp').controller('LoadOptionsWithPromiseCtrl', LoadOptionsWithPromiseCtrl);
+
+function LoadOptionsWithPromiseCtrl($q, $resource) {
+    var vm = this;
+    vm.dtOptions = $resource('/angular-datatables/dtOptions.json').get().$promise;
+    vm.dtColumns = $resource('/angular-datatables/dtColumns.json').query().$promise;
+}

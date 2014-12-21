@@ -8,46 +8,56 @@ angular.module('datatables.options', [])
     // Set default columns (used when none are provided)
     aoColumns: []
 })
-.service('DTDefaultOptions', function () {
-    this.bootstrapOptions = {};
+.service('DTDefaultOptions', dtDefaultOptions);
+
+function dtDefaultOptions() {
+    var options = {
+        bootstrapOptions: {},
+        setLanguageSource: setLanguageSource,
+        setLanguage: setLanguage,
+        setDisplayLength: setDisplayLength,
+        setBootstrapOptions: setBootstrapOptions
+    };
+
+    return options;
 
     /**
      * Set the default language source for all datatables
      * @param sLanguageSource the language source
      * @returns {DTDefaultOptions} the default option config
      */
-    this.setLanguageSource = function (sLanguageSource) {
+    function setLanguageSource(sLanguageSource) {
         $.extend($.fn.dataTable.defaults, {
             oLanguage: {
                 sUrl: sLanguageSource
             }
         });
-        return this;
-    };
+        return options;
+    }
 
     /**
      * Set the language for all datatables
      * @param oLanguage the language
      * @returns {DTDefaultOptions} the default option config
      */
-    this.setLanguage = function (oLanguage) {
+    function setLanguage(oLanguage) {
         $.extend(true, $.fn.dataTable.defaults, {
             oLanguage: oLanguage
         });
-        return this;
-    };
+        return options;
+    }
 
     /**
      * Set the default number of items to display for all datatables
      * @param iDisplayLength the number of items to display
      * @returns {DTDefaultOptions} the default option config
      */
-    this.setDisplayLength = function (iDisplayLength) {
+    function setDisplayLength(iDisplayLength) {
         $.extend($.fn.dataTable.defaults, {
             iDisplayLength: iDisplayLength
         });
-        return this;
-    };
+        return options;
+    }
 
     /**
      * Set the default options to be use for Bootstrap integration.
@@ -56,8 +66,8 @@ angular.module('datatables.options', [])
      * @param oBootstrapOptions an object containing the default options for Bootstreap integration
      * @returns {DTDefaultOptions} the default option config
      */
-    this.setBootstrapOptions = function (oBootstrapOptions) {
-        this.bootstrapOptions = oBootstrapOptions;
-        return this;
-    };
-});
+    function setBootstrapOptions(oBootstrapOptions) {
+        options.bootstrapOptions = oBootstrapOptions;
+        return options;
+    }
+}

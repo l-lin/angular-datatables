@@ -1,6 +1,9 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('angularWayCtrl', function($scope, $resource) {
+angular.module('datatablesSampleApp').controller('AngularWayCtrl', AngularWayCtrl);
+
+function AngularWayCtrl($resource) {
+    var vm = this;
     $resource('data.json').query().$promise.then(function(persons) {
-        $scope.persons = persons;
+        vm.persons = persons;
     });
-});
+}

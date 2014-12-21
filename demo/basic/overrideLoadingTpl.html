@@ -13,11 +13,12 @@
     <section class="showcase no-tab">
 <div hljs>
 angular.module('datatablesSampleApp', ['datatables']).
-factory('DTLoadingTemplate', function() {
+factory('DTLoadingTemplate', dtLoadingTemplate);
+function dtLoadingTemplate() {
     return {
         html: '<img src="images/loading.gif" />'
     };
-});
+}
 </div>
     </section>
 </article>

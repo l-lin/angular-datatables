@@ -47,39 +47,40 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="serverSideProcessingCtrl">
-                        <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+                    <div ng-controller="ServerSideProcessingCtrl as showCase">
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
             <tab heading="HTML">
 <div hljs>
-<div ng-controller="serverSideProcessingCtrl">
-    <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+<div ng-controller="ServerSideProcessingCtrl as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
 </div>
 </div>
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables'])
-.controller('serverSideProcessingCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.newOptions()
+angular.module('datatablesSampleApp', ['datatables']).controller('ServerSideProcessingCtrl', ServerSideProcessingCtrl);
+
+function ServerSideProcessingCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    vm.dtOptions = DTOptionsBuilder.newOptions()
         .withOption('ajax', {
-            // Either you specify the AjaxDataProp here
-            // dataSrc: 'data',
-            url: 'data/serverSideProcessing',
-            type: 'POST'
-        })
-        // or here
-        .withDataProp('data')
+         // Either you specify the AjaxDataProp here
+         // dataSrc: 'data',
+         url: '/angular-datatables/data/serverSideProcessing',
+         type: 'POST'
+     })
+     // or here
+     .withDataProp('data')
         .withOption('serverSide', true)
         .withPaginationType('full_numbers');
-    $scope.dtColumns = [
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-});
+}
 </div>
             </tab>
             <tab heading="Example data">

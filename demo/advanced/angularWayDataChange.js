@@ -1,34 +1,37 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('angularWayChangeDataCtrl', function ($scope, $resource, DTOptionsBuilder, DTColumnDefBuilder) {
-    var _buildPerson2Add = function (id) {
-        return {
-            id: id,
-            firstName: 'Foo' + id,
-            lastName: 'Bar' + id
-        };
-    };
+angular.module('datatablesSampleApp').controller('AngularWayChangeDataCtrl', AngularWayChangeDataCtrl);
 
-    $scope.persons = $resource('data1.json').query();
-    $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
-    $scope.dtColumnDefs = [
+function AngularWayChangeDataCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
+    var vm = this;
+    vm.persons = $resource('data1.json').query();
+    vm.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+    vm.dtColumnDefs = [
         DTColumnDefBuilder.newColumnDef(0),
         DTColumnDefBuilder.newColumnDef(1),
         DTColumnDefBuilder.newColumnDef(2),
         DTColumnDefBuilder.newColumnDef(3).notSortable()
     ];
+    vm.person2Add = _buildPerson2Add(1);
+    vm.addPerson = addPerson;
+    vm.modifyPerson = modifyPerson;
+    vm.removePerson = removePerson;
 
-    $scope.person2Add = _buildPerson2Add(1);
-    $scope.addPerson = function () {
-        $scope.persons.push(angular.copy($scope.person2Add));
-        $scope.person2Add = _buildPerson2Add($scope.person2Add.id + 1);
-    };
-
-    $scope.modifyPerson = function (index) {
-        $scope.persons.splice(index, 1, angular.copy($scope.person2Add))
-        $scope.person2Add = _buildPerson2Add($scope.person2Add.id + 1);
-    };
-
-    $scope.removePerson = function (index) {
-        $scope.persons.splice(index, 1);
-    };
-});
+    function _buildPerson2Add(id) {
+        return {
+            id: id,
+            firstName: 'Foo' + id,
+            lastName: 'Bar' + id
+        };
+    }
+    function addPerson() {
+        vm.persons.push(angular.copy(vm.person2Add));
+        vm.person2Add = _buildPerson2Add(vm.person2Add.id + 1);
+    }
+    function modifyPerson(index) {
+        vm.persons.splice(index, 1, angular.copy(vm.person2Add));
+        vm.person2Add = _buildPerson2Add(vm.person2Add.id + 1);
+    }
+    function removePerson(index) {
+        vm.persons.splice(index, 1);
+    }
+}

@@ -19,53 +19,56 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="dataReloadWithAjaxCtrl">
+                    <div ng-controller="DataReloadWithAjaxCtrl as showCase">
                         <p>
-                            <button ng-click="reloadData()" type="button" class="btn btn-info">
+                            <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
                                 <i class="fa fa-refresh"></i>&nbsp;Reload data
                             </button>
-                            <button ng-click="changeData()" type="button" class="btn btn-info">
+                            <button ng-click="showCase.changeData()" type="button" class="btn btn-info">
                                 <i class="fa fa-exchange"></i>&nbsp;Change data
                             </button>
                         </p>
-                        <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
             <tab heading="HTML">
 <div hljs language="html">
-<div ng-controller="dataReloadWithAjaxCtrl">
+<div ng-controller="DataReloadWithAjaxCtrl as showCase">
     <p>
-        <button ng-click="reloadData()" type="button" class="btn btn-info">
+        <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
             <i class="fa fa-refresh"></i>&nbsp;Reload data
         </button>
-        <button ng-click="changeData()" type="button" class="btn btn-info">
+        <button ng-click="showCase.changeData()" type="button" class="btn btn-info">
             <i class="fa fa-exchange"></i>&nbsp;Change data
         </button>
     </p>
-    <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover"></table>
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
 </div>
 </div>
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables'])
-.controller('dataReloadWithAjaxCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder) {
-    $scope.reloadData = function() {
-        $scope.dtOptions.reloadData();
-    };
-    $scope.changeData = function() {
-        $scope.dtOptions.sAjaxSource = 'data1.json';
-    };
+angular.module('datatablesSampleApp', ['datatables']).controller('DataReloadWithAjaxCtrl', DataReloadWithAjaxCtrl);
 
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json').withPaginationType('full_numbers');
-
-    $scope.dtColumns = [
+function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json').withPaginationType('full_numbers');
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-});
+    vm.reloadData = reloadData;
+    vm.changeData = changeData;
+
+    function reloadData() {
+        vm.dtOptions.reloadData();
+    }
+    function changeData() {
+        vm.dtOptions.sAjaxSource = 'data1.json';
+    }
+}
 </div>
             </tab>
             <tab heading="Example data">

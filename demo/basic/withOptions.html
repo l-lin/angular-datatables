@@ -28,8 +28,8 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="withOptionsCtrl">
-                        <table datatable dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="row-border hover">
+                    <div ng-controller="WithOptionsCtrl as showCase">
+                        <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -60,8 +60,8 @@
             </tab>
             <tab heading="HTML">
 <div hljs>
-<div ng-controller="withOptionsCtrl">
-    <table datatable dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="row-border hover">
+<div ng-controller="WithOptionsCtrl as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
         <thead>
         <tr>
             <th>ID</th>
@@ -92,17 +92,20 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('withOptionsCtrl', function ($scope, DTOptionsBuilder, DTColumnDefBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.newOptions()
+angular.module('datatablesSampleApp', ['datatables']).controller('WithOptionsCtrl', WithOptionsCtrl);
+
+function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions()
         .withPaginationType('full_numbers')
         .withDisplayLength(2)
         .withDOM('pitrfl');
-    $scope.dtColumnDefs = [
-        DTColumnDefBuilder.newColumnDef(0).notSortable(),
+    vm.dtColumnDefs = [
+        DTColumnDefBuilder.newColumnDef(0),
         DTColumnDefBuilder.newColumnDef(1).notVisible(),
-        DTColumnDefBuilder.newColumnDef(2)
+        DTColumnDefBuilder.newColumnDef(2).notSortable()
     ];
-});
+}
 </div>
             </tab>
         </tabset>

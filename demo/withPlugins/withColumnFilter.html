@@ -14,8 +14,8 @@
         <tabset>
             <tab heading="Preview">
                 <article class="preview">
-                    <div ng-controller="withColumnFilterCtrl">
-                        <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover">
+                    <div ng-controller="WithColumnFilterCtrl as showCase">
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
                             <tfoot>
                             <tr>
                                 <th>ID
@@ -29,43 +29,47 @@
             </tab>
             <tab heading="HTML">
 <div hljs>
-<table datatable dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover">
-    <tfoot>
-    <tr>
-        <th>ID
-        <th>First Name
-        <th>Last Name
-    </tr>
-    </tfoot>
-</table>
+<div ng-controller="WithColumnFilterCtrl as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+        <tfoot>
+        <tr>
+            <th>ID
+            <th>First Name
+            <th>Last Name
+        </tr>
+        </tfoot>
+    </table>
+</div>
 <!-- ... -->
 <script src="vendor/datatables-columnfilter/js/dataTables.columnFilter.js"></script>
 </div>
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables'])
-.controller('withColumnFilterCtrl', function ($scope, DTOptionsBuilder, DTColumnBuilder) {
-    $scope.dtOptions = DTOptionsBuilder.fromSource('data.json')
+angular.module('datatablesSampleApp', ['datatables']).controller('WithColumnFilterCtrl', WithColumnFilterCtrl);
+
+function WithColumnFilterCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withPaginationType('full_numbers')
         .withColumnFilter({
             aoColumns: [{
-                type: "number"
+                type: 'number'
             }, {
-                type: "text",
+                type: 'text',
                 bRegex: true,
                 bSmart: true
             }, {
-                type: "select",
+                type: 'select',
                 values: ['Yoda', 'Titi', 'Kyle', 'Bar', 'Whateveryournameis']
             }]
         });
-    $scope.dtColumns = [
+    vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name')
     ];
-});
+}
 </div>
             </tab>
         </tabset>
