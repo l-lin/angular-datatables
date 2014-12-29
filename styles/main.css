@@ -253,6 +253,13 @@ pre code {
     border-bottom: 1px solid #c2c2c2;
 }
 
+.truncate {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* ---------------------------------------- */
 /* Sidebar
 /* ---------------------------------------- */

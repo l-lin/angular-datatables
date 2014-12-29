@@ -39,6 +39,9 @@ angular.module('datatablesSampleApp.usages', ['ngResource'])
         name: 'rowClickEvent',
         label: 'Row click event'
     }, {
+        name: 'rowSelect',
+        label: 'Selecting rows'
+    }, {
         name: 'bindAngularDirective',
         label: 'Bind Angular directive'
     }, {

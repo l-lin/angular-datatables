@@ -532,7 +532,7 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
                         DTBootstrap.deIntegrate();
                     }
                 }
-                return DTPropertyUtil.resolveObjectPromises(options, ['data', 'aaData']);
+                return DTPropertyUtil.resolveObjectPromises(options, ['data', 'aaData', 'fnPromise']);
             }).then(function (options) {
                 defer.resolve(options);
             });
