@@ -75,5 +75,8 @@ angular.module('datatablesSampleApp.usages', ['ngResource'])
     }, {
         name: 'overrideBootstrapOptions',
         label: 'Override Bootstrap options'
+    }, {
+        name: 'withAngularTranslate',
+        label: 'With Angular Translate'
     }]
 });

@@ -1,8 +1,9 @@
 'use strict';
 angular.module('datatablesSampleApp',
-['datatablesSampleApp.usages', 'ngResource', 'datatables', 'ui.bootstrap', 'ui.router', 'hljs'])
+['datatablesSampleApp.usages', 'ngResource', 'datatables', 'ui.bootstrap', 'ui.router', 'hljs', 'pascalprecht.translate'])
 .config(sampleConfig)
 .config(routerConfig)
+.config(translateConfig)
 .factory('DTLoadingTemplate', dtLoadingTemplate);
 
 backToTop.init({
@@ -53,6 +54,15 @@ function routerConfig($stateProvider, $urlRouterProvider, USAGES) {
                 });
             });
         });
+}
+
+function translateConfig($translateProvider) {
+    $translateProvider.translations('en', {
+        id: 'ID with angular-translate',
+        firstName: 'First name with angular-translate',
+        lastName: 'Last name with angular-translate'
+    });
+    $translateProvider.preferredLanguage('en');
 }
 
 function dtLoadingTemplate() {

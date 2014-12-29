@@ -2,10 +2,13 @@
 
 angular.module('datatables.util', []).factory('DTPropertyUtil', dtPropertyUtil);
 
-function dtPropertyUtil() {
+/* @ngInject */
+function dtPropertyUtil($q) {
     return {
         overrideProperties: overrideProperties,
-        deleteProperty: deleteProperty
+        deleteProperty: deleteProperty,
+        resolveObjectPromises: resolveObjectPromises,
+        resolveArrayPromises: resolveArrayPromises
     };
 
     /**
@@ -35,9 +38,81 @@ function dtPropertyUtil() {
         }
         return result;
     }
+
+    /**
+     * Delete the property from the given object
+     * @param obj the object
+     * @param propertyName the property name
+     */
     function deleteProperty(obj, propertyName) {
         if (angular.isObject(obj)) {
             delete obj[propertyName];
         }
+    }
+
+    /**
+     * Resolve any promises from a given object if there are any.
+     * @param obj the object
+     * @param excludedPropertiesName the list of properties to ignore
+     * @returns {promise} the promise that the object attributes promises are all resolved
+     */
+    function resolveObjectPromises(obj, excludedPropertiesName) {
+        var defer = $q.defer(),
+            promises = [],
+            resolvedObj = {},
+            excludedProp = excludedPropertiesName || [];
+        if (!angular.isObject(obj) || angular.isArray(obj)) {
+            defer.resolve(obj);
+        } else {
+            resolvedObj = angular.extend(resolvedObj, obj);
+            for (var prop in resolvedObj) {
+                if (resolvedObj.hasOwnProperty(prop) && excludedProp.indexOf(prop) === -1) {
+                    if (angular.isArray(resolvedObj[prop])) {
+                        promises.push(resolveArrayPromises(resolvedObj[prop]));
+                    } else {
+                        promises.push($q.when(resolvedObj[prop]));
+                    }
+                }
+            }
+            $q.all(promises).then(function (result) {
+                var index = 0;
+                for (var prop in resolvedObj) {
+                    if (resolvedObj.hasOwnProperty(prop) && excludedProp.indexOf(prop) === -1) {
+                        resolvedObj[prop] = result[index++];
+                    }
+                }
+                defer.resolve(resolvedObj);
+            });
+        }
+        return defer.promise;
+    }
+
+    /**
+     * Resolve the given array promises
+     * @param array the array containing promise or not
+     * @returns {promise} the promise that the array contains a list of objects/values promises that are resolved
+     */
+    function resolveArrayPromises(array) {
+        var defer = $q.defer(),
+            promises = [],
+            resolveArray = [];
+        if (!angular.isArray(array)) {
+            defer.resolve(array);
+        } else {
+            array.forEach(function (item) {
+                if (angular.isObject(item)) {
+                    promises.push(resolveObjectPromises(item));
+                } else {
+                    promises.push($q.when(item));
+                }
+            });
+            $q.all(promises).then(function (result) {
+                result.forEach(function (item) {
+                    resolveArray.push(item);
+                });
+                defer.resolve(resolveArray);
+            });
+        }
+        return defer.promise;
     }
 }

@@ -4,8 +4,8 @@ angular.module('datatables.directive', ['datatables.renderer', 'datatables.optio
     .directive('datatable', dataTable);
 
 /* @ngInject */
-function dataTable($q, DT_DEFAULT_OPTIONS, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
-    var directive = {
+function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
+    return {
         restrict: 'A',
         scope: {
             dtOptions: '=',
@@ -16,8 +16,6 @@ function dataTable($q, DT_DEFAULT_OPTIONS, DTBootstrap, DTRendererFactory, DTRen
         compile: compileDirective,
         controller: ControllerDirective
     };
-
-    return directive;
 
     /* @ngInject */
     function compileDirective(tElm) {
@@ -78,7 +76,7 @@ function dataTable($q, DT_DEFAULT_OPTIONS, DTBootstrap, DTRendererFactory, DTRen
                 DTPropertyUtil.deleteProperty(dtColumns, '$promise');
                 DTPropertyUtil.deleteProperty(dtColumnDefs, '$promise');
                 var options;
-                if (angular.isDefined($scope.dtOptions)) {
+                if (angular.isDefined(dtOptions)) {
                     options = {};
                     angular.extend(options, dtOptions);
                     // Set the columns
@@ -97,6 +95,8 @@ function dataTable($q, DT_DEFAULT_OPTIONS, DTBootstrap, DTRendererFactory, DTRen
                         DTBootstrap.deIntegrate();
                     }
                 }
+                return DTPropertyUtil.resolveObjectPromises(options, ['data', 'aaData']);
+            }).then(function (options) {
                 defer.resolve(options);
             });
             return defer.promise;
