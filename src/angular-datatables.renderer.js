@@ -219,7 +219,7 @@ function dtPromiseRenderer($timeout, DTRenderer, DTRendererService) {
 }
 
 /* @ngInject */
-function dtAjaxRenderer(DTRenderer, DTRendererService, DT_DEFAULT_OPTIONS) {
+function dtAjaxRenderer($timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTIONS) {
     /**
      * Renderer for displaying with Ajax
      * @param options the options
@@ -271,8 +271,22 @@ function dtAjaxRenderer(DTRenderer, DTRendererService, DT_DEFAULT_OPTIONS) {
                 var ajaxUrl = options.sAjaxSource || options.ajax.url || options.ajax;
                 oTable.ajax.url(ajaxUrl).load();
             } else {
-                oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                if (_shouldDeferRender(options)) {
+                    $timeout(function () {
+                        oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                    }, 0, false);
+                } else {
+                    oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                }
             }
+        }
+        // See https://github.com/l-lin/angular-datatables/issues/147
+        function _shouldDeferRender(options) {
+            if (angular.isDefined(options) && angular.isDefined(options.sDom)) {
+                // S for scroller plugin
+                return options.sDom.indexOf('S') >= 0;
+            }
+            return false;
         }
     }
 }
