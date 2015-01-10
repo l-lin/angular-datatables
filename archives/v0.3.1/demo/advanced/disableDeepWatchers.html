@@ -1,0 +1,75 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Disabling deep watchers</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            The <code>angular-datatables</code> uses deep search for changes on every <code>$digest</code> cycle.
+            Meaning every time any Angular event happens (ng-clicks, etc.), the entire array, each of it's children, it's children's children, and so forth gets compared to a cached copy.
+        </p>
+        <p>
+            There is an attribute to add so that if the directive has a truthy value for <code>dt-disable-deep-watchers</code> at compile time then it will use <code>$watchCollection(...)</code> instead.
+            This would allow users to prevent big datasets from thrashing Angular's <code>$digest</code> cycle at their own discretion
+        </p>
+    </section>
+    <section class="showcase" ng-controller="DisableDeepWatchers as showCase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div>
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-disable-deep-watchers="true" class="row-border hover"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="DisableDeepWatchers as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-disable-deep-watchers="true" class="row-border hover"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['datatables']).controller('DisableDeepWatchers', DisableDeepWatchers);
+
+function DisableDeepWatchers(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withPaginationType('full_numbers');
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+}
+</div>
+            </tab>
+            <tab heading="Example data">
+                <p class="example-data">
+                    <a target="_blank" href="/angular-datatables/data.json" tooltip="data.json">data.json&nbsp;<i class="fa fa-external-link"></i></a>
+                </p>
+<div hljs language="json">
+[{
+    "id": 860,
+    "firstName": "Superman",
+    "lastName": "Yoda"
+}, {
+    "id": 870,
+    "firstName": "Foo",
+    "lastName": "Whateveryournameis"
+}, {
+    "id": 590,
+    "firstName": "Toto",
+    "lastName": "Titi"
+}, {
+    "id": 803,
+    "firstName": "Luke",
+    "lastName": "Kyle"
+},
+...
+]
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

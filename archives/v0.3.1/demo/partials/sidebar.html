@@ -1,0 +1,70 @@
+<ul class="sidebar-item nav nav-list" ng-controller="SidebarCtrl as sidebar">
+    <li ng-class="{'active': sidebar.isActive('gettingStarted')}">
+        <a ui-sref="gettingStarted" class="faa-parent animated-hover">
+            <i class="fa fa-gear faa-spin"></i>&nbsp;Getting started
+        </a>
+    </li>
+    <!-- ******************************************************************* -->
+    <li ng-class="{'active': sidebar.isBasicUsageActive()}">
+        <a class="faa-parent animated-hover" ng-click="sidebar.isBasicUsageCollapsed = !sidebar.isBasicUsageCollapsed; $event.stopProgragation()">
+            <i class="fa fa-play faa-horizontal"></i>&nbsp;Basic usage
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="submenu" collapse="!sidebar.isBasicUsageCollapsed">
+            <li ng-repeat="basicUsage in sidebar.basicUsages"
+                ng-class="{'active': sidebar.isActive(basicUsage.name)}">
+                <a ui-sref="{{ basicUsage.name }}">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;{{ basicUsage.label }}
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li ng-class="{'active': sidebar.isAdvancedUsageActive()}">
+        <a class="faa-parent animated-hover" ng-click="sidebar.isAdvancedUsageCollapsed = !sidebar.isAdvancedUsageCollapsed; $event.stopProgragation()">
+            <i class="fa fa-play faa-horizontal"></i>&nbsp;Advanced usage
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="submenu" collapse="!sidebar.isAdvancedUsageCollapsed">
+            <li ng-repeat="advancedUsage in sidebar.advancedUsages"
+                ng-class="{'active': sidebar.isActive(advancedUsage.name)}">
+                <a ui-sref="{{ advancedUsage.name }}">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;{{ advancedUsage.label }}
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li ng-class="{'active': sidebar.isWithPluginsUsageActive()}">
+        <a class="faa-parent animated-hover" ng-click="sidebar.isWithPluginsUsageCollapsed = !sidebar.isWithPluginsUsageCollapsed; $event.stopProgragation()">
+            <i class="fa fa-play faa-horizontal"></i>&nbsp;With plugins
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="submenu" collapse="!sidebar.isWithPluginsUsageCollapsed">
+            <li ng-repeat="withPluginsUsage in sidebar.withPluginsUsages"
+                ng-class="{'active': sidebar.isActive(withPluginsUsage.name)}">
+                <a ui-sref="{{ withPluginsUsage.name }}">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;{{ withPluginsUsage.label }}
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!-- ******************************************************************* -->
+    <li ng-class="{'active': sidebar.isActive('api')}">
+        <a class="faa-parent animated-hover" ui-sref="api">
+            <i class="fa fa-code faa-tada"></i>&nbsp;API
+        </a>
+    </li>
+
+    <li>
+        <a class="faa-parent animated-hover" ng-click="sidebar.isArchiveCollapsed = !sidebar.isArchiveCollapsed; $event.stopProgragation()">
+            <i class="fa fa-archive faa-shake"></i>&nbsp;Archives
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="submenu" collapse="!sidebar.isArchiveCollapsed">
+            <li ng-repeat="archive in sidebar.archives">
+                <a href="/angular-datatables/archives/{{ archive.full }}">
+                    <i class="menu-icon fa fa-caret-right"></i>&nbsp;{{ archive.full }}
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
