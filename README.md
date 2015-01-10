@@ -96,6 +96,29 @@ $scope.$on('event:dataTableLoaded', function(event, loadedDT) {
 * `Angular Datatables` is using [Object.create()](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/create) to instanciate options and columns.
   * If you need to support IE8, then you need to add this [Polyfill](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill).
 
+* When providing the DT options, `Angular DataTables` will resolve every promises (except the attributes `data` and `aaData`) before rendering the DataTable.
+
+For example, suppose we provide the following code:
+
+```html
+angular.module('yourModule')
+.controller('MyCtrl', MyCtrl);
+
+function MyCtrl($q, DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionBuilder.newOptions()
+        .withOptions('autoWidth', fnThatReturnsAPromise);
+
+    function fnThatReturnsAPromise() {
+        var defer = $q.defer();
+        defer.resolve(false);
+        return defer.promise;
+    }
+}
+```
+
+The `fnThatReturnsAPromise` will first be resolved and then the DataTable will be rendered with the option `autoWidth` set to `false`.
+
 Contributing
 ============
 
