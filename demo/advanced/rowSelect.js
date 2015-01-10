@@ -1,12 +1,12 @@
 'use strict';
 angular.module('datatablesSampleApp').controller('RowSelectCtrl', RowSelect);
 
-function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder) {
+function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;
     vm.selected = {};
     vm.toggleAll = toggleAll;
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
-        return $resource('data.json').query().$promise;
+        return $resource('data1.json').query().$promise;
     })
         .withOption('createdRow', function(row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT
@@ -23,8 +23,8 @@ function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilde
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
 
-    $scope.$on('event:dataTableLoaded', function(evt, loadedDT) {
-        loadedDT.DataTable.data().each(function(data) {
+    DTInstances.getLast().then(function (dtInstance) {
+        dtInstance.DataTable.data().each(function(data) {
             vm.selected[data.id] = false;
         });
     });

@@ -1,0 +1,55 @@
+<h3><code>DTInstances</code></h3>
+<p>
+    A DataTable directive instance is created each time a DataTable is rendered. You can fetch it by calling the service
+    <code>DTInstances.getLast()</code> to fetch the last instance or <code>DTInstance.getList()</code> to fetch the entire list of instances.
+</p>
+<table datatable dt-options="api.dtOptions" class="row-border hover">
+    <thead>
+    <tr>
+        <th>Helper/Wrapper</th>
+        <th>API</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>DTInstances</code></td>
+        <td><code>getLast()</code></td>
+        <td>
+            Returns a promise that fetches the last datatable instance that was rendered.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTInstances) {
+    DTInstances.getLast().then(function(lastDTInstance) {
+        // lastDTInstance === {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
+
+        // loadedDT.DataTable is the DataTable API instance
+        // loadedDT.dataTable is the jQuery Object
+        // See http://datatables.net/manual/api#Accessing-the-API
+    });
+}
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTInstances</code></td>
+        <td><code>getList()</code></td>
+        <td>
+            Returns a promise that fetches all the datatables instances that were rendered.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTInstances) {
+    DTInstances.getList().then(function(dtInstances) {
+        /*
+         * dtInstances === {
+         *      "foobar": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable},
+         *      "foobar2": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
+         * }
+         */
+    });
+}
+</div>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1305,7 +1305,7 @@ function dtRendererService(DTLoadingTemplate) {
         getLoadingElem: getLoadingElem,
         showLoading: showLoading,
         hideLoading: hideLoading,
-        renderDataTableAndEmitEvent: renderDataTableAndEmitEvent,
+        renderDataTableAndRegisterInstance: renderDataTableAndEmitEvent,
         doRenderDataTable: doRenderDataTable
     };
     return rendererService;
@@ -1504,7 +1504,7 @@ function dtPromiseRenderer($timeout, DTRenderer, DTRendererService) {
                     oTable.clear();
                     oTable.rows.add(options.aaData).draw();
                 } else {
-                    oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                    oTable = DTRendererService.renderDataTableAndRegisterInstance($elem, options, $scope);
                 }
             }, 0, false);
         }
@@ -1567,10 +1567,10 @@ function dtAjaxRenderer($timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTI
             } else {
                 if (_shouldDeferRender(options)) {
                     $timeout(function () {
-                        oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                        oTable = DTRendererService.renderDataTableAndRegisterInstance($elem, options, $scope);
                     }, 0, false);
                 } else {
-                    oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                    oTable = DTRendererService.renderDataTableAndRegisterInstance($elem, options, $scope);
                 }
             }
         }

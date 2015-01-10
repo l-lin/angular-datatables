@@ -211,7 +211,8 @@ pre code {
 }
 
 .showcase pre,
-.api pre {
+.api pre,
+.gettingstarted pre {
     padding: 0;
     margin: 0;
 }

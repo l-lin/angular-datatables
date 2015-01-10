@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('datatables.directive', ['datatables.renderer', 'datatables.options', 'datatables.util'])
+angular.module('datatables.directive', ['datatables.instances', 'datatables.renderer', 'datatables.options', 'datatables.util'])
     .directive('datatable', dataTable);
 
 /* @ngInject */
-function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
+function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil, DTInstanceFactory) {
     return {
         restrict: 'A',
         scope: {
@@ -49,8 +49,8 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
 
     /* @ngInject */
     function ControllerDirective($scope) {
-        var vm = this,
-            _renderer;
+        var dtInstance = DTInstanceFactory.newDTInstance();
+        var vm = this;
         vm.showLoading = showLoading;
         vm.buildOptionsPromise = buildOptionsPromise;
         vm.render = render;
@@ -106,10 +106,13 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
             optionsPromise.then(function(options) {
                 var isNgDisplay = $scope.datatable && $scope.datatable === 'ng';
                 // Render dataTable
-                if (_renderer) {
-                    _renderer.withOptions(options).render($scope, $elem, staticHTML);
+                if (dtInstance._renderer) {
+                    dtInstance._renderer.withOptions(options)
+                        .render($scope, $elem, dtInstance, staticHTML);
                 } else {
-                    _renderer = DTRendererFactory.fromOptions(options, isNgDisplay).render($scope, $elem, staticHTML);
+                    dtInstance._renderer = DTRendererFactory
+                        .fromOptions(options, isNgDisplay)
+                        .render($scope, $elem, dtInstance, staticHTML);
                 }
             });
         }

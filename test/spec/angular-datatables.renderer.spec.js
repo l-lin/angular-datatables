@@ -4,7 +4,7 @@ describe('datatables.renderer', function () {
     beforeEach(module('datatables.renderer'));
 
     describe('DTRendererService', function () {
-        var DTRendererService, $loading, $elem, $scope;
+        var DTRendererService, $loading, $elem, $scope, DTInstances;
 
         beforeEach(inject(function ($injector, $rootScope) {
             DTRendererService = $injector.get('DTRendererService');
@@ -22,6 +22,7 @@ describe('datatables.renderer', function () {
                     '</table>'
             );
             $scope = $rootScope.$new();
+            DTInstances = $injector.get('DTInstances');
         }));
 
         describe(', when showing the loading,', function () {
@@ -50,13 +51,13 @@ describe('datatables.renderer', function () {
                 expect($loading.hide).toHaveBeenCalled();
             });
         });
-        describe(', when rendering the DataTable and emitting an event,', function () {
+        describe(', when rendering the DataTable and registring the instance,', function () {
             var options, oTable;
             beforeEach(function () {
                 options = {};
                 spyOn($.fn, 'attr').andCallThrough();
-                spyOn($scope, '$emit').andCallThrough();
-                oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                spyOn(DTInstances, 'register');
+                oTable = DTRendererService.renderDataTableAndRegisterInstance($elem, options, {});
             });
             it('should retrieve the id of the element', function () {
                 expect($elem.attr).toHaveBeenCalledWith('id');
@@ -67,17 +68,12 @@ describe('datatables.renderer', function () {
             it('should return the DT API instance', function () {
                 expect(oTable).toBeDefined();
             });
-            it('should emit an event with the appropriate parameters', function () {
-                expect($scope.$emit).toHaveBeenCalledWith(
-                    'event:dataTableLoaded', {
-                        id: $elem.attr('id'),
-                        DataTable: oTable,
-                        dataTable: $elem.dataTable()
-                    });
+            it('should register the datatable instance', function () {
+                expect(DTInstances.register).toHaveBeenCalled();
             });
             it('should set the "destroy" option to true if we render again', function () {
                 spyOn($.fn.dataTable, 'isDataTable').andReturn(true);
-                DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                DTRendererService.renderDataTableAndRegisterInstance($elem, options, {});
                 expect(options.destroy).toBeTruthy();
             });
         });
@@ -86,13 +82,13 @@ describe('datatables.renderer', function () {
             beforeEach(function () {
                 options = {};
                 spyOn(DTRendererService, 'hideLoading').andCallThrough();
-                spyOn(DTRendererService, 'renderDataTableAndEmitEvent').andCallThrough();
+                spyOn(DTRendererService, 'renderDataTableAndRegisterInstance').andCallThrough();
             });
 
-            it('should hide, render and emit an event', function () {
-                var oTable = DTRendererService.doRenderDataTable($elem, options, $scope);
+            it('should hide, render and register the datatable instance', function () {
+                var oTable = DTRendererService.doRenderDataTable($elem, options, {});
                 expect(DTRendererService.hideLoading).toHaveBeenCalledWith($elem);
-                expect(DTRendererService.renderDataTableAndEmitEvent).toHaveBeenCalledWith($elem, options, $scope);
+                expect(DTRendererService.renderDataTableAndRegisterInstance).toHaveBeenCalled();
                 expect(oTable).toBeDefined();
             });
         });
@@ -187,7 +183,7 @@ describe('datatables.renderer', function () {
 
         it('should render the DataTable', function () {
             renderer = DTDefaultRenderer.create();
-            renderer = renderer.render($scope, $elem);
+            renderer = renderer.render($scope, $elem, {});
             expect(DTRendererService.doRenderDataTable).toHaveBeenCalled();
             expect(renderer).toBeDefined();
             expect(renderer.name).toBe('DTDefaultRenderer');

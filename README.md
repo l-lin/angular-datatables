@@ -73,25 +73,37 @@ Additional notes
 ----------------
 
 * [RequireJS](http://requirejs.org/) is not supported.
-* Each time a datatable is rendered, a message is sent to the parent scopes with the id of the table and the DataTable itself.
+* A DataTable directive instance is created each time a DataTable is rendered. You can fetch it by calling the service
+`DTInstances.getLast()` to fetch the last instance or `DTInstance.getList()` to fetch the entire list of instances.
 
-For instance, for the given dataTable:
+For instance, for the given dataTables:
 
 ```html
 <table id="foobar" datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
+<table id="foobar2" datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
 ```
 
-You can catch the event like this in your parent directive or controller:
+You can fetch the instances like this:
 
 ```js
-$scope.$on('event:dataTableLoaded', function(event, loadedDT) {
-    // loadedDT === {"id": "foobar", "DataTable": oTable, "dataTable": $oTable}
-
+DTInstances.getLast().then(function(lastDTInstance) {
+    // lastDTInstance === {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
+    
     // loadedDT.DataTable is the DataTable API instance
     // loadedDT.dataTable is the jQuery Object
     // See http://datatables.net/manual/api#Accessing-the-API
 });
+DTInstances.getList().then(function(dtInstances) {
+    /*
+     * dtInstances === {
+     *      "foobar": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable},
+     *      "foobar2": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
+     * }
+     */
+});
 ```
+
+For more information, please check the [documentation](http://l-lin.github.io/angular-datatables/#/api).
 
 * `Angular Datatables` is using [Object.create()](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/create) to instanciate options and columns.
   * If you need to support IE8, then you need to add this [Polyfill](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill).

@@ -1,12 +1,12 @@
 /*!
- * angular-datatables - v0.3.1
+ * angular-datatables - v0.4.0
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
 (function (window, document, $, angular) {
 
 /*!
- * angular-datatables - v0.3.1
+ * angular-datatables - v0.4.0
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
@@ -435,11 +435,11 @@ dtBootstrapDefaultOptions.$inject = ['DTDefaultOptions', 'DTPropertyUtil', 'DT_B
 
 'use strict';
 
-angular.module('datatables.directive', ['datatables.renderer', 'datatables.options', 'datatables.util'])
+angular.module('datatables.directive', ['datatables.instances', 'datatables.renderer', 'datatables.options', 'datatables.util'])
     .directive('datatable', dataTable);
 
 /* @ngInject */
-function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
+function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil, DTInstanceFactory) {
     compileDirective.$inject = ['tElm'];
     ControllerDirective.$inject = ['$scope'];
     return {
@@ -486,8 +486,8 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
 
     /* @ngInject */
     function ControllerDirective($scope) {
-        var vm = this,
-            _renderer;
+        var dtInstance = DTInstanceFactory.newDTInstance();
+        var vm = this;
         vm.showLoading = showLoading;
         vm.buildOptionsPromise = buildOptionsPromise;
         vm.render = render;
@@ -543,16 +543,19 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
             optionsPromise.then(function(options) {
                 var isNgDisplay = $scope.datatable && $scope.datatable === 'ng';
                 // Render dataTable
-                if (_renderer) {
-                    _renderer.withOptions(options).render($scope, $elem, staticHTML);
+                if (dtInstance._renderer) {
+                    dtInstance._renderer.withOptions(options)
+                        .render($scope, $elem, dtInstance, staticHTML);
                 } else {
-                    _renderer = DTRendererFactory.fromOptions(options, isNgDisplay).render($scope, $elem, staticHTML);
+                    dtInstance._renderer = DTRendererFactory
+                        .fromOptions(options, isNgDisplay)
+                        .render($scope, $elem, dtInstance, staticHTML);
                 }
             });
         }
     }
 }
-dataTable.$inject = ['$q', 'DTBootstrap', 'DTRendererFactory', 'DTRendererService', 'DTPropertyUtil'];
+dataTable.$inject = ['$q', 'DTBootstrap', 'DTRendererFactory', 'DTRendererService', 'DTPropertyUtil', 'DTInstanceFactory'];
 
 'use strict';
 angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.options'])
@@ -1089,6 +1092,76 @@ function dtLoadingTemplate() {
 
 'use strict';
 
+angular.module('datatables.instances', [])
+.factory('DTInstances', dtInstances)
+.factory('DTInstanceFactory', dtInstanceFactory);
+
+/* @ngInject */
+function dtInstances($q) {
+    var _instances = {};
+    // Promise for fetching the last DT instance
+    var _deferLastDTInstances = null;
+    var _lastDTInstance = null;
+    // Promise for fetching the list of DT instances
+    var _deferDTInstances = null;
+    var _dtInstances = null;
+    return {
+        register: register,
+        getLast: getLast,
+        getList: getList
+    };
+
+    function register(dtInstance) {
+        _instances[dtInstance.id] = dtInstance;
+        if (_deferLastDTInstances) {
+            _deferLastDTInstances.resolve(dtInstance);
+        }
+        if (_deferDTInstances) {
+            _deferDTInstances.resolve(_instances);
+        }
+    }
+
+    function getLast() {
+        var defer = $q.defer();
+        if (!_lastDTInstance) {
+            _deferLastDTInstances = $q.defer();
+            _lastDTInstance = _deferLastDTInstances.promise;
+        }
+        _lastDTInstance.then(function (dtInstance) {
+            defer.resolve(dtInstance);
+            // Reset the promise
+            _deferLastDTInstances = null;
+            _lastDTInstance = null;
+        });
+        return defer.promise;
+    }
+
+    function getList() {
+        var defer = $q.defer();
+        _dtInstances.then(function (instances) {
+            defer.resolve(instances);
+            // Reset the promise
+            _deferDTInstances = null;
+            _dtInstances = null;
+        });
+        return defer.promise;
+    }
+}
+dtInstances.$inject = ['$q'];
+
+function dtInstanceFactory() {
+    var DTInstance = {};
+    return {
+        newDTInstance: newDTInstance
+    };
+
+    function newDTInstance() {
+        return Object.create(DTInstance);
+    }
+}
+
+'use strict';
+
 angular.module('datatables', ['datatables.directive', 'datatables.factory', 'datatables.bootstrap'])
 .run(initAngularDataTables);
 
@@ -1289,7 +1362,7 @@ function dtDefaultOptions() {
 }
 
 'use strict';
-angular.module('datatables.renderer', ['datatables.factory', 'datatables.options'])
+angular.module('datatables.renderer', ['datatables.factory', 'datatables.options', 'datatables.instances'])
 .factory('DTRendererService', dtRendererService)
 .factory('DTRenderer', dtRenderer)
 .factory('DTDefaultRenderer', dtDefaultRenderer)
@@ -1299,13 +1372,13 @@ angular.module('datatables.renderer', ['datatables.factory', 'datatables.options
 .factory('DTRendererFactory', dtRendererFactory);
 
 /* @ngInject */
-function dtRendererService(DTLoadingTemplate) {
+function dtRendererService(DTLoadingTemplate, DTInstances) {
     var $loading = angular.element(DTLoadingTemplate.html);
     var rendererService = {
         getLoadingElem: getLoadingElem,
         showLoading: showLoading,
         hideLoading: hideLoading,
-        renderDataTableAndEmitEvent: renderDataTableAndEmitEvent,
+        renderDataTableAndRegisterInstance: renderDataTableAndRegisterInstance,
         doRenderDataTable: doRenderDataTable
     };
     return rendererService;
@@ -1322,26 +1395,31 @@ function dtRendererService(DTLoadingTemplate) {
         $elem.show();
         $loading.hide();
     }
-    function renderDataTableAndEmitEvent($elem, options, $scope) {
+    function renderDataTableAndRegisterInstance($elem, options, dtInstance) {
         var dtId = '#' + $elem.attr('id');
         if ($.fn.dataTable.isDataTable(dtId)) {
             options.destroy = true;
         }
-        var DT = $elem.DataTable(options),
-            dt = $elem.dataTable();
         // See http://datatables.net/manual/api#Accessing-the-API to understand the difference between DataTable and dataTable
-        $scope.$emit('event:dataTableLoaded', { id: $elem.attr('id'), DataTable: DT, dataTable: dt });
+        var DT = $elem.DataTable(options);
+        var dt = $elem.dataTable();
+
+        dtInstance.id = $elem.attr('id');
+        dtInstance.DataTable = DT;
+        dtInstance.dataTable = dt;
+        DTInstances.register(dtInstance);
+
         if (options && options.hasColumnFilter) {
             dt.columnFilter(options.columnFilterOptions);
         }
         return DT;
     }
-    function doRenderDataTable($elem, options, $scope) {
+    function doRenderDataTable($elem, options, dtInstance) {
         rendererService.hideLoading($elem);
-        return rendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+        return rendererService.renderDataTableAndRegisterInstance($elem, options, dtInstance);
     }
 }
-dtRendererService.$inject = ['DTLoadingTemplate'];
+dtRendererService.$inject = ['DTLoadingTemplate', 'DTInstances'];
 
 function dtRenderer() {
     return {
@@ -1362,8 +1440,8 @@ function dtDefaultRenderer(DTRenderer, DTRendererService) {
         var renderer = Object.create(DTRenderer);
         renderer.name = 'DTDefaultRenderer';
         renderer.options = options;
-        renderer.render = function ($scope, $elem) {
-            DTRendererService.doRenderDataTable($elem, this.options, $scope);
+        renderer.render = function ($scope, $elem, dtInstance) {
+            DTRendererService.doRenderDataTable($elem, this.options, dtInstance);
             return this;
         };
         return renderer;
@@ -1390,7 +1468,7 @@ function dtNGRenderer($compile, $timeout, DTRenderer, DTRendererService) {
         renderer.render = render;
         return renderer;
 
-        function render($scope, $elem, staticHTML) {
+        function render($scope, $elem, dtInstance, staticHTML) {
             var expression = $elem.find('tbody').html(),
                 // Find the resources from the comment <!-- ngRepeat: item in items --> displayed by angular in the DOM
                 // This regexp is inspired by the one used in the "ngRepeat" directive
@@ -1414,7 +1492,7 @@ function dtNGRenderer($compile, $timeout, DTRenderer, DTRendererService) {
                 }
                 $timeout(function() {
                     alreadyRendered = true;
-                    oTable = DTRendererService.doRenderDataTable($elem, renderer.options, $scope);
+                    oTable = DTRendererService.doRenderDataTable($elem, renderer.options, dtInstance);
                 }, 0, false);
             }, true);
             return renderer;
@@ -1436,10 +1514,11 @@ function dtPromiseRenderer($timeout, DTRenderer, DTRendererService) {
     };
 
     function create (options) {
-        var oTable,
-            // Reloading data call the "render()" function again, so it
-            // might $watch again. So this flag is here to prevent that!
-            _watcherInitialized = false;
+        var oTable;
+        // Reloading data call the "render()" function again, so it
+        // might $watch again. So this flag is here to prevent that!
+        var _watcherInitialized = false;
+        var _loadedPromise = null;
 
         var renderer = Object.create(DTRenderer);
         renderer.name = 'DTPromiseRenderer';
@@ -1447,36 +1526,7 @@ function dtPromiseRenderer($timeout, DTRenderer, DTRendererService) {
         renderer.render = render;
         return renderer;
 
-        function render($scope, $elem) {
-            var _loadedPromise = null,
-                _whenLoaded = function (result) {
-                    var data = result;
-                    // In case the data is nested in an object
-                    if (renderer.options.sAjaxDataProp) {
-                        data = result[renderer.options.sAjaxDataProp];
-                    }
-                    _doRender(renderer.options, $elem, data, $scope);
-                    _loadedPromise = null;
-                }, _startLoading = function (fnPromise) {
-                    if(angular.isFunction(fnPromise)){
-                        _loadedPromise = fnPromise();
-                    } else {
-                        _loadedPromise = fnPromise;
-                    }
-                    _loadedPromise.then(_whenLoaded);
-                }, _reload = function (fnPromise) {
-                    if (angular.isDefined(fnPromise)) {
-                        if (_loadedPromise) {
-                            _loadedPromise.then(function() {
-                                _startLoading(fnPromise);
-                            });
-                        } else {
-                            _startLoading(fnPromise);
-                        }
-                    } else {
-                        throw new Error('You must provide a promise or a function that returns a promise!');
-                    }
-                };
+        function render($scope, $elem, dtInstance) {
             if (!_watcherInitialized) {
                 $scope.$watch('dtOptions.fnPromise', function (fnPromise, oldPromise) {
                     if (fnPromise !== oldPromise) {
@@ -1485,28 +1535,58 @@ function dtPromiseRenderer($timeout, DTRenderer, DTRendererService) {
                 });
                 _watcherInitialized = true;
             }
-            _reload($scope.dtOptions.fnPromise);
+            _reload(renderer.options.fnPromise);
             return renderer;
-        }
-        function _doRender(options, $elem, data, $scope) {
-            // Since Angular 1.3, the promise renderer is throwing "Maximum call stack size exceeded"
-            // By removing the $promise attribute, we avoid an infinite loop when jquery is cloning the data
-            // See https://github.com/l-lin/angular-datatables/issues/110
-            delete data.$promise;
-            options.aaData = data;
-            // Add $timeout to be sure that angular has finished rendering before calling datatables
-            $timeout(function () {
-                DTRendererService.hideLoading($elem);
-                // Set it to true in order to be able to redraw the dataTable
-                options.bDestroy = true;
-                // Condition to refresh the dataTable
-                if (oTable) {
-                    oTable.clear();
-                    oTable.rows.add(options.aaData).draw();
-                } else {
-                    oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+
+            function _reload(fnPromise) {
+                if (angular.isUndefined(fnPromise)) {
+                    throw new Error('You must provide a promise or a function that returns a promise!');
                 }
-            }, 0, false);
+                if (_loadedPromise) {
+                    _loadedPromise.then(function() {
+                        _startLoading(fnPromise);
+                    });
+                } else {
+                    _startLoading(fnPromise);
+                }
+            }
+            function _startLoading(fnPromise) {
+                if(angular.isFunction(fnPromise)){
+                    _loadedPromise = fnPromise();
+                } else {
+                    _loadedPromise = fnPromise;
+                }
+                _loadedPromise.then(_whenLoaded);
+            }
+            function _whenLoaded(result) {
+                var data = result;
+                // In case the data is nested in an object
+                if (renderer.options.sAjaxDataProp) {
+                    data = result[renderer.options.sAjaxDataProp];
+                }
+                _doRender(renderer.options, $elem, data, dtInstance);
+                _loadedPromise = null;
+            }
+            function _doRender(options, $elem, data, dtInstance) {
+                // Since Angular 1.3, the promise renderer is throwing "Maximum call stack size exceeded"
+                // By removing the $promise attribute, we avoid an infinite loop when jquery is cloning the data
+                // See https://github.com/l-lin/angular-datatables/issues/110
+                delete data.$promise;
+                options.aaData = data;
+                // Add $timeout to be sure that angular has finished rendering before calling datatables
+                $timeout(function () {
+                    DTRendererService.hideLoading($elem);
+                    // Set it to true in order to be able to redraw the dataTable
+                    options.bDestroy = true;
+                    // Condition to refresh the dataTable
+                    if (oTable) {
+                        oTable.clear();
+                        oTable.rows.add(options.aaData).draw();
+                    } else {
+                        oTable = DTRendererService.renderDataTableAndRegisterInstance($elem, options, dtInstance);
+                    }
+                }, 0, false);
+            }
         }
     }
 }
@@ -1532,7 +1612,7 @@ function dtAjaxRenderer($timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTI
         renderer.render = render;
         return renderer;
 
-        function render($scope, $elem) {
+        function render($scope, $elem, dtInstance) {
             // Define default values in case it is an ajax datatables
             if (angular.isUndefined(renderer.options.sAjaxDataProp)) {
                 renderer.options.sAjaxDataProp = DT_DEFAULT_OPTIONS.sAjaxDataProp;
@@ -1540,10 +1620,10 @@ function dtAjaxRenderer($timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTI
             if (angular.isUndefined(renderer.options.aoColumns)) {
                 renderer.options.aoColumns = DT_DEFAULT_OPTIONS.aoColumns;
             }
-            _setOptionsAndRender(renderer.options, renderer.options.sAjaxSource, $elem, $scope);
+            _setOptionsAndRender(renderer.options, renderer.options.sAjaxSource, $elem, dtInstance);
             return renderer;
         }
-        function _setOptionsAndRender(options, sAjaxSource, $elem, $scope) {
+        function _setOptionsAndRender(options, sAjaxSource, $elem, dtInstance) {
             if (angular.isDefined(sAjaxSource)) {
                 options.sAjaxSource = sAjaxSource;
                 if (angular.isDefined(options.ajax)) {
@@ -1554,9 +1634,9 @@ function dtAjaxRenderer($timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTI
                     }
                 }
             }
-            _doRender(options, $elem, $scope);
+            _doRender(options, $elem, dtInstance);
         }
-        function _doRender(options, $elem, $scope) {
+        function _doRender(options, $elem, dtInstance) {
             // Set it to true in order to be able to redraw the dataTable
             options.bDestroy = true;
             DTRendererService.hideLoading($elem);
@@ -1567,10 +1647,10 @@ function dtAjaxRenderer($timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTI
             } else {
                 if (_shouldDeferRender(options)) {
                     $timeout(function () {
-                        oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                        oTable = DTRendererService.renderDataTableAndRegisterInstance($elem, options, dtInstance);
                     }, 0, false);
                 } else {
-                    oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                    oTable = DTRendererService.renderDataTableAndRegisterInstance($elem, options, dtInstance);
                 }
             }
         }

@@ -901,7 +901,7 @@
           $elem.show();
           $loading.hide();
         },
-        renderDataTableAndEmitEvent: function ($elem, options, $scope) {
+        renderDataTableAndRegisterInstance: function ($elem, options, $scope) {
           var dtId = '#' + $elem.attr('id');
           if ($.fn.dataTable.isDataTable(dtId)) {
             options.destroy = true;
@@ -917,7 +917,7 @@
         },
         doRenderDataTable: function ($elem, options, $scope) {
           this.hideLoading($elem);
-          return this.renderDataTableAndEmitEvent($elem, options, $scope);
+          return this.renderDataTableAndRegisterInstance($elem, options, $scope);
         }
       };
     }
@@ -1030,7 +1030,7 @@
                   oTable.clear();
                   oTable.rows.add(options.aaData).draw();
                 } else {
-                  oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                  oTable = DTRendererService.renderDataTableAndRegisterInstance($elem, options, $scope);
                 }
               }, 0, false);
             };
@@ -1118,7 +1118,7 @@
                   var ajaxUrl = options.sAjaxSource || options.ajax.url || options.ajax;
                   oTable.ajax.url(ajaxUrl).load();
                 } else {
-                  oTable = DTRendererService.renderDataTableAndEmitEvent($elem, options, $scope);
+                  oTable = DTRendererService.renderDataTableAndRegisterInstance($elem, options, $scope);
                 }
               }, 0, false);
             };

@@ -12,6 +12,7 @@
             <tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="RowSelectCtrl as showCase">
+                        <p class="text-danger">You selected the following rows: <strong>{{ showCase.selected }}</strong></p>
                         <p>
                             <button class="btn btn-primary" ng-click="showCase.toggleAll()">Select/Remove all</button>
                         </p>
@@ -22,6 +23,7 @@
             <tab heading="HTML">
 <div hljs>
 <div ng-controller="RowSelectCtrl as showCase">
+    <p class="text-danger">You selected the following rows: <strong>{{ showCase.selected }}</strong></p>
     <p>
         <button class="btn btn-primary" ng-click="showCase.toggleAll()">Select/Remove all</button>
     </p>
@@ -33,13 +35,13 @@
 <div hljs language="js">
 angular.module('datatablesSampleApp', ['datatables']).controller('RowSelectCtrl', RowSelect);
 
-function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder) {
+function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;
     vm.selected = {};
     vm.toggleAll = toggleAll;
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
-        return $resource('data.json').query().$promise;
-    })
+            return $resource('data1.json').query().$promise;
+        })
         .withOption('createdRow', function(row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT
             $compile(angular.element(row).contents())($scope);
@@ -55,8 +57,8 @@ function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilde
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
 
-    $scope.$on('event:dataTableLoaded', function(evt, loadedDT) {
-        loadedDT.DataTable.data().each(function(data) {
+    DTInstances.getLast().then(function (dtInstance) {
+        dtInstance.DataTable.data().each(function(data) {
             vm.selected[data.id] = false;
         });
     });
