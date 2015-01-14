@@ -1,7 +1,7 @@
 'use strict';
 angular.module('datatablesSampleApp').controller('DataReloadWithAjaxCtrl', DataReloadWithAjaxCtrl);
 
-function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder) {
+function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json').withPaginationType('full_numbers');
     vm.dtColumns = [
@@ -9,13 +9,9 @@ function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder) {
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-    vm.reloadData = reloadData;
-    vm.changeData = changeData;
+    vm.newSource = 'data1.json';
 
-    function reloadData() {
-        vm.dtOptions.reloadData();
-    }
-    function changeData() {
-        vm.dtOptions.sAjaxSource = 'data1.json';
-    }
+    DTInstances.getLast().then(function(dtInstance) {
+        vm.dtInstance = dtInstance;
+    });
 }

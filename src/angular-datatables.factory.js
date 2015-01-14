@@ -67,11 +67,6 @@ function dtOptionsBuilder(DT_DEFAULT_OPTIONS) {
         hasColumnFilter: false,
         hasOverrideDom: false,
 
-        reloadData: function() {
-            this.reload = true;
-            return this;
-        },
-
         /**
          * Add the option to the datatables optoins
          * @param key the key of the option
@@ -87,12 +82,12 @@ function dtOptionsBuilder(DT_DEFAULT_OPTIONS) {
 
         /**
          * Add the Ajax source to the options.
-         * This corresponds to the "sAjaxSource" option
-         * @param sAjaxSource the ajax source
+         * This corresponds to the "ajax" option
+         * @param ajax the ajax source
          * @returns {DTOptions} the options
          */
-        withSource: function(sAjaxSource) {
-            this.sAjaxSource = sAjaxSource;
+        withSource: function(ajax) {
+            this.ajax = ajax;
             return this;
         },
 
@@ -395,12 +390,12 @@ function dtOptionsBuilder(DT_DEFAULT_OPTIONS) {
         },
         /**
          * Create a wrapped datatables options with the ajax source setted
-         * @param sAjaxSource the ajax source
+         * @param ajax the ajax source
          * @returns {DTOptions} a wrapped datatables option
          */
-        fromSource: function(sAjaxSource) {
+        fromSource: function(ajax) {
             var options = Object.create(DTOptions);
-            options.sAjaxSource = sAjaxSource;
+            options.ajax = ajax;
             return options;
         },
         /**

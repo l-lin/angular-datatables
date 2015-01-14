@@ -19,7 +19,11 @@ function dtInstances($q) {
         getList: getList
     };
 
-    function register(dtInstance) {
+    function register(dtInstance, result) {
+        dtInstance.id = result.id;
+        dtInstance.DataTable = result.DataTable;
+        dtInstance.dataTable = result.dataTable;
+
         _instances[dtInstance.id] = dtInstance;
         if (_deferLastDTInstances) {
             _deferLastDTInstances.resolve(dtInstance);
@@ -27,6 +31,7 @@ function dtInstances($q) {
         if (_deferDTInstances) {
             _deferDTInstances.resolve(_instances);
         }
+        return dtInstance;
     }
 
     function getLast() {
@@ -57,12 +62,26 @@ function dtInstances($q) {
 }
 
 function dtInstanceFactory() {
-    var DTInstance = {};
+    var DTInstance = {
+        reloadData: reloadData,
+        changeData: changeData
+    };
     return {
         newDTInstance: newDTInstance
     };
 
-    function newDTInstance() {
-        return Object.create(DTInstance);
+    function newDTInstance(renderer) {
+        var dtInstance = Object.create(DTInstance);
+        dtInstance._renderer = renderer;
+        return dtInstance;
+    }
+
+    function reloadData() {
+        /*jshint validthis:true */
+        this._renderer.reloadData();
+    }
+    function changeData(data) {
+        /*jshint validthis:true */
+        this._renderer.changeData(data);
     }
 }

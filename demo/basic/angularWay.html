@@ -126,11 +126,6 @@ angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
 
 function AngularWayOneTimeBindingCtrl($resource) {
     var vm = this;
-
-    // This does not work if you want to bind once
-    // vm.persons = $resource('data.json').query();
-
-    // This works
     $resource('data.json').query().$promise.then(function(persons) {
         vm.persons = persons;
     });

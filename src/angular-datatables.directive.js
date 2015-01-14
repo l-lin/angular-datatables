@@ -4,7 +4,7 @@ angular.module('datatables.directive', ['datatables.instances', 'datatables.rend
     .directive('datatable', dataTable);
 
 /* @ngInject */
-function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil, DTInstanceFactory) {
+function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
     return {
         restrict: 'A',
         scope: {
@@ -24,15 +24,7 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
         return function postLink($scope, $elem, iAttrs, ctrl) {
             function handleChanges(newVal, oldVal){
                 if (newVal !== oldVal) {
-                    // Do not rerender if we want to reload. There are already
-                    // some watchers in the renderers.
-                    if (!newVal.reload || newVal.sAjaxSource !== oldVal.sAjaxSource) {
-                        ctrl.render($elem, ctrl.buildOptionsPromise(), _staticHTML);
-                    } else {
-                        // The reload attribute is set to false here in order
-                        // to recall this watcher again
-                        newVal.reload = false;
-                    }
+                    ctrl.render($elem, ctrl.buildOptionsPromise(), _staticHTML);
                 }
             }
 
@@ -42,22 +34,17 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
             angular.forEach(['dtColumns', 'dtColumnDefs', 'dtOptions'], function(tableDefField){
                 $scope[watchFunction].call($scope, tableDefField, handleChanges, true);
             });
-            ctrl.showLoading($elem);
+            DTRendererService.showLoading($elem);
             ctrl.render($elem, ctrl.buildOptionsPromise(), _staticHTML);
         };
     }
 
     /* @ngInject */
     function ControllerDirective($scope) {
-        var dtInstance = DTInstanceFactory.newDTInstance();
+        var _dtInstance;
         var vm = this;
-        vm.showLoading = showLoading;
         vm.buildOptionsPromise = buildOptionsPromise;
         vm.render = render;
-
-        function showLoading($elem) {
-            DTRendererService.showLoading($elem);
-        }
 
         function buildOptionsPromise() {
             var defer = $q.defer();
@@ -106,13 +93,16 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
             optionsPromise.then(function(options) {
                 var isNgDisplay = $scope.datatable && $scope.datatable === 'ng';
                 // Render dataTable
-                if (dtInstance._renderer) {
-                    dtInstance._renderer.withOptions(options)
-                        .render($scope, $elem, dtInstance, staticHTML);
+                if (_dtInstance && _dtInstance._renderer) {
+                    _dtInstance._renderer.withOptions(options)
+                        .render($scope, $elem, staticHTML).then(function (dtInstance) {
+                            _dtInstance = dtInstance;
+                        });
                 } else {
-                    dtInstance._renderer = DTRendererFactory
-                        .fromOptions(options, isNgDisplay)
-                        .render($scope, $elem, dtInstance, staticHTML);
+                    DTRendererFactory.fromOptions(options, isNgDisplay)
+                        .render($scope, $elem, staticHTML).then(function (dtInstance) {
+                            _dtInstance = dtInstance;
+                        });
                 }
             });
         }

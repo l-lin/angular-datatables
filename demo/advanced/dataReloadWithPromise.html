@@ -4,14 +4,19 @@
     </header>
     <section class="article-content">
         <p>
-            In some case, you need to load some new data. This module handles data loading seamlessly.
+            In some case, you need to load some new data.
         </p>
         <ul>
             <li>
-                If you need to load new data, you just need to override the <code>dtOptions.fnPromise</code> with a new function that returns a promise or a promise.
+                If you need to load new data, you just have to call the <code>dtInstance.changeData(fnPromise);</code>, where <code>fnPromise</code> is a promise or a function that returns a promise.
             </li>
             <li>
-                If you need to reload the data, you just have to call the function <code>dtOptions.reloadData();</code>.
+                <p>
+                    If you need to reload the data, you just have to call the function <code>dtInstance.reloadData();</code>.
+                </p>
+                <p class="text-danger">
+                    <i class="fa fa-warning"></i> To use this functionality, you must provide a function that returns a promise. Just a promise is not enough.
+                </p>
             </li>
         </ul>
     </section>
@@ -21,10 +26,10 @@
                 <article class="preview">
                     <div ng-controller="DataReloadWithPromiseCtrl as showCase">
                         <p>
-                            <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
+                            <button ng-click="showCase.dtInstance.reloadData()" type="button" class="btn btn-info">
                                 <i class="fa fa-refresh"></i>&nbsp;Reload data
                             </button>
-                            <button ng-click="showCase.changeData()" type="button" class="btn btn-info">
+                            <button ng-click="showCase.dtInstance.changeData(showCase.newPromise)" type="button" class="btn btn-info">
                                 <i class="fa fa-exchange"></i>&nbsp;Change data
                             </button>
                         </p>
@@ -36,10 +41,10 @@
 <div hljs language="html">
 <div ng-controller="DataReloadWithPromiseCtrl as showCase">
     <p>
-        <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
+        <button ng-click="showCase.dtInstance.reloadData()" type="button" class="btn btn-info">
             <i class="fa fa-refresh"></i>&nbsp;Reload data
         </button>
-        <button ng-click="showCase.changeData()" type="button" class="btn btn-info">
+        <button ng-click="showCase.dtInstance.changeData(showCase.newPromise)" type="button" class="btn btn-info">
             <i class="fa fa-exchange"></i>&nbsp;Change data
         </button>
     </p>
@@ -51,7 +56,7 @@
 <div hljs language="js">
 angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('DataReloadWithPromiseCtrl', DataReloadWithPromiseCtrl);
 
-function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource) {
+function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, DTInstances) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
         return $resource('data.json').query().$promise;
@@ -61,17 +66,14 @@ function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource)
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-    vm.reloadData = reloadData;
-    vm.changeData = changeData;
+    vm.newPromise = newPromise;
 
-    function reloadData() {
-        vm.dtOptions.reloadData();
-    }
-    function changeData() {
-        vm.dtOptions.fnPromise = function() {
-            return $resource('data1.json').query().$promise;
-        };
-        // Or vm.dtOptions.fnPromise = $resource('data1.json').query().$promise;
+    DTInstances.getLast().then(function (dtInstance) {
+        vm.dtInstance = dtInstance;
+    });
+
+    function newPromise() {
+        return $resource('data1.json').query().$promise;
     }
 }
 </div>

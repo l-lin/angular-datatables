@@ -1,7 +1,7 @@
 'use strict';
 angular.module('datatablesSampleApp').controller('DataReloadWithPromiseCtrl', DataReloadWithPromiseCtrl);
 
-function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource) {
+function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, DTInstances) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
         return $resource('data.json').query().$promise;
@@ -11,16 +11,13 @@ function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource)
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-    vm.reloadData = reloadData;
-    vm.changeData = changeData;
+    vm.newPromise = newPromise;
 
-    function reloadData() {
-        vm.dtOptions.reloadData();
-    }
-    function changeData() {
-        vm.dtOptions.fnPromise = function() {
-            return $resource('data1.json').query().$promise;
-        };
-        // Or vm.dtOptions.fnPromise = $resource('data1.json').query().$promise;
+    DTInstances.getLast().then(function (dtInstance) {
+        vm.dtInstance = dtInstance;
+    });
+
+    function newPromise() {
+        return $resource('data1.json').query().$promise;
     }
 }

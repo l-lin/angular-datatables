@@ -52,12 +52,12 @@ describe('datatables.renderer', function () {
             });
         });
         describe(', when rendering the DataTable and registring the instance,', function () {
-            var options, oTable;
+            var options, result;
             beforeEach(function () {
                 options = {};
                 spyOn($.fn, 'attr').andCallThrough();
                 spyOn(DTInstances, 'register');
-                oTable = DTRendererService.renderDataTableAndRegisterInstance($elem, options, {});
+                result = DTRendererService.renderDataTable($elem, options, {});
             });
             it('should retrieve the id of the element', function () {
                 expect($elem.attr).toHaveBeenCalledWith('id');
@@ -66,14 +66,11 @@ describe('datatables.renderer', function () {
                 expect(options.destroy).not.toBeTruthy();
             });
             it('should return the DT API instance', function () {
-                expect(oTable).toBeDefined();
-            });
-            it('should register the datatable instance', function () {
-                expect(DTInstances.register).toHaveBeenCalled();
+                expect(result).toBeDefined();
             });
             it('should set the "destroy" option to true if we render again', function () {
                 spyOn($.fn.dataTable, 'isDataTable').andReturn(true);
-                DTRendererService.renderDataTableAndRegisterInstance($elem, options, {});
+                DTRendererService.renderDataTable($elem, options, {});
                 expect(options.destroy).toBeTruthy();
             });
         });
@@ -82,13 +79,13 @@ describe('datatables.renderer', function () {
             beforeEach(function () {
                 options = {};
                 spyOn(DTRendererService, 'hideLoading').andCallThrough();
-                spyOn(DTRendererService, 'renderDataTableAndRegisterInstance').andCallThrough();
+                spyOn(DTRendererService, 'renderDataTable').andCallThrough();
             });
 
             it('should hide, render and register the datatable instance', function () {
-                var oTable = DTRendererService.doRenderDataTable($elem, options, {});
+                var oTable = DTRendererService.hideLoadingAndRenderDataTable($elem, options, {});
                 expect(DTRendererService.hideLoading).toHaveBeenCalledWith($elem);
-                expect(DTRendererService.renderDataTableAndRegisterInstance).toHaveBeenCalled();
+                expect(DTRendererService.renderDataTable).toHaveBeenCalled();
                 expect(oTable).toBeDefined();
             });
         });
@@ -144,7 +141,7 @@ describe('datatables.renderer', function () {
         });
         it('should return the DTAjaxRenderer if the ajax source is provided', function () {
             var renderer = DTRendererFactory.fromOptions({
-                sAjaxSource: 'ajaxSource'
+                ajax: 'ajaxSource'
             });
             expect(renderer).toBeDefined();
             expect(renderer.name).toBe('DTAjaxRenderer');
@@ -155,38 +152,6 @@ describe('datatables.renderer', function () {
             });
             expect(renderer).toBeDefined();
             expect(renderer.name).toBe('DTAjaxRenderer');
-        });
-    });
-
-    describe('DTDefaultRenderer', function () {
-        var DTDefaultRenderer, DTRendererService, options, renderer, $scope, $elem;
-
-        beforeEach(inject(function ($injector, $rootScope) {
-            DTDefaultRenderer = $injector.get('DTDefaultRenderer');
-            DTRendererService = $injector.get('DTRendererService');
-            options = {};
-            $scope = $rootScope.$new();
-            $elem = $(
-                    '<table id="foobar">' +
-                    '   <thead>' +
-                    '       <tr>' +
-                    '           <th>Foo</th>' +
-                    '           <th>Bar</th>' +
-                    '       </tr>' +
-                    '   </thead>' +
-                    '   <tbody>' +
-                    '   </tbody>' +
-                    '</table>'
-            );
-            spyOn(DTRendererService, 'doRenderDataTable').andCallThrough();
-        }));
-
-        it('should render the DataTable', function () {
-            renderer = DTDefaultRenderer.create();
-            renderer = renderer.render($scope, $elem, {});
-            expect(DTRendererService.doRenderDataTable).toHaveBeenCalled();
-            expect(renderer).toBeDefined();
-            expect(renderer.name).toBe('DTDefaultRenderer');
         });
     });
 });

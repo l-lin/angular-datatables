@@ -70,7 +70,7 @@ angular.module('myModule', ['datatables']);
                         <code>DTInstances.getLast()</code> to fetch the last instance or <code>DTInstance.getList()</code> to fetch the entire list of instances.
                     </p>
                     <p>
-                        For instance, for the given dataTables:
+                        For example, for the given dataTables:
                     </p>
 <div hljs language="html">
 <table id="foobar" datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
@@ -81,7 +81,7 @@ angular.module('myModule', ['datatables']);
                     </p>
 <div hljs language="js">
 DTInstances.getLast().then(function(lastDTInstance) {
-    // lastDTInstance === {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
+    // lastDTInstance === {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable, "reloadData": fnReloadData, "changeData": fnChangeData}
 
     // loadedDT.DataTable is the DataTable API instance
     // loadedDT.dataTable is the jQuery Object
@@ -90,8 +90,8 @@ DTInstances.getLast().then(function(lastDTInstance) {
 DTInstances.getList().then(function(dtInstances) {
     /*
      * dtInstances === {
-     *      "foobar": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable},
-     *      "foobar2": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
+     *      "foobar": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable, "reloadData": fnReloadData, "changeData": fnChangeData},
+     *      "foobar2": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable, "reloadData": fnReloadData, "changeData": fnChangeData}
      * }
      */
 });
@@ -111,7 +111,7 @@ DTInstances.getList().then(function(dtInstances) {
                 <li>
                     <p>
                         When providing the DT options, <code>Angular DataTables</code> will resolve every promises (except the
-                        attributes <code>data</code> and <code>aaData</code>) before rendering the DataTable.
+                        attributes <code>data</code>, <code>aaData</code> and <code>fnPromise</code>) before rendering the DataTable.
                     </p>
                     <p>
                         For example, suppose we provide the following code:

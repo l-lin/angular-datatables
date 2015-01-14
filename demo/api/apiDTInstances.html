@@ -21,7 +21,7 @@
 angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
 function MyCtrl(DTInstances) {
     DTInstances.getLast().then(function(lastDTInstance) {
-        // lastDTInstance === {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
+        // lastDTInstance === {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable, "reloadData": fnReloadData, "changeData": fnChangeData}
 
         // loadedDT.DataTable is the DataTable API instance
         // loadedDT.dataTable is the jQuery Object
@@ -42,10 +42,64 @@ function MyCtrl(DTInstances) {
     DTInstances.getList().then(function(dtInstances) {
         /*
          * dtInstances === {
-         *      "foobar": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable},
-         *      "foobar2": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
+         *      "foobar": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable, "reloadData": fnReloadData, "changeData": fnChangeData},
+         *      "foobar2": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable, "reloadData": fnReloadData, "changeData": fnChangeData}
          * }
          */
+    });
+}
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTInstance</code></td>
+        <td><code>reloadData()</code></td>
+        <td>
+            <p>
+                Reload the data of the DataTable.
+            </p>
+            <p class="text-info">
+                <i class="fa fa-info-circle"></i> This API is only available for the Ajax Renderer and Promise Renderer!
+            </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTInstances) {
+    DTInstances.getLast().then(function(dtInstance) {
+        dtInstance.reloadData();
+    });
+}
+</div>
+        </td>
+    <tr>
+        <td><code>DTInstance</code></td>
+        <td>
+            <code>changeData(data)</code>
+            <p>
+                Depending of the using renderer, you will need to provide:
+            </p>
+            <ul>
+                <li>a <code>string</code> or an <code>object</code> in the parameter when using the Ajax renderer.</li>
+                <li>a <code>promise</code> or a <code>function that returns a promise</code> in the parameter when using the Promise renderer</li>
+            </ul>
+
+        </td>
+        <td>
+            <p>
+                Change the data of the DataTable.
+            </p>
+            <p class="text-info">
+                <i class="fa fa-info-circle"></i> This API is only available for the Ajax Renderer and Promise Renderer!
+            </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl($resource, DTInstances) {
+    DTInstances.getLast().then(function(dtInstance) {
+        // For Ajax renderers
+        dtInstance.changeData('data.json');
+        // For Promise renderers
+        dtInstance.changeData(function() {
+            return $resource('data.json').query().$promise;
+        });
     });
 }
 </div>
