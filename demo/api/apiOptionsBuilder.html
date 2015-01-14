@@ -224,6 +224,22 @@ function MyCtrl(DTOptionsBuilder) {
         </tr>
         <tr>
             <td><code>DTOptions</code></td>
+            <td><code>withLanguageSource(oLanguage)</code></td>
+            <td>
+                <p>Set the language source of the datatables. If not defined, it uses the default language set by datables, ie english.</p>
+                <p>You can find the list of languages in the <a href="https://datatables.net/plug-ins/i18n/">DataTable official's documentation</a>.</p>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withLanguageSource('/path/to/language');
+}
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
             <td><code>withLanguage(oLanguage)</code></td>
             <td>
                 <p>Set the language of the datatables. If not defined, it uses the default language set by datables, ie english.</p>
@@ -233,7 +249,44 @@ function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withLanguage({
-            sUrl: '/path/to/language'
+            "sEmptyTable":     "No data available in table",
+            "sInfo":           "Showing _START_ to _END_ of _TOTAL_ entries",
+            "sInfoEmpty":      "Showing 0 to 0 of 0 entries",
+            "sInfoFiltered":   "(filtered from _MAX_ total entries)",
+            "sInfoPostFix":    "",
+            "sInfoThousands":  ",",
+            "sLengthMenu":     "Show _MENU_ entries",
+            "sLoadingRecords": "Loading...",
+            "sProcessing":     "Processing...",
+            "sSearch":         "Search:",
+            "sZeroRecords":    "No matching records found",
+            "oPaginate": {
+                "sFirst":    "First",
+                "sLast":     "Last",
+                "sNext":     "Next",
+                "sPrevious": "Previous"
+            },
+            "oAria": {
+                "sSortAscending":  ": activate to sort column ascending",
+                "sSortDescending": ": activate to sort column descending"
+            }
+        });
+}
+</div>
+                <p>
+                    It is not mandatory to specify every keywords. For example, if you just need to override the keywords
+                    <code>oPaginate.sNext</code> and <code>oPaginate.sPrevious</code>:
+                </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withLanguage({
+            "oPaginate": {
+                "sNext":     "&raquo;",
+                "sPrevious": "&laquo;"
+            }
         });
 }
 </div>
