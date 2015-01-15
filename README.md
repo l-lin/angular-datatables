@@ -112,7 +112,7 @@ For more information, please check the [documentation](http://l-lin.github.io/an
 
 For example, suppose we provide the following code:
 
-```html
+```js
 angular.module('yourModule')
 .controller('MyCtrl', MyCtrl);
 
