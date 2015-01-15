@@ -72,16 +72,21 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory,
     };
 
     function create(options) {
+        var _oTable;
+        var _$elem;
         var renderer = Object.create(DTRenderer);
         renderer.name = 'DTDefaultRenderer';
         renderer.options = options;
         renderer.render = render;
         renderer.reloadData = reloadData;
         renderer.changeData = changeData;
+        renderer.rerender = rerender;
 
         function render($elem) {
+            _$elem = $elem;
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             var result = DTRendererService.hideLoadingAndRenderDataTable($elem, renderer.options);
+            _oTable = result.DataTable;
             return $q.when(DTInstances.register(dtInstance, result));
         }
         function reloadData() {
@@ -89,6 +94,11 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory,
         }
         function changeData() {
             // Do nothing
+        }
+        function rerender() {
+            _oTable.destroy();
+            DTRendererService.showLoading(_$elem);
+            render(_$elem);
         }
         return renderer;
     }
@@ -160,11 +170,11 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
 
         function changeData() {
             $log.warn('The Angular Renderer does not support changing the data. You need to change your model directly.');
-            // Do nothing
         }
 
         function rerender() {
             _destroyAndCompile();
+            DTRendererService.showLoading(_$elem);
             $timeout(function() {
                 var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
                 _oTable = result.DataTable;
@@ -205,6 +215,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         renderer.render = render;
         renderer.reloadData = reloadData;
         renderer.changeData = changeData;
+        renderer.rerender = rerender;
         return renderer;
 
         function render($elem) {
@@ -229,6 +240,12 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         function changeData(fnPromise) {
             renderer.options.fnPromise = fnPromise;
             _resolve(renderer.options.fnPromise, _redrawRows);
+        }
+
+        function rerender() {
+            _oTable.destroy();
+            DTRendererService.showLoading(_$elem);
+            render(_$elem);
         }
 
         function _resolve(fnPromise, callback) {
@@ -306,15 +323,18 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
 
     function create(options) {
         var _oTable;
+        var _$elem;
         var renderer = Object.create(DTRenderer);
         renderer.name = 'DTAjaxRenderer';
         renderer.options = options;
         renderer.render = render;
         renderer.reloadData = reloadData;
         renderer.changeData = changeData;
+        renderer.rerender = rerender;
         return renderer;
 
         function render($elem) {
+            _$elem = $elem;
             var defer = $q.defer();
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             // Define default values in case it is an ajax datatables
@@ -339,6 +359,12 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         function changeData(ajax) {
             renderer.options.ajax = ajax;
             renderer.reloadData();
+        }
+
+        function rerender() {
+            _oTable.destroy();
+            DTRendererService.showLoading(_$elem);
+            render(_$elem);
         }
 
         function _doRender(options, $elem) {

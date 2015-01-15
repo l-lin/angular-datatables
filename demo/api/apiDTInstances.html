@@ -21,7 +21,14 @@
 angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
 function MyCtrl(DTInstances) {
     DTInstances.getLast().then(function(lastDTInstance) {
-        // lastDTInstance === {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable, "reloadData": fnReloadData, "changeData": fnChangeData}
+        // lastDTInstance === {
+        //    "id": "foobar2",
+        //    "DataTable": oTable,
+        //    "dataTable": $oTable,
+        //    "reloadData": fnReloadData,
+        //    "changeData": fnChangeData,
+        //    "rerender": fnRerender
+        // }
 
         // loadedDT.DataTable is the DataTable API instance
         // loadedDT.dataTable is the jQuery Object
@@ -40,12 +47,24 @@ function MyCtrl(DTInstances) {
 angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
 function MyCtrl(DTInstances) {
     DTInstances.getList().then(function(dtInstances) {
-        /*
-         * dtInstances === {
-         *      "foobar": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable, "reloadData": fnReloadData, "changeData": fnChangeData},
-         *      "foobar2": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable, "reloadData": fnReloadData, "changeData": fnChangeData}
-         * }
-         */
+        // dtInstances === {
+        //    "foobar": {
+        //        "id": "foobar2",
+        //        "DataTable": oTable,
+        //        "dataTable": $oTable,
+        //        "reloadData": fnReloadData,
+        //        "changeData": fnChangeData,
+        //        "rerender": fnRerender
+        //    },
+        //    "foobar2": {
+        //        "id": "foobar2",
+        //        "DataTable": oTable,
+        //        "dataTable": $oTable,
+        //        "reloadData": fnReloadData,
+        //        "changeData": fnChangeData,
+        //        "rerender": fnRerender
+        //    }
+        // }
     });
 }
 </div>
@@ -100,6 +119,29 @@ function MyCtrl($resource, DTInstances) {
         dtInstance.changeData(function() {
             return $resource('data.json').query().$promise;
         });
+    });
+}
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTInstance</code></td>
+        <td>
+            <code>rerender()</code>
+        </td>
+        <td>
+            <p>
+                This method will call the renderer to re-render the table again
+            </p>
+            <p class="alert alert-danger">
+                <i class="fa fa-warning"></i>&nbsp;This is not the same as <strong><a href="https://datatables.net/reference/api/draw()">DataTable's draw(); API</a></strong>.
+                It will completely remove the table, then it will re-render the table, resending the request to the server if necessarily.
+            </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTInstances) {
+    DTInstances.getLast().then(function (dtInstance) {
+        dtInstance.rerender();
     });
 }
 </div>

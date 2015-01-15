@@ -30,6 +30,9 @@ angular.module('datatablesSampleApp.usages', ['ngResource'])
         name: 'dataReloadWithPromise',
         label: 'Data reload with promise'
     }, {
+        name: 'rerender',
+        label: 'Re-render a table'
+    }, {
         name: 'serverSideProcessing',
         label: 'Server side processing'
     }, {

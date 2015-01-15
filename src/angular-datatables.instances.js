@@ -64,7 +64,8 @@ function dtInstances($q) {
 function dtInstanceFactory() {
     var DTInstance = {
         reloadData: reloadData,
-        changeData: changeData
+        changeData: changeData,
+        rerender: rerender
     };
     return {
         newDTInstance: newDTInstance
@@ -83,5 +84,9 @@ function dtInstanceFactory() {
     function changeData(data) {
         /*jshint validthis:true */
         this._renderer.changeData(data);
+    }
+    function rerender() {
+        /*jshint validthis:true */
+        this._renderer.rerender();
     }
 }
