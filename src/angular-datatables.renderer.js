@@ -79,7 +79,7 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory,
         renderer.reloadData = reloadData;
         renderer.changeData = changeData;
 
-        function render($scope, $elem) {
+        function render($elem) {
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             var result = DTRendererService.hideLoadingAndRenderDataTable($elem, renderer.options);
             return $q.when(DTInstances.register(dtInstance, result));
@@ -121,7 +121,7 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
         renderer.rerender = rerender;
         return renderer;
 
-        function render($scope, $elem, staticHTML) {
+        function render($elem, $scope, staticHTML) {
             _staticHTML = staticHTML;
             _$elem = $elem;
             _parentScope = $scope.$parent;
@@ -207,7 +207,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         renderer.changeData = changeData;
         return renderer;
 
-        function render($scope, $elem) {
+        function render($elem) {
             var defer = $q.defer();
             dtInstance = DTInstanceFactory.newDTInstance(renderer);
             _$elem = $elem;
@@ -314,7 +314,7 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         renderer.changeData = changeData;
         return renderer;
 
-        function render($scope, $elem) {
+        function render($elem) {
             var defer = $q.defer();
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             // Define default values in case it is an ajax datatables

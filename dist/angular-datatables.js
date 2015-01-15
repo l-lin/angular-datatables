@@ -167,7 +167,7 @@ function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaul
             pageButton: {
                 _: function (settings, host, idx, buttons, page, pages) {
                     var classes = settings.oClasses;
-                    var lang = settings.oLanguage.oPaginate;
+                    var lang = settings.language.oPaginate;
                     var btnDisplay, btnClass, counter = 0;
                     var paginationClasses = DTPropertyUtil.overrideProperties(
                         DTBootstrapDefaultOptions.getOptions().pagination,
@@ -439,7 +439,7 @@ angular.module('datatables.directive', ['datatables.instances', 'datatables.rend
     .directive('datatable', dataTable);
 
 /* @ngInject */
-function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
+function dataTable($q, $http, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
     compileDirective.$inject = ['tElm'];
     ControllerDirective.$inject = ['$scope'];
     return {
@@ -512,6 +512,17 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
                     if (angular.isArray(dtColumnDefs)) {
                         options.aoColumnDefs = dtColumnDefs;
                     }
+
+                    // HACK to resolve the language source manually instead of DT
+                    // See https://github.com/l-lin/angular-datatables/issues/181
+                    if (options.language && options.language.url) {
+                        var languageDefer = $q.defer();
+                        $http.get(options.language.url).success(function (language) {
+                            languageDefer.resolve(language);
+                        });
+                        options.language = languageDefer.promise;
+                    }
+
                     // Integrate bootstrap (or not)
                     if (options.integrateBootstrap) {
                         DTBootstrap.integrate(options);
@@ -532,12 +543,12 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
                 // Render dataTable
                 if (_dtInstance && _dtInstance._renderer) {
                     _dtInstance._renderer.withOptions(options)
-                        .render($scope, $elem, staticHTML).then(function (dtInstance) {
+                        .render($elem, $scope, staticHTML).then(function (dtInstance) {
                             _dtInstance = dtInstance;
                         });
                 } else {
                     DTRendererFactory.fromOptions(options, isNgDisplay)
-                        .render($scope, $elem, staticHTML).then(function (dtInstance) {
+                        .render($elem, $scope, staticHTML).then(function (dtInstance) {
                             _dtInstance = dtInstance;
                         });
                 }
@@ -545,7 +556,7 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
         }
     }
 }
-dataTable.$inject = ['$q', 'DTBootstrap', 'DTRendererFactory', 'DTRendererService', 'DTPropertyUtil'];
+dataTable.$inject = ['$q', '$http', 'DTBootstrap', 'DTRendererFactory', 'DTRendererService', 'DTPropertyUtil'];
 
 'use strict';
 angular.module('datatables.factory', ['datatables.bootstrap', 'datatables.options'])
@@ -679,22 +690,22 @@ function dtOptionsBuilder(DT_DEFAULT_OPTIONS) {
 
         /**
          * Set the language of the datatables
-         * @param oLanguage the language
+         * @param language the language
          * @returns {DTOptions} the options
          */
-        withLanguage: function(oLanguage) {
-            this.oLanguage = oLanguage;
+        withLanguage: function(language) {
+            this.language = language;
             return this;
         },
 
         /**
          * Set the language source
-         * @param sLanguageSource the language source
+         * @param languageSource the language source
          * @returns {DTOptions} the options
          */
-        withLanguageSource: function(sLanguageSource) {
+        withLanguageSource: function(languageSource) {
             return this.withLanguage({
-                sUrl: sLanguageSource
+                url: languageSource
             });
         },
 
@@ -1447,7 +1458,7 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory,
         renderer.reloadData = reloadData;
         renderer.changeData = changeData;
 
-        function render($scope, $elem) {
+        function render($elem) {
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             var result = DTRendererService.hideLoadingAndRenderDataTable($elem, renderer.options);
             return $q.when(DTInstances.register(dtInstance, result));
@@ -1490,7 +1501,7 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
         renderer.rerender = rerender;
         return renderer;
 
-        function render($scope, $elem, staticHTML) {
+        function render($elem, $scope, staticHTML) {
             _staticHTML = staticHTML;
             _$elem = $elem;
             _parentScope = $scope.$parent;
@@ -1577,7 +1588,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         renderer.changeData = changeData;
         return renderer;
 
-        function render($scope, $elem) {
+        function render($elem) {
             var defer = $q.defer();
             dtInstance = DTInstanceFactory.newDTInstance(renderer);
             _$elem = $elem;
@@ -1685,7 +1696,7 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         renderer.changeData = changeData;
         return renderer;
 
-        function render($scope, $elem) {
+        function render($elem) {
             var defer = $q.defer();
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             // Define default values in case it is an ajax datatables

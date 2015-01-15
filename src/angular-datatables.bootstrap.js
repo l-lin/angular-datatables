@@ -153,7 +153,7 @@ function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaul
             pageButton: {
                 _: function (settings, host, idx, buttons, page, pages) {
                     var classes = settings.oClasses;
-                    var lang = settings.oLanguage.oPaginate;
+                    var lang = settings.language.oPaginate;
                     var btnDisplay, btnClass, counter = 0;
                     var paginationClasses = DTPropertyUtil.overrideProperties(
                         DTBootstrapDefaultOptions.getOptions().pagination,

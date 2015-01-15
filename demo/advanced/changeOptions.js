@@ -94,7 +94,8 @@ function ChangeOptionsPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnB
 function ChangeOptionsNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;
     vm.persons = [];
-    vm.dtOptions = DTOptionsBuilder.newOptions();
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+        .withLanguageSource('//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/English.json');
     vm.dtColumnDefs = [
         DTColumnDefBuilder.newColumnDef(0),
         DTColumnDefBuilder.newColumnDef(1).notVisible(),
@@ -109,6 +110,7 @@ function ChangeOptionsNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBui
 
     function changeOptions() {
         vm.dtOptions.withPaginationType('full_numbers')
+            .withLanguageSource('//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/French.json')
             .withDisplayLength(2)
             .withDOM('pitrfl');
     }

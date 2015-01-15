@@ -130,22 +130,22 @@ function dtOptionsBuilder(DT_DEFAULT_OPTIONS) {
 
         /**
          * Set the language of the datatables
-         * @param oLanguage the language
+         * @param language the language
          * @returns {DTOptions} the options
          */
-        withLanguage: function(oLanguage) {
-            this.oLanguage = oLanguage;
+        withLanguage: function(language) {
+            this.language = language;
             return this;
         },
 
         /**
          * Set the language source
-         * @param sLanguageSource the language source
+         * @param languageSource the language source
          * @returns {DTOptions} the options
          */
-        withLanguageSource: function(sLanguageSource) {
+        withLanguageSource: function(languageSource) {
             return this.withLanguage({
-                sUrl: sLanguageSource
+                url: languageSource
             });
         },
 

@@ -4,7 +4,7 @@ angular.module('datatables.directive', ['datatables.instances', 'datatables.rend
     .directive('datatable', dataTable);
 
 /* @ngInject */
-function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
+function dataTable($q, $http, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
     return {
         restrict: 'A',
         scope: {
@@ -75,6 +75,17 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
                     if (angular.isArray(dtColumnDefs)) {
                         options.aoColumnDefs = dtColumnDefs;
                     }
+
+                    // HACK to resolve the language source manually instead of DT
+                    // See https://github.com/l-lin/angular-datatables/issues/181
+                    if (options.language && options.language.url) {
+                        var languageDefer = $q.defer();
+                        $http.get(options.language.url).success(function (language) {
+                            languageDefer.resolve(language);
+                        });
+                        options.language = languageDefer.promise;
+                    }
+
                     // Integrate bootstrap (or not)
                     if (options.integrateBootstrap) {
                         DTBootstrap.integrate(options);
@@ -95,12 +106,12 @@ function dataTable($q, DTBootstrap, DTRendererFactory, DTRendererService, DTProp
                 // Render dataTable
                 if (_dtInstance && _dtInstance._renderer) {
                     _dtInstance._renderer.withOptions(options)
-                        .render($scope, $elem, staticHTML).then(function (dtInstance) {
+                        .render($elem, $scope, staticHTML).then(function (dtInstance) {
                             _dtInstance = dtInstance;
                         });
                 } else {
                     DTRendererFactory.fromOptions(options, isNgDisplay)
-                        .render($scope, $elem, staticHTML).then(function (dtInstance) {
+                        .render($elem, $scope, staticHTML).then(function (dtInstance) {
                             _dtInstance = dtInstance;
                         });
                 }
