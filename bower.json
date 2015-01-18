@@ -21,6 +21,7 @@
     	"favicon.png",
     	"index.html",
     	"README.md",
+    	"CONTRIBUTING.md",
     	"server.js",
     	"styles",
     	"_config.yml",
