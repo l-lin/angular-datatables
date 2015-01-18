@@ -1,9 +1,14 @@
 module.exports = {
-    basic: {
-        src: ['<%= yeoman.build %>/angular-datatables.js'],
-        dest: '<%= yeoman.build %>/angular-datatables.js',
+    options: {
+        wrapper: ['<%= yeoman.wrapper.start %>', '<%= yeoman.wrapper.end %>']
+    },
+    advanced: {
+        cwd: '<%= yeoman.build %>/',
+        expand: true,
+        src: ['**/*.js'],
+        dest: '<%= yeoman.build %>/',
         options: {
-            wrapper: ['(function (window, document, $, angular) {\n', '\n})(window, document, jQuery, angular);']
+            wrapper: ['<%= yeoman.wrapper.start %>', '<%= yeoman.wrapper.end %>']
         }
     }
 };

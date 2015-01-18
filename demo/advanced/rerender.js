@@ -1,5 +1,5 @@
 'use strict';
-angular.module('datatablesSampleApp')
+angular.module('showcase.rerender', ['datatables', 'ngResource'])
 .controller('RerenderDefaultRendererCtrl', RerenderDefaultRendererCtrl)
 .controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl)
 .controller('RerenderPromiseRendererCtrl', RerenderPromiseRendererCtrl)

@@ -87,7 +87,8 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('AngularWayCtrl', AngularWayCtrl);
+angular.module('showcase.angularWay', ['datatables', 'ngResource'])
+.controller('AngularWayCtrl', AngularWayCtrl);
 
 function AngularWayCtrl($resource) {
     var vm = this;
@@ -121,8 +122,8 @@ function AngularWayCtrl($resource) {
             </tab>
             <tab heading="JS with One time binding">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['ngResource', 'datatables'])
-.controller('AngularWayOneTimeBindingCtrl', AngularWayOneTimeBindingCtrl);
+angular.module('showcase.angularWay', ['datatables', 'ngResource'])
+.controller('AngularWayOneTimeBindingCtrl', AngularWayCtrl);
 
 function AngularWayOneTimeBindingCtrl($resource) {
     var vm = this;

@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('RowClickEventCtrl', RowClickEventCtrl);
+angular.module('showcase.rowClickEvent', ['datatables'])
+.controller('RowClickEventCtrl', RowClickEventCtrl);
 
 function RowClickEventCtrl($scope, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('AngularWayWithOptionsCtrl', AngularWayWithOptionsCtrl);
+angular.module('showcase.angularWay.withOptions', ['datatables', 'ngResource'])
+.controller('AngularWayWithOptionsCtrl', AngularWayWithOptionsCtrl);
 
 function AngularWayWithOptionsCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;

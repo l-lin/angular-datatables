@@ -29,7 +29,8 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('BindAngularDirectiveCtrl', BindAngularDirectiveCtrl);
+angular.module('showcase.bindAngularDirective', ['datatables'])
+.controller('BindAngularDirectiveCtrl', BindAngularDirectiveCtrl);
 
 function BindAngularDirectiveCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;

@@ -1,14 +1,14 @@
 'use strict';
 angular.module('datatables.options', [])
-.constant('DT_DEFAULT_OPTIONS', {
-    // Default dom
-    dom: 'lfrtip',
-    // Default ajax properties. See http://legacy.datatables.net/usage/options#sAjaxDataProp
-    sAjaxDataProp: '',
-    // Set default columns (used when none are provided)
-    aoColumns: []
-})
-.service('DTDefaultOptions', dtDefaultOptions);
+    .constant('DT_DEFAULT_OPTIONS', {
+        // Default dom
+        dom: 'lfrtip',
+        // Default ajax properties. See http://legacy.datatables.net/usage/options#sAjaxDataProp
+        sAjaxDataProp: '',
+        // Set default columns (used when none are provided)
+        aoColumns: []
+    })
+    .service('DTDefaultOptions', dtDefaultOptions);
 
 function dtDefaultOptions() {
     var options = {

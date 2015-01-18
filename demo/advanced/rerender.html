@@ -98,7 +98,7 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('RerenderDefaultRendererCtrl', RerenderDefaultRendererCtrl);
+angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderDefaultRendererCtrl', RerenderDefaultRendererCtrl);
 
 function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTInstances) {
     var vm = this;
@@ -140,7 +140,7 @@ function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTIns
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl);
+angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl);
 
 function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;
@@ -182,7 +182,7 @@ function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('RerenderPromiseRendererCtrl', RerenderPromiseRendererCtrl);
+angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderPromiseRendererCtrl', RerenderPromiseRendererCtrl);
 
 function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;
@@ -256,7 +256,7 @@ function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilde
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl);
+angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl);
 
 function RerenderNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder, DTInstances) {
     var vm = this;

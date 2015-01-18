@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('BootstrapIntegrationCtrl', BootstrapIntegrationCtrl);
+angular.module('showcase.bootstrapIntegration', ['datatables', 'datatables.bootstrap'])
+.controller('BootstrapIntegrationCtrl', BootstrapIntegrationCtrl);
 
 function BootstrapIntegrationCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

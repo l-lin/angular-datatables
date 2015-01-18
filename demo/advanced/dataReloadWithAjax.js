@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('DataReloadWithAjaxCtrl', DataReloadWithAjaxCtrl);
+angular.module('showcase.dataReload.withAjax', ['datatables'])
+.controller('DataReloadWithAjaxCtrl', DataReloadWithAjaxCtrl);
 
 function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;

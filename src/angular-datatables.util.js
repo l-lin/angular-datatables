@@ -74,7 +74,7 @@ function dtPropertyUtil($q) {
                     }
                 }
             }
-            $q.all(promises).then(function (result) {
+            $q.all(promises).then(function(result) {
                 var index = 0;
                 for (var prop in resolvedObj) {
                     if (resolvedObj.hasOwnProperty(prop) && excludedProp.indexOf(prop) === -1) {
@@ -99,15 +99,15 @@ function dtPropertyUtil($q) {
         if (!angular.isArray(array)) {
             defer.resolve(array);
         } else {
-            array.forEach(function (item) {
+            array.forEach(function(item) {
                 if (angular.isObject(item)) {
                     promises.push(resolveObjectPromises(item));
                 } else {
                     promises.push($q.when(item));
                 }
             });
-            $q.all(promises).then(function (result) {
-                result.forEach(function (item) {
+            $q.all(promises).then(function(result) {
+                result.forEach(function(item) {
                     resolveArray.push(item);
                 });
                 defer.resolve(resolveArray);

@@ -96,7 +96,7 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('ChangeOptionsDefaultRendererCtrl', ChangeOptionsDefaultRendererCtrl);
+angular.module('showcase.changeOptions', ['datatables', 'ngResource']).controller('ChangeOptionsDefaultRendererCtrl', ChangeOptionsDefaultRendererCtrl);
 
 function ChangeOptionsDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;
@@ -154,7 +154,7 @@ function ChangeOptionsDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder) 
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('ChangeOptionsAjaxRendererCtrl', ChangeOptionsAjaxRendererCtrl);
+angular.module('showcase.changeOptions', ['datatables', 'ngResource']).controller('ChangeOptionsAjaxRendererCtrl', ChangeOptionsAjaxRendererCtrl);
 
 function ChangeOptionsAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
@@ -212,7 +212,7 @@ function ChangeOptionsAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder) {
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('ChangeOptionsPromiseRendererCtrl', ChangeOptionsPromiseRendererCtrl);
+angular.module('showcase.changeOptions', ['datatables', 'ngResource']).controller('ChangeOptionsPromiseRendererCtrl', ChangeOptionsPromiseRendererCtrl);
 
 function ChangeOptionsPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
@@ -302,7 +302,7 @@ function ChangeOptionsPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnB
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('ChangeOptionsAjaxRendererCtrl', ChangeOptionsAjaxRendererCtrl);
+angular.module('showcase.changeOptions', ['datatables', 'ngResource']).controller('ChangeOptionsAjaxRendererCtrl', ChangeOptionsAjaxRendererCtrl);
 
 function ChangeOptionsNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;

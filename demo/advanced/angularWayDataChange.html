@@ -130,7 +130,8 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('AngularWayChangeDataCtrl', AngularWayChangeDataCtrl);
+angular.module('showcase.angularWay.dataChange', ['datatables', 'ngResource'])
+.controller('AngularWayChangeDataCtrl', AngularWayChangeDataCtrl);
 
 function AngularWayChangeDataCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('datatables.instances', [])
-.factory('DTInstances', dtInstances)
-.factory('DTInstanceFactory', dtInstanceFactory);
+    .factory('DTInstances', dtInstances)
+    .factory('DTInstanceFactory', dtInstanceFactory);
 
 /* @ngInject */
 function dtInstances($q) {
@@ -40,7 +40,7 @@ function dtInstances($q) {
             _deferLastDTInstances = $q.defer();
             _lastDTInstance = _deferLastDTInstances.promise;
         }
-        _lastDTInstance.then(function (dtInstance) {
+        _lastDTInstance.then(function(dtInstance) {
             defer.resolve(dtInstance);
             // Reset the promise
             _deferLastDTInstances = null;
@@ -51,7 +51,7 @@ function dtInstances($q) {
 
     function getList() {
         var defer = $q.defer();
-        _dtInstances.then(function (instances) {
+        _dtInstances.then(function(instances) {
             defer.resolve(instances);
             // Reset the promise
             _deferDTInstances = null;
@@ -81,10 +81,12 @@ function dtInstanceFactory() {
         /*jshint validthis:true */
         this._renderer.reloadData();
     }
+
     function changeData(data) {
         /*jshint validthis:true */
         this._renderer.changeData(data);
     }
+
     function rerender() {
         /*jshint validthis:true */
         this._renderer.rerender();

@@ -4,7 +4,7 @@ angular.module('datatables.directive', ['datatables.instances', 'datatables.rend
     .directive('datatable', dataTable);
 
 /* @ngInject */
-function dataTable($q, $http, DTBootstrap, DTRendererFactory, DTRendererService, DTPropertyUtil) {
+function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUtil) {
     return {
         restrict: 'A',
         scope: {
@@ -22,7 +22,7 @@ function dataTable($q, $http, DTBootstrap, DTRendererFactory, DTRendererService,
         var _staticHTML = tElm[0].innerHTML;
 
         return function postLink($scope, $elem, iAttrs, ctrl) {
-            function handleChanges(newVal, oldVal){
+            function handleChanges(newVal, oldVal) {
                 if (newVal !== oldVal) {
                     ctrl.render($elem, ctrl.buildOptionsPromise(), _staticHTML);
                 }
@@ -31,7 +31,7 @@ function dataTable($q, $http, DTBootstrap, DTRendererFactory, DTRendererService,
             // Options can hold heavy data, and other deep/large objects.
             // watchcollection can improve this by only watching shallowly
             var watchFunction = iAttrs.dtDisableDeepWatchers ? '$watchCollection' : '$watch';
-            angular.forEach(['dtColumns', 'dtColumnDefs', 'dtOptions'], function(tableDefField){
+            angular.forEach(['dtColumns', 'dtColumnDefs', 'dtOptions'], function(tableDefField) {
                 $scope[watchFunction].call($scope, tableDefField, handleChanges, true);
             });
             DTRendererService.showLoading($elem);
@@ -80,21 +80,15 @@ function dataTable($q, $http, DTBootstrap, DTRendererFactory, DTRendererService,
                     // See https://github.com/l-lin/angular-datatables/issues/181
                     if (options.language && options.language.url) {
                         var languageDefer = $q.defer();
-                        $http.get(options.language.url).success(function (language) {
+                        $http.get(options.language.url).success(function(language) {
                             languageDefer.resolve(language);
                         });
                         options.language = languageDefer.promise;
                     }
 
-                    // Integrate bootstrap (or not)
-                    if (options.integrateBootstrap) {
-                        DTBootstrap.integrate(options);
-                    } else {
-                        DTBootstrap.deIntegrate();
-                    }
                 }
                 return DTPropertyUtil.resolveObjectPromises(options, ['data', 'aaData', 'fnPromise']);
-            }).then(function (options) {
+            }).then(function(options) {
                 defer.resolve(options);
             });
             return defer.promise;
@@ -102,16 +96,18 @@ function dataTable($q, $http, DTBootstrap, DTRendererFactory, DTRendererService,
 
         function render($elem, optionsPromise, staticHTML) {
             optionsPromise.then(function(options) {
+                DTRendererService.preRender(options);
+
                 var isNgDisplay = $scope.datatable && $scope.datatable === 'ng';
                 // Render dataTable
                 if (_dtInstance && _dtInstance._renderer) {
                     _dtInstance._renderer.withOptions(options)
-                        .render($elem, $scope, staticHTML).then(function (dtInstance) {
+                        .render($elem, $scope, staticHTML).then(function(dtInstance) {
                             _dtInstance = dtInstance;
                         });
                 } else {
                     DTRendererFactory.fromOptions(options, isNgDisplay)
-                        .render($elem, $scope, staticHTML).then(function (dtInstance) {
+                        .render($elem, $scope, staticHTML).then(function(dtInstance) {
                             _dtInstance = dtInstance;
                         });
                 }

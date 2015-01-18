@@ -1,5 +1,5 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('WithAjaxCtrl', WithAjaxCtrl);
+angular.module('showcase.withAjax', ['datatables']).controller('WithAjaxCtrl', WithAjaxCtrl);
 
 function WithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

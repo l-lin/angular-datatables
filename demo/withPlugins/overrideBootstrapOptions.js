@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('WithBootstrapOptionsCtrl', WithBootstrapOptionsCtrl);
+angular.module('showcase.overrideBootstrapOptions', ['datatables', 'datatables.bootstrap'])
+.controller('WithBootstrapOptionsCtrl', WithBootstrapOptionsCtrl);
 
 function WithBootstrapOptionsCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

@@ -61,7 +61,8 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('ServerSideProcessingCtrl', ServerSideProcessingCtrl);
+angular.module('showcase.serverSideProcessing', ['datatables'])
+.controller('ServerSideProcessingCtrl', ServerSideProcessingCtrl);
 
 function ServerSideProcessingCtrl(DTOptionsBuilder, DTColumnBuilder) {
     vm.dtOptions = DTOptionsBuilder.newOptions()

@@ -5,6 +5,6 @@ module.exports = {
     },
     all: [
         'Gruntfile.js',
-        '<%= yeoman.src %>/{,*/}*.js'
+        '<%= yeoman.src %>/**/*.js'
     ]
 };

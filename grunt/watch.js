@@ -9,7 +9,7 @@ module.exports = {
             '<%= yeoman.demo %>/**/*.js',
             '<%= yeoman.styles %>/{,*/}*.css',
             '<%= yeoman.src %>/**/*.html',
-            '<%= yeoman.src %>/{,*/}*.js',
+            '<%= yeoman.src %>/**/*.js',
             '<%= yeoman.src %>/{,*/}*.css',
             '<%= yeoman.src %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]

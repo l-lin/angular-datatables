@@ -1,6 +1,38 @@
 'use strict';
-angular.module('datatablesSampleApp',
-['datatablesSampleApp.usages', 'ngResource', 'datatables', 'ui.bootstrap', 'ui.router', 'hljs', 'pascalprecht.translate'])
+angular.module('showcase', [
+    'showcase.angularWay',
+    'showcase.angularWay.withOptions',
+    'showcase.withAjax',
+    'showcase.withOptions',
+    'showcase.withPromise',
+
+    'showcase.angularWay.dataChange',
+    'showcase.bindAngularDirective',
+    'showcase.changeOptions',
+    'showcase.dataReload.withAjax',
+    'showcase.dataReload.withPromise',
+    'showcase.disableDeepWatchers',
+    'showcase.loadOptionsWithPromise',
+    'showcase.rerender',
+    'showcase.rowClickEvent',
+    'showcase.rowSelect',
+    'showcase.serverSideProcessing',
+
+    'showcase.bootstrapIntegration',
+    'showcase.overrideBootstrapOptions',
+    'showcase.withAngularTranslate',
+    'showcase.withColReorder',
+    'showcase.withColumnFilter',
+    'showcase.withColVis',
+    'showcase.withResponsive',
+    'showcase.withScroller',
+    'showcase.withTableTools',
+
+    'showcase.usages',
+    'ui.bootstrap',
+    'ui.router',
+    'hljs'
+])
 .config(sampleConfig)
 .config(routerConfig)
 .config(translateConfig)

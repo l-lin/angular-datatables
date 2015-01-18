@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('DisableDeepWatchers', DisableDeepWatchers);
+angular.module('showcase.disableDeepWatchers', ['datatables'])
+.controller('DisableDeepWatchers', DisableDeepWatchers);
 
 function DisableDeepWatchers(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

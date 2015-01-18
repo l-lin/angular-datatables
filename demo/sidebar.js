@@ -1,5 +1,5 @@
 'use strict';
-angular.module('datatablesSampleApp')
+angular.module('showcase')
 .controller('SidebarCtrl', SidebarCtrl);
 
 function SidebarCtrl($scope, $resource, USAGES) {

@@ -32,7 +32,7 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('WithPromiseCtrl', WithPromiseCtrl);
+angular.module('showcase.withPromise', ['datatables', 'ngResource']).controller('WithPromiseCtrl', WithPromiseCtrl);
 
 function WithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource) {
     var vm = this;

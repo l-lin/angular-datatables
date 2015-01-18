@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('RowSelectCtrl', RowSelect);
+angular.module('showcase.rowSelect', ['datatables'])
+.controller('RowSelectCtrl', RowSelect);
 
 function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;

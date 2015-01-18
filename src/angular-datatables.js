@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('datatables', ['datatables.directive', 'datatables.factory', 'datatables.bootstrap'])
-.run(initAngularDataTables);
+angular.module('datatables', ['datatables.directive', 'datatables.factory'])
+    .run(initAngularDataTables);
 
 /* @ngInject */
 function initAngularDataTables($log) {
@@ -10,10 +10,10 @@ function initAngularDataTables($log) {
          * Register an API to destroy a DataTable without detaching the tbody so that we can add new data
          * when rendering with the "Angular way".
          */
-        $.fn.DataTable.Api.register('ngDestroy()', function (remove) {
+        $.fn.DataTable.Api.register('ngDestroy()', function(remove) {
             remove = remove || false;
 
-            return this.iterator('table', function (settings) {
+            return this.iterator('table', function(settings) {
                 var orig = settings.nTableWrapper.parentNode;
                 var classes = settings.oClasses;
                 var table = settings.nTable;
@@ -23,7 +23,7 @@ function initAngularDataTables($log) {
                 var jqTable = $(table);
                 var jqTbody = $(tbody);
                 var jqWrapper = $(settings.nTableWrapper);
-                var rows = $.map(settings.aoData, function (r) {
+                var rows = $.map(settings.aoData, function(r) {
                     return r.nTr;
                 });
                 var ien;
@@ -73,7 +73,7 @@ function initAngularDataTables($log) {
 
                 if (settings.bJUI) {
                     $('th span.' + classes.sSortIcon + ', td span.' + classes.sSortIcon, thead).detach();
-                    $('th, td', thead).each(function () {
+                    $('th, td', thead).each(function() {
                         var wrapper = $('div.' + classes.sSortJUIWrapper, this);
                         $(this).append(wrapper.contents());
                         wrapper.detach();
@@ -109,7 +109,7 @@ function initAngularDataTables($log) {
                 ien = settings.asDestroyStripes.length;
 
                 if (ien) {
-                    jqTbody.children().each(function (i) {
+                    jqTbody.children().each(function(i) {
                         $(this).addClass(settings.asDestroyStripes[i % ien]);
                     });
                 }

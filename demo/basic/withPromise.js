@@ -1,5 +1,5 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('WithPromiseCtrl', WithPromiseCtrl);
+angular.module('showcase.withPromise', ['datatables', 'ngResource']).controller('WithPromiseCtrl', WithPromiseCtrl);
 
 function WithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource) {
     var vm = this;

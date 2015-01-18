@@ -1,5 +1,5 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('WithOptionsCtrl', WithOptionsCtrl);
+angular.module('showcase.withOptions', ['datatables']).controller('WithOptionsCtrl', WithOptionsCtrl);
 
 function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;

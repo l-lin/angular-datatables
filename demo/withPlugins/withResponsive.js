@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('WithResponsiveCtrl', WithResponsiveCtrl);
+angular.module('showcase.withResponsive', ['datatables'])
+.controller('WithResponsiveCtrl', WithResponsiveCtrl);
 
 function WithResponsiveCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('DataReloadWithPromiseCtrl', DataReloadWithPromiseCtrl);
+angular.module('showcase.dataReload.withPromise', ['datatables', 'ngResource'])
+.controller('DataReloadWithPromiseCtrl', DataReloadWithPromiseCtrl);
 
 function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, DTInstances) {
     var vm = this;

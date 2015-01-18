@@ -4,8 +4,8 @@ module.exports = {
     },
     dist: {
         files: {
-            '<%= yeoman.dist %>/datatables.bootstrap.min.css': [
-                '<%= yeoman.src %>/*.css'
+            '<%= yeoman.dist %>/plugins/bootstrap/datatables.bootstrap.min.css': [
+                '<%= yeoman.src %>/plugins/bootstrap/*.css'
             ]
         }
     }

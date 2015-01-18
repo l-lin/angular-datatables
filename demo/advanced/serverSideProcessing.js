@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('ServerSideProcessingCtrl', ServerSideProcessingCtrl);
+angular.module('showcase.serverSideProcessing', ['datatables'])
+.controller('ServerSideProcessingCtrl', ServerSideProcessingCtrl);
 
 function ServerSideProcessingCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

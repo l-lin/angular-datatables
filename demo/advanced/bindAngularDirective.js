@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('BindAngularDirectiveCtrl', BindAngularDirectiveCtrl);
+angular.module('showcase.bindAngularDirective', ['datatables'])
+.controller('BindAngularDirectiveCtrl', BindAngularDirectiveCtrl);
 
 function BindAngularDirectiveCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;

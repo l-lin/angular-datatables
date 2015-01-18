@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('WithColVisCtrl', WithColVisCtrl);
+angular.module('showcase.withColVis', ['datatables', 'datatables.colvis'])
+.controller('WithColVisCtrl', WithColVisCtrl);
 
 function WithColVisCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

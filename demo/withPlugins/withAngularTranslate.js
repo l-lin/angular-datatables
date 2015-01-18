@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('WithAngularTranslateCtrl', WithAngularTranslateCtrl);
+angular.module('showcase.withAngularTranslate', ['datatables', 'pascalprecht.translate'])
+.controller('WithAngularTranslateCtrl', WithAngularTranslateCtrl);
 
 function WithAngularTranslateCtrl(DTOptionsBuilder, DTColumnBuilder, $translate) {
     var vm = this;

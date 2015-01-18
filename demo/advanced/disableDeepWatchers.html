@@ -30,7 +30,8 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('DisableDeepWatchers', DisableDeepWatchers);
+angular.module('showcase.disableDeepWatchers', ['datatables'])
+.controller('DisableDeepWatchers', DisableDeepWatchers);
 
 function DisableDeepWatchers(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

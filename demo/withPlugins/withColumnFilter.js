@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('WithColumnFilterCtrl', WithColumnFilterCtrl);
+angular.module('showcase.withColumnFilter', ['datatables', 'datatables.columnfilter'])
+.controller('WithColumnFilterCtrl', WithColumnFilterCtrl);
 
 function WithColumnFilterCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('AngularWayChangeDataCtrl', AngularWayChangeDataCtrl);
+angular.module('showcase.angularWay.dataChange', ['datatables', 'ngResource'])
+.controller('AngularWayChangeDataCtrl', AngularWayChangeDataCtrl);
 
 function AngularWayChangeDataCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;

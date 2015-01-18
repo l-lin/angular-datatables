@@ -1,5 +1,5 @@
 'use strict';
-angular.module('datatablesSampleApp.usages', ['ngResource'])
+angular.module('showcase.usages', ['ngResource'])
 .constant('USAGES', {
     basic: [{
         name: 'zeroConfig',

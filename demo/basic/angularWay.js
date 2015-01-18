@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('AngularWayCtrl', AngularWayCtrl);
+angular.module('showcase.angularWay', ['datatables', 'ngResource'])
+.controller('AngularWayCtrl', AngularWayCtrl);
 
 function AngularWayCtrl($resource) {
     var vm = this;

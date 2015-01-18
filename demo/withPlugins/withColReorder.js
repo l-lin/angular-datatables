@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('WithColReorderCtrl', WithColReorderCtrl);
+angular.module('showcase.withColReorder', ['datatables', 'datatables.colreorder'])
+.controller('WithColReorderCtrl', WithColReorderCtrl);
 
 function WithColReorderCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

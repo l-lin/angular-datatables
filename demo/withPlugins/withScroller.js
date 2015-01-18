@@ -1,5 +1,6 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('WithScrollerCtrl', WithScrollerCtrl);
+angular.module('showcase.withScroller', ['datatables', 'datatables.scroller'])
+.controller('WithScrollerCtrl', WithScrollerCtrl);
 
 function WithScrollerCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

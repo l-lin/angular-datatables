@@ -35,7 +35,8 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('LoadOptionsWithPromiseCtrl', LoadOptionsWithPromiseCtrl);
+angular.module('showcase.loadOptionsWithPromise', ['datatables', 'ngResource'])
+.controller('LoadOptionsWithPromiseCtrl', LoadOptionsWithPromiseCtrl);
 
 function LoadOptionsWithPromiseCtrl($q, $resource) {
     var vm = this;

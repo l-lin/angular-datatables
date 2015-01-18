@@ -33,7 +33,8 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('WithResponsiveCtrl', WithResponsiveCtrl);
+angular.module('showcase.withResponsive', ['datatables'])
+.controller('WithResponsiveCtrl', WithResponsiveCtrl);
 
 function WithResponsiveCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

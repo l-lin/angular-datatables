@@ -33,7 +33,8 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('RowSelectCtrl', RowSelect);
+angular.module('showcase.rowSelect', ['datatables'])
+.controller('RowSelectCtrl', RowSelect);
 
 function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;

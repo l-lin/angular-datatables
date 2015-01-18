@@ -1,5 +1,5 @@
 'use strict';
-angular.module('datatablesSampleApp').controller('ApiCtrl', ApiCtrl);
+angular.module('showcase').controller('ApiCtrl', ApiCtrl);
 
 function ApiCtrl(DTOptionsBuilder) {
     var vm = this;

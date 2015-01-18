@@ -70,7 +70,8 @@
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['ngResource', 'datatables']).controller('AngularWayWithOptionsCtrl', AngularWayWithOptionsCtrl);
+angular.module('showcase.angularWay.withOptions', ['datatables', 'ngResource'])
+.controller('AngularWayWithOptionsCtrl', AngularWayWithOptionsCtrl);
 
 function AngularWayWithOptionsCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;

@@ -7,6 +7,12 @@
             The <code>angular-datatables</code> also provides an API in order to make the plugin <code>Scroller</code> works with datatables.
         </p>
         <p>
+            You need to add the files <code>angular-datatables.scroller.min.js</code> to your HTML file.
+        </p>
+        <p>
+            You also need to add the dependency <code>datatables.scroller</code> to your Angular app.
+        </p>
+        <p>
             See the <a ui-sref="api">API</a> for the complete list of methods of the helper.
         </p>
     </section>
@@ -28,11 +34,13 @@
 </div>
 <!-- ... -->
 <script src="vendor/datatables-scroller/js/dataTables.scroller.js"></script>
+<script src="vendor/angular-datatables/dist/plugins/scroller/angular-datatables.scroller.min.js"></script>
 </div>
             </tab>
             <tab heading="JS">
 <div hljs language="js">
-angular.module('datatablesSampleApp', ['datatables']).controller('WithScrollerCtrl', WithScrollerCtrl);
+angular.module('showcase.withScroller', ['datatables', 'datatables.scroller'])
+.controller('WithScrollerCtrl', WithScrollerCtrl);
 
 function WithScrollerCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;

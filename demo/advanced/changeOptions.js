@@ -1,5 +1,5 @@
 'use strict';
-angular.module('datatablesSampleApp')
+angular.module('showcase.changeOptions', ['datatables', 'ngResource'])
 .controller('ChangeOptionsDefaultRendererCtrl', ChangeOptionsDefaultRendererCtrl)
 .controller('ChangeOptionsAjaxRendererCtrl', ChangeOptionsAjaxRendererCtrl)
 .controller('ChangeOptionsPromiseRendererCtrl', ChangeOptionsPromiseRendererCtrl)
