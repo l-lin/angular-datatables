@@ -8,6 +8,7 @@
         ".editorconfig",
         ".git*",
         ".jshintrc",
+        ".esformatter",
         "Gruntfile.js",
         "test",
         "node_modules",
@@ -20,14 +21,16 @@
     	"favicon.png",
     	"index.html",
     	"README.md",
-    	"server",
+    	"server.js",
     	"styles",
     	"_config.yml",
     	"grunt",
         "images",
         "package.json",
         "archives",
-        "archives.json"
+        "archives.json",
+        "dtOptions.json",
+        "dtColumns.json"
     ],
     "dependencies": {
         "angular": ">=1.3.0",
