@@ -5,6 +5,7 @@ angular.module('showcase.withScroller', ['datatables', 'datatables.scroller'])
 function WithScrollerCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withDOM('lfrti')
         .withScroller()
         .withOption('deferRender', true)
         // Do not forget to add the scorllY option!!!
