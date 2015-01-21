@@ -7,13 +7,13 @@
 
 'use strict';
 
-// See http://jquery-datatables-column-filter.googlecode.com/svn/trunk/index.html
-angular.module('datatables.columnfilter', ['datatables'])
-    .config(dtColumnFilterConfig)
-    .run(initColumnFilterPlugin);
+// See https://datatables.net/extensions/fixedcolumns/
+angular.module('datatables.fixedcolumns', ['datatables'])
+    .config(dtFixedColumnsConfig)
+    .run(initFixedColumnsPlugin);
 
 /* @ngInject */
-function dtColumnFilterConfig($provide) {
+function dtFixedColumnsConfig($provide) {
     $provide.decorator('DTOptionsBuilder', dtOptionsBuilderDecorator);
 
     function dtOptionsBuilderDecorator($delegate) {
@@ -35,18 +35,18 @@ function dtColumnFilterConfig($provide) {
 
         function _decorateOptions(fn, params) {
             var options = fn(params);
-            options.withColumnFilter = withColumnFilter;
+            options.withFixedColumns = withFixedColumns;
             return options;
 
             /**
              * Add column filter support
-             * @param columnFilterOptions the plugins options
+             * @param fixedColumnsOptions the plugin options
              * @returns {DTOptions} the options
              */
-            function withColumnFilter(columnFilterOptions) {
-                options.hasColumnFilter = true;
-                if (columnFilterOptions) {
-                    options.columnFilterOptions = columnFilterOptions;
+            function withFixedColumns(fixedColumnsOptions) {
+                options.hasFixedColumns = true;
+                if (fixedColumnsOptions) {
+                    options.fixedColumnsOptions = fixedColumnsOptions;
                 }
                 return options;
             }
@@ -54,22 +54,22 @@ function dtColumnFilterConfig($provide) {
     }
     dtOptionsBuilderDecorator.$inject = ['$delegate'];
 }
-dtColumnFilterConfig.$inject = ['$provide'];
+dtFixedColumnsConfig.$inject = ['$provide'];
 
 /* @ngInject */
-function initColumnFilterPlugin(DTRendererService) {
-    var columnFilterPlugin = {
+function initFixedColumnsPlugin(DTRendererService) {
+    var fixedColumnsPlugin = {
         postRender: postRender
     };
-    DTRendererService.registerPlugin(columnFilterPlugin);
+    DTRendererService.registerPlugin(fixedColumnsPlugin);
 
     function postRender(options, result) {
-        if (options && options.hasColumnFilter) {
-            result.dataTable.columnFilter(options.columnFilterOptions);
+        if (options && options.hasFixedColumns) {
+            new $.fn.dataTable.FixedColumns(result.DataTable, options.fixedColumnsOptions);
         }
     }
 }
-initColumnFilterPlugin.$inject = ['DTRendererService'];
+initFixedColumnsPlugin.$inject = ['DTRendererService'];
 
 
 })(window, document, jQuery, angular);

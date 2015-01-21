@@ -401,3 +401,11 @@ pre code {
 .dataTables_wrapper {
     margin-bottom: 15px;
 }
+
+#showcase-fixedcolumns th, #showcase-fixedcolumns td {
+    white-space: nowrap;
+}
+#showcase-fixedcolumns_wrapper.dataTables_wrapper {
+    width: 800px;
+    margin: 0 auto;
+}

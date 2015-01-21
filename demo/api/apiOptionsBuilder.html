@@ -48,7 +48,7 @@ function MyCtrl(DTOptionsBuilder) {
         </tr>
         <tr>
             <td><code>DTOptionsBuilder</code></td>
-            <td><code>fromSource(sAjaxSource)</code></td>
+            <td><code>fromSource(ajax)</code></td>
             <td>
                 <p>Create a wrapped datatables options with initialized ajax source.</p>
 <div hljs language="js">
@@ -118,7 +118,7 @@ function MyCtrl() {
         </tr>
         <tr>
             <td><code>DTOptions</code></td>
-            <td><code>withSource(sAjaxSource)</code></td>
+            <td><code>withSource(ajax)</code></td>
             <td>
                 <p>Set the ajax source.</p>
 <div hljs language="js">
@@ -313,7 +313,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Add <a href="http://getbootstrap.com">bootstrap</a> compatibility.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.bootstrap'])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -331,7 +332,12 @@ function MyCtrl(DTOptionsBuilder) {
                     Angular datatables provides default options. You can check them out on <a href="https://github.com/l-lin/angular-datatables/blob/dev/src/angular-datatables.bootstrap.options.js">Github</a>.
                 </p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', [
+    'datatables',
+    'datatables.bootstrap',
+    'datatables.tabletools',
+    'datatables.colvis'
+]).controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -374,7 +380,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Add <a href="https://datatables.net/extras/colreorder/">ColReorder compatibility.</a></p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.colreorder'])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -386,8 +393,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "Rlfrtip"
+    "ajax": "data.json",
+    "dom": "Rlfrtip"
 }
 </div>
                 <p class="text-info">
@@ -401,7 +408,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Add option to the attribute <code>oColReorder</code>.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.colreorder'])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -415,8 +423,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "Rlfrtip",
+    "ajax": "data.json",
+    "dom": "Rlfrtip",
     "oColReorder": {
         "iFixedColumnsRight": 1
     }
@@ -430,7 +438,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Set the default column order.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.colreorder'])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -444,8 +453,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "Rlfrtip",
+    "ajax": "data.json",
+    "dom": "Rlfrtip",
     "oColReorder": {
         "aiOrder": [1, 0, 2]
     }
@@ -459,7 +468,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Set the reorder callback function.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.colreorder']])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -474,8 +484,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "Rlfrtip",
+    "ajax": "data.json",
+    "dom": "Rlfrtip",
     "oColReorder": {
         "fnReorderCallback": function () {
             console.log('Columns order has been changed with: ' + this.fnOrder());
@@ -491,7 +501,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Add <a href="https://datatables.net/extras/colvis/">ColVis</a> compatibility.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.colvis']])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -503,8 +514,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "Clfrtip"
+    "ajax": "data.json",
+    "dom": "Clfrtip"
 }
 </div>
                 <p class="text-info">
@@ -518,7 +529,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Add option to the attribute <code>oColVis</code>.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.colvis']])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -532,8 +544,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "Clfrtip",
+    "ajax": "data.json",
+    "dom": "Clfrtip",
     "oColVis": {
         "aiExclude": [2]
     }
@@ -547,7 +559,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Set the state change function.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.colvis'])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -564,8 +577,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "Clfrtip",
+    "ajax": "data.json",
+    "dom": "Clfrtip",
     "oColVis": {
         "fnStateChange": function (iColumn, bVisible) {
             console.log('The column', iColumn, 'has changed its status to', bVisible);
@@ -581,7 +594,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Add <a href="https://datatables.net/extras/tabletools/">TableTools</a> compatibility.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.tabletools'])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -596,8 +610,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "Tlfrtip",
+    "ajax": "data.json",
+    "dom": "Tlfrtip",
     "oTableTools": {
         "sSwfPath": "vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf"
     }
@@ -614,7 +628,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Add option to the attribute <code>oTableTools</code>.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.tabletools'])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -628,8 +643,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "Tlfrtip",
+    "ajax": "data.json",
+    "dom": "Tlfrtip",
     "oTableTools": {
         "sSwfPath": "vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf",
         "sRowSelect": "single"
@@ -644,7 +659,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Set the table tools buttons to display.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.tabletools'])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -665,8 +681,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "Tlfrtip",
+    "ajax": "data.json",
+    "dom": "Tlfrtip",
     "oTableTools": {
         "sSwfPath": "vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf",
         "aButtons": [
@@ -684,7 +700,7 @@ function MyCtrl(DTOptionsBuilder) {
         </tr>
         <tr>
             <td><code>DTOptions</code></td>
-            <td><code>withDOM(sDom)</code></td>
+            <td><code>withDOM(dom)</code></td>
             <td>
                 <p>Override the <a href="http://datatables.net/examples/basic_init/dom.html">DOM positioning</a> of the DataTable.</p>
 <div hljs language="js">
@@ -706,7 +722,8 @@ function MyCtrl(DTOptionsBuilder) {
             <td>
                 <p>Add <a href="http://datatables.net/extensions/scroller/">Scroller</a> compatibility.</p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.scroller'])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -718,8 +735,8 @@ function MyCtrl(DTOptionsBuilder) {
                 </p>
 <div hljs language="json">
 {
-    "sAjaxSource": "data.json",
-    "sDom": "lfrtipS"
+    "ajax": "data.json",
+    "dom": "lfrtipS"
 }
 </div>
                 <p class="text-info">
@@ -729,13 +746,14 @@ function MyCtrl(DTOptionsBuilder) {
         </tr>
         <tr>
             <td><code>DTOptions</code></td>
-            <td><code>withColumnFilter()</code></td>
+            <td><code>withColumnFilter(columnFilterOptions)</code></td>
             <td>
                 <p>
                     Add <a href="http://jquery-datatables-column-filter.googlecode.com/svn/trunk/index.html">Columnfilter</a> compatibility.
                 </p>
 <div hljs language="js">
-angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+angular.module('myModule', ['datatables', 'datatables.columnfilter'])
+.controller('MyCtrl', MyCtrl);
 function MyCtrl(DTOptionsBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
@@ -745,5 +763,31 @@ function MyCtrl(DTOptionsBuilder) {
 }
 </div>
             </td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withFixedColumns(fixedColumnsOptions)</code></td>
+            <td>
+                <p>
+                    Add <a href="https://datatables.net/extensions/fixedcolumns/">FixedColumns</a> compatibility.
+                </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables', 'datatables.fixedcolumns'])
+.controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+        .withOption('scrollY', '300px')
+        .withOption('scrollX', '100%')
+        .withOption('scrollCollapse', true)
+        .withOption('paging', false)
+        .withFixedColumns({
+            leftColumns: 1,
+            rightColumns: 1
+        });
+}
+</div>
+            </td>
+        </tr>
         </tbody>
     </table>
