@@ -1,3 +1,10 @@
+/*!
+ * angular-datatables - v0.4.0
+ * https://github.com/l-lin/angular-datatables
+ * License: MIT
+ */
+(function (window, document, $, angular) {
+
 'use strict';
 
 // See https://datatables.net/extensions/fixedcolumns/
@@ -45,7 +52,9 @@ function dtFixedColumnsConfig($provide) {
             }
         }
     }
+    dtOptionsBuilderDecorator.$inject = ['$delegate'];
 }
+dtFixedColumnsConfig.$inject = ['$provide'];
 
 /* @ngInject */
 function initFixedColumnsPlugin(DTRendererService) {
@@ -60,3 +69,7 @@ function initFixedColumnsPlugin(DTRendererService) {
         }
     }
 }
+initFixedColumnsPlugin.$inject = ['DTRendererService'];
+
+
+})(window, document, jQuery, angular);

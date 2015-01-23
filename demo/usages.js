@@ -87,5 +87,8 @@ angular.module('showcase.usages', ['ngResource'])
     }, {
         name: 'withFixedColumns',
         label: 'With Fixed Columns'
+    }, {
+        name: 'withFixedHeader',
+        label: 'With Fixed Header'
     }]
 });

@@ -12,9 +12,6 @@
         <p>
             You also need to add the dependency <code>datatables.fixedcolumns</code> to your Angular app.
         </p>
-        <p>
-            See the <a ui-sref="api">API</a> for the complete list of methods of the helper.
-        </p>
     </section>
     <section class="showcase">
         <div ng-controller="WithFixedColumnsCtrl as showCase">
@@ -669,6 +666,7 @@
 <div hljs>
 <link rel="stylesheet" href="vendor/datatables-fixedcolumns/css/dataTables.fixedColumns.css">
 <style>
+    /* Ensure that the demo table scrolls */
     #showcase-fixedcolumns_wrapper th,
     #showcase-fixedcolumns_wrappertd {
         white-space: nowrap;

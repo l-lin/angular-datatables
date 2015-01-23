@@ -1,12 +1,12 @@
 'use strict';
 
-// See https://datatables.net/extensions/fixedcolumns/
-angular.module('datatables.fixedcolumns', ['datatables'])
-    .config(dtFixedColumnsConfig)
-    .run(initFixedColumnsPlugin);
+// See https://datatables.net/extensions/fixedheader/
+angular.module('datatables.fixedheader', ['datatables'])
+    .config(dtFixedHeaderConfig)
+    .run(initFixedHeaderPlugin);
 
 /* @ngInject */
-function dtFixedColumnsConfig($provide) {
+function dtFixedHeaderConfig($provide) {
     $provide.decorator('DTOptionsBuilder', dtOptionsBuilderDecorator);
 
     function dtOptionsBuilderDecorator($delegate) {
@@ -28,18 +28,18 @@ function dtFixedColumnsConfig($provide) {
 
         function _decorateOptions(fn, params) {
             var options = fn(params);
-            options.withFixedColumns = withFixedColumns;
+            options.withFixedHeader = withFixedHeader;
             return options;
 
             /**
-             * Add fixed columns support
-             * @param fixedColumnsOptions the plugin options
+             * Add fixed header support
+             * @param fixedHeaderOptions the plugin options
              * @returns {DTOptions} the options
              */
-            function withFixedColumns(fixedColumnsOptions) {
-                options.hasFixedColumns = true;
-                if (fixedColumnsOptions) {
-                    options.fixedColumnsOptions = fixedColumnsOptions;
+            function withFixedHeader(fixedHeaderOptions) {
+                options.hasFixedHeader = true;
+                if (fixedHeaderOptions) {
+                    options.fixedHeaderOptions = fixedHeaderOptions;
                 }
                 return options;
             }
@@ -48,15 +48,15 @@ function dtFixedColumnsConfig($provide) {
 }
 
 /* @ngInject */
-function initFixedColumnsPlugin(DTRendererService) {
-    var fixedColumnsPlugin = {
+function initFixedHeaderPlugin(DTRendererService) {
+    var fixedHeaderPlugin = {
         postRender: postRender
     };
-    DTRendererService.registerPlugin(fixedColumnsPlugin);
+    DTRendererService.registerPlugin(fixedHeaderPlugin);
 
     function postRender(options, result) {
-        if (options && options.hasFixedColumns) {
-            new $.fn.dataTable.FixedColumns(result.DataTable, options.fixedColumnsOptions);
+        if (options && options.hasFixedHeader) {
+            new $.fn.dataTable.FixedHeader(result.DataTable, options.fixedHeaderOptions);
         }
     }
 }

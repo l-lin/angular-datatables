@@ -1,0 +1,12 @@
+{
+	"name": "datatables-fixedheader",
+	"version": "2.1.2",
+	"main": [
+		"js/dataTables.fixedHeader.js",
+		"css/dataTables.fixedHeader.css"
+	],
+	"dependencies": {
+		"jquery": ">=1.7.0",
+		"datatables": ">=1.9.0"
+	}
+}
