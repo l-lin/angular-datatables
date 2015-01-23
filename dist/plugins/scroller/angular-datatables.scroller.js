@@ -44,7 +44,9 @@ function dtScrollerConfig($provide, DT_DEFAULT_OPTIONS) {
             function withScroller() {
                 var scrollerSuffix = 'S';
                 options.dom = options.dom ? options.dom : DT_DEFAULT_OPTIONS.dom;
-                options.dom = options.dom + scrollerSuffix;
+                if (options.dom.indexOf(scrollerSuffix) === -1) {
+                    options.dom = options.dom + scrollerSuffix;
+                }
                 return options;
             }
         }

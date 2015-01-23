@@ -43,7 +43,7 @@ function dtBootstrapConfig($provide) {
              * @returns {DTOptions} the options
              */
             function withBootstrap() {
-                options.integrateBootstrap = true;
+                options.hasBootstrap = true;
                 // Override page button active CSS class
                 if (angular.isObject(options.oClasses)) {
                     options.oClasses.sPageButtonActive = 'active';
@@ -77,7 +77,7 @@ function initBootstrapPlugin(DTRendererService, DTBootstrap) {
 
     function preRender(options) {
         // Integrate bootstrap (or not)
-        if (options && options.integrateBootstrap) {
+        if (options && options.hasBootstrap) {
             DTBootstrap.integrate(options);
         } else {
             DTBootstrap.deIntegrate();
@@ -89,7 +89,7 @@ function initBootstrapPlugin(DTRendererService, DTBootstrap) {
  * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
  */
 /* @ngInject */
-function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions, DTPropertyUtil) {
+function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions, DTPropertyUtil, DT_DEFAULT_OPTIONS) {
     var _initialized = false,
         _drawCallbackFunctionList = [],
         _savedFn = {};
@@ -307,18 +307,8 @@ function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaul
     }
 
     function _setDom(options) {
-            if (!options.hasOverrideDom) {
-                var dom = DTBootstrapDefaultOptions.getOptions().dom;
-                if (options.hasColReorder) {
-                    dom = 'R' + dom;
-                }
-                if (options.hasColVis) {
-                    dom = 'C' + dom;
-                }
-                if (options.hasTableTools) {
-                    dom = 'T' + dom;
-                }
-                return dom;
+            if (!options.dom || options.dom === DT_DEFAULT_OPTIONS.dom) {
+                return DTBootstrapDefaultOptions.getOptions().dom;
             }
             return options.dom;
         }

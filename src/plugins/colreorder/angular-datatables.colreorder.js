@@ -40,7 +40,9 @@ function dtColReorderConfig($provide, DT_DEFAULT_OPTIONS) {
             function withColReorder() {
                 var colReorderPrefix = 'R';
                 options.dom = options.dom ? options.dom : DT_DEFAULT_OPTIONS.dom;
-                options.dom = colReorderPrefix + options.dom;
+                if (options.dom.indexOf(colReorderPrefix) === -1) {
+                    options.dom = colReorderPrefix + options.dom;
+                }
                 options.hasColReorder = true;
                 return options;
             }

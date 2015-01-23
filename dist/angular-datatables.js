@@ -252,7 +252,6 @@ function dtOptionsBuilder() {
          */
         withDOM: function(dom) {
             this.dom = dom;
-            this.hasOverrideDom = true;
             return this;
         }
     };

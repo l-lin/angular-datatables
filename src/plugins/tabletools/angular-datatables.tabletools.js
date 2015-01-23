@@ -40,7 +40,9 @@ function dtTableToolsConfig($provide, DT_DEFAULT_OPTIONS) {
             function withTableTools(sSwfPath) {
                 var tableToolsPrefix = 'T';
                 options.dom = options.dom ? options.dom : DT_DEFAULT_OPTIONS.dom;
-                options.dom = tableToolsPrefix + options.dom;
+                if (options.dom.indexOf(tableToolsPrefix) === -1) {
+                    options.dom = tableToolsPrefix + options.dom;
+                }
                 options.hasTableTools = true;
                 if (angular.isString(sSwfPath)) {
                     options.withTableToolsOption('sSwfPath', sSwfPath);

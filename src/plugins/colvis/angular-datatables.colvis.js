@@ -39,7 +39,9 @@ function dtColVisConfig($provide, DT_DEFAULT_OPTIONS) {
             function withColVis() {
                 var colVisPrefix = 'C';
                 options.dom = options.dom ? options.dom : DT_DEFAULT_OPTIONS.dom;
-                options.dom = colVisPrefix + options.dom;
+                if (options.dom.indexOf(colVisPrefix) === -1) {
+                    options.dom = colVisPrefix + options.dom;
+                }
                 options.hasColVis = true;
                 return options;
             }
