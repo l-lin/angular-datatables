@@ -1,0 +1,200 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Changing data with the Angular way</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            It's quite simple. You just need to do it like usual, ie you just need to deal with your array of data.
+        </p>
+        <p class="text-info">
+            <i class="fa fa-info-circle"></i>&nbsp;However, take in mind that when updating the array of data,
+            the whole DataTable is completely destroyed and then rebuilt. The filter, sort, pagination, and so on... are
+            not preserved.
+        </p>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="AngularWayChangeDataCtrl as showCase">
+                        <form class="form-inline" ng-submit="showCase.addPerson()">
+                            <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="form-group">
+                                            <label>
+                                                <input class="form-control" type="number" name="id" ng-model="showCase.person2Add.id" value=""/>
+                                            </label>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="form-group">
+                                            <label>
+                                                <input type="text" class="form-control" name="firstName" ng-model="showCase.person2Add.firstName" value=""/>
+                                            </label>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="form-group">
+                                            <label>
+                                                <input type="text" class="form-control" name="lastName" ng-model="showCase.person2Add.lastName" value=""/>
+                                            </label>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>FirstName</th>
+                                    <th>LastName</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="person in showCase.persons">
+                                    <td>{{ person.id }}</td>
+                                    <td>{{ person.firstName }}</td>
+                                    <td>{{ person.lastName }}</td>
+                                    <td>
+                                        <button type="button" ng-click="showCase.modifyPerson($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                                        <button type="button" ng-click="showCase.removePerson($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="AngularWayChangeDataCtrl as showCase">
+    <form class="form-inline" ng-submit="showCase.addPerson()">
+        <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+            <thead>
+            <tr>
+                <th>
+                    <div class="form-group">
+                        <label>
+                            <input class="form-control" type="number" name="id" ng-model="showCase.person2Add.id" value=""/>
+                        </label>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        <label>
+                            <input type="text" class="form-control" name="firstName" ng-model="showCase.person2Add.firstName" value=""/>
+                        </label>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        <label>
+                            <input type="text" class="form-control" name="lastName" ng-model="showCase.person2Add.lastName" value=""/>
+                        </label>
+                    </div>
+                </th>
+                <th>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="person in showCase.persons">
+                <td>{{ person.id }}</td>
+                <td>{{ person.firstName }}</td>
+                <td>{{ person.lastName }}</td>
+                <td>
+                    <button type="button" ng-click="showCase.modifyPerson($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                    <button type="button" ng-click="showCase.removePerson($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.angularWay.dataChange', ['datatables', 'ngResource'])
+.controller('AngularWayChangeDataCtrl', AngularWayChangeDataCtrl);
+
+function AngularWayChangeDataCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
+    var vm = this;
+    vm.persons = $resource('data1.json').query();
+    vm.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+    vm.dtColumnDefs = [
+        DTColumnDefBuilder.newColumnDef(0),
+        DTColumnDefBuilder.newColumnDef(1),
+        DTColumnDefBuilder.newColumnDef(2),
+        DTColumnDefBuilder.newColumnDef(3).notSortable()
+    ];
+    vm.person2Add = _buildPerson2Add(1);
+    vm.addPerson = addPerson;
+    vm.modifyPerson = modifyPerson;
+    vm.removePerson = removePerson;
+
+    function _buildPerson2Add(id) {
+        return {
+            id: id,
+            firstName: 'Foo' + id,
+            lastName: 'Bar' + id
+        };
+    }
+    function addPerson() {
+        vm.persons.push(angular.copy(vm.person2Add));
+        vm.person2Add = _buildPerson2Add(vm.person2Add.id + 1);
+    }
+    function modifyPerson(index) {
+        vm.persons.splice(index, 1, angular.copy(vm.person2Add));
+        vm.person2Add = _buildPerson2Add(vm.person2Add.id + 1);
+    }
+    function removePerson(index) {
+        vm.persons.splice(index, 1);
+    }
+}
+</div>
+            </tab>
+            <tab heading="Example data">
+                <p class="example-data">
+                    <a target="_blank" href="/angular-datatables/data1.json" tooltip="data1.json">data1.json&nbsp;<i class="fa fa-external-link"></i></a>
+                </p>
+<div hljs language="json">
+[{
+    "id": 860,
+    "firstName": "Superman",
+    "lastName": "Yoda"
+}, {
+    "id": 870,
+    "firstName": "Foo",
+    "lastName": "Whateveryournameis"
+}, {
+    "id": 590,
+    "firstName": "Toto",
+    "lastName": "Titi"
+}, {
+    "id": 803,
+    "firstName": "Luke",
+    "lastName": "Kyle"
+},
+...
+]
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

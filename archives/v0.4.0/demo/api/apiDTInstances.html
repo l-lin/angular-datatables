@@ -1,0 +1,151 @@
+<h3><code>DTInstances</code></h3>
+<p>
+    A DataTable directive instance is created each time a DataTable is rendered. You can fetch it by calling the service
+    <code>DTInstances.getLast()</code> to fetch the last instance or <code>DTInstance.getList()</code> to fetch the entire list of instances.
+</p>
+<table datatable dt-options="api.dtOptions" class="row-border hover">
+    <thead>
+    <tr>
+        <th>Helper/Wrapper</th>
+        <th>API</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>DTInstances</code></td>
+        <td><code>getLast()</code></td>
+        <td>
+            Returns a promise that fetches the last datatable instance that was rendered.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTInstances) {
+    DTInstances.getLast().then(function(lastDTInstance) {
+        // lastDTInstance === {
+        //    "id": "foobar2",
+        //    "DataTable": oTable,
+        //    "dataTable": $oTable,
+        //    "reloadData": fnReloadData,
+        //    "changeData": fnChangeData,
+        //    "rerender": fnRerender
+        // }
+
+        // loadedDT.DataTable is the DataTable API instance
+        // loadedDT.dataTable is the jQuery Object
+        // See http://datatables.net/manual/api#Accessing-the-API
+    });
+}
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTInstances</code></td>
+        <td><code>getList()</code></td>
+        <td>
+            Returns a promise that fetches all the datatables instances that were rendered.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTInstances) {
+    DTInstances.getList().then(function(dtInstances) {
+        // dtInstances === {
+        //    "foobar": {
+        //        "id": "foobar2",
+        //        "DataTable": oTable,
+        //        "dataTable": $oTable,
+        //        "reloadData": fnReloadData,
+        //        "changeData": fnChangeData,
+        //        "rerender": fnRerender
+        //    },
+        //    "foobar2": {
+        //        "id": "foobar2",
+        //        "DataTable": oTable,
+        //        "dataTable": $oTable,
+        //        "reloadData": fnReloadData,
+        //        "changeData": fnChangeData,
+        //        "rerender": fnRerender
+        //    }
+        // }
+    });
+}
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTInstance</code></td>
+        <td><code>reloadData()</code></td>
+        <td>
+            <p>
+                Reload the data of the DataTable.
+            </p>
+            <p class="text-info">
+                <i class="fa fa-info-circle"></i> This API is only available for the Ajax Renderer and Promise Renderer!
+            </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTInstances) {
+    DTInstances.getLast().then(function(dtInstance) {
+        dtInstance.reloadData();
+    });
+}
+</div>
+        </td>
+    <tr>
+        <td><code>DTInstance</code></td>
+        <td>
+            <code>changeData(data)</code>
+            <p>
+                Depending of the using renderer, you will need to provide:
+            </p>
+            <ul>
+                <li>a <code>string</code> or an <code>object</code> in the parameter when using the Ajax renderer.</li>
+                <li>a <code>promise</code> or a <code>function that returns a promise</code> in the parameter when using the Promise renderer</li>
+            </ul>
+
+        </td>
+        <td>
+            <p>
+                Change the data of the DataTable.
+            </p>
+            <p class="text-info">
+                <i class="fa fa-info-circle"></i> This API is only available for the Ajax Renderer and Promise Renderer!
+            </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl($resource, DTInstances) {
+    DTInstances.getLast().then(function(dtInstance) {
+        // For Ajax renderers
+        dtInstance.changeData('data.json');
+        // For Promise renderers
+        dtInstance.changeData(function() {
+            return $resource('data.json').query().$promise;
+        });
+    });
+}
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTInstance</code></td>
+        <td>
+            <code>rerender()</code>
+        </td>
+        <td>
+            <p>
+                This method will call the renderer to re-render the table again
+            </p>
+            <p class="alert alert-danger">
+                <i class="fa fa-warning"></i>&nbsp;This is not the same as <strong><a href="https://datatables.net/reference/api/draw()">DataTable's draw(); API</a></strong>.
+                It will completely remove the table, then it will re-render the table, resending the request to the server if necessarily.
+            </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTInstances) {
+    DTInstances.getLast().then(function (dtInstance) {
+        dtInstance.rerender();
+    });
+}
+</div>
+        </td>
+    </tr>
+    </tbody>
+</table>

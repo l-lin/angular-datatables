@@ -1,0 +1,81 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Selecting rows</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            Simple example to select rows.
+        </p>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="RowSelectCtrl as showCase">
+                        <p class="text-danger">You selected the following rows: <strong>{{ showCase.selected }}</strong></p>
+                        <p>
+                            <button class="btn btn-primary" ng-click="showCase.toggleAll()">Select/Remove all</button>
+                        </p>
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="RowSelectCtrl as showCase">
+    <p class="text-danger">You selected the following rows: <strong>{{ showCase.selected }}</strong></p>
+    <p>
+        <button class="btn btn-primary" ng-click="showCase.toggleAll()">Select/Remove all</button>
+    </p>
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.rowSelect', ['datatables'])
+.controller('RowSelectCtrl', RowSelect);
+
+function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+    var vm = this;
+    vm.selected = {};
+    vm.toggleAll = toggleAll;
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+            return $resource('data1.json').query().$promise;
+        })
+        .withOption('createdRow', function(row, data, dataIndex) {
+            // Recompiling so we can bind Angular directive to the DT
+            $compile(angular.element(row).contents())($scope);
+        })
+        .withPaginationType('full_numbers');
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn(null).withTitle('').notSortable()
+            .renderWith(function(data, type, full, meta) {
+                return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']"/>';
+            }),
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+
+    DTInstances.getLast().then(function (dtInstance) {
+        dtInstance.DataTable.data().each(function(data) {
+            vm.selected[data.id] = false;
+        });
+    });
+
+    var _toggle = true;
+    function toggleAll() {
+        for (var prop in vm.selected) {
+           if (vm.selected.hasOwnProperty(prop)) {
+               vm.selected[prop] = _toggle;
+           }
+        }
+        _toggle = !_toggle;
+    }
+}
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

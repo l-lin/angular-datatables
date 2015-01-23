@@ -1,0 +1,101 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Load/Reload the table data from an Ajax source</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            This module also handles data reloading / loading from an Ajax source:
+        </p>
+        <ul>
+            <li>
+                If you need to load data, you just have to call the function <code>dtInstance.changeData(ajax);</code>.
+            </li>
+            <li>
+                If you need to reload the data, you just have to call the function <code>dtInstance.reloadData();</code>.
+            </li>
+        </ul>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="DataReloadWithAjaxCtrl as showCase">
+                        <p>
+                            <button ng-click="showCase.dtInstance.reloadData()" type="button" class="btn btn-info">
+                                <i class="fa fa-refresh"></i>&nbsp;Reload data
+                            </button>
+                            <button ng-click="showCase.dtInstance.changeData(showCase.newSource)" type="button" class="btn btn-info">
+                                <i class="fa fa-exchange"></i>&nbsp;Change data
+                            </button>
+                        </p>
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs language="html">
+<div ng-controller="DataReloadWithAjaxCtrl as showCase">
+    <p>
+        <button ng-click="showCase.dtInstance.reloadData()" type="button" class="btn btn-info">
+            <i class="fa fa-refresh"></i>&nbsp;Reload data
+        </button>
+        <button ng-click="showCase.dtInstance.changeData(showCase.newSource)" type="button" class="btn btn-info">
+            <i class="fa fa-exchange"></i>&nbsp;Change data
+        </button>
+    </p>
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.dataReload.withAjax', ['datatables'])
+.controller('DataReloadWithAjaxCtrl', DataReloadWithAjaxCtrl);
+
+function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json').withPaginationType('full_numbers');
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+    vm.newSource = 'data1.json';
+
+    DTInstances.getLast().then(function(dtInstance) {
+        vm.dtInstance = dtInstance;
+    });
+}
+</div>
+            </tab>
+            <tab heading="Example data">
+                <p class="example-data">
+                    <a target="_blank" href="/angular-datatables/data.json" tooltip="data.json">data.json&nbsp;<i class="fa fa-external-link"></i></a>
+                    <br />
+                    <a target="_blank" href="/angular-datatables/data1.json" tooltip="data1.json">data1.json&nbsp;<i class="fa fa-external-link"></i></a>
+                </p>
+<div hljs language="json">
+[{
+    "id": 860,
+    "firstName": "Superman",
+    "lastName": "Yoda"
+}, {
+    "id": 870,
+    "firstName": "Foo",
+    "lastName": "Whateveryournameis"
+}, {
+    "id": 590,
+    "firstName": "Toto",
+    "lastName": "Titi"
+}, {
+    "id": 803,
+    "firstName": "Luke",
+    "lastName": "Kyle"
+},
+...
+]
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

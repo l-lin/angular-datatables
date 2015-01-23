@@ -1,6 +1,6 @@
 {
 	"name": "angular-datatables",
-	"version": "0.4.0",
+	"version": "0.4.1",
 	"author": "l-lin",
 	"main": "dist/angular-datatables.js",
     "ignore": [
