@@ -89,6 +89,12 @@ angular.module('showcase.usages', ['ngResource'])
         label: 'With Fixed Columns'
     }, {
         name: 'withFixedHeader',
-        label: 'With Fixed Header'
+        label: 'With Fixed Header',
+        onExit: function() {
+            var fixedHeaderEle = document.getElementsByClassName('fixedHeader');
+            angular.element(fixedHeaderEle).remove();
+            var fixedFooterEle = document.getElementsByClassName('fixedFooter');
+            angular.element(fixedFooterEle).remove();
+        }
     }]
 });

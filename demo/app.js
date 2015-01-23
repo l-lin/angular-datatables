@@ -84,7 +84,8 @@ function routerConfig($stateProvider, $urlRouterProvider, USAGES) {
                     templateUrl: 'demo/' + key + '/' + usage.name + '.html',
                     controller: function($rootScope) {
                         $rootScope.$broadcast('event:changeView', usage.name);
-                    }
+                    },
+                    onExit: usage.onExit
                 });
             });
         });
