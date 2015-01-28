@@ -454,6 +454,10 @@ function dtInstances($q) {
 
     function getList() {
         var defer = $q.defer();
+        if (!_dtInstances) {
+            _deferDTInstances = $q.defer();
+            _dtInstances = _deferDTInstances.promise;
+        }
         _dtInstances.then(function(instances) {
             defer.resolve(instances);
             // Reset the promise
