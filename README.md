@@ -8,7 +8,7 @@ Notes
 The required dependencies are:
 
 * [AngularJS](http://angular.org) (tested with version 1.3.0+)
-* [jQuery](http://jquery.com) (tested with version 1.11.0)
+* [jQuery](http://jquery.com) (tested with version 1.11.0+)
 * [Datatables](https://datatables.net) (tested with version 1.10+)
 
 This module has been tested with the following datatables modules:
@@ -16,6 +16,11 @@ This module has been tested with the following datatables modules:
 * [ColReorder](https://datatables.net/extras/colreorder/) with version 1.1.0
 * [ColVis](https://datatables.net/extras/colvis/) with version 1.1.0
 * [TableTools](https://datatables.net/extras/tabletools/) with version 2.2.0
+* [ColumnFilter](http://jquery-datatables-column-filter.googlecode.com/svn/trunk/index.html) with version 1.5.6
+* [FixedColumns](https://datatables.net/extensions/fixedcolumns/) with version 3.0.2
+* [FixedHeader](https://datatables.net/extensions/fixedheader/) with version 2.1.2
+* [Responsive](https://datatables.net/extensions/responsive/) with version 1.0.1
+* [Scroller](http://datatables.net/extensions/scroller/) with version 1.2.2
 
 This module also has a [Twitter Bootstrap](http://getbootstrap.com/) support (tested with version 3.1.1).
 
