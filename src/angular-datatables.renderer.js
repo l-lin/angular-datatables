@@ -306,7 +306,13 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
                 var data = result;
                 // In case the data is nested in an object
                 if (renderer.options.sAjaxDataProp) {
-                    data = result[renderer.options.sAjaxDataProp];
+                    var properties = renderer.options.sAjaxDataProp.split('.');
+                    while (properties.length) {
+                        var property = properties.shift();
+                        if (property in data) {
+                            data = data[property];
+                        }
+                    }
                 }
                 _loadedPromise = null;
                 defer.resolve(_doRender(renderer.options, _$elem, data, callback));
