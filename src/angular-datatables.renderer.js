@@ -69,7 +69,7 @@ function dtRendererService(DTLoadingTemplate) {
     }
 
     function postRender(options, result) {
-        plugins.forEach(function(plugin) {
+        angular.forEach(plugins, function(plugin) {
             if (angular.isFunction(plugin.postRender)) {
                 plugin.postRender(options, result);
             }
@@ -77,7 +77,7 @@ function dtRendererService(DTLoadingTemplate) {
     }
 
     function preRender(options) {
-        plugins.forEach(function(plugin) {
+        angular.forEach(plugins, function(plugin) {
             if (angular.isFunction(plugin.preRender)) {
                 plugin.preRender(options);
             }
