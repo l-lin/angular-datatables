@@ -773,7 +773,7 @@ function dtRendererService(DTLoadingTemplate) {
     }
 
     function postRender(options, result) {
-        plugins.forEach(function(plugin) {
+        angular.forEach(plugins, function(plugin) {
             if (angular.isFunction(plugin.postRender)) {
                 plugin.postRender(options, result);
             }
@@ -781,7 +781,7 @@ function dtRendererService(DTLoadingTemplate) {
     }
 
     function preRender(options) {
-        plugins.forEach(function(plugin) {
+        angular.forEach(plugins, function(plugin) {
             if (angular.isFunction(plugin.preRender)) {
                 plugin.preRender(options);
             }
@@ -1231,7 +1231,7 @@ function dtPropertyUtil($q) {
         } else {
             resolvedObj = angular.extend(resolvedObj, obj);
             for (var prop in resolvedObj) {
-                if (resolvedObj.hasOwnProperty(prop) && excludedProp.indexOf(prop) === -1) {
+                if (resolvedObj.hasOwnProperty(prop) && $.inArray(prop, excludedProp) === -1) {
                     if (angular.isArray(resolvedObj[prop])) {
                         promises.push(resolveArrayPromises(resolvedObj[prop]));
                     } else {
@@ -1242,7 +1242,7 @@ function dtPropertyUtil($q) {
             $q.all(promises).then(function(result) {
                 var index = 0;
                 for (var prop in resolvedObj) {
-                    if (resolvedObj.hasOwnProperty(prop) && excludedProp.indexOf(prop) === -1) {
+                    if (resolvedObj.hasOwnProperty(prop) && $.inArray(prop, excludedProp) === -1) {
                         resolvedObj[prop] = result[index++];
                     }
                 }
@@ -1264,7 +1264,7 @@ function dtPropertyUtil($q) {
         if (!angular.isArray(array)) {
             defer.resolve(array);
         } else {
-            array.forEach(function(item) {
+            angular.forEach(array, function(item) {
                 if (angular.isObject(item)) {
                     promises.push(resolveObjectPromises(item));
                 } else {
@@ -1272,7 +1272,7 @@ function dtPropertyUtil($q) {
                 }
             });
             $q.all(promises).then(function(result) {
-                result.forEach(function(item) {
+                angular.forEach(result, function(item) {
                     resolveArray.push(item);
                 });
                 defer.resolve(resolveArray);
