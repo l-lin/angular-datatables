@@ -6,7 +6,7 @@ function ServerSideProcessingCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withPaginationType('full_numbers');
-    // vm.dtOptions = DTOptionsBuilder.newOptions()
+    //vm.dtOptions = DTOptionsBuilder.newOptions()
     //     .withOption('ajax', {
     //      // Either you specify the AjaxDataProp here
     //      // dataSrc: 'data',
@@ -15,6 +15,7 @@ function ServerSideProcessingCtrl(DTOptionsBuilder, DTColumnBuilder) {
     //  })
     //  // or here
     //  .withDataProp('data')
+    //    .withOption('processing', true)
     //     .withOption('serverSide', true)
     //     .withPaginationType('full_numbers');
     vm.dtColumns = [
