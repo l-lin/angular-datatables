@@ -101,7 +101,7 @@ DTInstances.getLast().then(function(lastDTInstance) {
 DTInstances.getList().then(function(dtInstances) {
     /*
      * dtInstances === {
-     *      "foobar": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable},
+     *      "foobar": {"id": "foobar", "DataTable": oTable, "dataTable": $oTable},
      *      "foobar2": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
      * }
      */
