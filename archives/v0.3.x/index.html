@@ -1,0 +1,106 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>angular-datatables</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<link rel="icon" type="image/png" href="favicon.png">
+
+	<link rel="stylesheet" href="../../vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../vendor/font-awesome-animation/dist/font-awesome-animation.min.css">
+	<link rel="stylesheet" href="../../vendor/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../vendor/datatables/media/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="../../vendor/datatables-colreorder/css/dataTables.colReorder.css">
+	<link rel="stylesheet" href="../../vendor/datatables-colvis/css/dataTables.colVis.css">
+	<link rel="stylesheet" href="../../vendor/datatables-tabletools/css/dataTables.tableTools.css">
+	<link rel="stylesheet" href="../../vendor/datatables-responsive/css/dataTables.responsive.css">
+	<link rel="stylesheet" href="../../vendor/datatables-scroller/css/dataTables.scroller.css">
+    <link rel="stylesheet" href="../../vendor/backtotop/backtotop.min.css">
+    <link rel="stylesheet" href="../../vendor/highlightjs/styles/github.css">
+    <link rel="stylesheet" href="https://rawgithub.com/l-lin/angular-datatables/v0.3.1/dist/datatables.bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body ng-app="datatablesSampleApp">
+    <div class="github-ribbon">
+        <a href="https://github.com/l-lin/angular-datatables">
+            <img style="position: absolute; top: 0; right: 0; border: 0;" src="/angular-datatables/images/forkme.png" alt="Fork me on GitHub">
+        </a>
+    </div>
+	<header class="header">
+        <div class="container">
+            <h1>
+                <a href="/angular-datatables">angular-datatables v0.3.x</a>
+                <span class="header-icon hidden-xs hidden-sm">
+                    <a href="https://github.com/l-lin/angular-datatables/archive/v0.3.1.zip"><i class="fa fa-download"></i></a>
+                </span>
+            </h1>
+        </div>
+	</header>
+
+	<div class="main-container">
+        <aside class="sidebar" ng-include="'demo/partials/sidebar.html'"></aside>
+        <article ui-view class="main-content"></article>
+	</div>
+
+	<footer class="footer">
+		<div class="footer-note">
+			Designed and built with <i class="fa fa-heart faa-pulse animated"></i> by <a href="https://github.com/l-lin">Louis LIN</a>
+		</div>
+	</footer>
+
+    <script src="../../vendor/highlightjs/highlight.pack.js"></script>
+    <script src="../../vendor/jquery/dist/jquery.js"></script>
+    <script src="../../vendor/backtotop/backtotop.min.js"></script>
+	<script src="../../vendor/angular/angular.js"></script>
+    <script src="../../vendor/angular-highlightjs/angular-highlightjs.min.js"></script>
+    <script src="../../vendor/angular-resource/angular-resource.min.js"></script>
+    <script src="../../vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="../../vendor/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="../../vendor/datatables-colreorder/js/dataTables.colReorder.js"></script>
+	<script src="../../vendor/datatables-colvis/js/dataTables.colVis.js"></script>
+	<script src="../../vendor/datatables-tabletools/js/dataTables.tableTools.js"></script>
+    <script src="../../vendor/datatables-responsive/js/dataTables.responsive.js"></script>
+    <script src="../../vendor/datatables-scroller/js/dataTables.scroller.js"></script>
+    <script src="../../vendor/datatables-columnfilter/js/dataTables.columnFilter.js"></script>
+	<script src="../../vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="../../vendor/angular-bootstrap/ui-bootstrap.min.js"></script>
+	<script src="../../vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="../../vendor/angular-translate/angular-translate.min.js"></script>
+
+	<script src="https://rawgithub.com/l-lin/angular-datatables/v0.3.1/dist/angular-datatables.min.js"></script>
+
+	<script src="demo/usages.js"></script>
+	<script src="demo/app.js"></script>
+	<script src="demo/sidebar.js"></script>
+	<script src="demo/api/api.js"></script>
+    <script src="demo/basic/angularWay.js"></script>
+    <script src="demo/basic/angularWayWithOptions.js"></script>
+    <script src="demo/basic/withAjax.js"></script>
+    <script src="demo/basic/withOptions.js"></script>
+    <script src="demo/basic/withPromise.js"></script>
+    <script src="demo/advanced/angularWayDataChange.js"></script>
+    <script src="demo/advanced/bindAngularDirective.js"></script>
+    <script src="demo/advanced/changeOptions.js"></script>
+    <script src="demo/advanced/dataReloadWithAjax.js"></script>
+    <script src="demo/advanced/dataReloadWithPromise.js"></script>
+    <script src="demo/advanced/rowClickEvent.js"></script>
+    <script src="demo/advanced/rowSelect.js"></script>
+    <script src="demo/advanced/serverSideProcessing.js"></script>
+    <script src="demo/advanced/loadOptionsWithPromise.js"></script>
+	<script src="demo/advanced/disableDeepWatchers.js"></script>
+    <script src="demo/withPlugins/bootstrapIntegration.js"></script>
+    <script src="demo/withPlugins/overrideBootstrapOptions.js"></script>
+    <script src="demo/withPlugins/withColReorder.js"></script>
+    <script src="demo/withPlugins/withColVis.js"></script>
+    <script src="demo/withPlugins/withResponsive.js"></script>
+    <script src="demo/withPlugins/withScroller.js"></script>
+    <script src="demo/withPlugins/withColumnFilter.js"></script>
+    <script src="demo/withPlugins/withTableTools.js"></script>
+    <script src="demo/withPlugins/withAngularTranslate.js"></script>
+</body>
+</html>

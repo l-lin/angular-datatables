@@ -1,31 +1,14 @@
-[{
-    "major": "0",
-    "minor": "1",
-    "dot": "1",
-    "full": "v0.1.1"
-}, {
-    "major": "0",
-    "minor": "2",
-    "dot": "0",
-    "full": "v0.2.0"
-}, {
-    "major": "0",
-    "minor": "2",
-    "dot": "1",
-    "full": "v0.2.1"
-}, {
-    "major": "0",
-    "minor": "3",
-    "dot": "0",
-    "full": "v0.3.0"
-}, {
-     "major": "0",
-     "minor": "3",
-     "dot": "1",
-     "full": "v0.3.1"
- }, {
-     "major": "0",
-     "minor": "4",
-     "dot": "0",
-     "full": "v0.4.0"
- }]
+[
+    {
+        "major": "0",
+        "minor": "3",
+        "dot": "x",
+        "full": "v0.3.x"
+    },
+    {
+        "major": "0",
+        "minor": "2",
+        "dot": "x",
+        "full": "v0.2.x"
+    }
+]
