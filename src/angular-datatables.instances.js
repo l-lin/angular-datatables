@@ -12,7 +12,6 @@ function dtInstances($q) {
     var _lastDTInstance = null;
     // Promise for fetching the list of DT instances
     var _deferDTInstances = $q.defer();
-    var _dtInstances = null;
     return {
         register: register,
         getLast: getLast,
@@ -28,14 +27,14 @@ function dtInstances($q) {
         _lastDTInstance = dtInstance;
 
         //previous promise
-        _deferDTInstances.resolve(_dtInstances);
+        _deferDTInstances.resolve(_instances);
         _deferLastDTInstance.resolve(_lastDTInstance);
 
         //new promise
         _deferDTInstances = $q.defer();
         _deferLastDTInstance = $q.defer();
 
-        _deferDTInstances.resolve(_dtInstances);
+        _deferDTInstances.resolve(_instances);
         _deferLastDTInstance.resolve(_lastDTInstance);
 
         return dtInstance;
@@ -43,7 +42,7 @@ function dtInstances($q) {
 
     function getLast() {
         var defer = $q.defer();
-        _deferLastDTInstance.promise.then(function (lastInstance) {
+        _deferLastDTInstance.promise.then(function(lastInstance) {
             defer.resolve(lastInstance);
         });
         return defer.promise;
@@ -51,12 +50,13 @@ function dtInstances($q) {
 
     function getList() {
         var defer = $q.defer();
-        _deferDTInstances.promise.then(function (instances) {
+        _deferDTInstances.promise.then(function(instances) {
             defer.resolve(instances);
         });
         return defer.promise;
     }
 }
+
 function dtInstanceFactory() {
     var DTInstance = {
         reloadData: reloadData,
