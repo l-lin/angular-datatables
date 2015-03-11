@@ -28,14 +28,14 @@ function dtInstances($q) {
         _lastDTInstance = dtInstance;
 
         //previous promise
-        _deferDTInstances.resolve(_instances);
+        _deferDTInstances.resolve(_dtInstances);
         _deferLastDTInstance.resolve(_lastDTInstance);
 
         //new promise
         _deferDTInstances = $q.defer();
         _deferLastDTInstance = $q.defer();
 
-        _deferDTInstances.resolve(_instances);
+        _deferDTInstances.resolve(_dtInstances);
         _deferLastDTInstance.resolve(_lastDTInstance);
 
         return dtInstance;
