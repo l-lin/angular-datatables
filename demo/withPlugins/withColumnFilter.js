@@ -15,6 +15,7 @@ function WithColumnFilterCtrl(DTOptionsBuilder, DTColumnBuilder) {
                 bSmart: true
             }, {
                 type: 'select',
+                bRegex: false,
                 values: ['Yoda', 'Titi', 'Kyle', 'Bar', 'Whateveryournameis']
             }]
         });
