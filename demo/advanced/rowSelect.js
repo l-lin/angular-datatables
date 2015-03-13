@@ -63,5 +63,5 @@ function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilde
             }
         }
         me.selectAll = true;
-    };
+    }
 }
