@@ -1,8 +1,11 @@
 {
-	"name": "angular-datatables",
-	"version": "0.4.2",
-	"author": "l-lin",
-	"main": "dist/angular-datatables.js",
+    "name": "angular-datatables",
+    "version": "0.4.1",
+    "author": "l-lin",
+    "main": [
+        "dist/angular-datatables.js",
+        "dist/plugins/tabletools/angular-datatables.tabletools.js"
+    ],
     "ignore": [
         ".bowerrc",
         ".editorconfig",
