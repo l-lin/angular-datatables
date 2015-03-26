@@ -1,8 +1,19 @@
 {
-	"name": "angular-datatables",
-	"version": "0.4.2",
-	"author": "l-lin",
-	"main": "dist/angular-datatables.js",
+    "name": "angular-datatables",
+    "version": "0.4.2",
+    "author": "l-lin",
+    "main": [
+        "dist/angular-datatables.js",
+        "dist/plugins/bootstrap/angular-datatables.bootstrap.js",
+        "dist/plugins/bootstrap/datatables.bootstrap.css",
+        "dist/plugins/colreorder/angular-datatables.colreorder.js",
+        "dist/plugins/columnfilter/angular-datatables.columnfilter.js",
+        "dist/plugins/colvis/angular-datatables.colvis.js",
+        "dist/plugins/fixedcolumns/angular-datatables.fixedcolumns.js",
+        "dist/plugins/fixedheader/angular-datatables.fixedheader.js",
+        "dist/plugins/scroller/angular-datatables.scroller.js",
+        "dist/plugins/tabletools/angular-datatables.tabletools.js"
+    ],
     "ignore": [
         ".bowerrc",
         ".editorconfig",
