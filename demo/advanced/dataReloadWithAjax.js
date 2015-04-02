@@ -4,7 +4,9 @@ angular.module('showcase.dataReload.withAjax', ['datatables'])
 
 function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) {
     var vm = this;
-    vm.dtOptions = DTOptionsBuilder.fromSource('data.json').withPaginationType('full_numbers');
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withOption('stateSave', true)
+        .withPaginationType('full_numbers');
     vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),

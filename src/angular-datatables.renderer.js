@@ -393,14 +393,16 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
 
         function reloadData() {
             if (_oTable) {
-                var ajaxUrl = renderer.options.ajax.url ||  renderer.options.ajax;
-                _oTable.ajax.url(ajaxUrl).load();
+                _oTable.ajax.reload(null, false);
             }
         }
 
         function changeData(ajax) {
             renderer.options.ajax = ajax;
-            renderer.reloadData();
+            if (_oTable) {
+                var ajaxUrl = renderer.options.ajax.url ||  renderer.options.ajax;
+                _oTable.ajax.url(ajaxUrl).load();
+            }
         }
 
         function rerender() {
