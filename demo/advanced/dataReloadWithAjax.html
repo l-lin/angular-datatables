@@ -21,7 +21,7 @@
                 <article class="preview">
                     <div ng-controller="DataReloadWithAjaxCtrl as showCase">
                         <p>
-                            <button ng-click="showCase.dtInstance.reloadData()" type="button" class="btn btn-info">
+                            <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
                                 <i class="fa fa-refresh"></i>&nbsp;Reload data
                             </button>
                             <button ng-click="showCase.dtInstance.changeData(showCase.newSource)" type="button" class="btn btn-info">
@@ -36,7 +36,7 @@
 <div hljs language="html">
 <div ng-controller="DataReloadWithAjaxCtrl as showCase">
     <p>
-        <button ng-click="showCase.dtInstance.reloadData()" type="button" class="btn btn-info">
+        <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
             <i class="fa fa-refresh"></i>&nbsp;Reload data
         </button>
         <button ng-click="showCase.dtInstance.changeData(showCase.newSource)" type="button" class="btn btn-info">
@@ -63,10 +63,20 @@ function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) 
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
     vm.newSource = 'data1.json';
+    vm.reloadData = reloadData;
 
     DTInstances.getLast().then(function(dtInstance) {
         vm.dtInstance = dtInstance;
     });
+
+    function reloadData() {
+        var resetPaging = false;
+        vm.dtInstance.reloadData(callback, resetPaging);
+    }
+
+    function callback(json) {
+        console.log(json);
+    }
 }
 </div>
             </tab>

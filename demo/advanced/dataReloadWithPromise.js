@@ -13,6 +13,7 @@ function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource,
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
     vm.newPromise = newPromise;
+    vm.reloadData = reloadData;
 
     DTInstances.getLast().then(function (dtInstance) {
         vm.dtInstance = dtInstance;
@@ -20,5 +21,14 @@ function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource,
 
     function newPromise() {
         return $resource('data1.json').query().$promise;
+    }
+
+    function reloadData() {
+        var resetPaging = true;
+        vm.dtInstance.reloadData(callback, resetPaging);
+    }
+
+    function callback(json) {
+        console.log(json);
     }
 }

@@ -73,9 +73,9 @@ function dtInstanceFactory() {
         return dtInstance;
     }
 
-    function reloadData() {
+    function reloadData(callback, resetPaging) {
         /*jshint validthis:true */
-        this._renderer.reloadData();
+        this._renderer.reloadData(callback, resetPaging);
     }
 
     function changeData(data) {
