@@ -28,12 +28,15 @@ div.dataTables_paginate ul.pagination {
 }
 table.table {
     clear: both;
-    margin-top: 6px !important;
-    margin-bottom: 6px !important;
     max-width: none !important;
 }
-table.table thead .sorting, table.table thead .sorting_asc, table.table thead .sorting_desc, table.table thead .sorting_asc_disabled, table.table thead .sorting_desc_disabled {
+table.table thead .sorting,
+table.table thead .sorting_asc,
+table.table thead .sorting_desc,
+table.table thead .sorting_asc_disabled,
+table.table thead .sorting_desc_disabled {
     cursor: pointer;
+    background: none;
 }
 table.table thead .sorting:before {
     content: ' ';
@@ -48,6 +51,13 @@ table.table thead .sorting_asc:before {
     content: "\25B4";
     padding-right: 5px;
 }
+.dataTables_scrollBody table.table thead .sorting:before,
+.dataTables_scrollBody table.table thead .sorting_desc:before,
+.dataTables_scrollBody table.table thead .sorting_asc:before {
+    content: '';
+    padding-right: 0;
+}
+
 table.dataTable th:active {
     outline: none;
 }
