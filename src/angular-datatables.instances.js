@@ -5,7 +5,8 @@ angular.module('datatables.instances', ['datatables.util'])
     .factory('DTInstanceFactory', dtInstanceFactory);
 
 /* @ngInject */
-function dtInstances($q, failzQ) {
+function dtInstances($q, failzQ, $timeout) {
+    var TIME_BEFORE_CLEANING = 1000;
     var _instances = {};
     var _lastInstance = {};
     // Promise for fetching the last DT instance
@@ -25,7 +26,9 @@ function dtInstances($q, failzQ) {
         dtInstance.DataTable = result.DataTable;
         dtInstance.dataTable = result.dataTable;
 
+        //_instances[dtInstance.id] = dtInstance;
         _instances[dtInstance.id] = dtInstance;
+        _cleanInstances();
         _lastInstance = dtInstance;
         if (_deferLastDTInstances) {
             _deferLastDTInstances.resolve(_lastInstance);
@@ -70,6 +73,20 @@ function dtInstances($q, failzQ) {
             defer.resolve(_instances);
         });
         return defer.promise;
+    }
+
+    function _cleanInstances() {
+        $timeout(function() {
+            var newInstances = {};
+            for (var attr in _instances) {
+                if (_instances.hasOwnProperty(attr)) {
+                    if ($.fn.DataTable.isDataTable(_instances[attr].id)) {
+                        newInstances[attr] = _instances[attr];
+                    }
+                }
+            }
+            _instances = newInstances;
+        }, TIME_BEFORE_CLEANING);
     }
 }
 
