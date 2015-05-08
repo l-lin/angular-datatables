@@ -2,6 +2,7 @@
 
 angular.module('datatables.util', [])
     .factory('DTPropertyUtil', dtPropertyUtil)
+    // TODO: Remove this service when the DTInstances service is removed!
     .service('failzQ', failzQ);
 
 /* @ngInject */

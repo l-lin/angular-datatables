@@ -2,7 +2,7 @@
 angular.module('showcase.dataReload.withPromise', ['datatables', 'ngResource'])
 .controller('DataReloadWithPromiseCtrl', DataReloadWithPromiseCtrl);
 
-function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, DTInstances) {
+function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
         return $resource('data.json').query().$promise;
@@ -14,10 +14,7 @@ function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource,
     ];
     vm.newPromise = newPromise;
     vm.reloadData = reloadData;
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
+    vm.dtInstance = {};
 
     function newPromise() {
         return $resource('data1.json').query().$promise;

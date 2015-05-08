@@ -20,7 +20,8 @@ function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUt
             dtOptions: '=',
             dtColumns: '=',
             dtColumnDefs: '=',
-            datatable: '@'
+            datatable: '@',
+            dtInstance: '='
         },
         compile: compileDirective,
         controller: ControllerDirective
@@ -113,14 +114,24 @@ function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUt
                     _dtInstance._renderer.withOptions(options)
                         .render($elem, $scope, staticHTML).then(function(dtInstance) {
                             _dtInstance = dtInstance;
+                            _setDTInstance(dtInstance);
                         });
                 } else {
                     DTRendererFactory.fromOptions(options, isNgDisplay)
                         .render($elem, $scope, staticHTML).then(function(dtInstance) {
                             _dtInstance = dtInstance;
+                            _setDTInstance(dtInstance);
                         });
                 }
             });
+        }
+
+        function _setDTInstance(dtInstance) {
+            if (angular.isFunction($scope.dtInstance)) {
+                $scope.dtInstance(dtInstance);
+            } else {
+                $scope.dtInstance = dtInstance;
+            }
         }
     }
 }
@@ -408,7 +419,7 @@ angular.module('datatables.instances', ['datatables.util'])
     .factory('DTInstanceFactory', dtInstanceFactory);
 
 /* @ngInject */
-function dtInstances($q, failzQ, $timeout) {
+function dtInstances($q, failzQ, $timeout, $log) {
     var TIME_BEFORE_CLEANING = 1000;
     var _instances = {};
     var _lastInstance = {};
@@ -443,6 +454,7 @@ function dtInstances($q, failzQ, $timeout) {
     }
 
     function getLast() {
+        $log.warn('"DTInstances.getLast()" and "DTInstances.getList()" are deprecated! Use the "dt-instance" to provide the datatables instance. See https://l-lin.github.com/angular-datatables/#/manipulatingDTInstances for more information.');
         var defer = $q.defer();
         if (!_lastDTInstance) {
             _deferLastDTInstances = $q.defer();
@@ -461,6 +473,7 @@ function dtInstances($q, failzQ, $timeout) {
     }
 
     function getList() {
+        $log.warn('"DTInstances.getLast()" and "DTInstances.getList()" are deprecated! Use the "dt-instance" to provide the datatables instance. See https://l-lin.github.com/angular-datatables/#/manipulatingDTInstances for more information.');
         var defer = $q.defer();
         if (!_dtInstances) {
             _deferDTInstances = $q.defer();
@@ -492,7 +505,7 @@ function dtInstances($q, failzQ, $timeout) {
         }, TIME_BEFORE_CLEANING);
     }
 }
-dtInstances.$inject = ['$q', 'failzQ', '$timeout'];
+dtInstances.$inject = ['$q', 'failzQ', '$timeout', '$log'];
 
 function dtInstanceFactory() {
     var DTInstance = {
@@ -1208,6 +1221,7 @@ dtRendererFactory.$inject = ['DTDefaultRenderer', 'DTNGRenderer', 'DTPromiseRend
 
 angular.module('datatables.util', [])
     .factory('DTPropertyUtil', dtPropertyUtil)
+    // TODO: Remove this service when the DTInstances service is removed!
     .service('failzQ', failzQ);
 
 /* @ngInject */

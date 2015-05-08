@@ -5,7 +5,7 @@ angular.module('showcase.rerender', ['datatables', 'ngResource'])
 .controller('RerenderPromiseRendererCtrl', RerenderPromiseRendererCtrl)
 .controller('RerenderNGRendererCtrl', RerenderNGRendererCtrl);
 
-function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTInstances) {
+function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.newOptions();
     vm.dtColumnDefs = [
@@ -13,13 +13,10 @@ function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTIns
         DTColumnDefBuilder.newColumnDef(1).notVisible(),
         DTColumnDefBuilder.newColumnDef(2).notSortable()
     ];
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
+    vm.dtInstance = {};
 }
 
-function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json');
     vm.dtColumns = [
@@ -27,13 +24,10 @@ function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances
         DTColumnBuilder.newColumn('firstName').withTitle('First name').notVisible(),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notSortable()
     ];
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
+    vm.dtInstance = {};
 }
 
-function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
             return $resource('data.json').query().$promise;
@@ -43,13 +37,10 @@ function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilde
         DTColumnBuilder.newColumn('firstName').withTitle('First name').notVisible(),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notSortable()
     ];
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
+    vm.dtInstance = {};
 }
 
-function RerenderNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder, DTInstances) {
+function RerenderNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;
     vm.persons = [];
     vm.dtOptions = DTOptionsBuilder.newOptions();
@@ -58,12 +49,9 @@ function RerenderNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder,
         DTColumnDefBuilder.newColumnDef(1).notVisible(),
         DTColumnDefBuilder.newColumnDef(2).notSortable()
     ];
+    vm.dtInstance = {};
 
     $resource('data.json').query().$promise.then(function(persons) {
         vm.persons = persons;
-    });
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
     });
 }

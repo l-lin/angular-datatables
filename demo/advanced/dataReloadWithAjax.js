@@ -2,7 +2,7 @@
 angular.module('showcase.dataReload.withAjax', ['datatables'])
 .controller('DataReloadWithAjaxCtrl', DataReloadWithAjaxCtrl);
 
-function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withOption('stateSave', true)
@@ -14,10 +14,7 @@ function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) 
     ];
     vm.newSource = 'data1.json';
     vm.reloadData = reloadData;
-
-    DTInstances.getLast().then(function(dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
+    vm.dtInstance = {};
 
     function reloadData() {
         var resetPaging = false;

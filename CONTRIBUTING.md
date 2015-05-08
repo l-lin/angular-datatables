@@ -37,7 +37,7 @@ npm install
 
 
 If you need to see the result of your feature/bug fix on the demo, you can launch the node server by
-executing the following command and access to [http://localhost:3000/angular-datatables](http://localhost:3000/angular-datatables)
+executing the following command and access to [http://localhost:3000](http://localhost:3000)
 ```
 grunt serve
 ```

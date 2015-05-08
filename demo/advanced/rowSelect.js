@@ -2,7 +2,7 @@
 angular.module('showcase.rowSelect', ['datatables'])
 .controller('RowSelectCtrl', RowSelect);
 
-function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
     vm.selected = {};
     vm.selectAll = false;
@@ -37,12 +37,6 @@ function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilde
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
-
-    DTInstances.getLast().then(function (dtInstance) {
-        dtInstance.DataTable.data().each(function(data) {
-            vm.selected[data.id] = false;
-        });
-    });
 
     function toggleAll (selectAll, selectedItems) {
         for (var id in selectedItems) {

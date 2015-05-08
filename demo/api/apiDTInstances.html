@@ -3,6 +3,14 @@
     A DataTable directive instance is created each time a DataTable is rendered. You can fetch it by calling the service
     <code>DTInstances.getLast()</code> to fetch the last instance or <code>DTInstance.getList()</code> to fetch the entire list of instances.
 </p>
+<p class="alert alert-danger">
+    <i class="fa fa-warning"></i>&nbsp;This API is deprecated.
+    <br />
+    From v0.5.0+, the <code>DTInstances.getLast()</code> and <code>DTInstances.getList()</code> will be removed.
+    Use the <code>dt-instance</code> directive instead!
+    <br />
+    See the <a ui-sref="dtInstances">documentation</a> for more information.
+</p>
 <table datatable dt-options="api.dtOptions" class="row-border hover">
     <thead>
     <tr>
@@ -25,9 +33,9 @@ function MyCtrl(DTInstances) {
         //    "id": "foobar2",
         //    "DataTable": oTable,
         //    "dataTable": $oTable,
-        //    "reloadData": fnReloadData,
-        //    "changeData": fnChangeData,
-        //    "rerender": fnRerender
+        //    "reloadData": function(callback, resetPaging),
+        //    "changeData": function(newData),
+        //    "rerender": function()
         // }
 
         // loadedDT.DataTable is the DataTable API instance
@@ -52,17 +60,17 @@ function MyCtrl(DTInstances) {
         //        "id": "foobar2",
         //        "DataTable": oTable,
         //        "dataTable": $oTable,
-        //        "reloadData": fnReloadData,
-        //        "changeData": fnChangeData,
-        //        "rerender": fnRerender
+        //        "reloadData": function(callback, resetPaging),
+        //        "changeData": function(newData),
+        //        "rerender": function()
         //    },
         //    "foobar2": {
         //        "id": "foobar2",
         //        "DataTable": oTable,
         //        "dataTable": $oTable,
-        //        "reloadData": fnReloadData,
-        //        "changeData": fnChangeData,
-        //        "rerender": fnRerender
+        //        "reloadData": function(callback, resetPaging),
+        //        "changeData": function(newData),
+        //        "rerender": function()
         //    }
         // }
     });
@@ -72,7 +80,7 @@ function MyCtrl(DTInstances) {
     </tr>
     <tr>
         <td><code>DTInstance</code></td>
-        <td><code>reloadData()</code></td>
+        <td><code>reloadData(callback, resetPaging)</code></td>
         <td>
             <p>
                 Reload the data of the DataTable.

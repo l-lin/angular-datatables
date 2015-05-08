@@ -11,7 +11,8 @@ function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUt
             dtOptions: '=',
             dtColumns: '=',
             dtColumnDefs: '=',
-            datatable: '@'
+            datatable: '@',
+            dtInstance: '='
         },
         compile: compileDirective,
         controller: ControllerDirective
@@ -104,14 +105,24 @@ function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUt
                     _dtInstance._renderer.withOptions(options)
                         .render($elem, $scope, staticHTML).then(function(dtInstance) {
                             _dtInstance = dtInstance;
+                            _setDTInstance(dtInstance);
                         });
                 } else {
                     DTRendererFactory.fromOptions(options, isNgDisplay)
                         .render($elem, $scope, staticHTML).then(function(dtInstance) {
                             _dtInstance = dtInstance;
+                            _setDTInstance(dtInstance);
                         });
                 }
             });
+        }
+
+        function _setDTInstance(dtInstance) {
+            if (angular.isFunction($scope.dtInstance)) {
+                $scope.dtInstance(dtInstance);
+            } else {
+                $scope.dtInstance = dtInstance;
+            }
         }
     }
 }

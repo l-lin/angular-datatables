@@ -32,7 +32,7 @@
                         <p>
                             <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
                         </p>
-                        <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+                        <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" dt-instance="showCase.dtInstance" class="row-border hover">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -67,7 +67,7 @@
     <p>
         <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
     </p>
-    <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+    <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" dt-instance="showCase.dtInstance" class="row-border hover">
         <thead>
         <tr>
             <th>ID</th>
@@ -100,7 +100,7 @@
 <div hljs language="js">
 angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderDefaultRendererCtrl', RerenderDefaultRendererCtrl);
 
-function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTInstances) {
+function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.newOptions();
     vm.dtColumnDefs = [
@@ -108,10 +108,7 @@ function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTIns
         DTColumnDefBuilder.newColumnDef(1).notVisible(),
         DTColumnDefBuilder.newColumnDef(2).notSortable()
     ];
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
+    vm.dtInstance = {};
 }
 </div>
             </tab>
@@ -124,7 +121,7 @@ function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTIns
                         <p>
                             <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
                         </p>
-                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
@@ -134,7 +131,7 @@ function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTIns
     <p>
         <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
     </p>
-    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
 </div>
 </div>
             </tab>
@@ -142,7 +139,7 @@ function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTIns
 <div hljs language="js">
 angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl);
 
-function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json');
     vm.dtColumns = [
@@ -150,10 +147,7 @@ function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances
         DTColumnBuilder.newColumn('firstName').withTitle('First name').notVisible(),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notSortable()
     ];
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
+    vm.dtInstance = {};
 }
 </div>
             </tab>
@@ -166,7 +160,7 @@ function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances
                         <p>
                             <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
                         </p>
-                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
@@ -176,7 +170,7 @@ function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances
     <p>
         <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
     </p>
-    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
 </div>
 </div>
             </tab>
@@ -184,7 +178,7 @@ function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances
 <div hljs language="js">
 angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderPromiseRendererCtrl', RerenderPromiseRendererCtrl);
 
-function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
             return $resource('data.json').query().$promise;
@@ -194,10 +188,7 @@ function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilde
         DTColumnBuilder.newColumn('firstName').withTitle('First name').notVisible(),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notSortable()
     ];
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
+    vm.dtInstance = {};
 }
 </div>
             </tab>
@@ -210,7 +201,7 @@ function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilde
                         <p>
                             <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
                         </p>
-                        <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+                        <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" dt-instance="showCase.dtInstance" class="row-border hover">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -235,7 +226,7 @@ function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilde
     <p>
         <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
     </p>
-    <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+    <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" dt-instance="showCase.dtInstance" class="row-border hover">
         <thead>
         <tr>
             <th>ID</th>
@@ -258,7 +249,7 @@ function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilde
 <div hljs language="js">
 angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl);
 
-function RerenderNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder, DTInstances) {
+function RerenderNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;
     vm.persons = [];
     vm.dtOptions = DTOptionsBuilder.newOptions();
@@ -267,13 +258,10 @@ function RerenderNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder,
         DTColumnDefBuilder.newColumnDef(1).notVisible(),
         DTColumnDefBuilder.newColumnDef(2).notSortable()
     ];
+    vm.dtInstance = {};
 
     $resource('data.json').query().$promise.then(function(persons) {
         vm.persons = persons;
-    });
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
     });
 }
 </div>

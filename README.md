@@ -78,8 +78,37 @@ Additional notes
 ----------------
 
 * [RequireJS](http://requirejs.org/) is not supported.
-* A DataTable directive instance is created each time a DataTable is rendered. You can fetch it by calling the service
-`DTInstances.getLast()` to fetch the last instance or `DTInstance.getList()` to fetch the entire list of instances.
+* A DataTable directive instance is created each time a DataTable is rendered.
+ * You can use the directive `dt-instance` where you provide a variable that will be populated with the DataTable instance
+once it's rendered:
+
+```html
+<table id="foobar" datatable dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance"></table>
+```
+
+The `dtInstance` variable will be populated with the following value:
+
+```json
+{
+    "id": "foobar",
+    "DataTable": oTable,
+    "dataTable": $oTable,
+    "reloadData": function(callback, resetPaging),
+    "changeData": function(newData),
+    "rerender": function()
+}
+```
+
+> DataTable is the DataTable API instance
+> dataTable is the jQuery Object
+> See http://datatables.net/manual/api#Accessing-the-API
+
+For more information, please check the [documentation](http://l-lin.github.io/angular-datatables/#/dtInstances).
+
+ * You can also fetch it by calling the service `DTInstances.getLast()` to fetch the last instance or `DTInstance.getList()`
+to fetch the entire list of instances.
+
+> These APIs are deprecated. They will be removed in the v0.5.0+. Use the above approach instead.
 
 For instance, for the given dataTables:
 
