@@ -12,9 +12,9 @@
             <tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="RowSelectCtrl as showCase">
-                        <p class="text-danger">You selected the following rows: <strong>{{ showCase.selected }}</strong></p>
+                        <p class="text-danger">You selected the following rows:</p>
                         <p>
-                            <button class="btn btn-primary" ng-click="showCase.toggleAll()">Select/Remove all</button>
+                            <pre>{{ showCase.selected |json }}</pre>
                         </p>
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
                     </div>
@@ -23,9 +23,9 @@
             <tab heading="HTML">
 <div hljs>
 <div ng-controller="RowSelectCtrl as showCase">
-    <p class="text-danger">You selected the following rows: <strong>{{ showCase.selected }}</strong></p>
+    <p class="text-danger">You selected the following rows:</p>
     <p>
-        <button class="btn btn-primary" ng-click="showCase.toggleAll()">Select/Remove all</button>
+        <pre>{{ showCase.selected |json }}</pre>
     </p>
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
 </div>
@@ -36,10 +36,15 @@
 angular.module('showcase.rowSelect', ['datatables'])
 .controller('RowSelectCtrl', RowSelect);
 
-function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
     vm.selected = {};
+    vm.selectAll = false;
     vm.toggleAll = toggleAll;
+    vm.toggleOne = toggleOne;
+
+    var titleHtml = '<input type="checkbox" ng-model="showCase.selectAll" ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)">';
+
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
             return $resource('data1.json').query().$promise;
         })
@@ -47,31 +52,43 @@ function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilde
             // Recompiling so we can bind Angular directive to the DT
             $compile(angular.element(row).contents())($scope);
         })
+        .withOption('headerCallback', function(header) {
+            if (!$scope.headerCompiled) {
+                // Use this headerCompiled field to only compile header once
+                $scope.headerCompiled = true;
+                $compile(angular.element(header).contents())($scope);
+            }
+        })
         .withPaginationType('full_numbers');
     vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).withTitle('').notSortable()
+        DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
             .renderWith(function(data, type, full, meta) {
-                return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']"/>';
+                vm.selected[full.id] = false;
+                return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)"/>';
             }),
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
 
-    DTInstances.getLast().then(function (dtInstance) {
-        dtInstance.DataTable.data().each(function(data) {
-            vm.selected[data.id] = false;
-        });
-    });
-
-    var _toggle = true;
-    function toggleAll() {
-        for (var prop in vm.selected) {
-           if (vm.selected.hasOwnProperty(prop)) {
-               vm.selected[prop] = _toggle;
-           }
+    function toggleAll (selectAll, selectedItems) {
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                selectedItems[id] = selectAll;
+            }
         }
-        _toggle = !_toggle;
+    }
+    function toggleOne (selectedItems) {
+        var me = this;
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                if(!selectedItems[id]) {
+                    me.selectAll = false;
+                    return;
+                }
+            }
+        }
+        me.selectAll = true;
     }
 }
 </div>

@@ -21,14 +21,14 @@
                 <article class="preview">
                     <div ng-controller="DataReloadWithAjaxCtrl as showCase">
                         <p>
-                            <button ng-click="showCase.dtInstance.reloadData()" type="button" class="btn btn-info">
+                            <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
                                 <i class="fa fa-refresh"></i>&nbsp;Reload data
                             </button>
                             <button ng-click="showCase.dtInstance.changeData(showCase.newSource)" type="button" class="btn btn-info">
                                 <i class="fa fa-exchange"></i>&nbsp;Change data
                             </button>
                         </p>
-                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
@@ -36,14 +36,14 @@
 <div hljs language="html">
 <div ng-controller="DataReloadWithAjaxCtrl as showCase">
     <p>
-        <button ng-click="showCase.dtInstance.reloadData()" type="button" class="btn btn-info">
+        <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
             <i class="fa fa-refresh"></i>&nbsp;Reload data
         </button>
         <button ng-click="showCase.dtInstance.changeData(showCase.newSource)" type="button" class="btn btn-info">
             <i class="fa fa-exchange"></i>&nbsp;Change data
         </button>
     </p>
-    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
 </div>
 </div>
             </tab>
@@ -52,19 +52,28 @@
 angular.module('showcase.dataReload.withAjax', ['datatables'])
 .controller('DataReloadWithAjaxCtrl', DataReloadWithAjaxCtrl);
 
-function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+function DataReloadWithAjaxCtrl(DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
-    vm.dtOptions = DTOptionsBuilder.fromSource('data.json').withPaginationType('full_numbers');
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withOption('stateSave', true)
+        .withPaginationType('full_numbers');
     vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),
         DTColumnBuilder.newColumn('firstName').withTitle('First name'),
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
     vm.newSource = 'data1.json';
+    vm.reloadData = reloadData;
+    vm.dtInstance = {};
 
-    DTInstances.getLast().then(function(dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
+    function reloadData() {
+        var resetPaging = false;
+        vm.dtInstance.reloadData(callback, resetPaging);
+    }
+
+    function callback(json) {
+        console.log(json);
+    }
 }
 </div>
             </tab>

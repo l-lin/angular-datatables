@@ -29,6 +29,7 @@ angular.module('showcase', [
     'showcase.withTableTools',
     'showcase.withFixedColumns',
     'showcase.withFixedHeader',
+    'showcase.dtInstances',
 
     'showcase.usages',
     'ui.bootstrap',

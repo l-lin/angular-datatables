@@ -24,6 +24,9 @@ angular.module('showcase.usages', ['ngResource'])
         label: 'Custom HTML loading'
     }],
     advanced: [{
+        name: 'dtInstances',
+        label: 'Fetching DataTable instances'
+    }, {
         name: 'dataReloadWithAjax',
         label: 'Data reload with Ajax'
     }, {

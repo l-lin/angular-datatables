@@ -36,6 +36,12 @@
                 <li>
                     By default, <code>angular-datatables</code> set the <a href="http://datatables.net/reference/option/ajax.dataSrc"><code>AjaxDataProp</code></a> to <code>''</code>. So you need to provide the <code>AjaxDataProp</code> with either <code>.withDataProp('data')</code> or specifying the option <code>dataSrc</code> in the <code>ajax</code> option.
                 </li>
+                <li>
+                    If your server takes a while to process the data, I advise you set the attribute
+                    <a href="https://datatables.net/reference/option/processing"><code>processing</code></a> to <code>true</code>.
+                    This will display a message that warn the user that the table is processing instead of having a
+                    "freezing-like" table.
+                </li>
             </ul>
         </div>
         <p class="text-warning">
@@ -74,6 +80,7 @@ function ServerSideProcessingCtrl(DTOptionsBuilder, DTColumnBuilder) {
      })
      // or here
      .withDataProp('data')
+        .withOption('processing', true)
         .withOption('serverSide', true)
         .withPaginationType('full_numbers');
     vm.dtColumns = [

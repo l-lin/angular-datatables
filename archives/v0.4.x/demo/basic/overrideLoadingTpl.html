@@ -4,6 +4,21 @@
     </header>
     <section class="article-content">
         <p>
+            There are two loading with angular-datatables:
+        </p>
+        <ul>
+            <li>
+                One comes from this module. It is displayed before the table is rendered. This loading has been added because
+                angular-datables offers the possibility to fetch the data and options with promises. So before rendering the
+                table, the promises need to be resoved, thus adding a loading message to let users know that something is
+                processing.
+            </li>
+            <li>
+                The other comes from DataTables. The message <code>Loading</code> is displayed inside the Table while fetching
+                the data from the server.
+            </li>
+        </ul>
+        <p>
             When loading data, the angular module will display by default <code>&lt;h3 class="dt-loading"&gt;Loading...&lt;/h3&gt;</code>.
         </p>
         <p>

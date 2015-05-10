@@ -2,11 +2,12 @@
 angular.module('showcase.bindAngularDirective', ['datatables'])
 .controller('BindAngularDirectiveCtrl', BindAngularDirectiveCtrl);
 
-function BindAngularDirectiveCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder, DTInstances) {
+function BindAngularDirectiveCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
     vm.message = '';
     vm.edit = edit;
     vm.delete = deleteRow;
+    vm.dtInstance = {};
     vm.dtOptions = DTOptionsBuilder.fromSource('data1.json')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow);
@@ -17,10 +18,6 @@ function BindAngularDirectiveCtrl($scope, $compile, DTOptionsBuilder, DTColumnBu
         DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
             .renderWith(actionsHtml)
     ];
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
 
     function edit(id) {
         vm.message = 'You are trying to edit the row with ID: ' + id;

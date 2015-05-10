@@ -26,14 +26,14 @@
                 <article class="preview">
                     <div ng-controller="DataReloadWithPromiseCtrl as showCase">
                         <p>
-                            <button ng-click="showCase.dtInstance.reloadData()" type="button" class="btn btn-info">
+                            <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
                                 <i class="fa fa-refresh"></i>&nbsp;Reload data
                             </button>
                             <button ng-click="showCase.dtInstance.changeData(showCase.newPromise)" type="button" class="btn btn-info">
                                 <i class="fa fa-exchange"></i>&nbsp;Change data
                             </button>
                         </p>
-                        <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+                        <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
                     </div>
                 </article>
             </tab>
@@ -41,14 +41,14 @@
 <div hljs language="html">
 <div ng-controller="DataReloadWithPromiseCtrl as showCase">
     <p>
-        <button ng-click="showCase.dtInstance.reloadData()" type="button" class="btn btn-info">
+        <button ng-click="showCase.reloadData()" type="button" class="btn btn-info">
             <i class="fa fa-refresh"></i>&nbsp;Reload data
         </button>
         <button ng-click="showCase.dtInstance.changeData(showCase.newPromise)" type="button" class="btn btn-info">
             <i class="fa fa-exchange"></i>&nbsp;Change data
         </button>
     </p>
-    <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+    <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
 </div>
 </div>
             </tab>
@@ -57,7 +57,7 @@
 angular.module('showcase.dataReload.withPromise', ['datatables', 'ngResource'])
 .controller('DataReloadWithPromiseCtrl', DataReloadWithPromiseCtrl);
 
-function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource, DTInstances) {
+function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource) {
     var vm = this;
     vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
         return $resource('data.json').query().$promise;
@@ -68,13 +68,20 @@ function DataReloadWithPromiseCtrl(DTOptionsBuilder, DTColumnBuilder, $resource,
         DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
     ];
     vm.newPromise = newPromise;
-
-    DTInstances.getLast().then(function (dtInstance) {
-        vm.dtInstance = dtInstance;
-    });
+    vm.reloadData = reloadData;
+    vm.dtInstance = {};
 
     function newPromise() {
         return $resource('data1.json').query().$promise;
+    }
+
+    function reloadData() {
+        var resetPaging = true;
+        vm.dtInstance.reloadData(callback, resetPaging);
+    }
+
+    function callback(json) {
+        console.log(json);
     }
 }
 </div>

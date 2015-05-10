@@ -1,6 +1,11 @@
 [
     {
         "major": "0",
+        "minor": "4",
+        "dot": "x",
+        "full": "v0.4.x"
+    },{
+        "major": "0",
         "minor": "3",
         "dot": "x",
         "full": "v0.3.x"

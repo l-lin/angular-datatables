@@ -7,7 +7,7 @@ function WithTableToolsCtrl(DTOptionsBuilder, DTColumnBuilder) {
     vm.dtOptions = DTOptionsBuilder
         .fromSource('data.json')
         // Add Table tools compatibility
-        .withTableTools('../../vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
+        .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
         .withTableToolsButtons([
             'copy',
             'print', {

@@ -4,10 +4,10 @@
     </header>
     <section class="article-content">
         <p>
-            The <code>angular-datatables</code> also provides an API in order to make the plugin <code>ColumnFilter</code> works with datatables.
+            The <code>angular-datatables</code> also provides an API in order to make the plugin <code>ColumnFilter</code> work with datatables.
         </p>
         <p>
-            You need to add the files <code>angular-datatables.columnfilter.min.js</code> to your HTML file.
+            You need to add the file <code>angular-datatables.columnfilter.min.js</code> to your HTML file.
         </p>
         <p>
             You also need to add the dependency <code>datatables.columnfilter</code> to your Angular app.
@@ -69,6 +69,7 @@ function WithColumnFilterCtrl(DTOptionsBuilder, DTColumnBuilder) {
                 bSmart: true
             }, {
                 type: 'select',
+                bRegex: false,
                 values: ['Yoda', 'Titi', 'Kyle', 'Bar', 'Whateveryournameis']
             }]
         });
