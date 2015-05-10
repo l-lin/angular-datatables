@@ -120,7 +120,7 @@ function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUt
         function _setDTInstance(dtInstance) {
             if (angular.isFunction($scope.dtInstance)) {
                 $scope.dtInstance(dtInstance);
-            } else {
+            } else if (angular.isDefined($scope.dtInstance)) {
                 $scope.dtInstance = dtInstance;
             }
         }
