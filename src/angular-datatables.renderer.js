@@ -347,7 +347,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
 
         function _redrawRows() {
             _oTable.clear();
-            _oTable.rows.add(options.aaData).draw();
+            _oTable.rows.add(options.aaData).draw(options.redraw);
             return {
                 id: dtInstance.id,
                 DataTable: dtInstance.DataTable,
