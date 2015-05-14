@@ -85,12 +85,11 @@ function initAngularDataTables($log) {
                 // -------------------------------------------------------------------------
                 if (!remove && orig) {
                     // insertBefore acts like appendChild if !arg[1]
-                    try {
-                        orig.insertBefore(table, settings.nTableReinsertBefore);
-                    } catch (ex) {
-                        $log.warn(ex);
-                        orig.appendChild(table);
-                    }
+                    if(orig.contains(settings.nTableReinsertBefore)){
+						orig.insertBefore(table, settings.nTableReinsertBefore);
+					} else {
+						orig.appendChild(table);
+					}
                 }
                 // Add the TR elements back into the table in their original order
                 // jqTbody.children().detach();
