@@ -85,10 +85,9 @@ function initAngularDataTables($log) {
                 // -------------------------------------------------------------------------
                 if (!remove && orig) {
                     // insertBefore acts like appendChild if !arg[1]
-                    try {
+                    if (orig.contains(settings.nTableReinsertBefore)) {
                         orig.insertBefore(table, settings.nTableReinsertBefore);
-                    } catch (ex) {
-                        $log.warn(ex);
+                    } else {
                         orig.appendChild(table);
                     }
                 }
