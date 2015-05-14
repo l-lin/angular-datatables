@@ -4,7 +4,7 @@ angular.module('datatables', ['datatables.directive', 'datatables.factory'])
     .run(initAngularDataTables);
 
 /* @ngInject */
-function initAngularDataTables($log) {
+function initAngularDataTables() {
     if ($.fn.DataTable.Api) {
         /**
          * Register an API to destroy a DataTable without detaching the tbody so that we can add new data

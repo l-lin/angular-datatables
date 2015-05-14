@@ -545,7 +545,7 @@ angular.module('datatables', ['datatables.directive', 'datatables.factory'])
     .run(initAngularDataTables);
 
 /* @ngInject */
-function initAngularDataTables($log) {
+function initAngularDataTables() {
     if ($.fn.DataTable.Api) {
         /**
          * Register an API to destroy a DataTable without detaching the tbody so that we can add new data
@@ -626,10 +626,9 @@ function initAngularDataTables($log) {
                 // -------------------------------------------------------------------------
                 if (!remove && orig) {
                     // insertBefore acts like appendChild if !arg[1]
-                    try {
+                    if (orig.contains(settings.nTableReinsertBefore)) {
                         orig.insertBefore(table, settings.nTableReinsertBefore);
-                    } catch (ex) {
-                        $log.warn(ex);
+                    } else {
                         orig.appendChild(table);
                     }
                 }
@@ -664,7 +663,6 @@ function initAngularDataTables($log) {
         });
     }
 }
-initAngularDataTables.$inject = ['$log'];
 
 'use strict';
 angular.module('datatables.options', [])
