@@ -454,7 +454,7 @@ function dtInstances($q, failzQ, $timeout, $log) {
     }
 
     function getLast() {
-        $log.warn('"DTInstances.getLast()" and "DTInstances.getList()" are deprecated! Use the "dt-instance" to provide the datatables instance. See https://l-lin.github.com/angular-datatables/#/manipulatingDTInstances for more information.');
+        $log.warn('"DTInstances.getLast()" and "DTInstances.getList()" are deprecated! Use the "dt-instance" to provide the datatables instance. See https://l-lin.github.com/angular-datatables/#/dtInstances for more information.');
         var defer = $q.defer();
         if (!_lastDTInstance) {
             _deferLastDTInstances = $q.defer();
@@ -473,7 +473,7 @@ function dtInstances($q, failzQ, $timeout, $log) {
     }
 
     function getList() {
-        $log.warn('"DTInstances.getLast()" and "DTInstances.getList()" are deprecated! Use the "dt-instance" to provide the datatables instance. See https://l-lin.github.com/angular-datatables/#/manipulatingDTInstances for more information.');
+        $log.warn('"DTInstances.getLast()" and "DTInstances.getList()" are deprecated! Use the "dt-instance" to provide the datatables instance. See https://l-lin.github.com/angular-datatables/#/dtInstances for more information.');
         var defer = $q.defer();
         if (!_dtInstances) {
             _deferDTInstances = $q.defer();
