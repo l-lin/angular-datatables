@@ -153,6 +153,7 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
         var _oTable;
         var _$elem;
         var _parentScope;
+        var _newParentScope;
         var dtInstance;
         var renderer = Object.create(DTRenderer);
         renderer.name = 'DTNGRenderer';
@@ -215,10 +216,14 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
         }
 
         function _destroyAndCompile() {
+            if (_newParentScope) {
+                _newParentScope.$destroy();
+            }
             _oTable.ngDestroy();
             // Re-compile because we lost the angular binding to the existing data
             _$elem.html(_staticHTML);
-            $compile(_$elem.contents())(_parentScope);
+            _newParentScope = _parentScope.$new();
+            $compile(_$elem.contents())(_newParentScope);
         }
     }
 }
