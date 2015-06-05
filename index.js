@@ -1,0 +1,11 @@
+require('./dist/angular-datatables');
+require('./dist/plugins/bootstrap/angular-datatables.bootstrap');
+require('./dist/plugins/bootstrap/datatables.bootstrap.css');
+require('./dist/plugins/colreorder/angular-datatables.colreorder');
+require('./dist/plugins/columnfilter/angular-datatables.columnfilter');
+require('./dist/plugins/colvis/angular-datatables.colvis');
+require('./dist/plugins/fixedcolumns/angular-datatables.fixedcolumns');
+require('./dist/plugins/fixedheader/angular-datatables.fixedheader');
+require('./dist/plugins/scroller/angular-datatables.scroller');
+require('./dist/plugins/tabletools/angular-datatables.tabletools');
+module.exports = 'datatables';
