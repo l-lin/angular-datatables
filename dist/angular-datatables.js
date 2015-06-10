@@ -380,7 +380,7 @@ function dtColumnBuilder() {
             }
             var column = Object.create(DTColumn);
             column.mData = mData;
-            column.sTitle = sTitle ||  '';
+            column.sTitle = sTitle || '';
             return column;
         },
         DTColumn: DTColumn
