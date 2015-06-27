@@ -47,10 +47,10 @@ dtBootstrapColVis.$inject = ['DTPropertyUtil', 'DTBootstrapDefaultOptions'];
 
 // See http://getbootstrap.com
 angular.module('datatables.bootstrap', [
-        'datatables.bootstrap.options',
-        'datatables.bootstrap.tabletools',
-        'datatables.bootstrap.colvis'
-    ])
+    'datatables.bootstrap.options',
+    'datatables.bootstrap.tabletools',
+    'datatables.bootstrap.colvis'
+])
     .config(dtBootstrapConfig)
     .run(initBootstrapPlugin)
     .service('DTBootstrap', dtBootstrap);
@@ -283,14 +283,14 @@ function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaul
                                 if (btnDisplay) {
                                     $paginationBtn.appendTo($paginationContainer);
                                     node = $('<a>', {
-                                            'href': '#',
-                                            'class': btnClass,
-                                            'aria-controls': settings.sTableId,
-                                            'data-dt-idx': counter,
-                                            'tabindex': settings.iTabIndex,
-                                            'id': idx === 0 && typeof button === 'string' ?
-                                                settings.sTableId + '_' + button : null
-                                        })
+                                        'href': '#',
+                                        'class': btnClass,
+                                        'aria-controls': settings.sTableId,
+                                        'data-dt-idx': counter,
+                                        'tabindex': settings.iTabIndex,
+                                        'id': idx === 0 && typeof button === 'string' ?
+                                            settings.sTableId + '_' + button : null
+                                    })
                                         .html(btnDisplay)
                                         .appendTo($paginationBtn);
 
@@ -354,15 +354,15 @@ function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaul
     }
 
     function _setDom(options) {
-            if (!options.dom || options.dom === DT_DEFAULT_OPTIONS.dom) {
-                return DTBootstrapDefaultOptions.getOptions().dom;
-            }
-            return options.dom;
+        if (!options.dom || options.dom === DT_DEFAULT_OPTIONS.dom) {
+            return DTBootstrapDefaultOptions.getOptions().dom;
         }
-        /**
-         * Integrate Bootstrap
-         * @param options the datatables options
-         */
+        return options.dom;
+    }
+    /**
+     * Integrate Bootstrap
+     * @param options the datatables options
+     */
     function integrate(options) {
         _init(options.bootstrap);
         DTBootstrapTableTools.integrate(options.bootstrap);

@@ -95,7 +95,7 @@ function dtRenderer() {
 }
 
 /* @ngInject */
-function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory, DTInstances) {
+function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory) {
     return {
         create: create
     };
@@ -116,7 +116,8 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory,
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             var result = DTRendererService.hideLoadingAndRenderDataTable($elem, renderer.options);
             _oTable = result.DataTable;
-            return $q.when(DTInstances.register(dtInstance, result));
+            DTInstanceFactory.copyDTProperties(result, dtInstance);
+            return $q.when(dtInstance);
         }
 
         function reloadData() {
@@ -137,7 +138,7 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory,
 }
 
 /* @ngInject */
-function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererService, DTInstances, DTInstanceFactory) {
+function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererService, DTInstanceFactory) {
     /**
      * Renderer for displaying the Angular way
      * @param options
@@ -191,7 +192,8 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
                     _alreadyRendered = true;
                     var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
                     _oTable = result.DataTable;
-                    defer.resolve(DTInstances.register(dtInstance, result));
+                    DTInstanceFactory.copyDTProperties(result, dtInstance);
+                    defer.resolve(dtInstance);
                 }, 0, false);
             }, true);
             return defer.promise;
@@ -211,7 +213,7 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
             $timeout(function() {
                 var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
                 _oTable = result.DataTable;
-                dtInstance = DTInstances.register(dtInstance, result);
+                DTInstanceFactory.copyDTProperties(result, dtInstance);
             }, 0, false);
         }
 
@@ -229,7 +231,7 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
 }
 
 /* @ngInject */
-function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DTInstances, DTInstanceFactory) {
+function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DTInstanceFactory) {
     /**
      * Renderer for displaying with a promise
      * @param options the options
@@ -261,7 +263,8 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
             _$elem = $elem;
             _resolve(renderer.options.fnPromise, DTRendererService.renderDataTable).then(function(result) {
                 _oTable = result.DataTable;
-                defer.resolve(DTInstances.register(dtInstance, result));
+                DTInstanceFactory.copyDTProperties(result, dtInstance);
+                defer.resolve(dtInstance);
             });
             return defer.promise;
         }
@@ -363,7 +366,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
 }
 
 /* @ngInject */
-function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTIONS, DTInstances, DTInstanceFactory) {
+function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTIONS, DTInstanceFactory) {
     /**
      * Renderer for displaying with Ajax
      * @param options the options
@@ -399,7 +402,8 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
             }
             _doRender(renderer.options, $elem).then(function(result) {
                 _oTable = result.DataTable;
-                defer.resolve(DTInstances.register(dtInstance, result));
+                DTInstanceFactory.copyDTProperties(result, dtInstance);
+                defer.resolve(dtInstance);
             });
             return defer.promise;
         }
@@ -425,21 +429,21 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         }
 
         function _doRender(options, $elem) {
-                var defer = $q.defer();
-                // Set it to true in order to be able to redraw the dataTable
-                options.bDestroy = true;
-                DTRendererService.hideLoading($elem);
-                // Condition to refresh the dataTable
-                if (_shouldDeferRender(options)) {
-                    $timeout(function() {
-                        defer.resolve(DTRendererService.renderDataTable($elem, options));
-                    }, 0, false);
-                } else {
+            var defer = $q.defer();
+            // Set it to true in order to be able to redraw the dataTable
+            options.bDestroy = true;
+            DTRendererService.hideLoading($elem);
+            // Condition to refresh the dataTable
+            if (_shouldDeferRender(options)) {
+                $timeout(function() {
                     defer.resolve(DTRendererService.renderDataTable($elem, options));
-                }
-                return defer.promise;
+                }, 0, false);
+            } else {
+                defer.resolve(DTRendererService.renderDataTable($elem, options));
             }
-            // See https://github.com/l-lin/angular-datatables/issues/147
+            return defer.promise;
+        }
+        // See https://github.com/l-lin/angular-datatables/issues/147
         function _shouldDeferRender(options) {
             if (angular.isDefined(options) && angular.isDefined(options.dom)) {
                 // S for scroller plugin

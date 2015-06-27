@@ -4,7 +4,7 @@ describe('datatables.renderer', function () {
     beforeEach(module('datatables.renderer'));
 
     describe('DTRendererService', function () {
-        var DTRendererService, $loading, $elem, $scope, DTInstances;
+        var DTRendererService, $loading, $elem, $scope;
 
         beforeEach(inject(function ($injector, $rootScope) {
             DTRendererService = $injector.get('DTRendererService');
@@ -22,7 +22,6 @@ describe('datatables.renderer', function () {
                     '</table>'
             );
             $scope = $rootScope.$new();
-            DTInstances = $injector.get('DTInstances');
         }));
 
         describe(', when showing the loading,', function () {
@@ -56,7 +55,6 @@ describe('datatables.renderer', function () {
             beforeEach(function () {
                 options = {};
                 spyOn($.fn, 'attr').andCallThrough();
-                spyOn(DTInstances, 'register');
                 result = DTRendererService.renderDataTable($elem, options, {});
             });
             it('should retrieve the id of the element', function () {

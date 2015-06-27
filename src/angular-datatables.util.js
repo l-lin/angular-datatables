@@ -1,9 +1,7 @@
 'use strict';
 
 angular.module('datatables.util', [])
-    .factory('DTPropertyUtil', dtPropertyUtil)
-    // TODO: Remove this service when the DTInstances service is removed!
-    .service('failzQ', failzQ);
+    .factory('DTPropertyUtil', dtPropertyUtil);
 
 /* @ngInject */
 function dtPropertyUtil($q) {
@@ -118,27 +116,4 @@ function dtPropertyUtil($q) {
         }
         return defer.promise;
     }
-}
-
-/* @ngInject */
-function failzQ($q, $timeout) {
-    var DEFAULT_TIME = 1000;
-    /**
-     * failzQ wrap a promise and reject the promise if not resolved with a given time
-     */
-    return function(promise, time) {
-        var defer = $q.defer();
-        var t = time || DEFAULT_TIME;
-
-        $timeout(function() {
-            defer.reject('Not resolved within ' + t);
-        }, t);
-
-        $q.when(promise).then(function(result) {
-            defer.resolve(result);
-        }, function(failure) {
-            defer.reject(failure);
-        });
-        return defer.promise;
-    };
 }

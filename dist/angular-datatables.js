@@ -415,97 +415,7 @@ function dtLoadingTemplate() {
 'use strict';
 
 angular.module('datatables.instances', ['datatables.util'])
-    .factory('DTInstances', dtInstances)
     .factory('DTInstanceFactory', dtInstanceFactory);
-
-/* @ngInject */
-function dtInstances($q, failzQ, $timeout, $log) {
-    var TIME_BEFORE_CLEANING = 1000;
-    var _instances = {};
-    var _lastInstance = {};
-    // Promise for fetching the last DT instance
-    var _deferLastDTInstances = null;
-    var _lastDTInstance = null;
-    // Promise for fetching the list of DT instances
-    var _deferDTInstances = null;
-    var _dtInstances = null;
-    return {
-        register: register,
-        getLast: getLast,
-        getList: getList
-    };
-
-    function register(dtInstance, result) {
-        dtInstance.id = result.id;
-        dtInstance.DataTable = result.DataTable;
-        dtInstance.dataTable = result.dataTable;
-
-        //_instances[dtInstance.id] = dtInstance;
-        _instances[dtInstance.id] = dtInstance;
-        _cleanInstances();
-        _lastInstance = dtInstance;
-        if (_deferLastDTInstances) {
-            _deferLastDTInstances.resolve(_lastInstance);
-        }
-        if (_deferDTInstances) {
-            _deferDTInstances.resolve(_instances);
-        }
-        return dtInstance;
-    }
-
-    function getLast() {
-        $log.warn('"DTInstances.getLast()" and "DTInstances.getList()" are deprecated! Use the "dt-instance" to provide the datatables instance. See https://l-lin.github.com/angular-datatables/#/dtInstances for more information.');
-        var defer = $q.defer();
-        if (!_lastDTInstance) {
-            _deferLastDTInstances = $q.defer();
-            _lastDTInstance = _deferLastDTInstances.promise;
-        }
-        failzQ(_lastDTInstance).then(function(dtInstance) {
-            defer.resolve(dtInstance);
-            // Reset the promise
-            _deferLastDTInstances = null;
-            _lastDTInstance = null;
-        }, function() {
-            // In case we are trying to fetch the last instance again
-            defer.resolve(_lastInstance);
-        });
-        return defer.promise;
-    }
-
-    function getList() {
-        $log.warn('"DTInstances.getLast()" and "DTInstances.getList()" are deprecated! Use the "dt-instance" to provide the datatables instance. See https://l-lin.github.com/angular-datatables/#/dtInstances for more information.');
-        var defer = $q.defer();
-        if (!_dtInstances) {
-            _deferDTInstances = $q.defer();
-            _dtInstances = _deferDTInstances.promise;
-        }
-        failzQ(_dtInstances).then(function(instances) {
-            defer.resolve(instances);
-            // Reset the promise
-            _deferDTInstances = null;
-            _dtInstances = null;
-        }, function() {
-            // In case we are trying to fetch the instances again
-            defer.resolve(_instances);
-        });
-        return defer.promise;
-    }
-
-    function _cleanInstances() {
-        $timeout(function() {
-            var newInstances = {};
-            for (var attr in _instances) {
-                if (_instances.hasOwnProperty(attr)) {
-                    if ($.fn.DataTable.isDataTable(_instances[attr].id)) {
-                        newInstances[attr] = _instances[attr];
-                    }
-                }
-            }
-            _instances = newInstances;
-        }, TIME_BEFORE_CLEANING);
-    }
-}
-dtInstances.$inject = ['$q', 'failzQ', '$timeout', '$log'];
 
 function dtInstanceFactory() {
     var DTInstance = {
@@ -514,13 +424,20 @@ function dtInstanceFactory() {
         rerender: rerender
     };
     return {
-        newDTInstance: newDTInstance
+        newDTInstance: newDTInstance,
+        copyDTProperties: copyDTProperties
     };
 
     function newDTInstance(renderer) {
         var dtInstance = Object.create(DTInstance);
         dtInstance._renderer = renderer;
         return dtInstance;
+    }
+
+    function copyDTProperties(result, dtInstance) {
+        dtInstance.id = result.id;
+        dtInstance.DataTable = result.DataTable;
+        dtInstance.dataTable = result.dataTable;
     }
 
     function reloadData(callback, resetPaging) {
@@ -836,7 +753,7 @@ function dtRenderer() {
 }
 
 /* @ngInject */
-function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory, DTInstances) {
+function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory) {
     return {
         create: create
     };
@@ -857,7 +774,8 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory,
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             var result = DTRendererService.hideLoadingAndRenderDataTable($elem, renderer.options);
             _oTable = result.DataTable;
-            return $q.when(DTInstances.register(dtInstance, result));
+            DTInstanceFactory.copyDTProperties(result, dtInstance);
+            return $q.when(dtInstance);
         }
 
         function reloadData() {
@@ -876,10 +794,10 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory,
         return renderer;
     }
 }
-dtDefaultRenderer.$inject = ['$q', 'DTRenderer', 'DTRendererService', 'DTInstanceFactory', 'DTInstances'];
+dtDefaultRenderer.$inject = ['$q', 'DTRenderer', 'DTRendererService', 'DTInstanceFactory'];
 
 /* @ngInject */
-function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererService, DTInstances, DTInstanceFactory) {
+function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererService, DTInstanceFactory) {
     /**
      * Renderer for displaying the Angular way
      * @param options
@@ -933,7 +851,8 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
                     _alreadyRendered = true;
                     var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
                     _oTable = result.DataTable;
-                    defer.resolve(DTInstances.register(dtInstance, result));
+                    DTInstanceFactory.copyDTProperties(result, dtInstance);
+                    defer.resolve(dtInstance);
                 }, 0, false);
             }, true);
             return defer.promise;
@@ -953,7 +872,7 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
             $timeout(function() {
                 var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
                 _oTable = result.DataTable;
-                dtInstance = DTInstances.register(dtInstance, result);
+                DTInstanceFactory.copyDTProperties(result, dtInstance);
             }, 0, false);
         }
 
@@ -969,10 +888,10 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
         }
     }
 }
-dtNGRenderer.$inject = ['$log', '$q', '$compile', '$timeout', 'DTRenderer', 'DTRendererService', 'DTInstances', 'DTInstanceFactory'];
+dtNGRenderer.$inject = ['$log', '$q', '$compile', '$timeout', 'DTRenderer', 'DTRendererService', 'DTInstanceFactory'];
 
 /* @ngInject */
-function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DTInstances, DTInstanceFactory) {
+function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DTInstanceFactory) {
     /**
      * Renderer for displaying with a promise
      * @param options the options
@@ -1004,7 +923,8 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
             _$elem = $elem;
             _resolve(renderer.options.fnPromise, DTRendererService.renderDataTable).then(function(result) {
                 _oTable = result.DataTable;
-                defer.resolve(DTInstances.register(dtInstance, result));
+                DTInstanceFactory.copyDTProperties(result, dtInstance);
+                defer.resolve(dtInstance);
             });
             return defer.promise;
         }
@@ -1104,10 +1024,10 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         }
     }
 }
-dtPromiseRenderer.$inject = ['$q', '$timeout', '$log', 'DTRenderer', 'DTRendererService', 'DTInstances', 'DTInstanceFactory'];
+dtPromiseRenderer.$inject = ['$q', '$timeout', '$log', 'DTRenderer', 'DTRendererService', 'DTInstanceFactory'];
 
 /* @ngInject */
-function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTIONS, DTInstances, DTInstanceFactory) {
+function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_OPTIONS, DTInstanceFactory) {
     /**
      * Renderer for displaying with Ajax
      * @param options the options
@@ -1143,7 +1063,8 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
             }
             _doRender(renderer.options, $elem).then(function(result) {
                 _oTable = result.DataTable;
-                defer.resolve(DTInstances.register(dtInstance, result));
+                DTInstanceFactory.copyDTProperties(result, dtInstance);
+                defer.resolve(dtInstance);
             });
             return defer.promise;
         }
@@ -1169,21 +1090,21 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         }
 
         function _doRender(options, $elem) {
-                var defer = $q.defer();
-                // Set it to true in order to be able to redraw the dataTable
-                options.bDestroy = true;
-                DTRendererService.hideLoading($elem);
-                // Condition to refresh the dataTable
-                if (_shouldDeferRender(options)) {
-                    $timeout(function() {
-                        defer.resolve(DTRendererService.renderDataTable($elem, options));
-                    }, 0, false);
-                } else {
+            var defer = $q.defer();
+            // Set it to true in order to be able to redraw the dataTable
+            options.bDestroy = true;
+            DTRendererService.hideLoading($elem);
+            // Condition to refresh the dataTable
+            if (_shouldDeferRender(options)) {
+                $timeout(function() {
                     defer.resolve(DTRendererService.renderDataTable($elem, options));
-                }
-                return defer.promise;
+                }, 0, false);
+            } else {
+                defer.resolve(DTRendererService.renderDataTable($elem, options));
             }
-            // See https://github.com/l-lin/angular-datatables/issues/147
+            return defer.promise;
+        }
+        // See https://github.com/l-lin/angular-datatables/issues/147
         function _shouldDeferRender(options) {
             if (angular.isDefined(options) && angular.isDefined(options.dom)) {
                 // S for scroller plugin
@@ -1193,7 +1114,7 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         }
     }
 }
-dtAjaxRenderer.$inject = ['$q', '$timeout', 'DTRenderer', 'DTRendererService', 'DT_DEFAULT_OPTIONS', 'DTInstances', 'DTInstanceFactory'];
+dtAjaxRenderer.$inject = ['$q', '$timeout', 'DTRenderer', 'DTRendererService', 'DT_DEFAULT_OPTIONS', 'DTInstanceFactory'];
 
 /* @ngInject */
 function dtRendererFactory(DTDefaultRenderer, DTNGRenderer, DTPromiseRenderer, DTAjaxRenderer) {
@@ -1223,9 +1144,7 @@ dtRendererFactory.$inject = ['DTDefaultRenderer', 'DTNGRenderer', 'DTPromiseRend
 'use strict';
 
 angular.module('datatables.util', [])
-    .factory('DTPropertyUtil', dtPropertyUtil)
-    // TODO: Remove this service when the DTInstances service is removed!
-    .service('failzQ', failzQ);
+    .factory('DTPropertyUtil', dtPropertyUtil);
 
 /* @ngInject */
 function dtPropertyUtil($q) {
@@ -1342,30 +1261,6 @@ function dtPropertyUtil($q) {
     }
 }
 dtPropertyUtil.$inject = ['$q'];
-
-/* @ngInject */
-function failzQ($q, $timeout) {
-    var DEFAULT_TIME = 1000;
-    /**
-     * failzQ wrap a promise and reject the promise if not resolved with a given time
-     */
-    return function(promise, time) {
-        var defer = $q.defer();
-        var t = time || DEFAULT_TIME;
-
-        $timeout(function() {
-            defer.reject('Not resolved within ' + t);
-        }, t);
-
-        $q.when(promise).then(function(result) {
-            defer.resolve(result);
-        }, function(failure) {
-            defer.reject(failure);
-        });
-        return defer.promise;
-    };
-}
-failzQ.$inject = ['$q', '$timeout'];
 
 
 })(window, document, jQuery, angular);
