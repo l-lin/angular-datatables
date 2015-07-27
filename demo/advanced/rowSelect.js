@@ -20,9 +20,9 @@ function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilde
             $compile(angular.element(row).contents())($scope);
         })
         .withOption('headerCallback', function(header) {
-            if (!$scope.headerCompiled) {
+            if (!vm.headerCompiled) {
                 // Use this headerCompiled field to only compile header once
-                $scope.headerCompiled = true;
+                vm.headerCompiled = true;
                 $compile(angular.element(header).contents())($scope);
             }
         })
