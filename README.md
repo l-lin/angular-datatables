@@ -1,4 +1,4 @@
-angular-datatables [![Build Status](https://travis-ci.org/l-lin/angular-datatables.png?branch=master)](https://travis-ci.org/l-lin/angular-datatables) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Stories in Ready](https://badge.waffle.io/l-lin/angular-datatables.png?label=ready&title=Ready)](http://waffle.io/l-lin/angular-datatables)
+angular-datatables [![Build Status](https://travis-ci.org/l-lin/angular-datatables.png?branch=master)](https://travis-ci.org/l-lin/angular-datatables) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Stories in Ready](https://badge.waffle.io/l-lin/angular-datatables.png?label=TODO&title=TODO)](http://waffle.io/l-lin/angular-datatables)
 ================
 > Angular module that provides a `datatable` directive along with datatable options helpers.
 
