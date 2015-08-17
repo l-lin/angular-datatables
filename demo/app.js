@@ -98,6 +98,11 @@ function translateConfig($translateProvider) {
         firstName: 'First name with angular-translate',
         lastName: 'Last name with angular-translate'
     });
+    $translateProvider.translations('fr', {
+        id: 'ID avec angular-translate',
+        firstName: 'Prénom avec angular-translate',
+        lastName: 'Nom avec angular-translate'
+    });
     $translateProvider.preferredLanguage('en');
 }
 

@@ -88,6 +88,9 @@ angular.module('showcase.usages', ['ngResource'])
         name: 'withAngularTranslate',
         label: 'With Angular Translate'
     }, {
+        name: 'withAngularTranslateSwitchLanguage',
+        label: 'Switch language with Angular Translate'
+    }, {
         name: 'withFixedColumns',
         label: 'With Fixed Columns'
     }, {

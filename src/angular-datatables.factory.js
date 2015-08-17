@@ -241,7 +241,9 @@ function dtColumnBuilder() {
             }
             var column = Object.create(DTColumn);
             column.mData = mData;
-            column.sTitle = sTitle ||  '';
+            if (angular.isString(sTitle)) {
+                column.sTitle = sTitle;
+            }
             return column;
         },
         DTColumn: DTColumn
