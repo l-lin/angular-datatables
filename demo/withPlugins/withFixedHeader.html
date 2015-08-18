@@ -16,13 +16,21 @@
             <p>
                 <i class="fa fa-warning"></i>&nbsp;Beware when using routers. It seems that the header and footer stay
                 in your DOM even when you change your application state. So you will need to tweak your code to remove them
-                when exiting the state.
-            </p>
-            <p>
-                For example, if you are using <a href="https://github.com/angular-ui/ui-router">Angular ui-router</a>, you can
-                add an <code>onExit</code> callback like this:
+                when exiting the state. Here some examples:
             </p>
             <br />
+            <p>
+                <button class="btn btn-danger" ng-click="showNgRouterExample = !showNgRouterExample;showOtherRouterExample=false">
+                    If you are using Angular ui-router
+                </button>
+                <button class="btn btn-danger" ng-click="showOtherRouterExample = !showOtherRouterExample;showNgRouterExample=false">Other routers</button>
+            </p>
+            <br />
+            <div collapse="!showNgRouterExample">
+                <p>
+                    If you are using <a href="https://github.com/angular-ui/ui-router">Angular ui-router</a>, you can
+                    add an <code>onExit</code> callback like this:
+                </p>
 <div hljs>
 $stateProvider.state("contacts", {
     templateUrl: 'somewhereInDaSpace',
@@ -41,24 +49,24 @@ $stateProvider.state("contacts", {
     }
 });
 </div>
+            </div>
+            <div collapse="!showOtherRouterExample">
+<div hljs>
+$scope.$on('$routeChangeStart', function(event, next, current) {
+    var fixedHeaderEle = document.getElementsByClassName('fixedHeader');
+    angular.element(fixedHeaderEle).remove();
+    var fixedFooterEle = document.getElementsByClassName('fixedFooter');
+    angular.element(fixedFooterEle).remove();
+});
+</div>
+            </div>
         </div>
     </section>
     <section class="showcase">
-        <div ng-controller="WithFixedHeaderCtrl as showCase">
-            <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
-                <tfoot>
-                <tr>
-                    <th>ID</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
         <tabset>
             <tab heading="HTML">
 <div hljs>
-<link rel="stylesheet" href="vendor/datatables-fixedheader/css/dataTables.fixedHeader.css">
+<link rel="stylesheet" href="vendor/datatables-fixedheader/css/fixedHeader.dataTables.css">
 <!-- ... -->
 <div ng-controller="WithFixedHeaderCtrl as showCase">
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
@@ -98,5 +106,16 @@ function WithFixedHeaderCtrl(DTOptionsBuilder, DTColumnBuilder) {
 </div>
             </tab>
         </tabset>
+        <div ng-controller="WithFixedHeaderCtrl as showCase">
+            <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+                <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
     </section>
 </article>

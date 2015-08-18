@@ -12,16 +12,18 @@ DT_BUILT="${DT_SRC}/built/DataTables"
 
 # Copy CSS
 rsync -r css $OUT_DIR
-css_compress $OUT_DIR/css/dataTables.fixedHeader.css
+css_frameworks fixedHeader $OUT_DIR/css
 
 # Copy JS
 rsync -r js $OUT_DIR
 js_compress $OUT_DIR/js/dataTables.fixedHeader.js
+js_frameworks fixedHeader $OUT_DIR/js
 
 # Copy and build examples
 rsync -r examples $OUT_DIR
-examples_process $OUT_DIR
+examples_process $OUT_DIR/examples
 
-# Readme
-cp Readme.txt $OUT_DIR
+# Readme and license
+cp Readme.md $OUT_DIR
+cp License.txt $OUT_DIR
 
