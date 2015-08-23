@@ -13,6 +13,7 @@ angular.module('showcase', [
     'showcase.dataReload.withPromise',
     'showcase.disableDeepWatchers',
     'showcase.loadOptionsWithPromise',
+    'showcase.angularDirectiveInDOM',
     'showcase.rerender',
     'showcase.rowClickEvent',
     'showcase.rowSelect',

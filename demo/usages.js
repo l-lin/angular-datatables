@@ -33,6 +33,9 @@ angular.module('showcase.usages', ['ngResource'])
         name: 'dataReloadWithPromise',
         label: 'Data reload with promise'
     }, {
+        name: 'angularDirectiveInDOM',
+        label: 'Angular directive in DOM'
+    }, {
         name: 'rerender',
         label: 'Re-render a table'
     }, {
