@@ -33,8 +33,8 @@ Getting started
 
 The files can be downloaded from:
 
-* Minified [JS](https://raw.githubusercontent.com/l-lin/angular-datatables/master/dist/angular-datatables.min.js) and [CSS](https://raw.githubusercontent.com/l-lin/angular-datatables/master/dist/datatables.bootstrap.min.css) for production usage
-* Un-minified [JS](https://raw.githubusercontent.com/l-lin/angular-datatables/master/dist/angular-datatables.js) and [CSS](https://raw.githubusercontent.com/l-lin/angular-datatables/master/dist/datatables.bootstrap.css) for development
+* Minified [JS](https://raw.githubusercontent.com/l-lin/angular-datatables/master/dist/angular-datatables.min.js) and [CSS](https://raw.githubusercontent.com/l-lin/angular-datatables/master/dist/plugins/bootstrap/datatables.bootstrap.min.css) for production usage
+* Un-minified [JS](https://raw.githubusercontent.com/l-lin/angular-datatables/master/dist/angular-datatables.js) and [CSS](https://raw.githubusercontent.com/l-lin/angular-datatables/master/dist/plugins/bootstrap/datatables.bootstrap.css) for development
 
 > The CSS file only contains `Twitter Bootstrap` styles to support datatables.
 
