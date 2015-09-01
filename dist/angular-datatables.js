@@ -612,9 +612,15 @@ function dtDefaultOptions() {
      * @returns {DTDefaultOptions} the default option config
      */
     function setLanguageSource(sLanguageSource) {
-        $.extend($.fn.dataTable.defaults, {
-            oLanguage: {
-                sUrl: sLanguageSource
+        // HACK to resolve the language source manually instead of DT
+        // See https://github.com/l-lin/angular-datatables/issues/356
+        $.ajax({
+            dataType: 'json',
+            url: sLanguageSource,
+            success: function(json) {
+                $.extend(true, $.fn.dataTable.defaults, {
+                    oLanguage: json
+                });
             }
         });
         return options;
