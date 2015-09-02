@@ -1,0 +1,28 @@
+{
+  "name": "datatables-light-columnfilter",
+  "license": "CC by-nc",
+  "main": "dist/dataTables.lightColumnFilter.min.js",
+  "ignore": [
+    "src",
+    "nbproject",
+    "package.json",
+    "Gruntfile.js",
+    "README.md",
+    ".gitignore"
+  ],
+  "dependencies": {
+    "datatables": "1.10.*"
+  },
+  "homepage": "https://github.com/thansen-solire/datatables-light-columnfilter",
+  "version": "0.0.7",
+  "_release": "0.0.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.7",
+    "commit": "7d35bbd17979a5018be01fb3b6f26e00d887e9db"
+  },
+  "_source": "git://github.com/thansen-solire/datatables-light-columnfilter.git",
+  "_target": "~0.0.7",
+  "_originalSource": "datatables-light-columnfilter",
+  "_direct": true
+}
