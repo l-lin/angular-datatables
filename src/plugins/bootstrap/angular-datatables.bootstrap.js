@@ -307,15 +307,15 @@ function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaul
     }
 
     function _setDom(options) {
-        if (!options.dom || options.dom === DT_DEFAULT_OPTIONS.dom) {
-            return DTBootstrapDefaultOptions.getOptions().dom;
+            if (!options.dom || options.dom === DT_DEFAULT_OPTIONS.dom) {
+                return DTBootstrapDefaultOptions.getOptions().dom;
+            }
+            return options.dom;
         }
-        return options.dom;
-    }
-    /**
-     * Integrate Bootstrap
-     * @param options the datatables options
-     */
+        /**
+         * Integrate Bootstrap
+         * @param options the datatables options
+         */
     function integrate(options) {
         _init(options.bootstrap);
         DTBootstrapTableTools.integrate(options.bootstrap);
