@@ -24,6 +24,7 @@ angular.module('showcase', [
     'showcase.withAngularTranslate',
     'showcase.withColReorder',
     'showcase.withColumnFilter',
+    'showcase.withLightColumnFilter',
     'showcase.withColVis',
     'showcase.withResponsive',
     'showcase.withScroller',

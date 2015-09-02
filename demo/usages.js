@@ -81,6 +81,9 @@ angular.module('showcase.usages', ['ngResource'])
     }, {
         name: 'withColumnFilter',
         label: 'With Column Filter'
+    }, {
+        name: 'withLightColumnFilter',
+        label: 'With Light Column Filter'
     },{
         name: 'bootstrapIntegration',
         label: 'Bootstrap integration'
