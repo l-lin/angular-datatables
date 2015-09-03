@@ -462,10 +462,16 @@ function dtRendererFactory(DTDefaultRenderer, DTNGRenderer, DTPromiseRenderer, D
 
     function fromOptions(options, isNgDisplay)  {
         if (isNgDisplay) {
+            if (options.serverSide) {
+                throw new Error('You cannot use server side processing along with the Angular renderer!');
+            }
             return DTNGRenderer.create(options);
         }
         if (angular.isDefined(options)) {
             if (angular.isDefined(options.fnPromise) && options.fnPromise !== null) {
+                if (options.serverSide) {
+                    throw new Error('You cannot use server side processing along with the Promise renderer!');
+                }
                 return DTPromiseRenderer.create(options);
             }
             if (angular.isDefined(options.ajax) && options.ajax !== null ||
