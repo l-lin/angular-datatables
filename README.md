@@ -105,40 +105,6 @@ The `dtInstance` variable will be populated with the following value:
 
 For more information, please check the [documentation](http://l-lin.github.io/angular-datatables/#/dtInstances).
 
- * You can also fetch it by calling the service `DTInstances.getLast()` to fetch the last instance or `DTInstance.getList()`
-to fetch the entire list of instances.
-
-> These APIs are deprecated. They will be removed in the v0.5.0+. Use the above approach instead.
-
-For instance, for the given dataTables:
-
-```html
-<table id="foobar" datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
-<table id="foobar2" datatable dt-options="dtOptions" dt-columns="dtColumns"></table>
-```
-
-You can fetch the instances like this:
-
-```js
-DTInstances.getLast().then(function(lastDTInstance) {
-    // lastDTInstance === {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
-    
-    // loadedDT.DataTable is the DataTable API instance
-    // loadedDT.dataTable is the jQuery Object
-    // See http://datatables.net/manual/api#Accessing-the-API
-});
-DTInstances.getList().then(function(dtInstances) {
-    /*
-     * dtInstances === {
-     *      "foobar": {"id": "foobar", "DataTable": oTable, "dataTable": $oTable},
-     *      "foobar2": {"id": "foobar2", "DataTable": oTable, "dataTable": $oTable}
-     * }
-     */
-});
-```
-
-For more information, please check the [documentation](http://l-lin.github.io/angular-datatables/#/api).
-
 * `Angular Datatables` is using [Object.create()](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/create) to instanciate options and columns.
   * If you need to support IE8, then you need to add this [Polyfill](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill).
 
