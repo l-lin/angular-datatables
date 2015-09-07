@@ -41,7 +41,7 @@ function BindAngularDirectiveCtrl($scope, $compile, DTOptionsBuilder, DTColumnBu
         return '<button class="btn btn-warning" ng-click="showCase.edit(showCase.persons[' + data.id + '])">' +
             '   <i class="fa fa-edit"></i>' +
             '</button>&nbsp;' +
-            '<button class="btn btn-danger" ng-click="showCase.delete(showCase.persons[' + data.id + '])")">' +
+            '<button class="btn btn-danger" ng-click="showCase.delete(showCase.persons[' + data.id + '])">' +
             '   <i class="fa fa-trash-o"></i>' +
             '</button>';
     }
