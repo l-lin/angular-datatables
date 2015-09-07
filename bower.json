@@ -49,7 +49,6 @@
   "dependencies": {
     "angular": ">=1.3.0",
     "datatables": ">=1.10.0",
-    "datatables-light-columnfilter": "~0.0.7",
     "jquery": ">=1.11.0"
   },
   "devDependencies": {
