@@ -1132,7 +1132,7 @@ function dtRendererFactory(DTDefaultRenderer, DTNGRenderer, DTPromiseRenderer, D
 
     function fromOptions(options, isNgDisplay)  {
         if (isNgDisplay) {
-            if (options.serverSide) {
+            if (options && options.serverSide) {
                 throw new Error('You cannot use server side processing along with the Angular renderer!');
             }
             return DTNGRenderer.create(options);
