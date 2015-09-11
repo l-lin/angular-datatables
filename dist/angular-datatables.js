@@ -380,7 +380,7 @@ function dtColumnBuilder() {
             }
             var column = Object.create(DTColumn);
             column.mData = mData;
-            if (angular.isString(sTitle)) {
+            if (angular.isDefined(sTitle)) {
                 column.sTitle = sTitle;
             }
             return column;
