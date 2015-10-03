@@ -68,10 +68,10 @@ angular.module('showcase.usages', ['ngResource'])
         label: 'With ColReorder'
     }, {
         name: 'withColVis',
-        label: 'With ColVis'
+        label: 'With ColVis [deprecated]'
     }, {
         name: 'withTableTools',
-        label: 'With TableTools'
+        label: 'With TableTools [deprecated]'
     }, {
         name: 'withResponsive',
         label: 'With Responsive'

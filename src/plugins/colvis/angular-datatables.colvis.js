@@ -37,6 +37,7 @@ function dtColVisConfig($provide, DT_DEFAULT_OPTIONS) {
              * @returns {DTOptions} the options
              */
             function withColVis() {
+                console.warn('The colvis extension has been retired. Please use the button extension instead: https://datatables.net/extensions/buttons/');
                 var colVisPrefix = 'C';
                 options.dom = options.dom ? options.dom : DT_DEFAULT_OPTIONS.dom;
                 if (options.dom.indexOf(colVisPrefix) === -1) {
