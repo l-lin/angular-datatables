@@ -675,10 +675,8 @@ angular.module('datatables.renderer', ['datatables.instances', 'datatables.facto
 
 /* @ngInject */
 function dtRendererService(DTLoadingTemplate) {
-    var $loading = angular.element(DTLoadingTemplate.html);
     var plugins = [];
     var rendererService = {
-        getLoadingElem: getLoadingElem,
         showLoading: showLoading,
         hideLoading: hideLoading,
         renderDataTable: renderDataTable,
@@ -689,11 +687,8 @@ function dtRendererService(DTLoadingTemplate) {
     };
     return rendererService;
 
-    function getLoadingElem() {
-        return $loading;
-    }
-
     function showLoading($elem) {
+        var $loading = angular.element(DTLoadingTemplate.html);
         $elem.after($loading);
         $elem.hide();
         $loading.show();
@@ -701,7 +696,7 @@ function dtRendererService(DTLoadingTemplate) {
 
     function hideLoading($elem) {
         $elem.show();
-        $loading.hide();
+        $elem.next().remove();
     }
 
     function renderDataTable($elem, options) {
@@ -940,6 +935,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         function reloadData(callback, resetPaging) {
             var previousPage = _oTable && _oTable.page() ? _oTable.page() : 0;
             if (angular.isFunction(renderer.options.fnPromise)) {
+                DTRendererService.showLoading(_$elem);
                 _resolve(renderer.options.fnPromise, _redrawRows).then(function(result) {
                     if (angular.isFunction(callback)) {
                         callback(result.DataTable.data());
@@ -955,6 +951,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
 
         function changeData(fnPromise) {
             renderer.options.fnPromise = fnPromise;
+            DTRendererService.showLoading(_$elem);
             _resolve(renderer.options.fnPromise, _redrawRows);
         }
 

@@ -8,7 +8,6 @@ describe('datatables.renderer', function () {
 
         beforeEach(inject(function ($injector, $rootScope) {
             DTRendererService = $injector.get('DTRendererService');
-            $loading = DTRendererService.getLoadingElem();
             $elem = $(
                     '<table id="foobar">' +
                     '   <thead>' +
@@ -33,21 +32,20 @@ describe('datatables.renderer', function () {
 
             it('should hide the given element and show the loading', function () {
                 DTRendererService.showLoading($elem);
-                expect($elem.after).toHaveBeenCalledWith($loading);
+                expect($elem.after).toHaveBeenCalled();
                 expect($elem.hide).toHaveBeenCalled();
-                expect($loading.show).toHaveBeenCalled();
             });
         });
         describe(', when hiding the loading,', function () {
             beforeEach(function () {
                 spyOn($.fn, 'show').andCallThrough();
-                spyOn($.fn, 'hide').andCallThrough();
+                spyOn($.fn, 'remove').andCallThrough();
             });
 
             it('should show the given element and hide the loading', function () {
                 DTRendererService.hideLoading($elem);
                 expect($elem.show).toHaveBeenCalled();
-                expect($loading.hide).toHaveBeenCalled();
+                expect($elem.next().remove).toHaveBeenCalled();
             });
         });
         describe(', when rendering the DataTable and registring the instance,', function () {
