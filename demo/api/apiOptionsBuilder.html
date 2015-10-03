@@ -839,5 +839,23 @@ function MyCtrl(DTOptionsBuilder) {
 </div>
             </td>
         </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withSelect(selectOptions)</code></td>
+            <td>
+                <p>
+                    Add <a href="https://datatables.net/extensions/select/">Select</a> compatibility.
+                </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables', 'datatables.select'])
+.controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+        .withSelect(true);
+}
+</div>
+            </td>
+        </tr>
         </tbody>
     </table>

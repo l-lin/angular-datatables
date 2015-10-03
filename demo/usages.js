@@ -106,6 +106,9 @@ angular.module('showcase.usages', ['ngResource'])
         name: 'withResponsive',
         label: 'With Responsive'
     }, {
+        name: 'withSelect',
+        label: 'With Select'
+    }, {
         name: 'withScroller',
         label: 'With Scroller'
     }, {

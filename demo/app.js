@@ -32,6 +32,7 @@ angular.module('showcase', [
     'showcase.withFixedColumns',
     'showcase.withFixedHeader',
     'showcase.withButtons',
+    'showcase.withSelect',
     'showcase.dtInstances',
 
     'showcase.usages',

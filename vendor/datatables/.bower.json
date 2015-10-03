@@ -37,6 +37,6 @@
     "commit": "ab6f46122d593c082ca78d57e727c2dc12a6bc6d"
   },
   "_source": "git://github.com/DataTables/DataTables.git",
-  "_target": ">=1.10.8",
+  "_target": ">=1.10.0",
   "_originalSource": "datatables"
 }

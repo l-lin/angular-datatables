@@ -15,7 +15,8 @@ module.exports = {
             '<%= yeoman.build %>/plugins/tabletools/angular-datatables.tabletools.js': ['<%= yeoman.build %>/plugins/tabletools/angular-datatables.tabletools.js'],
             '<%= yeoman.build %>/plugins/fixedcolumns/angular-datatables.fixedcolumns.js': ['<%= yeoman.build %>/plugins/fixedcolumns/angular-datatables.fixedcolumns.js'],
             '<%= yeoman.build %>/plugins/fixedheader/angular-datatables.fixedheader.js': ['<%= yeoman.build %>/plugins/fixedheader/angular-datatables.fixedheader.js'],
-            '<%= yeoman.build %>/plugins/buttons/angular-datatables.buttons.js': ['<%= yeoman.build %>/plugins/fixedheader/angular-datatables.fixedheader.js']
+            '<%= yeoman.build %>/plugins/buttons/angular-datatables.buttons.js': ['<%= yeoman.build %>/plugins/fixedheader/angular-datatables.buttons.js'],
+            '<%= yeoman.build %>/plugins/buttons/angular-datatables.select.js': ['<%= yeoman.build %>/plugins/fixedheader/angular-datatables.select.js']
         }
     }
 };
