@@ -499,6 +499,10 @@ function MyCtrl(DTOptionsBuilder) {
             <td><code>DTOptions</code></td>
             <td><code>withColVis()</code></td>
             <td>
+                <p class="alert alert-danger">
+                    <i class="fa fa-warning"></i>&nbsp;This extension has been retired and has been replaced by the
+                    <a href="https://datatables.net/extensions/buttons/">Button extension</a>.
+                </p>
                 <p>Add <a href="https://datatables.net/extras/colvis/">ColVis</a> compatibility.</p>
 <div hljs language="js">
 angular.module('myModule', ['datatables', 'datatables.colvis']])
@@ -527,6 +531,10 @@ function MyCtrl(DTOptionsBuilder) {
             <td><code>DTOptions</code></td>
             <td><code>withColVisOption(key, value)</code></td>
             <td>
+                <p class="alert alert-danger">
+                    <i class="fa fa-warning"></i>&nbsp;This extension has been retired and has been replaced by the
+                    <a href="https://datatables.net/extensions/buttons/">Button extension</a>.
+                </p>
                 <p>Add option to the attribute <code>oColVis</code>.</p>
 <div hljs language="js">
 angular.module('myModule', ['datatables', 'datatables.colvis']])
@@ -557,6 +565,10 @@ function MyCtrl(DTOptionsBuilder) {
             <td><code>DTOptions</code></td>
             <td><code>withColVisStateChange(fnStateChange)</code></td>
             <td>
+                <p class="alert alert-danger">
+                    <i class="fa fa-warning"></i>&nbsp;This extension has been retired and has been replaced by the
+                    <a href="https://datatables.net/extensions/buttons/">Button extension</a>.
+                </p>
                 <p>Set the state change function.</p>
 <div hljs language="js">
 angular.module('myModule', ['datatables', 'datatables.colvis'])
@@ -805,6 +817,24 @@ function MyCtrl(DTOptionsBuilder) {
         .withFixedHeader({
             bottom: true
         });
+}
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>DTOptions</code></td>
+            <td><code>withButtons(buttonsOptions)</code></td>
+            <td>
+                <p>
+                    Add <a href="https://datatables.net/extensions/buttons/">Buttons</a> compatibility.
+                </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables', 'datatables.buttons'])
+.controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+        .withButtons(['colvis']);
 }
 </div>
             </td>

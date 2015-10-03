@@ -9,4 +9,5 @@ require('./dist/plugins/fixedcolumns/angular-datatables.fixedcolumns');
 require('./dist/plugins/fixedheader/angular-datatables.fixedheader');
 require('./dist/plugins/scroller/angular-datatables.scroller');
 require('./dist/plugins/tabletools/angular-datatables.tabletools');
+require('./dist/plugins/buttons/angular-datatables.buttons');
 module.exports = 'datatables';

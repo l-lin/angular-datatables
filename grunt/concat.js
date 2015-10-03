@@ -18,7 +18,8 @@ module.exports = {
             '<%= yeoman.build %>/plugins/scroller/angular-datatables.scroller.js': ['<%= yeoman.src %>/plugins/scroller/*.js'],
             '<%= yeoman.build %>/plugins/tabletools/angular-datatables.tabletools.js': ['<%= yeoman.src %>/plugins/tabletools/*.js'],
             '<%= yeoman.build %>/plugins/fixedcolumns/angular-datatables.fixedcolumns.js': ['<%= yeoman.src %>/plugins/fixedcolumns/*.js'],
-            '<%= yeoman.build %>/plugins/fixedheader/angular-datatables.fixedheader.js': ['<%= yeoman.src %>/plugins/fixedheader/*.js']
+            '<%= yeoman.build %>/plugins/fixedheader/angular-datatables.fixedheader.js': ['<%= yeoman.src %>/plugins/fixedheader/*.js'],
+            '<%= yeoman.build %>/plugins/buttons/angular-datatables.buttons.js': ['<%= yeoman.src %>/plugins/fixedheader/*.js']
         }
     },
     // Copy the source files with the banner in dist folder
@@ -33,7 +34,8 @@ module.exports = {
             '<%= yeoman.dist %>/plugins/scroller/angular-datatables.scroller.js': ['<%= yeoman.build %>/plugins/scroller/angular-datatables.scroller.js'],
             '<%= yeoman.dist %>/plugins/tabletools/angular-datatables.tabletools.js': ['<%= yeoman.build %>/plugins/tabletools/angular-datatables.tabletools.js'],
             '<%= yeoman.dist %>/plugins/fixedcolumns/angular-datatables.fixedcolumns.js': ['<%= yeoman.build %>/plugins/fixedcolumns/angular-datatables.fixedcolumns.js'],
-            '<%= yeoman.dist %>/plugins/fixedheader/angular-datatables.fixedheader.js': ['<%= yeoman.build %>/plugins/fixedheader/angular-datatables.fixedheader.js']
+            '<%= yeoman.dist %>/plugins/fixedheader/angular-datatables.fixedheader.js': ['<%= yeoman.build %>/plugins/fixedheader/angular-datatables.fixedheader.js'],
+            '<%= yeoman.dist %>/plugins/buttons/angular-datatables.buttons.js': ['<%= yeoman.build %>/plugins/fixedheader/angular-datatables.fixedheader.js']
         }
     },
     bannerCSS: {

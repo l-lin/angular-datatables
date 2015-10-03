@@ -1,0 +1,16 @@
+{
+	"name": "datatables-buttons",
+	"version": "1.0.3",
+	"main": [
+		"js/dataTables.buttons.js",
+		"js/buttons.colVis.js",
+		"js/buttons.flash.js",
+		"js/buttons.html5.js",
+		"js/buttons.print.js",
+		"css/buttons.dataTables.scss"
+	],
+	"dependencies": {
+		"jquery": ">=1.7.0",
+		"datatables": ">=1.10.8"
+	}
+}

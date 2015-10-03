@@ -1,0 +1,78 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1>
+            <i class="fa fa-play"></i>&nbsp;With the DataTables <a href="https://datatables.net/extensions/buttons/">Buttons</a>
+        </h1>
+    </header>
+    <section class="article-content">
+        <p>
+            The <code>angular-datatables</code> also provides an API in order to make the plugin <code>Buttons</code> work with datatables.
+        </p>
+        <p>
+            You need to add the file <code>angular-datatables.buttons.min.js</code> to your HTML file.
+        </p>
+        <p>
+            You also need to add the dependency <code>datatables.buttons</code> to your Angular app.
+        </p>
+        <p>
+            See the <a ui-sref="api">API</a> for the complete list of methods of the helper.
+        </p>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="WithButtonsCtrl as showCase">
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<link rel="stylesheet" href="vendor/datatables-buttons/css/buttons.dataTables.css">
+<!-- ... -->
+<div ng-controller="WithButtonsCtrl as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+</div>
+<!-- ... -->
+<script src="vendor/datatables-buttons/js/dataTables.buttons.js"></script>
+<script src="vendor/angular-datatables/dist/plugins/buttons/angular-datatables.buttons.min.js"></script>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.withButtons', ['datatables', 'datatables.buttons'])
+    .controller('WithButtonsCtrl', WithButtonsCtrl);
+
+function WithButtonsCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withDOM('frtip')
+        .withPaginationType('full_numbers')
+        // Active Buttons extension
+        .withButtons([
+            'columnsToggle',
+            'colvis',
+            'copy',
+            'print',
+            'excel',
+            {
+                text: 'Some button',
+                key: '1',
+                action: function (e, dt, node, config) {
+                    alert('Button activated');
+                }
+            }
+        ]);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name')
+    ];
+}
+
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

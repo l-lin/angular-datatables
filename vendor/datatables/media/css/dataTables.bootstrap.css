@@ -10,6 +10,10 @@ table.dataTable th {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
+table.dataTable td.dataTables_empty,
+table.dataTable th.dataTables_empty {
+  text-align: center;
+}
 table.dataTable.nowrap th,
 table.dataTable.nowrap td {
   white-space: nowrap;
@@ -51,8 +55,10 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   white-space: nowrap;
 }
 
-table.dataTable thead > tr > th,
-table.dataTable thead > tr > td {
+table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting,
+table.dataTable thead > tr > td.sorting_asc,
+table.dataTable thead > tr > td.sorting_desc,
+table.dataTable thead > tr > td.sorting {
   padding-right: 30px;
 }
 table.dataTable thead > tr > th:active,

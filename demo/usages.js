@@ -63,39 +63,30 @@ angular.module('showcase.usages', ['ngResource'])
         name: 'loadOptionsWithPromise',
         label: 'Load DT options with promise'
     }],
-    withPlugins: [{
-        name: 'withColReorder',
-        label: 'With ColReorder'
+    withPlugins: [ {
+        name: 'withAngularTranslate',
+        label: 'With Angular Translate'
     }, {
-        name: 'withColVis',
-        label: 'With ColVis [deprecated]'
+        name: 'withAngularTranslateSwitchLanguage',
+        label: 'Switch language with Angular Translate'
     }, {
-        name: 'withTableTools',
-        label: 'With TableTools [deprecated]'
+        name: 'withButtons',
+        label: 'With Buttons'
     }, {
-        name: 'withResponsive',
-        label: 'With Responsive'
-    }, {
-        name: 'withScroller',
-        label: 'With Scroller'
-    }, {
-        name: 'withColumnFilter',
-        label: 'With Column Filter'
-    }, {
-        name: 'withLightColumnFilter',
-        label: 'With Light Column Filter'
-    },{
         name: 'bootstrapIntegration',
         label: 'Bootstrap integration'
     }, {
         name: 'overrideBootstrapOptions',
         label: 'Override Bootstrap options'
     }, {
-        name: 'withAngularTranslate',
-        label: 'With Angular Translate'
+        name: 'withColumnFilter',
+        label: 'With Column Filter'
     }, {
-        name: 'withAngularTranslateSwitchLanguage',
-        label: 'Switch language with Angular Translate'
+        name: 'withColReorder',
+        label: 'With ColReorder'
+    }, {
+        name: 'withColVis',
+        label: 'With ColVis [deprecated]'
     }, {
         name: 'withFixedColumns',
         label: 'With Fixed Columns'
@@ -108,5 +99,17 @@ angular.module('showcase.usages', ['ngResource'])
             var fixedFooterEle = document.getElementsByClassName('fixedFooter');
             angular.element(fixedFooterEle).remove();
         }
+    }, {
+        name: 'withLightColumnFilter',
+        label: 'With Light Column Filter'
+    }, {
+        name: 'withResponsive',
+        label: 'With Responsive'
+    }, {
+        name: 'withScroller',
+        label: 'With Scroller'
+    }, {
+        name: 'withTableTools',
+        label: 'With TableTools [deprecated]'
     }]
 });

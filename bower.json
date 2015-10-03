@@ -14,7 +14,9 @@
     "dist/plugins/fixedcolumns/angular-datatables.fixedcolumns.js",
     "dist/plugins/fixedheader/angular-datatables.fixedheader.js",
     "dist/plugins/scroller/angular-datatables.scroller.js",
-    "dist/plugins/tabletools/angular-datatables.tabletools.js"
+    "dist/plugins/tabletools/angular-datatables.tabletools.js",
+    "dist/plugins/buttons/angular-datatables.buttons.js",
+    "dist/plugins/select/angular-datatables.select.js"
   ],
   "ignore": [
     ".bowerrc",
