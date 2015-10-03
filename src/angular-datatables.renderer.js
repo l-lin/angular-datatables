@@ -241,6 +241,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         var _oTable;
         var _loadedPromise = null;
         var _$elem;
+        var _$scope;
 
         var dtInstance;
         var renderer = Object.create(DTRenderer);
@@ -252,10 +253,11 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         renderer.rerender = rerender;
         return renderer;
 
-        function render($elem) {
+        function render($elem, $scope) {
             var defer = $q.defer();
             dtInstance = DTInstanceFactory.newDTInstance(renderer);
             _$elem = $elem;
+            _$scope = $scope;
             _resolve(renderer.options.fnPromise, DTRendererService.renderDataTable).then(function(result) {
                 _oTable = result.DataTable;
                 DTInstanceFactory.copyDTProperties(result, dtInstance);
@@ -283,6 +285,9 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
 
         function changeData(fnPromise) {
             renderer.options.fnPromise = fnPromise;
+            // We also need to set the $scope.dtOptions, otherwise, when we change the columns, it will revert to the old data
+            // See https://github.com/l-lin/angular-datatables/issues/359
+            _$scope.dtOptions.fnPromise = fnPromise;
             DTRendererService.showLoading(_$elem);
             _resolve(renderer.options.fnPromise, _redrawRows);
         }
@@ -290,7 +295,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         function rerender() {
             _oTable.destroy();
             DTRendererService.showLoading(_$elem);
-            render(_$elem);
+            render(_$elem, _$scope);
         }
 
         function _resolve(fnPromise, callback) {
@@ -377,6 +382,7 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
     function create(options) {
         var _oTable;
         var _$elem;
+        var _$scope;
         var renderer = Object.create(DTRenderer);
         renderer.name = 'DTAjaxRenderer';
         renderer.options = options;
@@ -386,8 +392,9 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         renderer.rerender = rerender;
         return renderer;
 
-        function render($elem) {
+        function render($elem, $scope) {
             _$elem = $elem;
+            _$scope = $scope;
             var defer = $q.defer();
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             // Define default values in case it is an ajax datatables
@@ -413,14 +420,13 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
 
         function changeData(ajax) {
             renderer.options.ajax = ajax;
-            if (_oTable) {
-                var ajaxUrl = renderer.options.ajax.url ||  renderer.options.ajax;
-                _oTable.ajax.url(ajaxUrl).load();
-            }
+            // We also need to set the $scope.dtOptions, otherwise, when we change the columns, it will revert to the old data
+            // See https://github.com/l-lin/angular-datatables/issues/359
+            _$scope.dtOptions.ajax = ajax;
         }
 
         function rerender() {
-            render(_$elem);
+            render(_$elem, _$scope);
         }
 
         function _doRender(options, $elem) {
