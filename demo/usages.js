@@ -24,8 +24,17 @@ angular.module('showcase.usages', ['ngResource'])
         label: 'Custom HTML loading'
     }],
     advanced: [{
-        name: 'dtInstances',
-        label: 'Fetching DataTable instances'
+        name: 'angularDirectiveInDOM',
+        label: 'Angular directive in DOM'
+    }, {
+        name: 'bindAngularDirective',
+        label: 'Bind Angular directive'
+    }, {
+        name: 'angularWayDataChange',
+        label: 'Change data with the Angular way'
+    }, {
+        name: 'changeOptions',
+        label: 'Change options'
     }, {
         name: 'dataReloadWithAjax',
         label: 'Data reload with Ajax'
@@ -33,17 +42,14 @@ angular.module('showcase.usages', ['ngResource'])
         name: 'dataReloadWithPromise',
         label: 'Data reload with promise'
     }, {
-        name: 'angularDirectiveInDOM',
-        label: 'Angular directive in DOM'
+        name: 'disableDeepWatchers',
+        label: 'Disable deep watchers'
+    }, {
+        name: 'dtInstances',
+        label: 'Fetching DataTable instances'
     }, {
         name: 'rerender',
         label: 'Re-render a table'
-    }, {
-        name: 'serverSideProcessing',
-        label: 'Server side processing'
-    }, {
-        name: 'angularWayDataChange',
-        label: 'Change data with the Angular way'
     }, {
         name: 'rowClickEvent',
         label: 'Row click event'
@@ -51,17 +57,11 @@ angular.module('showcase.usages', ['ngResource'])
         name: 'rowSelect',
         label: 'Selecting rows'
     }, {
-        name: 'bindAngularDirective',
-        label: 'Bind Angular directive'
-    }, {
-        name: 'changeOptions',
-        label: 'Change options'
+        name: 'serverSideProcessing',
+        label: 'Server side processing'
     }, {
         name: 'loadOptionsWithPromise',
         label: 'Load DT options with promise'
-    }, {
-        name: 'disableDeepWatchers',
-        label: 'Disable deep watchers'
     }],
     withPlugins: [{
         name: 'withColReorder',
