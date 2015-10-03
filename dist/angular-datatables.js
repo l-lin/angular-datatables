@@ -1092,15 +1092,19 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         }
 
         function rerender() {
-            _oTable.destroy();
-            DTRendererService.showLoading(_$elem);
             render(_$elem);
         }
 
         function _doRender(options, $elem) {
             var defer = $q.defer();
-            // Set it to true in order to be able to redraw the dataTable
+            // Destroy the table if it exists in order to be able to redraw the dataTable
             options.bDestroy = true;
+            if (_oTable) {
+                _oTable.destroy();
+                DTRendererService.showLoading(_$elem);
+                // Empty in case of columns change
+                $elem.empty();
+            }
             DTRendererService.hideLoading($elem);
             // Condition to refresh the dataTable
             if (_shouldDeferRender(options)) {
