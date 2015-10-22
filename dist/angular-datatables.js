@@ -972,10 +972,10 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
                 throw new Error('You must provide a promise or a function that returns a promise!');
             }
             if (_loadedPromise) {
-                _loadedPromise.then(function(){
+                _loadedPromise.then(function()  {
                     defer.resolve(_startLoading(fnPromise, callback));
                 });
-            } else {
+            } else  {
                 defer.resolve(_startLoading(fnPromise, callback));
             }
             return defer.promise;
@@ -1099,27 +1099,27 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         }
 
         function _doRender(options, $elem) {
-            var defer = $q.defer();
-            // Destroy the table if it exists in order to be able to redraw the dataTable
-            options.bDestroy = true;
-            if (_oTable) {
-                _oTable.destroy();
-                DTRendererService.showLoading(_$elem);
-                // Empty in case of columns change
-                $elem.empty();
-            }
-            DTRendererService.hideLoading($elem);
-            // Condition to refresh the dataTable
-            if (_shouldDeferRender(options)) {
-                $timeout(function() {
+                var defer = $q.defer();
+                // Destroy the table if it exists in order to be able to redraw the dataTable
+                options.bDestroy = true;
+                if (_oTable) {
+                    _oTable.destroy();
+                    DTRendererService.showLoading(_$elem);
+                    // Empty in case of columns change
+                    $elem.empty();
+                }
+                DTRendererService.hideLoading($elem);
+                // Condition to refresh the dataTable
+                if (_shouldDeferRender(options)) {
+                    $timeout(function() {
+                        defer.resolve(DTRendererService.renderDataTable($elem, options));
+                    }, 0, false);
+                } else {
                     defer.resolve(DTRendererService.renderDataTable($elem, options));
-                }, 0, false);
-            } else {
-                defer.resolve(DTRendererService.renderDataTable($elem, options));
+                }
+                return defer.promise;
             }
-            return defer.promise;
-        }
-        // See https://github.com/l-lin/angular-datatables/issues/147
+            // See https://github.com/l-lin/angular-datatables/issues/147
         function _shouldDeferRender(options) {
             if (angular.isDefined(options) && angular.isDefined(options.dom)) {
                 // S for scroller plugin
@@ -1137,7 +1137,7 @@ function dtRendererFactory(DTDefaultRenderer, DTNGRenderer, DTPromiseRenderer, D
         fromOptions: fromOptions
     };
 
-    function fromOptions(options, isNgDisplay){
+    function fromOptions(options, isNgDisplay)  {
         if (isNgDisplay) {
             if (options && options.serverSide) {
                 throw new Error('You cannot use server side processing along with the Angular renderer!');

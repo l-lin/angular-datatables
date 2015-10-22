@@ -20,7 +20,7 @@ module.exports = {
             '<%= yeoman.build %>/plugins/fixedcolumns/angular-datatables.fixedcolumns.js': ['<%= yeoman.src %>/plugins/fixedcolumns/*.js'],
             '<%= yeoman.build %>/plugins/fixedheader/angular-datatables.fixedheader.js': ['<%= yeoman.src %>/plugins/fixedheader/*.js'],
             '<%= yeoman.build %>/plugins/buttons/angular-datatables.buttons.js': ['<%= yeoman.src %>/plugins/buttons/*.js'],
-            '<%= yeoman.build %>/plugins/buttons/angular-datatables.select.js': ['<%= yeoman.src %>/plugins/select/*.js']
+            '<%= yeoman.build %>/plugins/select/angular-datatables.select.js': ['<%= yeoman.src %>/plugins/select/*.js']
         }
     },
     // Copy the source files with the banner in dist folder
@@ -36,8 +36,8 @@ module.exports = {
             '<%= yeoman.dist %>/plugins/tabletools/angular-datatables.tabletools.js': ['<%= yeoman.build %>/plugins/tabletools/angular-datatables.tabletools.js'],
             '<%= yeoman.dist %>/plugins/fixedcolumns/angular-datatables.fixedcolumns.js': ['<%= yeoman.build %>/plugins/fixedcolumns/angular-datatables.fixedcolumns.js'],
             '<%= yeoman.dist %>/plugins/fixedheader/angular-datatables.fixedheader.js': ['<%= yeoman.build %>/plugins/fixedheader/angular-datatables.fixedheader.js'],
-            '<%= yeoman.dist %>/plugins/buttons/angular-datatables.buttons.js': ['<%= yeoman.build %>/plugins/fixedheader/angular-datatables.buttons.js'],
-            '<%= yeoman.dist %>/plugins/buttons/angular-datatables.select.js': ['<%= yeoman.build %>/plugins/fixedheader/angular-datatables.select.js']
+            '<%= yeoman.dist %>/plugins/buttons/angular-datatables.buttons.js': ['<%= yeoman.build %>/plugins/buttons/angular-datatables.buttons.js'],
+            '<%= yeoman.dist %>/plugins/select/angular-datatables.select.js': ['<%= yeoman.build %>/plugins/select/angular-datatables.select.js']
         }
     },
     bannerCSS: {

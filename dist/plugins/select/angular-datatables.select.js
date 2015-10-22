@@ -7,12 +7,12 @@
 
 'use strict';
 
-// See https://datatables.net/extensions/buttons/
-angular.module('datatables.buttons', ['datatables'])
-    .config(dtButtonsConfig);
+// See https://datatables.net/extensions/select/
+angular.module('datatables.select', ['datatables'])
+    .config(dtSelectConfig);
 
 /* @ngInject */
-function dtButtonsConfig($provide, DT_DEFAULT_OPTIONS) {
+function dtSelectConfig($provide) {
     $provide.decorator('DTOptionsBuilder', dtOptionsBuilderDecorator);
 
     function dtOptionsBuilderDecorator($delegate) {
@@ -34,31 +34,26 @@ function dtButtonsConfig($provide, DT_DEFAULT_OPTIONS) {
 
         function _decorateOptions(fn, params) {
             var options = fn(params);
-            options.withButtons = withButtons;
+            options.withSelect = withSelect;
             return options;
 
             /**
-             * Add buttons compatibility
-             * @param buttonsOptions the options of the buttons extension (see https://datatables.net/reference/option/buttons#Examples)
+             * Add select compatibility
+             * @param selectOptions the options of the select extension (see https://datatables.net/reference/option/#select)
              * @returns {DTOptions} the options
              */
-            function withButtons(buttonsOptions) {
-                var buttonsPrefix = 'B';
-                options.dom = options.dom ? options.dom : DT_DEFAULT_OPTIONS.dom;
-                if (options.dom.indexOf(buttonsPrefix) === -1) {
-                    options.dom = buttonsPrefix + options.dom;
+            function withSelect(selectOptions) {
+                if (angular.isUndefined(selectOptions)) {
+                    throw new Error('You must define the options for the select extension. See https://datatables.net/reference/option/#select');
                 }
-                if (angular.isUndefined(buttonsOptions)) {
-                    throw new Error('You must define the options for the button extension. See https://datatables.net/reference/option/buttons#Examples for some example');
-                }
-                options.buttons = buttonsOptions;
+                options.select = selectOptions;
                 return options;
             }
         }
     }
     dtOptionsBuilderDecorator.$inject = ['$delegate'];
 }
-dtButtonsConfig.$inject = ['$provide', 'DT_DEFAULT_OPTIONS'];
+dtSelectConfig.$inject = ['$provide'];
 
 
 })(window, document, jQuery, angular);
