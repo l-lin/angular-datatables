@@ -3,6 +3,9 @@
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
+if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports) {
+   module.exports = 'datatables';
+}
 (function (window, document, $, angular) {
 
 'use strict';

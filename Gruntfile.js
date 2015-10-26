@@ -20,10 +20,6 @@ module.exports = function(grunt) {
                 demo: 'demo',
                 styles: 'styles',
                 currentDir: path.resolve(__dirname),
-                wrapper: {
-                    start: '(function (window, document, $, angular) {\n',
-                    end: '\n})(window, document, jQuery, angular);'
-                },
                 banner: '/*!\n' +
                     ' * <%= pkg.name %> - v<%= pkg.version %>\n' +
                     ' * https://github.com/<%= pkg.author %>/<%= pkg.name %>\n' +
