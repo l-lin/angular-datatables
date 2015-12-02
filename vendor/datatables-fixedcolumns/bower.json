@@ -1,9 +1,9 @@
 {
 	"name": "datatables-fixedcolumns",
-	"version": "3.0.2",
+	"version": "3.1.0",
 	"main": [
 		"js/dataTables.fixedColumns.js",
-		"css/dataTables.fixedColumns.css"
+		"css/fixedColumns.dataTables.scss"
 	],
 	"dependencies": {
 		"jquery": ">=1.7.0",

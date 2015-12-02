@@ -2,8 +2,7 @@
 
 // See https://datatables.net/extensions/fixedcolumns/
 angular.module('datatables.fixedcolumns', ['datatables'])
-    .config(dtFixedColumnsConfig)
-    .run(initFixedColumnsPlugin);
+    .config(dtFixedColumnsConfig);
 
 /* @ngInject */
 function dtFixedColumnsConfig($provide) {
@@ -37,26 +36,12 @@ function dtFixedColumnsConfig($provide) {
              * @returns {DTOptions} the options
              */
             function withFixedColumns(fixedColumnsOptions) {
-                options.hasFixedColumns = true;
+                options.fixedColumns = true;
                 if (fixedColumnsOptions) {
-                    options.fixedColumnsOptions = fixedColumnsOptions;
+                    options.fixedColumns = fixedColumnsOptions;
                 }
                 return options;
             }
-        }
-    }
-}
-
-/* @ngInject */
-function initFixedColumnsPlugin(DTRendererService) {
-    var fixedColumnsPlugin = {
-        postRender: postRender
-    };
-    DTRendererService.registerPlugin(fixedColumnsPlugin);
-
-    function postRender(options, result) {
-        if (options && options.hasFixedColumns) {
-            new $.fn.dataTable.FixedColumns(result.DataTable, options.fixedColumnsOptions);
         }
     }
 }
