@@ -47,7 +47,7 @@ function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUt
             angular.forEach(['dtColumns', 'dtColumnDefs', 'dtOptions'], function(tableDefField) {
                 $scope[watchFunction].call($scope, tableDefField, handleChanges, true);
             });
-            DTRendererService.showLoading($elem);
+            DTRendererService.showLoading($elem, $scope);
             ctrl.render($elem, ctrl.buildOptionsPromise(), _staticHTML);
         };
     }
@@ -411,10 +411,16 @@ function dtColumnDefBuilder(DTColumnBuilder) {
 }
 dtColumnDefBuilder.$inject = ['DTColumnBuilder'];
 
-function dtLoadingTemplate() {
-    return {
-        html: '<h3 class="dt-loading">Loading...</h3>'
+function dtLoadingTemplate($compile) {
+    var template =  {};
+
+    template.html = '<h3 class="dt-loading">Loading...</h3>';
+
+    template.compileHtml = function ($scope) {
+        return $compile(angular.element(template.html))($scope);
     };
+
+    return template;
 }
 
 'use strict';
@@ -690,8 +696,8 @@ function dtRendererService(DTLoadingTemplate) {
     };
     return rendererService;
 
-    function showLoading($elem) {
-        var $loading = angular.element(DTLoadingTemplate.html);
+    function showLoading($elem, $scope) {
+        var $loading = angular.element(DTLoadingTemplate.compileHtml($scope));
         $elem.after($loading);
         $elem.hide();
         $loading.show();
@@ -794,7 +800,7 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory)
 
         function rerender() {
             _oTable.destroy();
-            DTRendererService.showLoading(_$elem);
+            DTRendererService.showLoading(_$elem, $scope);
             render(_$elem);
         }
         return renderer;
@@ -874,7 +880,7 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
 
         function rerender() {
             _destroyAndCompile();
-            DTRendererService.showLoading(_$elem);
+            DTRendererService.showLoading(_$elem, $scope);
             $timeout(function() {
                 var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
                 _oTable = result.DataTable;
@@ -963,7 +969,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
 
         function rerender() {
             _oTable.destroy();
-            DTRendererService.showLoading(_$elem);
+            DTRendererService.showLoading(_$elem, _$scope);
             render(_$elem, _$scope);
         }
 
@@ -1105,7 +1111,7 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
                 options.bDestroy = true;
                 if (_oTable) {
                     _oTable.destroy();
-                    DTRendererService.showLoading(_$elem);
+                    DTRendererService.showLoading(_$elem, _$scope);
                     // Empty in case of columns change
                     $elem.empty();
                 }
