@@ -269,7 +269,6 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         function reloadData(callback, resetPaging) {
             var previousPage = _oTable && _oTable.page() ? _oTable.page() : 0;
             if (angular.isFunction(renderer.options.fnPromise)) {
-                DTRendererService.showLoading(_$elem);
                 _resolve(renderer.options.fnPromise, _redrawRows).then(function(result) {
                     if (angular.isFunction(callback)) {
                         callback(result.DataTable.data());
@@ -288,7 +287,6 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
             // We also need to set the $scope.dtOptions, otherwise, when we change the columns, it will revert to the old data
             // See https://github.com/l-lin/angular-datatables/issues/359
             _$scope.dtOptions.fnPromise = fnPromise;
-            DTRendererService.showLoading(_$elem);
             _resolve(renderer.options.fnPromise, _redrawRows);
         }
 
