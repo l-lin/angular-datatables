@@ -43,7 +43,7 @@ angular.module('showcase', [
 .config(sampleConfig)
 .config(routerConfig)
 .config(translateConfig)
-.factory('DTLoadingTemplate', dtLoadingTemplate);
+.run(initDT);
 
 backToTop.init({
     theme: 'classic', // Available themes: 'classic', 'sky', 'slate'
@@ -110,8 +110,6 @@ function translateConfig($translateProvider) {
     $translateProvider.preferredLanguage('en');
 }
 
-function dtLoadingTemplate() {
-    return {
-        html: '<img src="/angular-datatables/images/loading.gif" />'
-    };
+function initDT(DTDefaultOptions) {
+    DTDefaultOptions.setLoadingTemplate('<img src="/angular-datatables/images/loading.gif" />');
 }

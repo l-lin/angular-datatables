@@ -10,7 +10,7 @@
             <li>
                 One comes from this module. It is displayed before the table is rendered. This loading has been added because
                 angular-datables offers the possibility to fetch the data and options with promises. So before rendering the
-                table, the promises need to be resoved, thus adding a loading message to let users know that something is
+                table, the promises need to be resolved, thus adding a loading message to let users know that something is
                 processing.
             </li>
             <li>
@@ -22,17 +22,20 @@
             When loading data, the angular module will display by default <code>&lt;h3 class="dt-loading"&gt;Loading...&lt;/h3&gt;</code>.
         </p>
         <p>
-            You can make your own custom loading html by override the <code>DTLoadingTemplate</code> like this:
+            You can make your own custom loading html by calling the method <code>DTDefaultOptions.setLoadingTemplate()</code> like this:
         </p>
+        <div class="alert alert-info">
+            <p>
+                Angular-datatables is using the angular service <code>$compile</code>. So you can use angular directives if you want.
+            </p>
+        </div>
     </section>
     <section class="showcase no-tab">
 <div hljs>
 angular.module('showcase', ['datatables']).
-factory('DTLoadingTemplate', dtLoadingTemplate);
-function dtLoadingTemplate() {
-    return {
-        html: '<img src="images/loading.gif" />'
-    };
+run(initDT);
+function initDT(DTDefaultOptions) {
+    DTDefaultOptions.setLoadingTemplate('<img src="images/loading.gif" />');
 }
 </div>
     </section>

@@ -2,7 +2,7 @@
 angular.module('showcase.angularWay.withOptions', ['datatables', 'ngResource'])
 .controller('AngularWayWithOptionsCtrl', AngularWayWithOptionsCtrl);
 
-function AngularWayWithOptionsCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
+function AngularWayWithOptionsCtrl($scope, $resource, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;
     vm.persons = [];
     vm.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(2);
