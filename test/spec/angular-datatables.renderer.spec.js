@@ -31,7 +31,7 @@ describe('datatables.renderer', function () {
             });
 
             it('should hide the given element and show the loading', function () {
-                DTRendererService.showLoading($elem);
+                DTRendererService.showLoading($elem, $scope);
                 expect($elem.after).toHaveBeenCalled();
                 expect($elem.hide).toHaveBeenCalled();
             });

@@ -411,17 +411,14 @@ function dtColumnDefBuilder(DTColumnBuilder) {
 }
 dtColumnDefBuilder.$inject = ['DTColumnBuilder'];
 
-function dtLoadingTemplate($compile) {
-    var template =  {};
-
-    template.html = '<h3 class="dt-loading">Loading...</h3>';
-
-    template.compileHtml = function ($scope) {
-        return $compile(angular.element(template.html))($scope);
+function dtLoadingTemplate($compile, DTDefaultOptions) {
+    return {
+        compileHtml: function($scope) {
+            return $compile(angular.element(DTDefaultOptions.loadingTemplate))($scope);
+        }
     };
-
-    return template;
 }
+dtLoadingTemplate.$inject = ['$compile', 'DTDefaultOptions'];
 
 'use strict';
 
@@ -606,7 +603,9 @@ angular.module('datatables.options', [])
 
 function dtDefaultOptions() {
     var options = {
+        loadingTemplate: '<h3 class="dt-loading">Loading...</h3>',
         bootstrapOptions: {},
+        setLoadingTemplate: setLoadingTemplate,
         setLanguageSource: setLanguageSource,
         setLanguage: setLanguage,
         setDisplayLength: setDisplayLength,
@@ -614,6 +613,16 @@ function dtDefaultOptions() {
     };
 
     return options;
+
+    /**
+     * Set the default loading template
+     * @param loadingTemplate the HTML to display when loading the table
+     * @returns {DTDefaultOptions} the default option config
+     */
+    function setLoadingTemplate(loadingTemplate) {
+        options.loadingTemplate = loadingTemplate;
+        return options;
+    }
 
     /**
      * Set the default language source for all datatables
@@ -773,6 +782,7 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory)
     function create(options) {
         var _oTable;
         var _$elem;
+        var _$scope;
         var renderer = Object.create(DTRenderer);
         renderer.name = 'DTDefaultRenderer';
         renderer.options = options;
@@ -781,8 +791,9 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory)
         renderer.changeData = changeData;
         renderer.rerender = rerender;
 
-        function render($elem) {
+        function render($elem, $scope) {
             _$elem = $elem;
+            _$scope = $scope;
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             var result = DTRendererService.hideLoadingAndRenderDataTable($elem, renderer.options);
             _oTable = result.DataTable;
@@ -800,7 +811,7 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory)
 
         function rerender() {
             _oTable.destroy();
-            DTRendererService.showLoading(_$elem, $scope);
+            DTRendererService.showLoading(_$elem, _$scope);
             render(_$elem);
         }
         return renderer;
@@ -880,7 +891,7 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
 
         function rerender() {
             _destroyAndCompile();
-            DTRendererService.showLoading(_$elem, $scope);
+            DTRendererService.showLoading(_$elem, _parentScope);
             $timeout(function() {
                 var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
                 _oTable = result.DataTable;

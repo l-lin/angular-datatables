@@ -12,7 +12,9 @@ angular.module('datatables.options', [])
 
 function dtDefaultOptions() {
     var options = {
+        loadingTemplate: '<h3 class="dt-loading">Loading...</h3>',
         bootstrapOptions: {},
+        setLoadingTemplate: setLoadingTemplate,
         setLanguageSource: setLanguageSource,
         setLanguage: setLanguage,
         setDisplayLength: setDisplayLength,
@@ -20,6 +22,16 @@ function dtDefaultOptions() {
     };
 
     return options;
+
+    /**
+     * Set the default loading template
+     * @param loadingTemplate the HTML to display when loading the table
+     * @returns {DTDefaultOptions} the default option config
+     */
+    function setLoadingTemplate(loadingTemplate) {
+        options.loadingTemplate = loadingTemplate;
+        return options;
+    }
 
     /**
      * Set the default language source for all datatables
