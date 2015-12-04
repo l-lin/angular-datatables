@@ -35,7 +35,7 @@ function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUt
             angular.forEach(['dtColumns', 'dtColumnDefs', 'dtOptions'], function(tableDefField) {
                 $scope[watchFunction].call($scope, tableDefField, handleChanges, true);
             });
-            DTRendererService.showLoading($elem);
+            DTRendererService.showLoading($elem, $scope);
             ctrl.render($elem, ctrl.buildOptionsPromise(), _staticHTML);
         };
     }

@@ -22,8 +22,8 @@ function dtRendererService(DTLoadingTemplate) {
     };
     return rendererService;
 
-    function showLoading($elem) {
-        var $loading = angular.element(DTLoadingTemplate.html);
+    function showLoading($elem, $scope) {
+        var $loading = angular.element(DTLoadingTemplate.compileHtml($scope));
         $elem.after($loading);
         $elem.hide();
         $loading.show();
@@ -98,6 +98,7 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory)
     function create(options) {
         var _oTable;
         var _$elem;
+        var _$scope;
         var renderer = Object.create(DTRenderer);
         renderer.name = 'DTDefaultRenderer';
         renderer.options = options;
@@ -106,8 +107,9 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory)
         renderer.changeData = changeData;
         renderer.rerender = rerender;
 
-        function render($elem) {
+        function render($elem, $scope) {
             _$elem = $elem;
+            _$scope = $scope;
             var dtInstance = DTInstanceFactory.newDTInstance(renderer);
             var result = DTRendererService.hideLoadingAndRenderDataTable($elem, renderer.options);
             _oTable = result.DataTable;
@@ -125,7 +127,7 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory)
 
         function rerender() {
             _oTable.destroy();
-            DTRendererService.showLoading(_$elem);
+            DTRendererService.showLoading(_$elem, _$scope);
             render(_$elem);
         }
         return renderer;
@@ -204,7 +206,7 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
 
         function rerender() {
             _destroyAndCompile();
-            DTRendererService.showLoading(_$elem);
+            DTRendererService.showLoading(_$elem, _parentScope);
             $timeout(function() {
                 var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
                 _oTable = result.DataTable;
@@ -292,7 +294,7 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
 
         function rerender() {
             _oTable.destroy();
-            DTRendererService.showLoading(_$elem);
+            DTRendererService.showLoading(_$elem, _$scope);
             render(_$elem, _$scope);
         }
 
@@ -433,7 +435,7 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
                 options.bDestroy = true;
                 if (_oTable) {
                     _oTable.destroy();
-                    DTRendererService.showLoading(_$elem);
+                    DTRendererService.showLoading(_$elem, _$scope);
                     // Empty in case of columns change
                     $elem.empty();
                 }
