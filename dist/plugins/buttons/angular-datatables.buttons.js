@@ -12,7 +12,8 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
 // See https://datatables.net/extensions/buttons/
 angular.module('datatables.buttons', ['datatables'])
-    .config(dtButtonsConfig);
+    .config(dtButtonsConfig)
+    .run(initButtonsPlugin);
 
 /* @ngInject */
 function dtButtonsConfig($provide, DT_DEFAULT_OPTIONS) {
@@ -62,6 +63,33 @@ function dtButtonsConfig($provide, DT_DEFAULT_OPTIONS) {
     dtOptionsBuilderDecorator.$inject = ['$delegate'];
 }
 dtButtonsConfig.$inject = ['$provide', 'DT_DEFAULT_OPTIONS'];
+
+/* @ngInject */
+function initButtonsPlugin(DTRendererService) {
+    var buttonsPlugin = {
+        preRender: preRender,
+        postRender: postRender
+    };
+    DTRendererService.registerPlugin(buttonsPlugin);
+
+    function preRender(options) {
+        if (angular.isArray(options.buttons)) {
+            // The extension buttons seems to clear the content of the options.buttons for some reasons...
+            // So, we save it in a tmp variable so that we can restore it afterwards
+            // See https://github.com/l-lin/angular-datatables/issues/502
+            options.buttonsTmp = options.buttons.slice();
+        }
+    }
+
+    function postRender(options) {
+        if (angular.isDefined(options.buttonsTmp)) {
+            // Restore the buttons options
+            options.buttons = options.buttonsTmp;
+            delete options.buttonsTmp;
+        }
+    }
+}
+initButtonsPlugin.$inject = ['DTRendererService'];
 
 
 })(window, document, jQuery, angular);
