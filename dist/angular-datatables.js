@@ -872,6 +872,9 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
                 }
                 $timeout(function() {
                     _alreadyRendered = true;
+                    // Ensure that prerender is called when the collection is updated
+                    // See https://github.com/l-lin/angular-datatables/issues/502
+                    DTRendererService.preRender(renderer.options);
                     var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
                     _oTable = result.DataTable;
                     DTInstanceFactory.copyDTProperties(result, dtInstance);
