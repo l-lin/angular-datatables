@@ -353,6 +353,9 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
                 DTRendererService.hideLoading($elem);
                 // Set it to true in order to be able to redraw the dataTable
                 options.bDestroy = true;
+                // Ensure that prerender is called after loadData from promise
+                // See https://github.com/l-lin/angular-datatables/issues/563
+                DTRendererService.preRender(options);
                 defer.resolve(callback($elem, options));
             }, 0, false);
             return defer.promise;
