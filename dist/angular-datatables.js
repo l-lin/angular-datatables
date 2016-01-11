@@ -895,6 +895,9 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
         function rerender() {
             _destroyAndCompile();
             DTRendererService.showLoading(_$elem, _parentScope);
+            // Ensure that prerender is called after loadData from promise
+            // See https://github.com/l-lin/angular-datatables/issues/563
+            DTRendererService.preRender(options);
             $timeout(function() {
                 var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
                 _oTable = result.DataTable;
@@ -984,6 +987,9 @@ function dtPromiseRenderer($q, $timeout, $log, DTRenderer, DTRendererService, DT
         function rerender() {
             _oTable.destroy();
             DTRendererService.showLoading(_$elem, _$scope);
+            // Ensure that prerender is called after loadData from promise
+            // See https://github.com/l-lin/angular-datatables/issues/563
+            DTRendererService.preRender(options);
             render(_$elem, _$scope);
         }
 
@@ -1116,6 +1122,9 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         }
 
         function rerender() {
+            // Ensure that prerender is called after loadData from promise
+            // See https://github.com/l-lin/angular-datatables/issues/563
+            DTRendererService.preRender(options);
             render(_$elem, _$scope);
         }
 
