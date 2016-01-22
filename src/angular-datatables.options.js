@@ -8,11 +8,12 @@ angular.module('datatables.options', [])
         // Set default columns (used when none are provided)
         aoColumns: []
     })
+    .constant('DT_LOADING_CLASS', 'dt-loading')
     .service('DTDefaultOptions', dtDefaultOptions);
 
 function dtDefaultOptions() {
     var options = {
-        loadingTemplate: '<h3 class="dt-loading">Loading...</h3>',
+        loadingTemplate: '<h3>Loading...</h3>',
         bootstrapOptions: {},
         setLoadingTemplate: setLoadingTemplate,
         setLanguageSource: setLanguageSource,

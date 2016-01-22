@@ -268,10 +268,13 @@ function dtColumnDefBuilder(DTColumnBuilder) {
     };
 }
 
-function dtLoadingTemplate($compile, DTDefaultOptions) {
+function dtLoadingTemplate($compile, DTDefaultOptions, DT_LOADING_CLASS) {
     return {
         compileHtml: function($scope) {
-            return $compile(angular.element(DTDefaultOptions.loadingTemplate))($scope);
+            return $compile(angular.element('<div class="' + DT_LOADING_CLASS + '">' + DTDefaultOptions.loadingTemplate + '</div>'))($scope);
+        },
+        isLoading: function(elem) {
+            return elem.hasClass(DT_LOADING_CLASS);
         }
     };
 }

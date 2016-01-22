@@ -31,7 +31,10 @@ function dtRendererService(DTLoadingTemplate) {
 
     function hideLoading($elem) {
         $elem.show();
-        $elem.next().remove();
+        var next = $elem.next();
+        if (DTLoadingTemplate.isLoading(next)) {
+            next.remove();
+        }
     }
 
     function renderDataTable($elem, options) {

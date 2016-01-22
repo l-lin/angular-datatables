@@ -411,14 +411,17 @@ function dtColumnDefBuilder(DTColumnBuilder) {
 }
 dtColumnDefBuilder.$inject = ['DTColumnBuilder'];
 
-function dtLoadingTemplate($compile, DTDefaultOptions) {
+function dtLoadingTemplate($compile, DTDefaultOptions, DT_LOADING_CLASS) {
     return {
         compileHtml: function($scope) {
-            return $compile(angular.element(DTDefaultOptions.loadingTemplate))($scope);
+            return $compile(angular.element('<div class="' + DT_LOADING_CLASS + '">' + DTDefaultOptions.loadingTemplate + '</div>'))($scope);
+        },
+        isLoading: function(elem) {
+            return elem.hasClass(DT_LOADING_CLASS);
         }
     };
 }
-dtLoadingTemplate.$inject = ['$compile', 'DTDefaultOptions'];
+dtLoadingTemplate.$inject = ['$compile', 'DTDefaultOptions', 'DT_LOADING_CLASS'];
 
 'use strict';
 
@@ -599,11 +602,12 @@ angular.module('datatables.options', [])
         // Set default columns (used when none are provided)
         aoColumns: []
     })
+    .constant('DT_LOADING_CLASS', 'dt-loading')
     .service('DTDefaultOptions', dtDefaultOptions);
 
 function dtDefaultOptions() {
     var options = {
-        loadingTemplate: '<h3 class="dt-loading">Loading...</h3>',
+        loadingTemplate: '<h3>Loading...</h3>',
         bootstrapOptions: {},
         setLoadingTemplate: setLoadingTemplate,
         setLanguageSource: setLanguageSource,
@@ -714,7 +718,10 @@ function dtRendererService(DTLoadingTemplate) {
 
     function hideLoading($elem) {
         $elem.show();
-        $elem.next().remove();
+        var next = $elem.next();
+        if (DTLoadingTemplate.isLoading(next)) {
+            next.remove();
+        }
     }
 
     function renderDataTable($elem, options) {
