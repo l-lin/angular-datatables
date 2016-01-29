@@ -13,9 +13,10 @@
 }
 table.dataTable,
 table.dataTable.no-footer{
+    margin: 1rem 0;
     width: 100% !important;
     border-top: 1px solid #DDDDDD;;
-    border-bottom: 1px solid #DDDDDD;;
+    border-bottom: 1px solid #DDDDDD;
 }
 /* -- select box --*/
 .dataTables_length {
