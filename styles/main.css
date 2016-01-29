@@ -7,7 +7,7 @@
 }
 
 a, a:visited {
-    color: #b4052c;
+    color: #E84A5F;
     text-decoration: none;
 }
 
@@ -19,7 +19,12 @@ a:hover {
 hr {
     border-bottom: 2px solid #eee;
     border-top: 0;
-    margin: 10px 0;
+    margin: 20px 0 50px;
+}
+
+body {
+    background: #fafafa;
+    line-height: 2;
 }
 
 /* ---------------------------------------- */
@@ -62,9 +67,9 @@ hr {
 
 .header {
     text-align: center;
-    border-bottom: solid 6px #dd1b16;
+    border-bottom: solid 6px #FECEA8;
     position: relative;
-    background: #333;
+    background: #2A363B;
 }
 
 .header::before,
@@ -79,12 +84,11 @@ hr {
     width: 50%;
     position: absolute;
     left: 50%;
-    background: #8089d6;
+    background: #99B898;
 }
 
 .header .container h1 {
-    margin: 0;
-    text-shadow: -1px 1px #8f8f8f;
+    margin: 3px;
 }
 
 .header p {
@@ -94,7 +98,8 @@ hr {
 .header-icon {
     position: absolute;
     right: 4em;
-    top: 0;
+    top: 6px;
+    font-size: 3.3rem;
 }
 
 .header a {
@@ -116,7 +121,6 @@ hr {
 .footer-note {
     margin: auto;
     width: 900px;
-    border-top: 1px solid #CACACA;
     padding-top: 15px;
     text-align: center;
 }
@@ -131,7 +135,7 @@ code {
     white-space: nowrap;
     border-radius: 4px;
     background-color: #F9F1F1;
-    color: #b4052c;
+    color: #E84A5F;
 }
 
 code, kbd, pre, samp {
@@ -157,9 +161,9 @@ pre code {
 
 .container h1 {
     color: #434343;
-    font: 40px 'Nunito', sans-serif;
+    font: 40px 'Ubuntu', sans-serif;
+    font-weight: 500;
     line-height: 60px;
-    text-shadow: 1px 1px #ccc;
 }
 
 .main-content {
@@ -172,9 +176,9 @@ pre code {
 }
 
 .main-content h3 {
-    font-size: x-large;
-    margin-bottom: 10px;
-    margin-top: 0;
+    font-family: 'Ubuntu', san-serif;
+    margin: 0px 0 15px;
+    color: #2A363B;
 }
 
 .nav {
@@ -189,7 +193,7 @@ pre code {
 .nav-tabs>li>a:hover {
     border-bottom-color: #c2c2c2;
     background-color: #F9F1F1;
-    color: #b4052c;
+    color: #E84A5F;
 }
 
 .nav-tabs>li.active>a,
@@ -206,22 +210,24 @@ pre code {
 }
 
 .article-header {
-    padding: 10px 30px 0 30px;
+    padding: 2rem 2.5rem;
     color: #333;
-    border-bottom: 1px solid #c2c2c2;
-    border-left: 1px solid #c2c2c2;
     background: #fafafa;
+}
+.article-header h1 {
+    margin: 0;
+    font-family: 'Ubuntu', san-serif;
+    font-size: 3rem;
+    color: #2A363B;
 }
 
 .article-content {
     padding: 30px;
-    border-top: 2px solid #ededed;
-    border-left: 1px solid #c2c2c2;
+    border-left: 1px solid #FAFAFA;
 }
 
 .showcase {
-    border-left: 1px solid #c2c2c2;
-    border-bottom: 1px solid #c2c2c2;
+    padding: 2rem;
 }
 
 .showcase.no-tab {
@@ -292,12 +298,10 @@ pre code {
 /* ---------------------------------------- */
 
 .sidebar {
-    font-family: 'Open Sans', serif;
+    font-family: 'Ubuntu', san-serif;
     width: 200px;
     float: left;
     position: absolute;
-    border: 1px solid #ccc;
-    border-width: 0 1px 0 0;
     background-color: #f2f2f2;
     -webkit-transition: all .1s linear 0s;
     -moz-transition: all .1s linear 0s;
@@ -314,7 +318,6 @@ pre code {
 .sidebar .nav-list>li,
 .sidebar>.sidebar-collapse.first {
     border-top: 1px solid #fcfcfc;
-    border-bottom: 1px solid #e5e5e5;
 }
 
 .sidebar .nav-list>li>a {
@@ -331,7 +334,7 @@ pre code {
 .sidebar .nav-list>li>a:hover,
 .sidebar .nav-list>li.active>a {
     background-color: #FFF;
-    color: #D3433E;
+    color: #E84A5F;
 }
 
 .sidebar .nav-list>li.active>a:before,
@@ -342,10 +345,10 @@ pre code {
     top: -1px;
     bottom: 0;
     left: 0;
-    width: 3px;
-    max-width: 3px;
+    width: 4px;
+    max-width: 4px;
     overflow: hidden;
-    background-color: #dd1b16;
+    background-color: #E84A5F;
 }
 
 .sidebar .nav-list>li:hover:before {
@@ -389,7 +392,6 @@ pre code {
 }
 
 .sidebar-item.nav-list>li>.submenu {
-    border-top: 1px solid;
     background-color: #fff;
     border-color: #e5e5e5;
     list-style: none;

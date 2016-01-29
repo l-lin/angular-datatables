@@ -46,13 +46,14 @@ bower install angular-datatables
 
 ### Installation
 
-Include the JS file in your `index.html` file:
+Include the CSS, JS file in your `index.html` file:
 
 ```html
 <script src="jquery.min.js"></script>
 <script src="jquery.dataTables.min.js"></script>
 <script src="angular.min.js"></script>
 <script src="angular-datatables.min.js"></script>
+<link rel="stylesheet" href="angular-datatables.css">
 ```
 
 **IMPORTANT**: You must include the JS in this order. AngularJS **MUST** use jQuery and not its jqLite!
