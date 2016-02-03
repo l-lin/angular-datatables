@@ -71,6 +71,7 @@ angular.module('showcase.serverSideProcessing', ['datatables'])
 .controller('ServerSideProcessingCtrl', ServerSideProcessingCtrl);
 
 function ServerSideProcessingCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
     vm.dtOptions = DTOptionsBuilder.newOptions()
         .withOption('ajax', {
          // Either you specify the AjaxDataProp here
