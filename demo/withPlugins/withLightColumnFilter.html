@@ -12,9 +12,6 @@
         <p class="alert alert-warning">
             <i class="fa fa-warning"></i> The Light Column Filter only works with serverside processing! <br>
         </p>
-        <p class="alert alert-warning">
-            <i class="fa fa-warning"></i> The Light Column Filter does not work with <code>Responsive</code>. Do not use with normal <code>Column Filter</code>
-        </p>
         <p>
             You also need to add the dependency <code>datatables.light-columnfilter</code> to your Angular app.
         </p>
@@ -67,9 +64,26 @@ function WithColumnFilterCtrl(DTOptionsBuilder, DTColumnBuilder) {
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withPaginationType('full_numbers')
         .withLightColumnFilter({
-            0 : { "type" : "text"},
-            1 : { "type" : "text"},
-            2 : { "type" : "text"}
+            '0' : {
+                type : 'text'
+            },
+            '1' : {
+                type : 'text'
+            },
+            '2' : {
+                type : 'select',
+                values: [{
+                    value: 'Yoda', label: 'Yoda foobar'
+                }, {
+                    value: 'Titi', label: 'Titi foobar'
+                }, {
+                    value: 'Kyle', label: 'Kyle foobar'
+                }, {
+                    value: 'Bar', label: 'Bar foobar'
+                }, {
+                    value: 'Whateveryournameis', label: 'Whateveryournameis foobar'
+                }]
+            }
         });
     vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),

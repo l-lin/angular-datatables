@@ -14,15 +14,15 @@
     "datatables": "1.10.*"
   },
   "homepage": "https://github.com/thansen-solire/datatables-light-columnfilter",
-  "version": "0.0.7",
-  "_release": "0.0.7",
+  "version": "0.0.14",
+  "_release": "0.0.14",
   "_resolution": {
     "type": "version",
-    "tag": "0.0.7",
-    "commit": "7d35bbd17979a5018be01fb3b6f26e00d887e9db"
+    "tag": "0.0.14",
+    "commit": "d9a595ae10b9c5cc5fb481792876636503aa420b"
   },
   "_source": "git://github.com/thansen-solire/datatables-light-columnfilter.git",
-  "_target": "~0.0.7",
+  "_target": "~0.0.14",
   "_originalSource": "datatables-light-columnfilter",
   "_direct": true
 }

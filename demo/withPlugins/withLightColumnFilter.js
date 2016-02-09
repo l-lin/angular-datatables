@@ -7,9 +7,26 @@ function WithLightColumnFilterCtrl(DTOptionsBuilder, DTColumnBuilder) {
     vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
         .withPaginationType('full_numbers')
         .withLightColumnFilter({
-            0 : { "type" : "text"},
-            1 : { "type" : "text"},
-            2 : { "type" : "text"}
+            '0' : {
+                type : 'text'
+            },
+            '1' : {
+                type : 'text'
+            },
+            '2' : {
+                type : 'select',
+                values: [{
+                    value: 'Yoda', label: 'Yoda foobar'
+                }, {
+                    value: 'Titi', label: 'Titi foobar'
+                }, {
+                    value: 'Kyle', label: 'Kyle foobar'
+                }, {
+                    value: 'Bar', label: 'Bar foobar'
+                }, {
+                    value: 'Whateveryournameis', label: 'Whateveryournameis foobar'
+                }]
+            }
         });
     vm.dtColumns = [
         DTColumnBuilder.newColumn('id').withTitle('ID'),

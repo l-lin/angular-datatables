@@ -122,19 +122,38 @@
 
         self.dataTable.columns().eq(0).each(function(index){
           var
-            columnOptions = index in options ? options[index] : {},
-            column = new Column(
-              self.dataTable,
-              index,
-              self.dataTable.column(index),
-              columnOptions
-            ),
-            th = $('<th>').appendTo(tr)
+            className = self.dataTable.column(index).header().className,
+            never = className.match(/\bnever\b/),
+            columnOptions,
+            column,
+            th
           ;
+
+          if (never && ('responsive' in self.dataTable)) {
+            return;
+          }
+
+          columnOptions = index in options ? options[index] : {};
+          column = new Column(
+            self.dataTable,
+            index,
+            self.dataTable.column(index),
+            columnOptions
+          );
+          th = $('<th>').appendTo(tr);
           self.columns.push(column);
 
           column.dom(th);
           column.bindEvents();
+        });
+
+        // Hide and Show column filter th according to datatable build-in columns visibility
+        $(self.dataTable.table().node()).on('column-visibility.dt', function (e, settings, column, state) {
+          if (state) {
+            $('th', tr).eq(column - 1).show()
+          } else {
+            $('th', tr).eq(column - 1).hide()
+          }
         });
       },
       /**
@@ -173,6 +192,11 @@
             type: 'text'
           }).appendTo(th);
 
+          if (typeof self.options.width !== 'undefined') {
+            self.elements.css('width', self.options.width);
+          } else {
+            self.elements.css('width', '100%');
+          }
 
           return self.elements;
         },
@@ -210,6 +234,41 @@
           return self.elements.val();
         }
       },
+      select: {
+        dom: function(th){
+          var self = this, select;
+
+          select = $('<select>').append('<option></option>');
+
+          select.addClass(self.options.cssClass);
+
+          $.each(self.options.values, function(ii, value){
+            $('<option>').val(value.value).text(value.label).appendTo(select);
+          });
+
+          self.elements = select.appendTo(th);
+
+          if (typeof self.options.width !== 'undefined') {
+            self.elements.css('width', self.options.width);
+          } else {
+            self.elements.css('width', '100%');
+          }
+
+          return self.elements;
+        },
+        bindEvents: function(){
+          var self = this;
+
+          self.elements.on('change', function(){
+            self.search();
+          });
+        },
+        request: function(){
+          var self = this;
+
+          return self.elements.val();
+        }
+      },
       dateRange: {
         separator: '~',
         /**
@@ -227,6 +286,12 @@
           }).add($('<input>', {
               type: 'text'
           })).appendTo(th);
+
+          if (typeof self.options.width !== 'undefined') {
+            self.elements.css('width', self.options.width);
+          } else {
+            self.elements.css('width', '50%');
+          }
 
           return self.elements;
         },
