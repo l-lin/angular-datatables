@@ -16,7 +16,7 @@ function dtOptionsBuilder() {
         hasOverrideDom: false,
 
         /**
-         * Add the option to the datatables optoins
+         * Add the option to the datatables options
          * @param key the key of the option
          * @param value an object or a function of the option
          * @returns {DTOptions} the options
