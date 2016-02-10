@@ -82,7 +82,7 @@ function dtDefaultOptions() {
      * Set the default options to be use for Bootstrap integration.
      * See https://github.com/l-lin/angular-datatables/blob/dev/src/angular-datatables.bootstrap.options.js to check
      * what default options Angular DataTables is using.
-     * @param oBootstrapOptions an object containing the default options for Bootstreap integration
+     * @param oBootstrapOptions an object containing the default options for Bootstrap integration
      * @returns {DTDefaultOptions} the default option config
      */
     function setBootstrapOptions(oBootstrapOptions) {
