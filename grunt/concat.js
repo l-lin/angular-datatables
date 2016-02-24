@@ -40,8 +40,12 @@ module.exports = {
             '<%= yeoman.dist %>/plugins/select/angular-datatables.select.js': ['<%= yeoman.build %>/plugins/select/angular-datatables.select.js']
         }
     },
-    bannerCSS: {
+    bannerCSSBootstrap: {
         src: ['<%= yeoman.src %>/plugins/bootstrap/datatables.bootstrap.css'],
         dest: '<%= yeoman.dist %>/plugins/bootstrap/datatables.bootstrap.css'
+    },
+    bannerCSS: {
+        src: ['<%= yeoman.src %>/css/angular-datatables.css'],
+        dest: '<%= yeoman.dist %>/css/angular-datatables.css'
     }
 };
