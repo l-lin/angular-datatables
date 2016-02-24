@@ -131,7 +131,7 @@ function dtDefaultRenderer($q, DTRenderer, DTRendererService, DTInstanceFactory)
         function rerender() {
             _oTable.destroy();
             DTRendererService.showLoading(_$elem, _$scope);
-            render(_$elem);
+            render(_$elem, _$scope);
         }
         return renderer;
     }
