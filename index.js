@@ -1,6 +1,5 @@
 require('./dist/angular-datatables');
 require('./dist/plugins/bootstrap/angular-datatables.bootstrap');
-require('./dist/plugins/bootstrap/datatables.bootstrap.css');
 require('./dist/plugins/colreorder/angular-datatables.colreorder');
 require('./dist/plugins/columnfilter/angular-datatables.columnfilter');
 require('./dist/plugins/light-columnfilter/angular-datatables.light-columnfilter');
