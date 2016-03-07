@@ -5,7 +5,7 @@ angular.module('datatables.colreorder', ['datatables'])
     .config(dtColReorderConfig);
 
 /* @ngInject */
-function dtColReorderConfig($provide, DT_DEFAULT_OPTIONS) {
+function dtColReorderConfig($provide) {
     $provide.decorator('DTOptionsBuilder', dtOptionsBuilderDecorator);
 
     function dtOptionsBuilderDecorator($delegate) {
@@ -39,7 +39,7 @@ function dtColReorderConfig($provide, DT_DEFAULT_OPTIONS) {
              */
             function withColReorder() {
                 var colReorderPrefix = 'R';
-                options.dom = options.dom ? options.dom : DT_DEFAULT_OPTIONS.dom;
+                options.dom = options.dom ? options.dom : $.fn.dataTable.defaults.sDom;
                 if (options.dom.indexOf(colReorderPrefix) === -1) {
                     options.dom = colReorderPrefix + options.dom;
                 }

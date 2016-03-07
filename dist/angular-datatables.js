@@ -155,8 +155,6 @@ function dtOptionsBuilder() {
      * @param fnPromise the function that returns a promise to fetch the data
      */
     var DTOptions = {
-        hasOverrideDom: false,
-
         /**
          * Add the option to the datatables options
          * @param key the key of the option
@@ -595,8 +593,6 @@ function initAngularDataTables() {
 'use strict';
 angular.module('datatables.options', [])
     .constant('DT_DEFAULT_OPTIONS', {
-        // Default dom
-        dom: 'lfrtip',
         // Default ajax properties. See http://legacy.datatables.net/usage/options#sAjaxDataProp
         sAjaxDataProp: '',
         // Set default columns (used when none are provided)
@@ -613,7 +609,8 @@ function dtDefaultOptions() {
         setLanguageSource: setLanguageSource,
         setLanguage: setLanguage,
         setDisplayLength: setDisplayLength,
-        setBootstrapOptions: setBootstrapOptions
+        setBootstrapOptions: setBootstrapOptions,
+        setDOM: setDOM
     };
 
     return options;
@@ -681,6 +678,19 @@ function dtDefaultOptions() {
      */
     function setBootstrapOptions(oBootstrapOptions) {
         options.bootstrapOptions = oBootstrapOptions;
+        return options;
+    }
+
+    /**
+     * Set the DOM for all DataTables.
+     * See https://datatables.net/reference/option/dom
+     * @param dom the dom
+     * @returns {DTDefaultoptions} the default option config
+     */
+    function setDOM(dom) {
+        $.extend($.fn.dataTable.defaults, {
+            sDom: dom
+        });
         return options;
     }
 }

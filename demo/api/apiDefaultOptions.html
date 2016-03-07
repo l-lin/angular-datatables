@@ -77,5 +77,17 @@ angular.module('myModule', ['datatables']).run(function(DTDefaultOptions) {
 </div>
         </td>
     </tr>
+    <tr>
+        <td><code>DTDefaultOptions</code></td>
+        <td><code>setDOM(sDom)</code></td>
+        <td>
+            Set the default <a href="https://datatables.net/reference/option/dom">DOM</a> for all DataTables.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function(DTDefaultOptions) {
+    DTDefaultOptions.setDOM('lpfrtip');
+});
+</div>
+        </td>
+    </tr>
     </tbody>
 </table>

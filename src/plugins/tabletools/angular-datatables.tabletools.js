@@ -5,7 +5,7 @@ angular.module('datatables.tabletools', ['datatables'])
     .config(dtTableToolsConfig);
 
 /* @ngInject */
-function dtTableToolsConfig($provide, DT_DEFAULT_OPTIONS) {
+function dtTableToolsConfig($provide) {
     $provide.decorator('DTOptionsBuilder', dtOptionsBuilderDecorator);
 
     function dtOptionsBuilderDecorator($delegate) {
@@ -40,7 +40,7 @@ function dtTableToolsConfig($provide, DT_DEFAULT_OPTIONS) {
             function withTableTools(sSwfPath) {
                 console.warn('The tabletools extension has been retired. Please use the select and buttons extensions instead: https://datatables.net/extensions/select/ and https://datatables.net/extensions/buttons/');
                 var tableToolsPrefix = 'T';
-                options.dom = options.dom ? options.dom : DT_DEFAULT_OPTIONS.dom;
+                options.dom = options.dom ? options.dom : $.fn.dataTable.defaults.sDom;
                 if (options.dom.indexOf(tableToolsPrefix) === -1) {
                     options.dom = tableToolsPrefix + options.dom;
                 }

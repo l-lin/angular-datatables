@@ -139,7 +139,7 @@ initBootstrapPlugin.$inject = ['DTRendererService', 'DTBootstrap'];
  * Source: https://editor.datatables.net/release/DataTables/extras/Editor/examples/bootstrap.html
  */
 /* @ngInject */
-function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions, DTPropertyUtil, DT_DEFAULT_OPTIONS) {
+function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaultOptions, DTPropertyUtil) {
     var _initialized = false,
         _drawCallbackFunctionList = [],
         _savedFn = {};
@@ -357,7 +357,7 @@ function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaul
     }
 
     function _setDom(options) {
-            if (!options.dom || options.dom === DT_DEFAULT_OPTIONS.dom) {
+            if (!options.dom || options.dom === $.fn.dataTable.defaults.sDom) {
                 return DTBootstrapDefaultOptions.getOptions().dom;
             }
             return options.dom;
@@ -391,7 +391,7 @@ function dtBootstrap(DTBootstrapTableTools, DTBootstrapColVis, DTBootstrapDefaul
         }
     }
 }
-dtBootstrap.$inject = ['DTBootstrapTableTools', 'DTBootstrapColVis', 'DTBootstrapDefaultOptions', 'DTPropertyUtil', 'DT_DEFAULT_OPTIONS'];
+dtBootstrap.$inject = ['DTBootstrapTableTools', 'DTBootstrapColVis', 'DTBootstrapDefaultOptions', 'DTPropertyUtil'];
 
 'use strict';
 angular.module('datatables.bootstrap.options', ['datatables.options', 'datatables.util'])

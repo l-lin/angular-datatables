@@ -6,7 +6,7 @@ angular.module('datatables.buttons', ['datatables'])
     .run(initButtonsPlugin);
 
 /* @ngInject */
-function dtButtonsConfig($provide, DT_DEFAULT_OPTIONS) {
+function dtButtonsConfig($provide) {
     $provide.decorator('DTOptionsBuilder', dtOptionsBuilderDecorator);
 
     function dtOptionsBuilderDecorator($delegate) {
@@ -38,7 +38,7 @@ function dtButtonsConfig($provide, DT_DEFAULT_OPTIONS) {
              */
             function withButtons(buttonsOptions) {
                 var buttonsPrefix = 'B';
-                options.dom = options.dom ? options.dom : DT_DEFAULT_OPTIONS.dom;
+                options.dom = options.dom ? options.dom : $.fn.dataTable.defaults.sDom;
                 if (options.dom.indexOf(buttonsPrefix) === -1) {
                     options.dom = buttonsPrefix + options.dom;
                 }
