@@ -45,8 +45,8 @@ function dtDefaultOptions() {
             dataType: 'json',
             url: sLanguageSource,
             success: function(json) {
-                $.extend(true, $.fn.dataTable.defaults, {
-                    oLanguage: json
+                $.extend(true, $.fn.DataTable.defaults, {
+                    language: json
                 });
             }
         });
@@ -55,24 +55,24 @@ function dtDefaultOptions() {
 
     /**
      * Set the language for all datatables
-     * @param oLanguage the language
+     * @param language the language
      * @returns {DTDefaultOptions} the default option config
      */
-    function setLanguage(oLanguage) {
-        $.extend(true, $.fn.dataTable.defaults, {
-            oLanguage: oLanguage
+    function setLanguage(language) {
+        $.extend(true, $.fn.DataTable.defaults, {
+            language: language
         });
         return options;
     }
 
     /**
      * Set the default number of items to display for all datatables
-     * @param iDisplayLength the number of items to display
+     * @param displayLength the number of items to display
      * @returns {DTDefaultOptions} the default option config
      */
-    function setDisplayLength(iDisplayLength) {
-        $.extend($.fn.dataTable.defaults, {
-            iDisplayLength: iDisplayLength
+    function setDisplayLength(displayLength) {
+        $.extend($.fn.DataTable.defaults, {
+            displayLength: displayLength
         });
         return options;
     }
@@ -96,8 +96,8 @@ function dtDefaultOptions() {
      * @returns {DTDefaultoptions} the default option config
      */
     function setDOM(dom) {
-        $.extend($.fn.dataTable.defaults, {
-            sDom: dom
+        $.extend($.fn.DataTable.defaults, {
+            dom: dom
         });
         return options;
     }
