@@ -4,75 +4,75 @@
  * License: MIT
  */
 if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports) {
-   module.exports = 'datatables.columnfilter';
+    module.exports = 'datatables.columnfilter';
 }
-(function (window, document, $, angular) {
+(function(window, document, $, angular) {
 
-'use strict';
+    'use strict';
 
-// See http://jquery-datatables-column-filter.googlecode.com/svn/trunk/index.html
-angular.module('datatables.columnfilter', ['datatables'])
-    .config(dtColumnFilterConfig)
-    .run(initColumnFilterPlugin);
+    // See http://jquery-datatables-column-filter.googlecode.com/svn/trunk/index.html
+    angular.module('datatables.columnfilter', ['datatables'])
+        .config(dtColumnFilterConfig)
+        .run(initColumnFilterPlugin);
 
-/* @ngInject */
-function dtColumnFilterConfig($provide) {
-    $provide.decorator('DTOptionsBuilder', dtOptionsBuilderDecorator);
+    /* @ngInject */
+    function dtColumnFilterConfig($provide) {
+        $provide.decorator('DTOptionsBuilder', dtOptionsBuilderDecorator);
 
-    function dtOptionsBuilderDecorator($delegate) {
-        var newOptions = $delegate.newOptions;
-        var fromSource = $delegate.fromSource;
-        var fromFnPromise = $delegate.fromFnPromise;
+        function dtOptionsBuilderDecorator($delegate) {
+            var newOptions = $delegate.newOptions;
+            var fromSource = $delegate.fromSource;
+            var fromFnPromise = $delegate.fromFnPromise;
 
-        $delegate.newOptions = function() {
-            return _decorateOptions(newOptions);
-        };
-        $delegate.fromSource = function(ajax) {
-            return _decorateOptions(fromSource, ajax);
-        };
-        $delegate.fromFnPromise = function(fnPromise) {
-            return _decorateOptions(fromFnPromise, fnPromise);
-        };
+            $delegate.newOptions = function() {
+                return _decorateOptions(newOptions);
+            };
+            $delegate.fromSource = function(ajax) {
+                return _decorateOptions(fromSource, ajax);
+            };
+            $delegate.fromFnPromise = function(fnPromise) {
+                return _decorateOptions(fromFnPromise, fnPromise);
+            };
 
-        return $delegate;
+            return $delegate;
 
-        function _decorateOptions(fn, params) {
-            var options = fn(params);
-            options.withColumnFilter = withColumnFilter;
-            return options;
-
-            /**
-             * Add column filter support
-             * @param columnFilterOptions the plugins options
-             * @returns {DTOptions} the options
-             */
-            function withColumnFilter(columnFilterOptions) {
-                options.hasColumnFilter = true;
-                if (columnFilterOptions) {
-                    options.columnFilterOptions = columnFilterOptions;
-                }
+            function _decorateOptions(fn, params) {
+                var options = fn(params);
+                options.withColumnFilter = withColumnFilter;
                 return options;
+
+                /**
+                 * Add column filter support
+                 * @param columnFilterOptions the plugins options
+                 * @returns {DTOptions} the options
+                 */
+                function withColumnFilter(columnFilterOptions) {
+                    options.hasColumnFilter = true;
+                    if (columnFilterOptions) {
+                        options.columnFilterOptions = columnFilterOptions;
+                    }
+                    return options;
+                }
+            }
+        }
+        dtOptionsBuilderDecorator.$inject = ['$delegate'];
+    }
+    dtColumnFilterConfig.$inject = ['$provide'];
+
+    /* @ngInject */
+    function initColumnFilterPlugin(DTRendererService) {
+        var columnFilterPlugin = {
+            postRender: postRender
+        };
+        DTRendererService.registerPlugin(columnFilterPlugin);
+
+        function postRender(options, result) {
+            if (options && options.hasColumnFilter) {
+                result.dataTable.columnFilter(options.columnFilterOptions);
             }
         }
     }
-    dtOptionsBuilderDecorator.$inject = ['$delegate'];
-}
-dtColumnFilterConfig.$inject = ['$provide'];
-
-/* @ngInject */
-function initColumnFilterPlugin(DTRendererService) {
-    var columnFilterPlugin = {
-        postRender: postRender
-    };
-    DTRendererService.registerPlugin(columnFilterPlugin);
-
-    function postRender(options, result) {
-        if (options && options.hasColumnFilter) {
-            result.dataTable.columnFilter(options.columnFilterOptions);
-        }
-    }
-}
-initColumnFilterPlugin.$inject = ['DTRendererService'];
+    initColumnFilterPlugin.$inject = ['DTRendererService'];
 
 
 })(window, document, jQuery, angular);

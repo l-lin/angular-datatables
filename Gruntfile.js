@@ -60,9 +60,9 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('default', [
-        'format',
         'jshint',
         'test',
-        'build'
+        'build',
+        'format'
     ]);
 };
