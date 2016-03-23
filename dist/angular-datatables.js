@@ -1016,10 +1016,10 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     throw new Error('You must provide a promise or a function that returns a promise!');
                 }
                 if (_loadedPromise) {
-                    _loadedPromise.then(function()  {
+                    _loadedPromise.then(function() {
                         defer.resolve(_startLoading(fnPromise, callback));
                     });
-                } else  {
+                } else {
                     defer.resolve(_startLoading(fnPromise, callback));
                 }
                 return defer.promise;
@@ -1184,7 +1184,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             fromOptions: fromOptions
         };
 
-        function fromOptions(options, isNgDisplay)  {
+        function fromOptions(options, isNgDisplay) {
             if (isNgDisplay) {
                 if (options && options.serverSide) {
                     throw new Error('You cannot use server side processing along with the Angular renderer!');
