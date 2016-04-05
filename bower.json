@@ -6,7 +6,7 @@
   "main": [
     "dist/angular-datatables.js",
     "dist/plugins/bootstrap/angular-datatables.bootstrap.js",
-    "dist/plugins/bootstrap/datatables.bootstrap.css",
+    "dist/plugins/bootstrap/datatables.bootstrap.min.css",
     "dist/plugins/colreorder/angular-datatables.colreorder.js",
     "dist/plugins/columnfilter/angular-datatables.columnfilter.js",
     "dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.js",
