@@ -152,7 +152,7 @@ function($scope, DTColumnBuilder) {
     var vm = this;
     // Data fetched: {gender: 'Mr', firstName: 'foo', lastName: 'bar'}
     vm.dtColumns = [
-        DTColumnBuilder.newColumn('firstName').withLabel('First name').renderWith(function(data, type, full) {
+        DTColumnBuilder.newColumn('firstName').withTitle('First name').renderWith(function(data, type, full) {
             return full.gender + ' ' + full.firstName;
         });
     ];
