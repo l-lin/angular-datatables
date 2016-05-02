@@ -4,3 +4,4 @@ bin
 *.iml
 .zedstate
 tags
+.idea
