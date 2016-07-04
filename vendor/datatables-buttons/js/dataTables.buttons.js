@@ -1,11 +1,36 @@
-/*! Buttons for DataTables 1.0.3
- * ©2015 SpryMedia Ltd - datatables.net/license
+/*! Buttons for DataTables 1.2.1
+ * ©2016 SpryMedia Ltd - datatables.net/license
  */
-(function(window, document, undefined) {
 
+(function( factory ){
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD
+		define( ['jquery', 'datatables.net'], function ( $ ) {
+			return factory( $, window, document );
+		} );
+	}
+	else if ( typeof exports === 'object' ) {
+		// CommonJS
+		module.exports = function (root, $) {
+			if ( ! root ) {
+				root = window;
+			}
 
-var factory = function( $, DataTable ) {
-"use strict";
+			if ( ! $ || ! $.fn.dataTable ) {
+				$ = require('datatables.net')(root, $).$;
+			}
+
+			return factory( $, root, root.document );
+		};
+	}
+	else {
+		// Browser
+		factory( jQuery, window, document );
+	}
+}(function( $, window, document, undefined ) {
+'use strict';
+var DataTable = $.fn.dataTable;
+
 
 // Used for namespacing events added to the document by each instance, so they
 // can be removed on destroy
@@ -43,7 +68,6 @@ var Buttons = function( dt, config )
 	this.s = {
 		dt: new DataTable.Api( dt ),
 		buttons: [],
-		subButtons: [],
 		listenKeys: '',
 		namespace: 'dtb'+(_instCounter++)
 	};
@@ -68,57 +92,68 @@ $.extend( Buttons.prototype, {
 	 * @return {function}
 	 *//**
 	 * Set the action of a button
-	 * @param  {int|string} Button index
-	 * @param  {function} Function to set
+	 * @param  {node} node Button element
+	 * @param  {function} action Function to set
 	 * @return {Buttons} Self for chaining
 	 */
-	action: function ( idx, action )
+	action: function ( node, action )
 	{
-		var button = this._indexToButton( idx ).conf;
+		var button = this._nodeToButton( node );
 
 		if ( action === undefined ) {
-			return button.action;
+			return button.conf.action;
 		}
 
-		button.action = action;
+		button.conf.action = action;
 
 		return this;
 	},
 
 	/**
-	 * Add an active class to the button to make to look active
-	 * @param  {int|string} Button index
-	 * @param  {boolean} [flag=true] Enable / disable flag
-	 * @return {Buttons} Self for chaining
+	 * Add an active class to the button to make to look active or get current
+	 * active state.
+	 * @param  {node} node Button element
+	 * @param  {boolean} [flag] Enable / disable flag
+	 * @return {Buttons} Self for chaining or boolean for getter
 	 */
-	active: function ( idx, flag ) {
-		var button = this._indexToButton( idx );
-		button.node.toggleClass(
-			this.c.dom.button.active,
-			flag === undefined ? true : flag
-		);
+	active: function ( node, flag ) {
+		var button = this._nodeToButton( node );
+		var klass = this.c.dom.button.active;
+		var jqNode = $(button.node);
+
+		if ( flag === undefined ) {
+			return jqNode.hasClass( klass );
+		}
+
+		jqNode.toggleClass( klass, flag === undefined ? true : flag );
 
 		return this;
 	},
 
 	/**
 	 * Add a new button
-	 * @param {int|string} Button index for where to insert the button
-	 * @param {object} Button configuration object, base string name or function
+	 * @param {object} config Button configuration object, base string name or function
+	 * @param {int|string} [idx] Button index for where to insert the button
 	 * @return {Buttons} Self for chaining
 	 */
-	add: function ( idx, config )
+	add: function ( config, idx )
 	{
-		if ( typeof idx === 'string' && idx.indexOf('-') !== -1 ) {
-			var idxs = idx.split('-');
-			this.c.buttons[idxs[0]*1].buttons.splice( idxs[1]*1, 0, config );
-		}
-		else {
-			this.c.buttons.splice( idx*1, 0, config );
+		var buttons = this.s.buttons;
+
+		if ( typeof idx === 'string' ) {
+			var split = idx.split('-');
+			var base = this.s;
+
+			for ( var i=0, ien=split.length-1 ; i<ien ; i++ ) {
+				base = base.buttons[ split[i]*1 ];
+			}
+
+			buttons = base.buttons;
+			idx = split[ split.length-1 ]*1;
 		}
 
-		this.dom.container.empty();
-		this._buildButtons( this.c.buttons );
+		this._expandButton( buttons, config, false, idx );
+		this._draw();
 
 		return this;
 	},
@@ -134,12 +169,13 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Disable a button
-	 * @param  {int|string} Button index
+	 * @param  {node} node Button node
 	 * @return {Buttons} Self for chaining
 	 */
-	disable: function ( idx ) {
-		var button = this._indexToButton( idx );
-		button.node.addClass( this.c.dom.button.disabled );
+	disable: function ( node ) {
+		var button = this._nodeToButton( node );
+
+		$(button.node).addClass( this.c.dom.button.disabled );
 
 		return this;
 	},
@@ -155,20 +191,13 @@ $.extend( Buttons.prototype, {
 		$('body').off( 'keyup.'+this.s.namespace );
 
 		// Individual button destroy (so they can remove their own events if
-		// needed
-		var buttons = this.s.buttons;
-		var subButtons = this.s.subButtons;
-		var i, ien, j, jen;
+		// needed). Take a copy as the array is modified by `remove`
+		var buttons = this.s.buttons.slice();
+		var i, ien;
 		
 		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
-			this.removePrep( i );
-
-			for ( j=0, jen=subButtons[i].length ; j<jen ; j++ ) {
-				this.removePrep( i+'-'+j );
-			}
+			this.remove( buttons[i].node );
 		}
-
-		this.removeCommit();
 
 		// Container
 		this.dom.container.remove();
@@ -188,18 +217,18 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Enable / disable a button
-	 * @param  {int|string} Button index
+	 * @param  {node} node Button node
 	 * @param  {boolean} [flag=true] Enable / disable flag
 	 * @return {Buttons} Self for chaining
 	 */
-	enable: function ( idx, flag )
+	enable: function ( node, flag )
 	{
 		if ( flag === false ) {
-			return this.disable( idx );
+			return this.disable( node );
 		}
 
-		var button = this._indexToButton( idx );
-		button.node.removeClass( this.c.dom.button.disabled );
+		var button = this._nodeToButton( node );
+		$(button.node).removeClass( this.c.dom.button.disabled );
 
 		return this;
 	},
@@ -215,105 +244,70 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Get a button's node
-	 * @param  {int|string} Button index
+	 * @param  {node} node Button node
 	 * @return {jQuery} Button element
 	 */
-	node: function ( idx )
+	node: function ( node )
 	{
-		var button = this._indexToButton( idx );
-		return button.node;
+		var button = this._nodeToButton( node );
+		return $(button.node);
 	},
 
 	/**
-	 * Tidy up any buttons that have been scheduled for removal. This is
-	 * required so multiple buttons can be removed without upsetting the button
-	 * indexes while removing them.
-	 * @param  {int|string} Button index
+	 * Remove a button.
+	 * @param  {node} node Button node
 	 * @return {Buttons} Self for chaining
 	 */
-	removeCommit: function ()
+	remove: function ( node )
 	{
-		var buttons = this.s.buttons;
-		var subButtons = this.s.subButtons;
-		var i, ien, j;
-
-		for ( i=buttons.length-1 ; i>=0 ; i-- ) {
-			if ( buttons[i] === null ) {
-				buttons.splice( i, 1 );
-				subButtons.splice( i, 1 );
-				this.c.buttons.splice( i, 1 );
-			}
-		}
-
-		for ( i=0, ien=subButtons.length ; i<ien ; i++ ) {
-			for ( j=subButtons[i].length-1 ; j>=0 ; j-- ) {
-				if ( subButtons[i][j] === null ) {
-					subButtons[i].splice( j, 1 );
-					this.c.buttons[i].buttons.splice( j, 1 );
-				}
-			}
-		}
-
-		return this;
-	},
-
-	/**
-	 * Scheduled a button for removal. This is required so multiple buttons can
-	 * be removed without upsetting the button indexes while removing them.
-	 * @return {Buttons} Self for chaining
-	 */
-	removePrep: function ( idx )
-	{
-		var button;
+		var button = this._nodeToButton( node );
+		var host = this._nodeToHost( node );
 		var dt = this.s.dt;
 
-		if ( typeof idx === 'number' || idx.indexOf('-') === -1 ) {
-			// Top level button
-			button = this.s.buttons[ idx*1 ];
-
-			if ( button.conf.destroy ) {
-				button.conf.destroy.call( dt.button(idx), dt, button, button.conf );
+		// Remove any child buttons first
+		if ( button.buttons.length ) {
+			for ( var i=button.buttons.length-1 ; i>=0 ; i-- ) {
+				this.remove( button.buttons[i].node );
 			}
-
-			button.node.remove();
-			this._removeKey( button.conf );
-			this.s.buttons[ idx*1 ] = null;
 		}
-		else {
-			// Collection button
-			var idxs = idx.split('-');
-			button = this.s.subButtons[ idxs[0]*1 ][ idxs[1]*1 ];
 
-			if ( button.conf.destroy ) {
-				button.conf.destroy.call( dt.button(idx), dt, button, button.conf );
-			}
-
-			button.node.remove();
-			this._removeKey( button.conf );
-			this.s.subButtons[ idxs[0]*1 ][ idxs[1]*1 ] = null;
+		// Allow the button to remove event handlers, etc
+		if ( button.conf.destroy ) {
+			button.conf.destroy.call( dt.button(node), dt, $(node), button.conf );
 		}
+
+		this._removeKey( button.conf );
+
+		$(button.node).remove();
+
+		var idx = $.inArray( button, host );
+		host.splice( idx, 1 );
 
 		return this;
 	},
 
 	/**
 	 * Get the text for a button
-	 * @param  {int|string} Button index
+	 * @param  {int|string} node Button index
 	 * @return {string} Button text
 	 *//**
 	 * Set the text for a button
-	 * @param  {int|string|function} Button index
-	 * @param  {string} Text
+	 * @param  {int|string|function} node Button index
+	 * @param  {string} label Text
 	 * @return {Buttons} Self for chaining
 	 */
-	text: function ( idx, label )
+	text: function ( node, label )
 	{
-		var button = this._indexToButton( idx );
-		var linerTag = this.c.dom.buttonLiner.tag;
+		var button = this._nodeToButton( node );
+		var buttonLiner = this.c.dom.collection.buttonLiner;
+		var linerTag = button.inCollection && buttonLiner && buttonLiner.tag ?
+			buttonLiner.tag :
+			this.c.dom.buttonLiner.tag;
 		var dt = this.s.dt;
+		var jqNode = $(button.node);
 		var text = function ( opt ) {
 			return typeof opt === 'function' ?
-				opt( dt, button.node, button.conf ) :
+				opt( dt, jqNode, button.conf ) :
 				opt;
 		};
 
@@ -324,41 +318,13 @@ $.extend( Buttons.prototype, {
 		button.conf.text = label;
 
 		if ( linerTag ) {
-			button.node.children( linerTag ).html( text(label) );
+			jqNode.children( linerTag ).html( text(label) );
 		}
 		else {
-			button.node.html( text(label) );
+			jqNode.html( text(label) );
 		}
 
 		return this;
-	},
-
-	/**
-	 * Calculate button index from a node
-	 * @param  {node} Button node (_not_ a jQuery object)
-	 * @return {string} Index. Undefined if not found
-	 */
-	toIndex: function ( node )
-	{
-		var i, ien, j, jen;
-		var buttons = this.s.buttons;
-		var subButtons = this.s.subButtons;
-
-		// Loop the main buttons first
-		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
-			if ( buttons[i].node[0] === node ) {
-				return i+'';
-			}
-		}
-
-		// Then the sub-buttons
-		for ( i=0, ien=subButtons.length ; i<ien ; i++ ) {
-			for ( j=0, jen=subButtons[i].length ; j<jen ; j++ ) {
-				if ( subButtons[i][j].node[0] === node ) {
-					return i+'-'+j;
-				}
-			}
-		}
 	},
 
 
@@ -375,6 +341,7 @@ $.extend( Buttons.prototype, {
 		var that = this;
 		var dt = this.s.dt;
 		var dtSettings = dt.settings()[0];
+		var buttons =  this.c.buttons;
 
 		if ( ! dtSettings._buttons ) {
 			dtSettings._buttons = [];
@@ -385,7 +352,9 @@ $.extend( Buttons.prototype, {
 			name: this.c.name
 		} );
 
-		this._buildButtons( this.c.buttons );
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			this.add( buttons[i] );
+		}
 
 		dt.on( 'destroy', function () {
 			that.destroy();
@@ -412,7 +381,7 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Add a new button to the key press listener
-	 * @param {object} Resolved button configuration object
+	 * @param {object} conf Resolved button configuration object
 	 * @private
 	 */
 	_addKey: function ( conf )
@@ -425,22 +394,43 @@ $.extend( Buttons.prototype, {
 	},
 
 	/**
-	 * Create buttons from an array of buttons
-	 * @param  {array} Buttons to create
-	 * @param  {jQuery} Container node into which the created button should be
-	 *   inserted.
-	 * @param  {int} Counter for sub-buttons to be stored in a collection
+	 * Insert the buttons into the container. Call without parameters!
+	 * @param  {node} [container] Recursive only - Insert point
+	 * @param  {array} [buttons] Recursive only - Buttons array
 	 * @private
 	 */
-	_buildButtons: function ( buttons, container, collectionCounter )
+	_draw: function ( container, buttons )
 	{
-		var dt = this.s.dt;
-
 		if ( ! container ) {
 			container = this.dom.container;
-			this.s.buttons = [];
-			this.s.subButtons = [];
+			buttons = this.s.buttons;
 		}
+
+		container.children().detach();
+
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			container.append( buttons[i].inserter );
+
+			if ( buttons[i].buttons && buttons[i].buttons.length ) {
+				this._draw( buttons[i].collection, buttons[i].buttons );
+			}
+		}
+	},
+
+	/**
+	 * Create buttons from an array of buttons
+	 * @param  {array} attachTo Buttons array to attach to
+	 * @param  {object} button Button definition
+	 * @param  {boolean} inCollection true if the button is in a collection
+	 * @private
+	 */
+	_expandButton: function ( attachTo, button, inCollection, attachPoint )
+	{
+		var dt = this.s.dt;
+		var buttonCounter = 0;
+		var buttons = ! $.isArray( button ) ?
+			[ button ] :
+			button;
 
 		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
 			var conf = this._resolveExtends( buttons[i] );
@@ -452,64 +442,51 @@ $.extend( Buttons.prototype, {
 			// If the configuration is an array, then expand the buttons at this
 			// point
 			if ( $.isArray( conf ) ) {
-				this._buildButtons( conf, container, collectionCounter );
+				this._expandButton( attachTo, conf, inCollection, attachPoint );
 				continue;
 			}
 
-			var button = this._buildButton(
-				conf,
-				collectionCounter!==undefined ? true : false
-			);
-
-			if ( ! button ) {
+			var built = this._buildButton( conf, inCollection );
+			if ( ! built ) {
 				continue;
 			}
 
-			var buttonNode = button.node;
-			container.append( button.inserter );
-
-			if ( collectionCounter === undefined ) {
-				this.s.buttons.push( {
-					node:     buttonNode,
-					conf:     conf,
-					inserter: button.inserter
-				} );
-				this.s.subButtons.push( [] );
+			if ( attachPoint !== undefined ) {
+				attachTo.splice( attachPoint, 0, built );
+				attachPoint++;
 			}
 			else {
-				this.s.subButtons[ collectionCounter ].push( {
-					node:     buttonNode,
-					conf:     conf,
-					inserter: button.inserter
-				} );
+				attachTo.push( built );
 			}
 
-			if ( conf.buttons ) {
+			if ( built.conf.buttons ) {
 				var collectionDom = this.c.dom.collection;
-				conf._collection = $('<'+collectionDom.tag+'/>')
+				built.collection = $('<'+collectionDom.tag+'/>')
 					.addClass( collectionDom.className );
+				built.conf._collection = built.collection;
 
-				this._buildButtons( conf.buttons, conf._collection, i );
+				this._expandButton( built.buttons, built.conf.buttons, true, attachPoint );
 			}
 
 			// init call is made here, rather than buildButton as it needs to
-			// have been added to the buttons / subButtons array first
+			// be selectable, and for that it needs to be in the buttons array
 			if ( conf.init ) {
-				conf.init.call( dt.button( buttonNode ), dt, buttonNode, conf );
+				conf.init.call( dt.button( built.node ), dt, $(built.node), conf );
 			}
+
+			buttonCounter++;
 		}
 	},
 
 	/**
 	 * Create an individual button
 	 * @param  {object} config            Resolved button configuration
-	 * @param  {boolean} collectionButton `true` if a collection button
+	 * @param  {boolean} inCollection `true` if a collection button
 	 * @return {jQuery} Created button node (jQuery)
 	 * @private
 	 */
-	_buildButton: function ( config, collectionButton )
+	_buildButton: function ( config, inCollection )
 	{
-		var that = this;
 		var buttonDom = this.c.dom.button;
 		var linerDom = this.c.dom.buttonLiner;
 		var collectionDom = this.c.dom.collection;
@@ -520,11 +497,11 @@ $.extend( Buttons.prototype, {
 				opt;
 		};
 
-		if ( collectionButton && collectionDom.button ) {
+		if ( inCollection && collectionDom.button ) {
 			buttonDom = collectionDom.button;
 		}
 
-		if ( collectionButton && collectionDom.buttonLiner ) {
+		if ( inCollection && collectionDom.buttonLiner ) {
 			linerDom = collectionDom.buttonLiner;
 		}
 
@@ -534,6 +511,14 @@ $.extend( Buttons.prototype, {
 			return false;
 		}
 
+		var action = function ( e, dt, button, config ) {
+			config.action.call( dt.button( button ), e, dt, button, config );
+
+			$(dt.table().node()).triggerHandler( 'buttons-action.dt', [
+				dt.button( button ), dt, button, config 
+			] );
+		};
+
 		var button = $('<'+buttonDom.tag+'/>')
 			.addClass( buttonDom.className )
 			.attr( 'tabindex', this.s.dt.settings()[0].iTabIndex )
@@ -542,7 +527,7 @@ $.extend( Buttons.prototype, {
 				e.preventDefault();
 
 				if ( ! button.hasClass( buttonDom.disabled ) && config.action ) {
-					config.action.call( dt.button( button ), e, dt, button, config );
+					action( e, dt, button, config );
 				}
 
 				button.blur();
@@ -550,17 +535,26 @@ $.extend( Buttons.prototype, {
 			.on( 'keyup.dtb', function (e) {
 				if ( e.keyCode === 13 ) {
 					if ( ! button.hasClass( buttonDom.disabled ) && config.action ) {
-						config.action.call( dt.button( button ), e, dt, button, config );
+						action( e, dt, button, config );
 					}
 				}
 			} );
 
+		// Make `a` tags act like a link
+		if ( buttonDom.tag.toLowerCase() === 'a' ) {
+			button.attr( 'href', '#' );
+		}
+
 		if ( linerDom.tag ) {
-			button.append(
-				$('<'+linerDom.tag+'/>')
-					.html( text( config.text ) )
-					.addClass( linerDom.className )
-			);
+			var liner = $('<'+linerDom.tag+'/>')
+				.html( text( config.text ) )
+				.addClass( linerDom.className );
+
+			if ( linerDom.tag.toLowerCase() === 'a' ) {
+				liner.attr( 'href', '#' );
+			}
+
+			button.append( liner );
 		}
 		else {
 			button.html( text( config.text ) );
@@ -574,13 +568,17 @@ $.extend( Buttons.prototype, {
 			button.addClass( config.className );
 		}
 
+		if ( config.titleAttr ) {
+			button.attr( 'title', config.titleAttr );
+		}
+
 		if ( ! config.namespace ) {
 			config.namespace = '.dt-button-'+(_buttonCounter++);
 		}
 
 		var buttonContainer = this.c.dom.buttonContainer;
 		var inserter;
-		if ( buttonContainer ) {
+		if ( buttonContainer && buttonContainer.tag ) {
 			inserter = $('<'+buttonContainer.tag+'/>')
 				.addClass( buttonContainer.className )
 				.append( button );
@@ -592,47 +590,87 @@ $.extend( Buttons.prototype, {
 		this._addKey( config );
 
 		return {
-			node: button,
-			inserter: inserter
+			conf:         config,
+			node:         button.get(0),
+			inserter:     inserter,
+			buttons:      [],
+			inCollection: inCollection,
+			collection:   null
 		};
 	},
 
 	/**
-	 * Get a button's host information from a button index
-	 * @param  {int|string} Button index
-	 * @return {object} Button information - object contains `node` and `conf`
-	 *   properties
+	 * Get the button object from a node (recursive)
+	 * @param  {node} node Button node
+	 * @param  {array} [buttons] Button array, uses base if not defined
+	 * @return {object} Button object
 	 * @private
 	 */
-	_indexToButton: function ( idx )
+	_nodeToButton: function ( node, buttons )
 	{
-		if ( typeof idx === 'number' || idx.indexOf('-') === -1 ) {
-			return this.s.buttons[ idx*1 ];
+		if ( ! buttons ) {
+			buttons = this.s.buttons;
 		}
 
-		var idxs = idx.split('-');
-		return this.s.subButtons[ idxs[0]*1 ][ idxs[1]*1 ];
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			if ( buttons[i].node === node ) {
+				return buttons[i];
+			}
+
+			if ( buttons[i].buttons.length ) {
+				var ret = this._nodeToButton( node, buttons[i].buttons );
+
+				if ( ret ) {
+					return ret;
+				}
+			}
+		}
+	},
+
+	/**
+	 * Get container array for a button from a button node (recursive)
+	 * @param  {node} node Button node
+	 * @param  {array} [buttons] Button array, uses base if not defined
+	 * @return {array} Button's host array
+	 * @private
+	 */
+	_nodeToHost: function ( node, buttons )
+	{
+		if ( ! buttons ) {
+			buttons = this.s.buttons;
+		}
+
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			if ( buttons[i].node === node ) {
+				return buttons;
+			}
+
+			if ( buttons[i].buttons.length ) {
+				var ret = this._nodeToHost( node, buttons[i].buttons );
+
+				if ( ret ) {
+					return ret;
+				}
+			}
+		}
 	},
 
 	/**
 	 * Handle a key press - determine if any button's key configured matches
 	 * what was typed and trigger the action if so.
-	 * @param  {string} The character pressed
-	 * @param  {object} Key event that triggered this call
+	 * @param  {string} character The character pressed
+	 * @param  {object} e Key event that triggered this call
 	 * @private
 	 */
 	_keypress: function ( character, e )
 	{
-		var i, ien, j, jen;
-		var buttons = this.s.buttons;
-		var subButtons = this.s.subButtons;
 		var run = function ( conf, node ) {
 			if ( ! conf.key ) {
 				return;
 			}
 
 			if ( conf.key === character ) {
-				node.click();
+				$(node).click();
 			}
 			else if ( $.isPlainObject( conf.key ) ) {
 				if ( conf.key.key !== character ) {
@@ -656,27 +694,28 @@ $.extend( Buttons.prototype, {
 				}
 
 				// Made it this far - it is good
-				node.click();
+				$(node).click();
 			}
 		};
 
-		// Loop the main buttons first
-		for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
-			run( buttons[i].conf, buttons[i].node );
-		}
+		var recurse = function ( a ) {
+			for ( var i=0, ien=a.length ; i<ien ; i++ ) {
+				run( a[i].conf, a[i].node );
 
-		// Then the sub-buttons
-		for ( i=0, ien=subButtons.length ; i<ien ; i++ ) {
-			for ( j=0, jen=subButtons[i].length ; j<jen ; j++ ) {
-				run( subButtons[i][j].conf, subButtons[i][j].node );
+				if ( a[i].buttons.length ) {
+					recurse( a[i].buttons );
+				}
 			}
-		}
+		};
+
+		recurse( this.s.buttons );
 	},
 
 	/**
 	 * Remove a key from the key listener for this instance (to be used when a
 	 * button is removed)
-	 * @param  {object} Button configuration
+	 * @param  {object} conf Button configuration
+	 * @private
 	 */
 	_removeKey: function ( conf )
 	{
@@ -696,8 +735,9 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Resolve a button configuration
-	 * @param  {string|function|object} Button config to resolve
+	 * @param  {string|function|object} conf Button config to resolve
 	 * @return {object} Button configuration
+	 * @private
 	 */
 	_resolveExtends: function ( conf )
 	{
@@ -710,6 +750,10 @@ $.extend( Buttons.prototype, {
 			// array of button configurations (which will be iterated
 			// separately)
 			while ( ! $.isPlainObject(base) && ! $.isArray(base) ) {
+				if ( base === undefined ) {
+					return;
+				}
+
 				if ( typeof base === 'function' ) {
 					base = base( dt, conf );
 
@@ -742,9 +786,19 @@ $.extend( Buttons.prototype, {
 		while ( conf && conf.extend ) {
 			// Use `toConfObject` in case the button definition being extended
 			// is itself a string or a function
+			if ( ! _dtButtons[ conf.extend ] ) {
+				throw 'Cannot extend unknown button type: '+conf.extend;
+			}
+
 			var objArray = toConfObject( _dtButtons[ conf.extend ] );
 			if ( $.isArray( objArray ) ) {
 				return objArray;
+			}
+			else if ( ! objArray ) {
+				// This is a little brutal as it might be possible to have a
+				// valid button without the extend, but if there is no extend
+				// then the host button would be acting in an undefined state
+				return false;
 			}
 
 			// Stash the current class name
@@ -901,29 +955,35 @@ Buttons.instanceSelector = function ( group, buttons )
 Buttons.buttonSelector = function ( insts, selector )
 {
 	var ret = [];
-	var run = function ( selector, inst ) {
-		var i, ien, j, jen;
-		var buttons = [];
+	var nodeBuilder = function ( a, buttons, baseIdx ) {
+		var button;
+		var idx;
 
-		$.each( inst.s.buttons, function (i, v) {
-			if ( v !== null ) {
-				buttons.push( {
-					node: v.node[0],
-					name: v.name
+		for ( var i=0, ien=buttons.length ; i<ien ; i++ ) {
+			button = buttons[i];
+
+			if ( button ) {
+				idx = baseIdx !== undefined ?
+					baseIdx+i :
+					i+'';
+
+				a.push( {
+					node: button.node,
+					name: button.conf.name,
+					idx:  idx
 				} );
-			}
-		} );
 
-		$.each( inst.s.subButtons, function (i, v) {
-			$.each( v, function (j, w) {
-				if ( w !== null ) {
-					buttons.push( {
-						node: w.node[0],
-						name: w.name
-					} );
+				if ( button.buttons ) {
+					nodeBuilder( a, button.buttons, idx+'-' );
 				}
-			} );
-		} );
+			}
+		}
+	};
+
+	var run = function ( selector, inst ) {
+		var i, ien;
+		var buttons = [];
+		nodeBuilder( buttons, inst.s.buttons );
 
 		var nodes = $.map( buttons, function (v) {
 			return v.node;
@@ -941,7 +1001,7 @@ Buttons.buttonSelector = function ( insts, selector )
 			for ( i=0, ien=buttons.length ; i<ien ; i++ ) {
 				ret.push( {
 					inst: inst,
-					idx: inst.toIndex( buttons[i].node )
+					node: buttons[i].node
 				} );
 			}
 		}
@@ -949,7 +1009,7 @@ Buttons.buttonSelector = function ( insts, selector )
 			// Main button index selector
 			ret.push( {
 				inst: inst,
-				idx: selector
+				node: inst.s.buttons[ selector ].node
 			} );
 		}
 		else if ( typeof selector === 'string' ) {
@@ -961,11 +1021,15 @@ Buttons.buttonSelector = function ( insts, selector )
 					run( $.trim(a[i]), inst );
 				}
 			}
-			else if ( selector.match( /^\d+(\-\d+)?$/ ) ) {
+			else if ( selector.match( /^\d+(\-\d+)*$/ ) ) {
 				// Sub-button index selector
+				var indexes = $.map( buttons, function (v) {
+					return v.idx;
+				} );
+
 				ret.push( {
 					inst: inst,
-					idx: selector
+					node: buttons[ $.inArray( selector, indexes ) ].node
 				} );
 			}
 			else if ( selector.indexOf( ':name' ) !== -1 ) {
@@ -976,7 +1040,7 @@ Buttons.buttonSelector = function ( insts, selector )
 					if ( buttons[i].name === name ) {
 						ret.push( {
 							inst: inst,
-							idx: inst.toIndex( buttons[i].node )
+							node: buttons[i].node
 						} );
 					}
 				}
@@ -986,7 +1050,7 @@ Buttons.buttonSelector = function ( insts, selector )
 				$( nodes ).filter( selector ).each( function () {
 					ret.push( {
 						inst: inst,
-						idx: inst.toIndex( this )
+						node: this
 					} );
 				} );
 			}
@@ -998,7 +1062,7 @@ Buttons.buttonSelector = function ( insts, selector )
 			if ( idx !== -1 ) {
 				ret.push( {
 					inst: inst,
-					idx: inst.toIndex( nodes[ idx ] )
+					node: nodes[ idx ]
 				} );
 			}
 		}
@@ -1052,20 +1116,26 @@ Buttons.defaults = {
  * @type {string}
  * @static
  */
-Buttons.version = '1.0.3';
+Buttons.version = '1.2.1';
 
 
 $.extend( _dtButtons, {
 	collection: {
-		text: function ( dt, button, config ) {
+		text: function ( dt ) {
 			return dt.i18n( 'buttons.collection', 'Collection' );
 		},
 		className: 'buttons-collection',
 		action: function ( e, dt, button, config ) {
-			var background;
 			var host = button;
 			var hostOffset = host.offset();
 			var tableContainer = $( dt.table().container() );
+			var multiLevel = false;
+
+			// Remove any old collection
+			if ( $('div.dt-button-background').length ) {
+				multiLevel = $('div.dt-button-collection').offset();
+				$('body').trigger( 'click.dtb-collection' );
+			}
 
 			config._collection
 				.addClass( config.collectionLayout )
@@ -1073,7 +1143,15 @@ $.extend( _dtButtons, {
 				.appendTo( 'body' )
 				.fadeIn( config.fade );
 
-			if ( config._collection.css( 'position' ) === 'absolute' ) {
+			var position = config._collection.css( 'position' );
+
+			if ( multiLevel && position === 'absolute' ) {
+				config._collection.css( {
+					top: multiLevel.top + 5, // magic numbers for a little offset
+					left: multiLevel.left + 5
+				} );
+			}
+			else if ( position === 'absolute' ) {
 				config._collection.css( {
 					top: hostOffset.top + host.outerHeight(),
 					left: hostOffset.left
@@ -1102,37 +1180,46 @@ $.extend( _dtButtons, {
 			// Need to break the 'thread' for the collection button being
 			// activated by a click - it would also trigger this event
 			setTimeout( function () {
-				$(document).on( 'click.dtb-collection', function (e) {
+				// This is bonkers, but if we don't have a click listener on the
+				// background element, iOS Safari will ignore the body click
+				// listener below. An empty function here is all that is
+				// required to make it work...
+				$('div.dt-button-background').on( 'click.dtb-collection', function () {} );
+
+				$('body').on( 'click.dtb-collection', function (e) {
 					if ( ! $(e.target).parents().andSelf().filter( config._collection ).length ) {
 						config._collection
 							.fadeOut( config.fade, function () {
 								config._collection.detach();
 							} );
 
+						$('div.dt-button-background').off( 'click.dtb-collection' );
 						Buttons.background( false, config.backgroundClassName, config.fade );
 
-						$(document).off( 'click.dtb-collection' );
+						$('body').off( 'click.dtb-collection' );
+						dt.off( 'buttons-action.b-internal' );
 					}
 				} );
 			}, 10 );
+
+			if ( config.autoClose ) {
+				dt.on( 'buttons-action.b-internal', function () {
+					$('div.dt-button-background').click();
+				} );
+			}
 		},
 		background: true,
 		collectionLayout: '',
 		backgroundClassName: 'dt-button-background',
+		autoClose: false,
 		fade: 400
 	},
 	copy: function ( dt, conf ) {
-		if ( conf.preferHtml && _dtButtons.copyHtml5 ) {
-			return 'copyHtml5';
-		}
-
-		// Common option that will use the HTML5 or Flash export buttons
-		// For copy, the Flash option gets priority since it is one click only
-		if ( _dtButtons.copyFlash && _dtButtons.copyFlash.available( dt, conf ) ) {
-			return 'copyFlash';
-		}
 		if ( _dtButtons.copyHtml5 ) {
 			return 'copyHtml5';
+		}
+		if ( _dtButtons.copyFlash && _dtButtons.copyFlash.available( dt, conf ) ) {
+			return 'copyFlash';
 		}
 	},
 	csv: function ( dt, conf ) {
@@ -1161,6 +1248,53 @@ $.extend( _dtButtons, {
 		if ( _dtButtons.pdfFlash && _dtButtons.pdfFlash.available( dt, conf ) ) {
 			return 'pdfFlash';
 		}
+	},
+	pageLength: function ( dt ) {
+		var lengthMenu = dt.settings()[0].aLengthMenu;
+		var vals = $.isArray( lengthMenu[0] ) ? lengthMenu[0] : lengthMenu;
+		var lang = $.isArray( lengthMenu[0] ) ? lengthMenu[1] : lengthMenu;
+		var text = function ( dt ) {
+			return dt.i18n( 'buttons.pageLength', {
+				"-1": 'Show all rows',
+				_:    'Show %d rows'
+			}, dt.page.len() );
+		};
+
+		return {
+			extend: 'collection',
+			text: text,
+			className: 'buttons-page-length',
+			autoClose: true,
+			buttons: $.map( vals, function ( val, i ) {
+				return {
+					text: lang[i],
+					action: function ( e, dt ) {
+						dt.page.len( val ).draw();
+					},
+					init: function ( dt, node, conf ) {
+						var that = this;
+						var fn = function () {
+							that.active( dt.page.len() === val );
+						};
+
+						dt.on( 'length.dt'+conf.namespace, fn );
+						fn();
+					},
+					destroy: function ( dt, node, conf ) {
+						dt.off( 'length.dt'+conf.namespace );
+					}
+				};
+			} ),
+			init: function ( dt, node, conf ) {
+				var that = this;
+				dt.on( 'length.dt'+conf.namespace, function () {
+					that.text( text( dt ) );
+				} );
+			},
+			destroy: function ( dt, node, conf ) {
+				dt.off( 'length.dt'+conf.namespace );
+			}
+		};
 	}
 } );
 
@@ -1203,9 +1337,15 @@ DataTable.Api.register( 'button()', function ( group, selector ) {
 } );
 
 // Active buttons
-DataTable.Api.register( ['buttons().active()', 'button().active()'], function ( flag ) {
+DataTable.Api.registerPlural( 'buttons().active()', 'button().active()', function ( flag ) {
+	if ( flag === undefined ) {
+		return this.map( function ( set ) {
+			return set.inst.active( set.node );
+		} );
+	}
+
 	return this.each( function ( set ) {
-		set.inst.active( set.idx, flag );
+		set.inst.active( set.node, flag );
 	} );
 } );
 
@@ -1213,26 +1353,26 @@ DataTable.Api.register( ['buttons().active()', 'button().active()'], function ( 
 DataTable.Api.registerPlural( 'buttons().action()', 'button().action()', function ( action ) {
 	if ( action === undefined ) {
 		return this.map( function ( set ) {
-			 return set.inst.action( set.idx );
+			return set.inst.action( set.node );
 		} );
 	}
 
 	return this.each( function ( set ) {
-		set.inst.action( set.idx, action );
+		set.inst.action( set.node, action );
 	} );
 } );
 
 // Enable / disable buttons
 DataTable.Api.register( ['buttons().enable()', 'button().enable()'], function ( flag ) {
 	return this.each( function ( set ) {
-		set.inst.enable( set.idx, flag );
+		set.inst.enable( set.node, flag );
 	} );
 } );
 
 // Disable buttons
 DataTable.Api.register( ['buttons().disable()', 'button().disable()'], function () {
 	return this.each( function ( set ) {
-		set.inst.disable( set.idx );
+		set.inst.disable( set.node );
 	} );
 } );
 
@@ -1242,7 +1382,7 @@ DataTable.Api.registerPlural( 'buttons().nodes()', 'button().node()', function (
 
 	// jQuery will automatically reduce duplicates to a single entry
 	$( this.each( function ( set ) {
-		jq = jq.add( set.inst.node( set.idx ) );
+		jq = jq.add( set.inst.node( set.node ) );
 	} ) );
 
 	return jq;
@@ -1252,19 +1392,19 @@ DataTable.Api.registerPlural( 'buttons().nodes()', 'button().node()', function (
 DataTable.Api.registerPlural( 'buttons().text()', 'button().text()', function ( label ) {
 	if ( label === undefined ) {
 		return this.map( function ( set ) {
-			 return set.inst.text( set.idx );
+			return set.inst.text( set.node );
 		} );
 	}
 
 	return this.each( function ( set ) {
-		set.inst.text( set.idx, label );
+		set.inst.text( set.node, label );
 	} );
 } );
 
 // Trigger a button's action
 DataTable.Api.registerPlural( 'buttons().trigger()', 'button().trigger()', function () {
 	return this.each( function ( set ) {
-		set.inst.node( set.idx ).trigger( 'click' );
+		set.inst.node( set.node ).trigger( 'click' );
 	} );
 } );
 
@@ -1283,14 +1423,14 @@ DataTable.Api.registerPlural( 'buttons().containers()', 'buttons().container()',
 // Add a new button
 DataTable.Api.register( 'button().add()', function ( idx, conf ) {
 	if ( this.length === 1 ) {
-		this[0].inst.add( idx, conf );
+		this[0].inst.add( conf, idx );
 	}
 
 	return this.button( idx );
 } );
 
 // Destroy the button sets selected
-DataTable.Api.register( 'buttons().destroy()', function ( idx ) {
+DataTable.Api.register( 'buttons().destroy()', function () {
 	this.pluck( 'inst' ).unique().each( function ( inst ) {
 		inst.destroy();
 	} );
@@ -1300,13 +1440,8 @@ DataTable.Api.register( 'buttons().destroy()', function ( idx ) {
 
 // Remove a button
 DataTable.Api.registerPlural( 'buttons().remove()', 'buttons().remove()', function () {
-	// Need to split into prep and commit so the indexes remain constant during the remove
 	this.each( function ( set ) {
-		set.inst.removePrep( set.idx );
-	} );
-
-	this.pluck( 'inst' ).unique().each( function ( inst ) {
-		inst.removeCommit();
+		set.inst.remove( set.node );
 	} );
 
 	return this;
@@ -1361,19 +1496,33 @@ DataTable.Api.register( 'buttons.exportData()', function ( options ) {
 	}
 } );
 
+
+var _exportTextarea = $('<textarea/>')[0];
 var _exportData = function ( dt, inOpts )
 {
 	var config = $.extend( true, {}, {
-		rows:          null,
-		columns:       '',
-		modifier:      {
+		rows:           null,
+		columns:        '',
+		modifier:       {
 			search: 'applied',
 			order:  'applied'
 		},
-		orthogonal:    'display',
-		stripHtml:     true,
-		stripNewlines: true,
-		trim:          true
+		orthogonal:     'display',
+		stripHtml:      true,
+		stripNewlines:  true,
+		decodeEntities: true,
+		trim:           true,
+		format:         {
+			header: function ( d ) {
+				return strip( d );
+			},
+			footer: function ( d ) {
+				return strip( d );
+			},
+			body: function ( d ) {
+				return strip( d );
+			}
+		}
 	}, inOpts );
 
 	var strip = function ( str ) {
@@ -1382,7 +1531,7 @@ var _exportData = function ( dt, inOpts )
 		}
 
 		if ( config.stripHtml ) {
-			str = str.replace( /<.*?>/g, '' );
+			str = str.replace( /<[^>]*>/g, '' );
 		}
 
 		if ( config.trim ) {
@@ -1393,28 +1542,33 @@ var _exportData = function ( dt, inOpts )
 			str = str.replace( /\n/g, ' ' );
 		}
 
+		if ( config.decodeEntities ) {
+			_exportTextarea.innerHTML = str;
+			str = _exportTextarea.value;
+		}
+
 		return str;
 	};
 
-	var header = dt.columns( config.columns ).indexes().map( function (idx, i) {
-		return strip( dt.column( idx ).header().innerHTML );
+
+	var header = dt.columns( config.columns ).indexes().map( function (idx) {
+		return config.format.header( dt.column( idx ).header().innerHTML, idx );
 	} ).toArray();
 
 	var footer = dt.table().footer() ?
-		dt.columns( config.columns ).indexes().map( function (idx, i) {
+		dt.columns( config.columns ).indexes().map( function (idx) {
 			var el = dt.column( idx ).footer();
-			return el ?
-				strip( el.innerHTML ) :
-				'';
+			return config.format.footer( el ? el.innerHTML : '', idx );
 		} ).toArray() :
 		null;
 
+	var rowIndexes = dt.rows( config.rows, config.modifier ).indexes().toArray();
 	var cells = dt
-		.cells( config.rows, config.columns, config.modifier )
+		.cells( rowIndexes, config.columns )
 		.render( config.orthogonal )
 		.toArray();
 	var columns = header.length;
-	var rows = cells.length / columns;
+	var rows = columns > 0 ? cells.length / columns : 0;
 	var body = new Array( rows );
 	var cellCounter = 0;
 
@@ -1422,7 +1576,7 @@ var _exportData = function ( dt, inOpts )
 		var row = new Array( columns );
 
 		for ( var j=0 ; j<columns ; j++ ) {
-			row[j] = strip( cells[ cellCounter ] );
+			row[j] = config.format.body( cells[ cellCounter ], j, i );
 			cellCounter++;
 		}
 
@@ -1450,8 +1604,9 @@ $.fn.DataTable.Buttons = Buttons;
 // DataTables creation - check if the buttons have been defined for this table,
 // they will have been if the `B` option was used in `dom`, otherwise we should
 // create the buttons instance here so they can be inserted into the document
-// using the API
-$(document).on( 'init.dt.dtb', function (e, settings, json) {
+// using the API. Listen for `init` for compatibility with pre 1.10.10, but to
+// be removed in future.
+$(document).on( 'init.dt plugin-init.dt', function (e, settings) {
 	if ( e.namespace !== 'dt' ) {
 		return;
 	}
@@ -1467,7 +1622,7 @@ $(document).on( 'init.dt.dtb', function (e, settings, json) {
 DataTable.ext.feature.push( {
 	fnInit: function( settings ) {
 		var api = new DataTable.Api( settings );
-		var opts = api.init().buttons;
+		var opts = api.init().buttons || DataTable.defaults.buttons;
 
 		return new Buttons( api, opts ).container();
 	},
@@ -1476,22 +1631,4 @@ DataTable.ext.feature.push( {
 
 
 return Buttons;
-}; // /factory
-
-
-// Define as an AMD module if possible
-if ( typeof define === 'function' && define.amd ) {
-	define( ['jquery', 'datatables'], factory );
-}
-else if ( typeof exports === 'object' ) {
-    // Node/CommonJS
-    factory( require('jquery'), require('datatables') );
-}
-else if ( jQuery && !jQuery.fn.dataTable.Buttons ) {
-	// Otherwise simply initialise as normal, stopping multiple evaluation
-	factory( jQuery, jQuery.fn.dataTable );
-}
-
-
-})(window, document);
-
+}));

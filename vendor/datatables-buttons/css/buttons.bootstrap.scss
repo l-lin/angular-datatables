@@ -17,3 +17,16 @@ div.dt-button-background {
 	height: 100%;
 	z-index: 2001;
 }
+
+@media screen and (max-width: 767px) {
+	div.dt-buttons {
+		float: none;
+		width: 100%;
+		text-align: center;
+		margin-bottom: 0.5em;
+
+		a.btn {
+			float: none;
+		}
+	}
+}

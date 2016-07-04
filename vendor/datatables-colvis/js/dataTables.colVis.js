@@ -1,15 +1,15 @@
-/*! ColVis 1.1.0
- * ©2010-2014 SpryMedia Ltd - datatables.net/license
+/*! ColVis 1.1.2
+ * ©2010-2015 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     ColVis
  * @description Controls for column visibility in DataTables
- * @version     1.1.0
+ * @version     1.1.2
  * @file        dataTables.colReorder.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
- * @copyright   Copyright 2010-2014 SpryMedia Ltd.
+ * @copyright   Copyright 2010-2015 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license/mit
@@ -49,8 +49,10 @@ var ColVis = function( oDTSettings, oInit )
 		oInit = {};
 	}
 
-	if ( $.fn.dataTable.camelToHungarian ) {
-		$.fn.dataTable.camelToHungarian( ColVis.defaults, oInit );
+	var camelToHungarian = $.fn.dataTable.camelToHungarian;
+	if ( camelToHungarian ) {
+		camelToHungarian( ColVis.defaults, ColVis.defaults, true );
+		camelToHungarian( ColVis.defaults, oInit );
 	}
 
 
@@ -217,6 +219,7 @@ ColVis.prototype = {
 			this.dom.collection.removeChild( this.dom.buttons[i] );
 		}
 		this.dom.buttons.splice( 0, this.dom.buttons.length );
+		this.dom.groupButtons.splice(0, this.dom.groupButtons.length);
 
 		if ( this.dom.restore ) {
 			this.dom.restore.parentNode( this.dom.restore );
@@ -286,7 +289,7 @@ ColVis.prototype = {
 		/* If columns are reordered, then we need to update our exclude list and
 		 * rebuild the displayed list
 		 */
-		$(this.s.dt.oInstance).bind( 'column-reorder', function ( e, oSettings, oReorder ) {
+		$(this.s.dt.oInstance).bind( 'column-reorder.dt', function ( e, oSettings, oReorder ) {
 			for ( i=0, iLen=that.s.aiExclude.length ; i<iLen ; i++ ) {
 				that.s.aiExclude[i] = oReorder.aiInvertMapping[ that.s.aiExclude[i] ];
 			}
@@ -295,6 +298,10 @@ ColVis.prototype = {
 			that.s.abOriginal.splice( oReorder.iTo, 0, mStore );
 
 			that.fnRebuild();
+		} );
+
+		$(this.s.dt.oInstance).bind( 'destroy.dt', function () {
+			$(that.dom.wrapper).remove();
 		} );
 
 		// Set the initial state
@@ -463,8 +470,15 @@ ColVis.prototype = {
 
 		if ( this.s.showAll )
 		{
-			nButton = this._fnDomShowAllButton();
+			nButton = this._fnDomShowXButton( this.s.showAll, true );
 			nButton.className += " ColVis_ShowAll";
+			this.dom.buttons.push( nButton );
+		}
+
+		if ( this.s.showNone )
+		{
+			nButton = this._fnDomShowXButton( this.s.showNone, false );
+			nButton.className += " ColVis_ShowNone";
 			this.dom.buttons.push( nButton );
 		}
 
@@ -502,12 +516,12 @@ ColVis.prototype = {
 
 
 	/**
-	 * Create a button which allows a "show all" action
-	 *  @method  _fnDomShowAllButton
+	 * Create a button which allows show all and show node actions
+	 *  @method  _fnDomShowXButton
 	 *  @returns {Node} Created button
 	 *  @private
 	 */
-	"_fnDomShowAllButton": function ()
+	"_fnDomShowXButton": function ( str, action )
 	{
 		var
 			that = this,
@@ -515,7 +529,7 @@ ColVis.prototype = {
 
 		return $(
 				'<li class="ColVis_Special '+(dt.bJUI ? 'ui-button ui-state-default' : '')+'">'+
-					this.s.showAll+
+					str+
 				'</li>'
 			)
 			.click( function (e) {
@@ -523,7 +537,7 @@ ColVis.prototype = {
 				{
 					if (that.s.aiExclude.indexOf(i) === -1)
 					{
-						that.s.dt.oInstance.fnSetColumnVis( i, true, false );
+						that.s.dt.oInstance.fnSetColumnVis( i, action, false );
 					}
 				}
 				that._fnAdjustOpenRows();
@@ -600,7 +614,10 @@ ColVis.prototype = {
 				var showHide = !$('input', this).is(":checked");
 				if (  e.target.nodeName.toLowerCase() !== "li" )
 				{
-					showHide = ! showHide;
+					if ( e.target.nodeName.toLowerCase() == "input" || that.s.fnStateChange === null )
+					{
+						showHide = ! showHide;
+					}
 				}
 
 				/* Need to consider the case where the initialiser created more than one table - change the
@@ -629,6 +646,10 @@ ColVis.prototype = {
 
 				if ( that.s.fnStateChange !== null )
 				{
+					if ( e.target.nodeName.toLowerCase() == "span" )
+					{
+						e.preventDefault();
+					}
 					that.s.fnStateChange.call( that, i, showHide );
 				}
 			} )[0];
@@ -870,7 +891,9 @@ ColVis.fnRebuild = function ( oTable )
 	var nTable = null;
 	if ( typeof oTable != 'undefined' )
 	{
-		nTable = oTable.fnSettings().nTable;
+		nTable = $.fn.dataTable.Api ?
+			new $.fn.dataTable.Api( oTable ).table().node() :
+			oTable.fnSettings().nTable;
 	}
 
 	for ( var i=0, iLen=ColVis.aInstances.length ; i<iLen ; i++ )
@@ -1039,7 +1062,7 @@ ColVis.prototype.CLASS = "ColVis";
  *  @type      String
  *  @default   See code
  */
-ColVis.VERSION = "1.1.0";
+ColVis.VERSION = "1.1.2";
 ColVis.prototype.VERSION = ColVis.VERSION;
 
 
@@ -1084,7 +1107,11 @@ return ColVis;
 
 // Define as an AMD module if possible
 if ( typeof define === 'function' && define.amd ) {
-	define( 'datatables-colvis', ['jquery', 'datatables'], factory );
+	define( ['jquery', 'datatables'], factory );
+}
+else if ( typeof exports === 'object' ) {
+    // Node/CommonJS
+    factory( require('jquery'), require('datatables') );
 }
 else if ( jQuery && !jQuery.fn.dataTable.ColVis ) {
 	// Otherwise simply initialise as normal, stopping multiple evaluation

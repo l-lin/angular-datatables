@@ -16,8 +16,7 @@
     "tag": "3.2.0",
     "commit": "73d8b8c6c8b072c2ff71db3987162692425e084a"
   },
-  "_source": "git://github.com/DataTables/FixedColumns.git",
+  "_source": "https://github.com/DataTables/FixedColumns.git",
   "_target": "3.2.0",
-  "_originalSource": "datatables-fixedcolumns",
-  "_direct": true
+  "_originalSource": "datatables-fixedcolumns"
 }

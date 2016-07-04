@@ -5,7 +5,7 @@
 	background-image:    -moz-linear-gradient(top, $fromColor 0%, $toColor 100%); /* FF3.6 */
 	background-image:     -ms-linear-gradient(top, $fromColor 0%, $toColor 100%); /* IE10 */
 	background-image:      -o-linear-gradient(top, $fromColor 0%, $toColor 100%); /* Opera 11.10+ */
-	background-image:         linear-gradient(top, $fromColor 0%, $toColor 100%);
+	background-image:         linear-gradient(to bottom, $fromColor 0%, $toColor 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{nth( $fromColor, 1 )}', EndColorStr='#{nth( $toColor, 1 )}');
 }
 
@@ -27,6 +27,7 @@
 		top: 50%;
 		left: 50%;
 		margin-left: -75px;
+		border-radius: 0;
 
 		&.two-column {
 			margin-left: -150px;

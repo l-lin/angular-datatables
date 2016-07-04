@@ -21,8 +21,7 @@
     "tag": "0.0.14",
     "commit": "d9a595ae10b9c5cc5fb481792876636503aa420b"
   },
-  "_source": "git://github.com/thansen-solire/datatables-light-columnfilter.git",
+  "_source": "https://github.com/thansen-solire/datatables-light-columnfilter.git",
   "_target": "~0.0.14",
-  "_originalSource": "datatables-light-columnfilter",
-  "_direct": true
+  "_originalSource": "datatables-light-columnfilter"
 }

@@ -25,6 +25,7 @@ js_compress $OUT_DIR/js/dataTables.colReorder.js
 rsync -r examples $OUT_DIR
 examples_process $OUT_DIR
 
-# Readme
-cp Readme.txt $OUT_DIR
+# Readme and license
+cp Readme.md $OUT_DIR
+cp License.txt $OUT_DIR
 

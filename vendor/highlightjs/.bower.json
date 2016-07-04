@@ -18,8 +18,7 @@
     "tag": "8.0.0",
     "commit": "1117bfd53aeb5d7e15d14aeb4c049cf355cb466c"
   },
-  "_source": "git://github.com/components/highlightjs.git",
+  "_source": "https://github.com/components/highlightjs.git",
   "_target": "~8.0.0",
-  "_originalSource": "highlightjs",
-  "_direct": true
+  "_originalSource": "highlightjs"
 }

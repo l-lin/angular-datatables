@@ -32,11 +32,27 @@ div.DTTT_container {
 	margin-bottom: 1em;
 }
 
+@media screen and (max-width: 640px) {
+	div.DTTT_container {
+		float: none !important;
+		text-align: center;
+	}
+
+	div.DTTT_container:after {
+		visibility: hidden;
+		display: block;
+		content: "";
+		clear: both;
+		height: 0;
+	}
+}
+
+
 button.DTTT_button,
 div.DTTT_button,
 a.DTTT_button {
 	position: relative;
-	float: left;
+	display: inline-block;
 	margin-right: 3px;
 	padding: 5px 8px;
 	border: 1px solid #999;
@@ -78,9 +94,9 @@ button.DTTT_button {
 	outline: none;
 }
 
-button.DTTT_button:hover,
-div.DTTT_button:hover,
-a.DTTT_button:hover {
+button.DTTT_button:hover:not(.DTTT_disabled),
+div.DTTT_button:hover:not(.DTTT_disabled),
+a.DTTT_button:hover:not(.DTTT_disabled) {
 	border: 1px solid #666;
 	text-decoration: none !important;
 
@@ -99,12 +115,36 @@ a.DTTT_button:hover {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3f3f3', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
 }
 
+button.DTTT_button:focus,
+div.DTTT_button:focus,
+a.DTTT_button:focus {
+	border: 1px solid #426c9e;
+	text-shadow: 0 1px 0 #c4def1;
+	outline: none;
+
+	background-color: #a3d0ef 100%;
+	background-image: -webkit-linear-gradient(top, #a3d0ef 0%, #79ace9 65%, #a3d0ef 100%);
+	background-image:    -moz-linear-gradient(top, #a3d0ef 0%, #79ace9 65%, #a3d0ef 100%);
+	background-image:     -ms-linear-gradient(top, #a3d0ef 0%, #79ace9 65%, #a3d0ef 100%);
+	background-image:      -o-linear-gradient(top, #a3d0ef 0%, #79ace9 65%, #a3d0ef 100%);
+	background-image:         linear-gradient(top, #a3d0ef 0%, #79ace9 65%, #a3d0ef 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#a3d0ef', EndColorStr='#a3d0ef');
+}
+
+button.DTTT_button:active:not(.DTTT_disabled),
+div.DTTT_button:active:not(.DTTT_disabled),
+a.DTTT_button:active:not(.DTTT_disabled) {
+	-webkit-box-shadow: inset 1px 1px 3px #999999;
+	-moz-box-shadow: inset 1px 1px 3px #999999;
+	box-shadow: inset 1px 1px 3px #999999;
+}
+
 button.DTTT_disabled,
 div.DTTT_disabled,
 a.DTTT_disabled {
-	color: #999;
+	color: #999 !important;
 	border: 1px solid #d0d0d0;
-	
+	cursor: default;
 	background: #ffffff; /* Old browsers */
 	background: -webkit-linear-gradient(top, #ffffff 0%,#f9f9f9 89%,#fafafa 100%); /* Chrome10+,Safari5.1+ */
 	background:    -moz-linear-gradient(top, #ffffff 0%,#f9f9f9 89%,#fafafa 100%); /* FF3.6+ */
@@ -241,7 +281,7 @@ div.DTTT_collection {
 }
 
 div.DTTT_collection_background {
-	background: transparent url(../images/background.png) repeat top left;
+	background: black;
 	z-index: 2001;
 }
 

@@ -1,10 +1,40 @@
 /*!
  * Print button for Buttons and DataTables.
- * 2015 SpryMedia Ltd - datatables.net/license
+ * 2016 SpryMedia Ltd - datatables.net/license
  */
 
-(function($, DataTable) {
-"use strict";
+(function( factory ){
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD
+		define( ['jquery', 'datatables.net', 'datatables.net-buttons'], function ( $ ) {
+			return factory( $, window, document );
+		} );
+	}
+	else if ( typeof exports === 'object' ) {
+		// CommonJS
+		module.exports = function (root, $) {
+			if ( ! root ) {
+				root = window;
+			}
+
+			if ( ! $ || ! $.fn.dataTable ) {
+				$ = require('datatables.net')(root, $).$;
+			}
+
+			if ( ! $.fn.dataTable.Buttons ) {
+				require('datatables.net-buttons')(root, $);
+			}
+
+			return factory( $, root, root.document );
+		};
+	}
+	else {
+		// Browser
+		factory( jQuery, window, document );
+	}
+}(function( $, window, document, undefined ) {
+'use strict';
+var DataTable = $.fn.dataTable;
 
 
 var _link = document.createElement( 'a' );
@@ -69,13 +99,21 @@ DataTable.ext.buttons.print = {
 		}
 		html += '</tbody>';
 
-		if ( config.footer ) {
-			html += '<thead>'+ addRow( data.footer, 'th' ) +'</thead>';
+		if ( config.footer && data.footer ) {
+			html += '<tfoot>'+ addRow( data.footer, 'th' ) +'</tfoot>';
 		}
 
 		// Open a new window for the printable table
 		var win = window.open( '', '' );
-		var title = config.title.replace( '*', $('title').text() );
+		var title = config.title;
+
+		if ( typeof title === 'function' ) {
+			title = title();
+		}
+
+		if ( title.indexOf( '*' ) !== -1 ) {
+			title= title.replace( '*', $('title').text() );
+		}
 
 		win.document.close();
 
@@ -88,14 +126,19 @@ DataTable.ext.buttons.print = {
 			head += _relToAbs( this );
 		} );
 
-		$(win.document.head).html( head );
+		//$(win.document.head).html( head );
+		win.document.head.innerHTML = head; // Work around for Edge
 
 		// Inject the table and other surrounding information
-		$(win.document.body).html(
+		win.document.body.innerHTML =
 			'<h1>'+title+'</h1>'+
 			'<div>'+config.message+'</div>'+
-			html
-		);
+			html;
+		// $(win.document.body).html(
+		// 	'<h1>'+title+'</h1>'+
+		// 	'<div>'+config.message+'</div>'+
+		// 	html
+		// );
 
 		if ( config.customize ) {
 			config.customize( win );
@@ -125,4 +168,5 @@ DataTable.ext.buttons.print = {
 };
 
 
-})(jQuery, jQuery.fn.dataTable);
+return DataTable.Buttons;
+}));

@@ -38,3 +38,33 @@ div.dt-button-background {
 	height: 100%;
 	z-index: 88;
 }
+
+@media screen and (max-width: 767px) {
+	ul.dt-buttons {
+		float: none;
+		width: 100%;
+		text-align: center;
+		margin-bottom: 0.5rem;
+
+		li {
+			float: none;
+		}
+	}
+}
+
+
+// Foundation 6
+div.button-group.stacked.dropdown-pane {
+	margin-top: 2px;
+	padding: 1px;
+	z-index: 89;
+
+	a.button {
+		margin-bottom: 1px;
+		border-right: none;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
