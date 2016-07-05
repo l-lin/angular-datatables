@@ -43,12 +43,17 @@ angular.module('showcase', [
 .config(sampleConfig)
 .config(routerConfig)
 .config(translateConfig)
+.config(debugDisabled)
 .run(initDT);
 
 backToTop.init({
     theme: 'classic', // Available themes: 'classic', 'sky', 'slate'
     animation: 'fade' // Available animations: 'fade', 'slide'
 });
+
+function debugDisabled($compileProvider)  {
+    $compileProvider.debugInfoEnabled(false);
+}
 
 function sampleConfig(hljsServiceProvider) {
     hljsServiceProvider.setOptions({
