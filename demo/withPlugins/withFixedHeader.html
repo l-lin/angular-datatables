@@ -66,7 +66,7 @@ $scope.$on('$routeChangeStart', function(event, next, current) {
         <tabset>
             <tab heading="HTML">
 <div hljs>
-<link rel="stylesheet" href="vendor/datatables-fixedheader/css/fixedHeader.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.dataTables.min.css">
 <!-- ... -->
 <div ng-controller="WithFixedHeaderCtrl as showCase">
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
@@ -80,7 +80,7 @@ $scope.$on('$routeChangeStart', function(event, next, current) {
     </table>
 </div>
 <!-- ... -->
-<script src="vendor/datatables-fixedheader/js/dataTables.fixedHeader.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.2/js/dataTables.fixedHeader.min.js"></script>
 <script src="vendor/angular-datatables/dist/plugins/fixedheader/angular-datatables.fixedheader.min.js"></script>
 </div>
             </tab>
