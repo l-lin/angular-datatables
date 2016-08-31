@@ -1,6 +1,6 @@
 Before you write your question, please take some extra time to write a good title that is short yet descriptive.
 
-## What are the versions you are using?
+## What versions you are using?
 
 - jquery version:
 - datatables version: 
