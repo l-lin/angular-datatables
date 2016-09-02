@@ -18,7 +18,8 @@ function dtDefaultOptions() {
         setLanguage: setLanguage,
         setDisplayLength: setDisplayLength,
         setBootstrapOptions: setBootstrapOptions,
-        setDOM: setDOM
+        setDOM: setDOM,
+        setOption: setOption
     };
 
     return options;
@@ -100,5 +101,18 @@ function dtDefaultOptions() {
             dom: dom
         });
         return options;
+    }
+
+    /**
+     * Set global default option to all DataTables.
+     * @param key the key of the default option
+     * @param value the value of the default option
+     */
+    function setOption(key, value) {
+        if (angular.isString(key)) {
+            var obj = {};
+            obj[key] = value;
+            $.extend($.fn.DataTable.defaults, obj);
+        }
     }
 }

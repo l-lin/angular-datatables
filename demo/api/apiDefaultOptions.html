@@ -89,5 +89,17 @@ angular.module('myModule', ['datatables']).run(function(DTDefaultOptions) {
 </div>
         </td>
     </tr>
+    <tr>
+      <td><code>DTDefaultoptions</code></td>
+      <td><code>setOption(key, value)</code></td>
+      <td>
+        Set a default option for all DataTables.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function(DTDefaultOptions) {
+    DTDefaultOptions.setOption('dom', 'lpfrtip');
+});
+</div>
+      </td>
+    </tr>
     </tbody>
 </table>

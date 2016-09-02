@@ -4,8 +4,10 @@ angular.module('showcase.angularWay.dataChange', ['datatables', 'ngResource'])
 
 function AngularWayChangeDataCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
     var vm = this;
-    vm.persons = $resource('data1.json').query();
-    vm.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+    vm.persons = $resource('data.json').query();
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+      .withOption("order", [[1, "asc"]])
+      .withPaginationType('full_numbers');
     vm.dtColumnDefs = [
         DTColumnDefBuilder.newColumnDef(0),
         DTColumnDefBuilder.newColumnDef(1),
