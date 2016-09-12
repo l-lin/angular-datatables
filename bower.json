@@ -5,6 +5,7 @@
   "license": "MIT",
   "main": [
     "dist/angular-datatables.js",
+    "dist/css/angular-datatables.css",
     "dist/plugins/bootstrap/angular-datatables.bootstrap.js",
     "dist/plugins/bootstrap/datatables.bootstrap.min.css",
     "dist/plugins/colreorder/angular-datatables.colreorder.js",
