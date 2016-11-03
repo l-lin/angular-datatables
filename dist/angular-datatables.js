@@ -889,7 +889,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 var _expression = _$tableElem[1];
                 // Find the resources from the comment <!-- ngRepeat: item in items --> displayed by angular in the DOM
                 // This regexp is inspired by the one used in the "ngRepeat" directive
-                var _match = _expression.match(/^\s*.+?\s+in\s+([a-zA-Z0-9\.-_]*)\s*/m);
+                var _match = _expression.match(/^\s*.+?\s+in\s+([a-zA-Z0-9\.-_$]*)\s*/m);
 
                 if (!_match) {
                     throw new Error('Expected expression in form of "_item_ in _collection_[ track by _id_]" but got "{0}".', _expression);
