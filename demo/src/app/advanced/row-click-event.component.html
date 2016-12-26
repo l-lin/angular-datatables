@@ -1,0 +1,34 @@
+<div class="section banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9">
+        <h1 class="header center-on-small-only">Row click event</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m9 l12">
+      <div class="section">
+        <p class="caption">
+          Simple example to bind a click event on each row of the DataTable with the help of <a href="http://datatables.net/reference/option/rowCallback">rowCallback</a>.
+        </p>
+        <div class="col s12 m9 l12 showcase-tabs">
+          <ul class="tabs">
+            <li class="tab col s4"><a (click)="$event.preventDefault()" href="#preview">Preview</a></li>
+            <li class="tab col s4"><a (click)="$event.preventDefault()" href="#html">HTML</a></li>
+            <li class="tab col s3"><a (click)="$event.preventDefault()" href="#ts">Typescript</a></li>
+          </ul>
+        </div>
+        <div id="preview" class="col s12 m9 l12">
+          <blockquote>Please click on a row</blockquote>
+          <p class="text-danger">You clicked on: <strong>{{ message }}</strong></p>
+          <br />
+          <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+        </div>
+        <row-click-event-snippet></row-click-event-snippet>
+      </div>
+    </div>
+  </div>
+</div>

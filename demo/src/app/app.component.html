@@ -1,0 +1,73 @@
+<header>
+  <div class="container">
+    <a href="#" (click)="$event.preventDefault()" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a>
+  </div>
+
+  <ul id="nav-mobile" class="side-nav fixed">
+    <li class="logo">
+      <h3>
+        <a id="logo-container" routerLink="" class="brand-logo">
+          <div class="logo-img">
+            <img src="assets/angular2.png" alt="Angular 2" />
+            <span class="plus">+</span>
+            <img src="assets/datatables.png" alt="DataTables" />
+          </div>
+        </a>
+      </h3>
+    </li>
+    <li class="source">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <a href="https://www.npmjs.com/package/angular-datatables" title="Install with NPM">
+                <img src="assets/npm.png" alt="NPM" />
+              </a>
+            </td>
+            <td>
+              <a href="https://github.com/l-lin/angular-datatables" title="View Source on Github">
+                <img src="assets/github.png" alt="Github" />
+              </a>
+            </td>
+        </tbody>
+      </table>
+    </li>
+    <li class="bold"><a routerLink="/getting-started" class="waves-effect waves-teal">Getting started</a></li>
+    <li class="no-padding">
+      <ul class="collapsible collapsible-accordion">
+        <li class="bold"><a class="collapsible-header waves-effect waves-teal">Basic examples</a>
+          <div class="collapsible-body">
+            <ul>
+              <li><a routerLink="/basic/zero-config">Zero configuration</a></li>
+              <li><a routerLink="/basic/with-options">With options</a></li>
+              <li><a routerLink="/basic/with-ajax">With ajax</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="bold"><a class="collapsible-header waves-effect waves-teal">Advanced examples</a>
+          <div class="collapsible-body">
+            <ul>
+              <li><a routerLink="/advanced/dt-instance">Fetching DataTable instances</a></li>
+              <li><a routerLink="/advanced/row-click-event">Row click event</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="page-footer">
+  <div class="footer-copyright">
+    <div class="container">
+      Designed and built with &lt;3 by <a class="grey-text text-lighten-4" href="https://github.com/l-lin">Louis LIN</a>
+      <p class="right">
+        <iframe class="right github-stars" src="http://ghbtns.com/github-btn.html?user=l-lin&amp;repo=angular-datatables&amp;type=watch&amp;count=true&amp;size=medium" allowtransparency="true" frameborder="0" scrolling="0" width="84" height="20"></iframe>
+      </p>
+    </div>
+  </div>
+</footer>

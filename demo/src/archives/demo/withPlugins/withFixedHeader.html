@@ -1,0 +1,121 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;With the DataTables <a href="https://datatables.net/extensions/fixedheader/">Fixed Header</a></h1>
+    </header>
+    <section class="article-content">
+        <p>
+            The <code>angular-datatables</code> also provides an API in order to make the plugin <code>FixedHeader</code> work with datatables.
+        </p>
+        <p>
+            You need to add the file <code>angular-datatables.fixedheader.min.js</code> to your HTML file.
+        </p>
+        <p>
+            You also need to add the dependency <code>datatables.fixedheader</code> to your Angular app.
+        </p>
+        <div class="api alert alert-danger">
+            <p>
+                <i class="fa fa-warning"></i>&nbsp;Beware when using routers. It seems that the header and footer stay
+                in your DOM even when you change your application state. So you will need to tweak your code to remove them
+                when exiting the state. Here some examples:
+            </p>
+            <br />
+            <p>
+                <button class="btn btn-danger" ng-click="showNgRouterExample = !showNgRouterExample;showOtherRouterExample=false">
+                    If you are using Angular ui-router
+                </button>
+                <button class="btn btn-danger" ng-click="showOtherRouterExample = !showOtherRouterExample;showNgRouterExample=false">Other routers</button>
+            </p>
+            <br />
+            <div collapse="!showNgRouterExample">
+                <p>
+                    If you are using <a href="https://github.com/angular-ui/ui-router">Angular ui-router</a>, you can
+                    add an <code>onExit</code> callback like this:
+                </p>
+<div hljs>
+$stateProvider.state("contacts", {
+    templateUrl: 'somewhereInDaSpace',
+    controller: function($scope, title){
+        // Do your stuff
+    },
+    onEnter: function(title){
+        // Do your stuff
+    },
+    onExit: function(){
+        // Remove the DataTables FixedHeader plugin's headers and footers
+        var fixedHeaderEle = document.getElementsByClassName('fixedHeader');
+        angular.element(fixedHeaderEle).remove();
+        var fixedFooterEle = document.getElementsByClassName('fixedFooter');
+        angular.element(fixedFooterEle).remove();
+    }
+});
+</div>
+            </div>
+            <div collapse="!showOtherRouterExample">
+<div hljs>
+$scope.$on('$routeChangeStart', function(event, next, current) {
+    var fixedHeaderEle = document.getElementsByClassName('fixedHeader');
+    angular.element(fixedHeaderEle).remove();
+    var fixedFooterEle = document.getElementsByClassName('fixedFooter');
+    angular.element(fixedFooterEle).remove();
+});
+</div>
+            </div>
+        </div>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="HTML">
+<div hljs>
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.dataTables.min.css">
+<!-- ... -->
+<div ng-controller="WithFixedHeaderCtrl as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+        <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- ... -->
+<script src="https://cdn.datatables.net/fixedheader/3.1.2/js/dataTables.fixedHeader.min.js"></script>
+<script src="vendor/angular-datatables/dist/plugins/fixedheader/angular-datatables.fixedheader.min.js"></script>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.withFixedHeader', ['datatables', 'datatables.fixedheader'])
+.controller('WithFixedHeaderCtrl', WithFixedHeaderCtrl);
+
+function WithFixedHeaderCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withPaginationType('full_numbers')
+        .withDisplayLength(25)
+        .withFixedHeader({
+            bottom: true
+        });
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name')
+    ];
+}
+</div>
+            </tab>
+        </tabset>
+        <div ng-controller="WithFixedHeaderCtrl as showCase">
+            <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+                <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+</article>

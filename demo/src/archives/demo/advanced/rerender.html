@@ -1,0 +1,271 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Re-render a table</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            The <code>DTInstance</code> API has a <code>rerender()</code> method that will call the renderer to re-render the table again.
+        </p>
+        <p class="alert alert-danger">
+            <i class="fa fa-warning"></i>&nbsp;This is not the same as <strong><a href="https://datatables.net/reference/api/draw()">DataTable's draw(); API</a></strong>.
+            It will completely remove the table, then it will re-render the table, resending the request to the server if necessarily.
+        </p>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Choose a renderer:</label>
+                <div class="col-sm-3">
+                    <select ng-model="showCaseToChoose" class="form-control">
+                        <option value="default">Default renderer</option>
+                        <option value="ajax">Ajax renderer</option>
+                        <option value="promise">Promise renderer</option>
+                        <option value="angular">Angular renderer</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="showcase">
+        <tabset ng-if="showCaseToChoose == 'default'">
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="RerenderDefaultRendererCtrl as showCase">
+                        <p>
+                            <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
+                        </p>
+                        <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" dt-instance="showCase.dtInstance" class="row-border hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Foo</td>
+                                <td>Bar</td>
+                            </tr>
+                            <tr>
+                                <td>123</td>
+                                <td>Someone</td>
+                                <td>Youknow</td>
+                            </tr>
+                            <tr>
+                                <td>987</td>
+                                <td>Iamout</td>
+                                <td>Ofinspiration</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="RerenderDefaultRendererCtrl as showCase">
+    <p>
+        <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
+    </p>
+    <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" dt-instance="showCase.dtInstance" class="row-border hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Foo</td>
+            <td>Bar</td>
+        </tr>
+        <tr>
+            <td>123</td>
+            <td>Someone</td>
+            <td>Youknow</td>
+        </tr>
+        <tr>
+            <td>987</td>
+            <td>Iamout</td>
+            <td>Ofinspiration</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderDefaultRendererCtrl', RerenderDefaultRendererCtrl);
+
+function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions();
+    vm.dtColumnDefs = [
+        DTColumnDefBuilder.newColumnDef(0),
+        DTColumnDefBuilder.newColumnDef(1).notVisible(),
+        DTColumnDefBuilder.newColumnDef(2).notSortable()
+    ];
+    vm.dtInstance = {};
+}
+</div>
+            </tab>
+        </tabset>
+
+        <tabset  ng-if="showCaseToChoose == 'ajax'">
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="RerenderAjaxRendererCtrl as showCase">
+                        <p>
+                            <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
+                        </p>
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="RerenderAjaxRendererCtrl as showCase">
+    <p>
+        <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
+    </p>
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl);
+
+function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json');
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name').notVisible(),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notSortable()
+    ];
+    vm.dtInstance = {};
+}
+</div>
+            </tab>
+        </tabset>
+
+        <tabset ng-if="showCaseToChoose == 'promise'">
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="RerenderPromiseRendererCtrl as showCase">
+                        <p>
+                            <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
+                        </p>
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="RerenderPromiseRendererCtrl as showCase">
+    <p>
+        <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
+    </p>
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderPromiseRendererCtrl', RerenderPromiseRendererCtrl);
+
+function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+            return $resource('data.json').query().$promise;
+        });
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name').notVisible(),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notSortable()
+    ];
+    vm.dtInstance = {};
+}
+</div>
+            </tab>
+        </tabset>
+
+        <tabset ng-if="showCaseToChoose == 'angular'">
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="RerenderNGRendererCtrl as showCase">
+                        <p>
+                            <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
+                        </p>
+                        <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" dt-instance="showCase.dtInstance" class="row-border hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="person in showCase.persons">
+                                <td>{{ person.id }}</td>
+                                <td>{{ person.firstName }}</td>
+                                <td>{{ person.lastName }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="RerenderNGRendererCtrl as showCase">
+    <p>
+        <button class="btn btn-primary" ng-click="showCase.dtInstance.rerender()">Rerender</button>
+    </p>
+    <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" dt-instance="showCase.dtInstance" class="row-border hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="person in showCase.persons">
+            <td>{{ person.id }}</td>
+            <td>{{ person.firstName }}</td>
+            <td>{{ person.lastName }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl);
+
+function RerenderNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
+    var vm = this;
+    vm.persons = [];
+    vm.dtOptions = DTOptionsBuilder.newOptions();
+    vm.dtColumnDefs = [
+        DTColumnDefBuilder.newColumnDef(0),
+        DTColumnDefBuilder.newColumnDef(1).notVisible(),
+        DTColumnDefBuilder.newColumnDef(2).notSortable()
+    ];
+    vm.dtInstance = {};
+
+    $resource('data.json').query().$promise.then(function(persons) {
+        vm.persons = persons;
+    });
+}
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

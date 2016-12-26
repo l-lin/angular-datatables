@@ -1,0 +1,39 @@
+<div class="section banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9">
+        <h1 class="header center-on-small-only">Getting the DataTable instance</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m9 l12">
+      <div class="section">
+        <p class="caption">
+          The html element provides a promise that returns the instance of the DataTable.
+        </p>
+        <div class="col s12 m9 l12 showcase-tabs">
+          <ul class="tabs">
+            <li class="tab col s4"><a (click)="$event.preventDefault()" href="#preview">Preview</a></li>
+            <li class="tab col s4"><a (click)="$event.preventDefault()" href="#html">HTML</a></li>
+            <li class="tab col s3"><a (click)="$event.preventDefault()" href="#ts">Typescript</a></li>
+          </ul>
+        </div>
+        <div id="preview" class="col s12 m9 l12">
+          <p>
+            <button type="button" class="btn waves-effect waves-light blue" (click)="displayToConsole(datatableElement)">
+              Display the DataTable instance in the console
+            </button>
+          </p>
+          <blockquote>
+            The DataTable instance ID is: {{ (datatableElement?.dtInstance | async)?.table().node().id }}
+          </blockquote>
+          <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+        </div>
+        <dt-instance-snippet></dt-instance-snippet>
+      </div>
+    </div>
+  </div>
+</div>

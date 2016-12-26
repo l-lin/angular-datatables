@@ -1,0 +1,110 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+header, main, footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width: 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+
+.banner {
+  background-color: #66ceff;
+}
+
+.banner .header {
+  color: #FFF;
+}
+
+.banner h1 {
+  margin-top: 16px;
+}
+
+.banner .row {
+  margin-bottom: 0;
+}
+
+.header {
+  color: #66ceff;
+}
+
+.caption {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.container {
+  width: 90%;
+}
+
+/* Footer */
+footer.page-footer {
+  padding-top: 0;
+  background-color: #66ceff;
+}
+
+/* Tabs */
+.tabs .tab a {
+  color: #66ceff;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+  color: #66ceff;
+}
+
+.tabs .indicator {
+  background-color: #66ceff;
+}
+
+.showcase-tabs {
+  margin-bottom: 20px;
+}
+
+/* Loading */
+
+.loading {
+  background-color: #66ceff;
+  text-align: center;
+  height: 100%;
+}
+
+.loading img {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Revert DataTables styles, as Materialize override some default styles... */
+
+.dataTables_wrapper label {
+  font-size: 1rem;
+  color: #000;
+}
+
+.dataTables_wrapper select {
+  display: inline;
+  border: 1px solid #000;
+  border-radius: 0;
+  padding: 0;
+  width: inherit;
+  height: inherit;
+}
+
+.dataTables_wrapper .dataTables_filter input[type="search"] {
+  border: 1px solid #000;
+  height: inherit;
+  width: inherit;
+  font-size: inherit;
+  margin: 0 0 0 0.5em;
+  display: inline-block;
+  background-color: #FFF;
+  visibility: visible !important;
+}

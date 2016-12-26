@@ -1,0 +1,112 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Switching language with <a href="http://angular-translate.github.io">Angular Translate</a></h1>
+    </header>
+    <section class="article-content">
+        <p>
+            Unfortunately, it's not possible (for now?) to switch language if you define the title of the columns in
+            the controller. Only by providing the titles directly in the HTML code can you switch the language.
+        </p>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="WithAngularTranslateSwitchLanguageCtrl as showCase">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Choose a language:</label>
+                                <div class="col-sm-3">
+                                    <select class="form-control" ng-model="showCase.lang" ng-change="showCase.switchLanguage(showCase.lang)">
+                                        <option value="en">English</option>
+                                        <option value="fr">French</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <table datatable
+                               dt-options="showCase.dtOptions"
+                               dt-columns="showCase.dtColumns"
+                               class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>{{ 'id' | translate }}</th>
+                                <th>{{ 'firstName' | translate }}</th>
+                                <th>{{ 'lastName' | translate }}</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="WithAngularTranslateSwitchLanguageCtrl as showCase">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Choose a language:</label>
+            <div class="col-sm-3">
+                <select class="form-control" ng-model="showCase.lang" ng-change="showCase.switchLanguage(showCase.lang)">
+                    <option value="en">English</option>
+                    <option value="fr">French</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <table datatable
+           dt-options="showCase.dtOptions"
+           dt-columns="showCase.dtColumns"
+           class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>{{ 'id' | translate }}</th>
+            <th>{{ 'firstName' | translate }}</th>
+            <th>{{ 'lastName' | translate }}</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<!-- ... -->
+<script src="vendor/angular-translate/angular-translate.min.js"></script>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase', ['datatables', 'pascalprecht.translate'])
+.config(translateConfig)
+.controller('WithAngularTranslateSwitchLanguageCtrl', WithAngularTranslateSwitchLanguageCtrl);
+
+function translateConfig($translateProvider) {
+    $translateProvider.translations('en', {
+        id: 'ID with angular-translate',
+        firstName: 'First name with angular-translate',
+        lastName: 'Last name with angular-translate'
+    });
+    $translateProvider.translations('fr', {
+        id: 'ID avec angular-translate',
+        firstName: 'Prénom avec angular-translate',
+        lastName: 'Nom avec angular-translate'
+    });
+    $translateProvider.preferredLanguage('en');
+}
+
+function WithAngularTranslateSwitchLanguageCtrl(DTOptionsBuilder, DTColumnBuilder, $translate) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json');
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id'),
+        DTColumnBuilder.newColumn('firstName'),
+        DTColumnBuilder.newColumn('lastName')
+    ];
+    vm.switchLanguage = switchLanguage;
+    vm.lang = 'en';
+
+    function switchLanguage(lang) {
+        $translate.use(lang);
+    }
+}
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

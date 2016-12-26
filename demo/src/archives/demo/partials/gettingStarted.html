@@ -1,0 +1,116 @@
+<article class="main-content gettingstarted">
+    <header class="article-header">
+        <h1><i class="fa fa-gear"></i>&nbsp;Getting started</h1>
+    </header>
+    <section class="article-content">
+        <section>
+            <h3>Dependencies</h3>
+            <p>
+                The <strong>required dependencies</strong> are:
+            </p>
+            <ul>
+                <li><a href="http://angular.org">AngularJS</a> version 1.3.0+</li>
+                <li><a href="http://jquery.com">JQuery</a> version 1.11.0+</li>
+                <li><a href="https://datatables.net">DataTables</a> version 1.10+</li>
+            </ul>
+            <p>
+                This module has been tested with the following datatables modules:
+            </p>
+            <ul>
+                <li><a href="https://datatables.net/extras/colreorder/">ColReorder</a> with version 1.1.0+</li>
+                <li><a href="https://datatables.net/extras/colvis/">ColVis</a> with version 1.1.0+</li>
+                <li><a href="https://datatables.net/extras/tabletools/">TableTools</a> with version 2.2.0+</li>
+                <li><a href="http://jquery-datatables-column-filter.googlecode.com/svn/trunk/index.html">ColumnFilter</a> with version 1.5.6</li>
+                <li><a href="https://github.com/thansen-solire/datatables-light-columnfilter/">LightColumnFilter</a> with version 0.0.7</li>
+                <li><a href="https://datatables.net/extensions/fixedcolumns/">FixedColumns</a> with version 3.0.2</li>
+                <li><a href="https://datatables.net/extensions/fixedheader/">FixedHeader</a> with version 2.1.2</li>
+                <li><a href="https://datatables.net/extensions/responsive/">Responsive</a> with version 1.0.1</li>
+                <li><a href="http://datatables.net/extensions/scroller/">Scroller</a> with version 1.2.2</li>
+            </ul>
+        </section>
+        <hr />
+        <section>
+            <h3>Download</h3>
+            <h4>Manually</h4>
+            <p>
+                The files can be downloaded on <a href="https://github.com/l-lin/angular-datatables/archive/master.zip"><i class="fa fa-github"></i>&nbsp;GitHub</a>.
+            </p>
+            <h4>With <a href="http://bower.io">Bower</a></h4>
+<div hljs language="bash">
+$ bower install angular-datatables
+</div>
+        </section>
+        <hr />
+        <section>
+            <h3>Installation</h3>
+            <p>
+                Include the CSS, JS file in your <code>index.html</code> file:
+                <br />
+            </p>
+<div hljs language="html">
+<script src="jquery.min.js"></script>
+<script src="jquery.dataTables.min.js"></script>
+<script src="angular.min.js"></script>
+<script src="angular-datatables.min.js"></script>
+<link rel="stylesheet" href="angular-datatables.css">
+</div>
+            <p class="text-danger">
+                <i class="fa fa-warning"></i>&nbsp;You must include the JS file in this order. AngularJS <strong>MUST</strong> use <code>jQuery</code> and not its <code>jqLite</code>!
+            </p>
+            <p>
+                Declare dependencies on your module app like this:
+            </p>
+<div hljs language="js">
+angular.module('myModule', ['datatables']);
+</div>
+        </section>
+        <hr />
+        <section>
+            <h3>Additional Notes</h3>
+            <ul>
+                <li>
+                    <a href="http://requirejs.org/">RequireJS</a> is not supported.
+                </li>
+                <li>
+                    <p>
+                        <code>Angular DataTables</code> is using <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/create"><code>Object.create()</code></a> to instanciate options and columns.
+                    </p>
+                    <p>
+                        If you need to support IE8, then you need to add this <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill"><code>Polyfill</code></a>.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        When providing the DT options, <code>Angular DataTables</code> will resolve every promises (except the
+                        attributes <code>data</code>, <code>aaData</code> and <code>fnPromise</code>) before rendering the DataTable.
+                    </p>
+                    <p>
+                        For example, suppose we provide the following code:
+                    </p>
+<div hljs language="js">
+angular.module('yourModule')
+.controller('MyCtrl', MyCtrl);
+
+function MyCtrl($q, DTOptionsBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionBuilder.newOptions()
+        .withOptions('autoWidth', fnThatReturnsAPromise);
+
+    function fnThatReturnsAPromise() {
+        var defer = $q.defer();
+        defer.resolve(false);
+        return defer.promise;
+    }
+}
+</div>
+                    <p>
+                        The <code>fnThatReturnsAPromise</code> will first be resolved and then the DataTable will
+                        be rendered with the option <code>autoWidth</code> set to <code>false</code>.
+                    </p>
+                </li>
+            </ul>
+
+        </section>
+    </section>
+    <section class="showcase"></section>
+</article>

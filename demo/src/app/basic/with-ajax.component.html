@@ -1,0 +1,33 @@
+<div class="section banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9">
+        <h1 class="header center-on-small-only">With ajax</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m9 l12">
+      <div class="section">
+        <p class="caption">
+          You can also fetch the data from a server using an Ajax call.
+        </p>
+        <div class="col s12 m9 l12 showcase-tabs">
+          <ul class="tabs">
+            <li class="tab col s3"><a (click)="$event.preventDefault()" href="#preview">Preview</a></li>
+            <li class="tab col s3"><a (click)="$event.preventDefault()" href="#html">HTML</a></li>
+            <li class="tab col s3"><a (click)="$event.preventDefault()" href="#ts">Typescript</a></li>
+            <li class="tab col s2"><a (click)="$event.preventDefault()" href="#data">Example data</a></li>
+          </ul>
+        </div>
+        <div id="preview" class="col s12 m9 l12">
+          <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+        </div>
+        <with-ajax-snippet></with-ajax-snippet>
+      </div>
+
+    </div>
+  </div>
+</div>

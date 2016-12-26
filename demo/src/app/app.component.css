@@ -1,0 +1,65 @@
+header .container {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+header .container a {
+  color: #fff;
+}
+
+.plus {
+  font-size: 65px;
+  text-shadow: 4px 4px rgba(0, 0, 0, 0.21);
+}
+
+ul.side-nav.fixed ul.collapsible-accordion a.collapsible-header {
+  padding: 0 30px;
+}
+
+ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a {
+  font-weight: 400;
+  padding: 0 37.5px 0 45px;
+}
+
+.logo h3 {
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+}
+
+.side-nav .logo a {
+  height: 140px;
+  background-color: #66ceff;
+  color: #fff;
+}
+
+.side-nav .logo a:hover {
+  background-color: #61c4f3;
+}
+
+.logo-img {
+  padding-top: 25px;
+}
+
+.side-nav .source {
+  text-align: center;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.side-nav .source a {
+  width: 100%;
+  padding: 14px 0 0 0;
+  height: 60px;
+}
+
+.side-nav .source td {
+  padding: 0;
+  text-align: center;
+  width: 50%;
+  line-height: 15px;
+}
+
+.github-stars {
+  vertical-align: middle;
+}

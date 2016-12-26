@@ -1,0 +1,102 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Getting the DataTable instances</h1>
+    </header>
+    <section class="article-content gettingstarted">
+        <p>
+            You can use the directive <code>dt-instance</code> where you provide a variable that will be
+            populated with the DataTable instance once it's rendered:
+        </p>
+<div hljs language="html">
+<table id="foobar" datatable dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance"></table>
+</div>
+        <p>
+            Or you can provide a callback <code>function(dtInstance)</code> instead in the <code>dt-instance</code> directive:
+        </p>
+<div hljs language="html">
+<table id="foobar" datatable dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstanceCallback"></table>
+</div>
+        <p>
+            The <code>dtInstance</code> variable will be populated with the following value:
+        </p>
+<div hljs language="json">
+{
+    "id": "foobar",
+    "DataTable": oTable,
+    "dataTable": $oTable,
+    "reloadData": function(callback, resetPaging),
+    "changeData": function(newData),
+    "rerender": function()
+}
+</div>
+        <ul>
+            <li><code>id</code> is the ID of the DataTable</li>
+            <li><code>DataTable</code> is the DataTable API instance</li>
+            <li><code>dataTable</code> is the jQuery Object</li>
+        </ul>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="DTInstancesCtrl as showCase">
+                        <p class="text-danger">
+                            The first DataTable instance ID is: <strong>{{ showCase.dtInstance1.id }}</strong>
+                        </p>
+                        <table datatable dt-options="showCase.dtOptions1" dt-columns="showCase.dtColumns1" dt-instance="showCase.dtInstance1" class="row-border hover"></table>
+                        <p class="text-danger">
+                            The second DataTable instance ID is: <strong>{{ showCase.dtInstance2.id }}</strong>
+                        </p>
+                        <table datatable dt-options="showCase.dtOptions2" dt-columns="showCase.dtColumns2" dt-instance="showCase.dtInstanceCallback" class="row-border hover"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="DTInstancesCtrl as showCase">
+    <p class="text-danger">
+        The first DataTable instance ID is: <strong>{{ showCase.dtInstance1.id }}</strong>
+    </p>
+    <table datatable dt-options="showCase.dtOptions1" dt-columns="showCase.dtColumns1" dt-instance="showCase.dtInstance1" class="row-border hover"></table>
+    <p class="text-danger">
+        The second DataTable instance ID is: <strong>{{ showCase.dtInstance2.id }}</strong>
+    </p>
+    <table datatable dt-options="showCase.dtOptions2" dt-columns="showCase.dtColumns2" dt-instance="showCase.dtInstanceCallback" class="row-border hover"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.dtInstances', ['datatables']).controller('DTInstancesCtrl', DTInstancesCtrl);
+
+function DTInstancesCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtInstances = [];
+    vm.dtOptions1 = DTOptionsBuilder.fromSource('data.json')
+        .withDisplayLength(2)
+        .withPaginationType('full_numbers');
+    vm.dtColumns1 = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name')
+    ];
+    vm.dtInstance1 = {};
+
+    vm.dtOptions2 = DTOptionsBuilder.fromSource('data1.json');
+    vm.dtColumns2 = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+    vm.dtInstance2 = {};
+    vm.dtInstanceCallback = dtInstanceCallback;
+
+    function dtInstanceCallback(dtInstance) {
+        vm.dtInstance2 = dtInstance;
+    }
+}
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

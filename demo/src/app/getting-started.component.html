@@ -1,0 +1,53 @@
+<div class="section banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9">
+        <h1 class="header center-on-small-only">Getting started</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m9 l12">
+      <div class="section">
+        <h2 class="header">Installation</h2>
+        <p class="caption">
+          To use angular-datatables, you need to have <a href="https://docs.npmjs.com/getting-started/installing-node">Node 4 or higher and NPM 3 or higher installed</a>.
+        </p>
+        <p class="caption">
+          The documentation will only deal with projects that use <a href="https://github.com/angular/angular-cli">angular-cli</a>. Indeed, the front-end ecosystem is evolving at a pace I can't follow anymore. Thus, there will only have a tutorial for angular-cli's project. If you managed to make it work in, for example, SystemJS projects, please submit a pull request to improve this documentation. Thanks!
+        </p>
+        <div class="col s12">
+          <h4>Angular-CLI version 1.0.0-beta.21</h4>
+          <p>I recommend using <a href="">angular-cli</a> to create and manage your angular2 project</p>
+          <p>
+            Since Angular-CLI is still in beta, I prefer to warn you the demo was developpped in version <b>1.0.0-beta.21</b> and newer version of Angular-CLI may need to have different configuration.
+          </p>
+        </div>
+        <div class="col s12">
+          <h4>NPM</h4>
+          <p>You need to install its dependencies before getting the latest release using NPM:</p>
+          <section [innerHTML]="npmInstallSnippet" highlight-js-content=".bash"></section>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="header">Setup</h2>
+        <div class="col s12">
+          <h4>angular-cli.json</h4>
+          <p>Add the dependencies in the scripts and styles attributes:</p>
+          <section [innerHTML]="angularCliJsonSnippet" highlight-js-content=".json"></section>
+        </div>
+        <div class="col s12">
+          <h4>NgModule</h4>
+          <p>
+            Import the <code>DataTablesModule</code> at the appropriate level of your app.
+            See the <a href="https://github.com/angular/angular-cli#3rd-party-library-installation">angular-cli documentation</a> for more information about installing 3rd party libraries.
+          </p>
+          <section [innerHTML]="ngModuleSnippet" highlight-js-content=".typescript"></section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
