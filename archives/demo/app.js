@@ -116,5 +116,5 @@ function translateConfig($translateProvider) {
 }
 
 function initDT(DTDefaultOptions) {
-    DTDefaultOptions.setLoadingTemplate('<img src="/angular-datatables/archives/images/loading.gif" />');
+    DTDefaultOptions.setLoadingTemplate('<img src="images/loading.gif" />');
 }

@@ -40,15 +40,15 @@ angular.module('showcase.loadOptionsWithPromise', ['datatables', 'ngResource'])
 
 function LoadOptionsWithPromiseCtrl($q, $resource) {
     var vm = this;
-    vm.dtOptions = $resource('/angular-datatables/archives/dtOptions.json').get().$promise;
-    vm.dtColumns = $resource('/angular-datatables/archives/dtColumns.json').query().$promise;
+    vm.dtOptions = $resource('dtOptions.json').get().$promise;
+    vm.dtColumns = $resource('dtColumns.json').query().$promise;
 }
 
 </div>
             </tab>
             <tab heading="Example data">
                 <p class="example-data">
-                    <a target="_blank" href="/angular-datatables/archives/dtOptions.json" tooltip="dtOptions.json">dtOptions.json&nbsp;<i class="fa fa-external-link"></i></a>
+                    <a target="_blank" href="dtOptions.json" tooltip="dtOptions.json">dtOptions.json&nbsp;<i class="fa fa-external-link"></i></a>
                 </p>
 <div hljs language="json" class="example-data-showcase">
 {
@@ -58,7 +58,7 @@ function LoadOptionsWithPromiseCtrl($q, $resource) {
 }
 </div>
                 <p class="example-data">
-                    <a target="_blank" href="/angular-datatables/archives/dtColumns.json" tooltip="dtColumns.json">dtColumns.json&nbsp;<i class="fa fa-external-link"></i></a>
+                    <a target="_blank" href="dtColumns.json" tooltip="dtColumns.json">dtColumns.json&nbsp;<i class="fa fa-external-link"></i></a>
                 </p>
 <div hljs language="json">
 [{
