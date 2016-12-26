@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noEmit": true,
+    "target": "es5",
+    "lib": ["es5", "es2015.collection", "es2015.iterable", "dom"],
+    "jsx": "react",
+    "strictNullChecks": true
+  },
+  "files": [
+    "src/decorator-annotator.ts",
+    "src/es5processor.ts",
+    "src/main.ts",
+    "src/jsdoc.ts",
+    "src/rewriter.ts",
+    "src/tsickle.ts",
+    "src/type-translator.ts",
+    "src/util.ts",
+    "test/decorator-annotator_test.ts",
+    "test/e2e_test.ts",
+    "test/es5processor_test.ts",
+    "test/jsdoc_test.ts",
+    "test/test_support.ts",
+    "test/tsickle_test.ts",
+    "test/type-translator_test.ts",
+    "typings/tsd.d.ts"
+  ]
+}

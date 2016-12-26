@@ -1,0 +1,4 @@
+test_{name}:
+  build: .
+  dockerfile: ./dockerfiles/{name}/Dockerfile
+  command: npm test

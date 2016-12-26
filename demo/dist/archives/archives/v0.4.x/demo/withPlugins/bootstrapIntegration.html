@@ -1,0 +1,61 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Bootstrap integration</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            Angular Datables can also be compatible with <a href="http://getbootstrap.com">Twitter Bootstrap 3</a>.
+        </p>
+        <p>
+            You need to add the files <code>angular-datatables.bootstrap.min.js</code> and <code>datatables.bootstrap.min.css</code>
+            to your HTML file.
+        </p>
+        <p>
+            You also need to add the dependency <code>datatables.bootstrap</code> to your Angular app.
+        </p>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="BootstrapIntegrationCtrl as showCase">
+                        <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="table table-striped table-bordered"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="vendor/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css">
+<!-- ... -->
+<div ng-controller="BootstrapIntegrationCtrl as showCase">
+    <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="table table-striped table-bordered"></table>
+</div>
+<!-- ... -->
+<script src="vendor/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
+<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.bootstrapIntegration', ['datatables', 'datatables.bootstrap'])
+.controller('BootstrapIntegrationCtrl', BootstrapIntegrationCtrl);
+
+function BootstrapIntegrationCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder
+        .fromSource('data.json')
+        // Add Bootstrap compatibility
+        .withBootstrap();
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID').withClass('text-danger'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name')
+    ];
+}
+
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

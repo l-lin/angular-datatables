@@ -1,0 +1,56 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;With the DataTables <a href="https://datatables.net/extensions/responsive/">Responsive</a></h1>
+    </header>
+    <section class="article-content">
+        <p>
+            You can easily add the DataTables <code>Responsive</code> plugin. Include the <a href="//cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.js">JS file</a> and
+            <a href="//cdn.datatables.net/responsive/2.1.0/css/dataTables.responsive.css">CSS file</a>. Then set the <code>responsivce</code> option to <code>true</code>.
+        </p>
+        <p class="alert alert-warning">
+            <i class="fa fa-warning"></i>&nbsp;The API <code>DTColumn.notVisible()</code> does not work in this case. Use <code>DTColumn.withClass('none')</code> instead.
+        </p>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="WithResponsiveCtrl as showCase">
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover" width="100%"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.dataTables.min.css">
+<!-- ... -->
+<div ng-controller="WithResponsiveCtrl as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover" width="100%"></table>
+</div>
+<!-- ... -->
+<script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.withResponsive', ['datatables'])
+.controller('WithResponsiveCtrl', WithResponsiveCtrl);
+
+function WithResponsiveCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withPaginationType('full_numbers')
+        // Active Responsive plugin
+        .withOption('responsive', true);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        // .notVisible() does not work in this case. Use .withClass('none') instead
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').withClass('none')
+    ];
+}
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

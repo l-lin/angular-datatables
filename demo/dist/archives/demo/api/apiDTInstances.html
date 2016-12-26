@@ -1,0 +1,143 @@
+<h3><code>DTInstances</code></h3>
+<p>
+    A DataTable directive instance is created each time a DataTable is rendered.
+</p>
+<table datatable dt-options="api.dtOptions" class="row-border hover">
+    <thead>
+    <tr>
+        <th>Helper/Wrapper</th>
+        <th>API</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>DTInstance</code></td>
+        <td><code>reloadData(callback, resetPaging)</code></td>
+        <td>
+            <p>
+                Reload the data of the DataTable.
+            </p>
+            <p class="text-info">
+                <i class="fa fa-info-circle"></i> This API is only available for the Ajax Renderer and Promise Renderer!
+            </p>
+<div hljs language="html">
+<button ng-click="showCase.reloadData()">
+    Reload data
+</button>
+<table datatable
+       dt-options="showCase.dtOptions"
+       dt-columns="showCase.dtColumns"
+       dt-instance="showCase.dtInstance">
+</table>
+</div>
+<br />
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('...');
+    vm.dtColumns = [...]
+    vm.dtInstance = {};
+    vm.reloadData = reloadData;
+
+    function reloadData () {
+        vm.dtInstance.reloadData();
+    });
+}
+</div>
+        </td>
+    <tr>
+        <td><code>DTInstance</code></td>
+        <td>
+            <code>changeData(data)</code>
+            <p>
+                Depending of the using renderer, you will need to provide:
+            </p>
+            <ul>
+                <li>a <code>string</code> or an <code>object</code> in the parameter when using the Ajax renderer.</li>
+                <li>a <code>promise</code> or a <code>function that returns a promise</code> in the parameter when using the Promise renderer</li>
+            </ul>
+
+        </td>
+        <td>
+            <p>
+                Change the data of the DataTable.
+            </p>
+            <p class="text-info">
+                <i class="fa fa-info-circle"></i> This API is only available for the Ajax Renderer and Promise Renderer!
+            </p>
+<div hljs language="html">
+<button ng-click="showCase.changeData()">
+    Change data
+</button>
+<table datatable
+       dt-options="showCase.dtOptions"
+       dt-columns="showCase.dtColumns"
+       dt-instance="showCase.dtInstance">
+</table>
+</div>
+<br />
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('...');
+    vm.dtColumns = [...]
+    vm.dtInstance = {};
+    vm.changeData = changeData;
+
+    function changeData () {
+        // For Ajax renderers
+        vm.dtInstance.changeData('data.json');
+        // For Promise renderers
+        vm.dtInstance.changeData(function() {
+            return $resource('data.json').query().$promise;
+        });
+    });
+}
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTInstance</code></td>
+        <td>
+            <code>rerender()</code>
+        </td>
+        <td>
+            <p>
+                This method will call the renderer to re-render the table again
+            </p>
+            <p class="alert alert-danger">
+                <i class="fa fa-warning"></i>&nbsp;This is not the same as <strong><a href="https://datatables.net/reference/api/draw()">DataTable's draw(); API</a></strong>.
+                It will completely remove the table, then it will re-render the table, resending the request to the server if necessarily.
+            </p>
+<div hljs language="html">
+<button ng-click="showCase.rerender()">
+    Rerender
+</button>
+<table datatable
+       dt-options="showCase.dtOptions"
+       dt-columns="showCase.dtColumns"
+       dt-instance="showCase.dtInstance">
+</table>
+</div>
+<br />
+<div hljs language="js">
+angular.module('myModule', ['datatables']).controller('MyCtrl', MyCtrl);
+function MyCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('...');
+    vm.dtColumns = [...]
+    vm.dtInstance = {};
+    vm.rerender = rerender;
+
+    function rerender () {
+        vm.dtInstance.rerender();
+    });
+}
+</div>
+        </td>
+    </tr>
+    </tbody>
+</table>

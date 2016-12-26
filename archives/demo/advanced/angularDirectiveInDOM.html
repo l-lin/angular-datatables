@@ -1,0 +1,96 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Add Angular directive in DOM</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            It's possible to add custom element in the <a href="https://datatables.net/reference/option/dom">DOM</a>,
+            however, since the element is rendered by DataTables, we need to do some extra work in order for Angular
+            to recognize the directives.
+        </p>
+        <ul>
+            <li>First, we need to define the directive in the DOM</li>
+            <li>We then need to create the directive</li>
+            <li>
+                Just this is not enough because the HTML element is added by DataTables. So Angular does not know
+                its existence. So we need to compile it so that Angular takes into account the customBtn directive.
+                To do that, we need to create another directive that wraps the table. This wrapper will be used to
+                compile the customBtn directive once the table is rendered.
+            </li>
+        </ul>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="AngularDirectiveInDomCtrl as showCase">
+                        <datatable-wrapper>
+                            <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+                            </table>
+                        </datatable-wrapper>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="CustomElementCtrl as showCase">
+    <datatable-wrapper>
+        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
+        </table>
+    </datatable-wrapper>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.customButton', ['datatables'])
+    .controller('CustomElementCtrl', CustomElementCtrl)
+    .directive('datatableWrapper', datatableWrapper)
+    .directive('customElement', customElement);
+
+function CustomElementCtrl(DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        // Add your custom button in the DOM
+        .withDOM('<"custom-element">pitrfl');
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+}
+
+/**
+ * This wrapper is only used to compile your custom element
+ */
+function datatableWrapper($timeout, $compile) {
+    return {
+        restrict: 'E',
+        transclude: true,
+        template: '<ng-transclude></ng-transclude>',
+        link: link
+    };
+
+    function link(scope, element) {
+        // Using $timeout service as a "hack" to trigger the callback function once everything is rendered
+        $timeout(function () {
+            // Compiling so that angular knows the button has a directive
+            $compile(element.find('.custom-element'))(scope);
+        }, 0, false);
+    }
+}
+
+/**
+ * Your custom element
+ */
+function customElement() {
+    return {
+        restrict: 'C',
+        template: '<h1>My custom element</h1>'
+    };
+}
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

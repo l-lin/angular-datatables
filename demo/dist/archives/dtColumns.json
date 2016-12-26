@@ -1,0 +1,11 @@
+[{
+    "data": "id",
+    "title": "ID"
+}, {
+    "data": "firstName",
+    "title": "First name"
+}, {
+    "data": "lastName",
+    "title": "Last name",
+    "visible": false
+}]

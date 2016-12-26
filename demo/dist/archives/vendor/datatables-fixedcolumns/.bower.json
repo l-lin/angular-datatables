@@ -1,0 +1,22 @@
+{
+  "name": "datatables-fixedcolumns",
+  "version": "3.2.0",
+  "main": [
+    "js/dataTables.fixedColumns.js",
+    "css/fixedColumns.dataTables.scss"
+  ],
+  "dependencies": {
+    "jquery": ">=1.7.0",
+    "datatables": ">=1.8.0"
+  },
+  "homepage": "https://github.com/DataTables/FixedColumns",
+  "_release": "3.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.2.0",
+    "commit": "73d8b8c6c8b072c2ff71db3987162692425e084a"
+  },
+  "_source": "https://github.com/DataTables/FixedColumns.git",
+  "_target": "3.2.0",
+  "_originalSource": "datatables-fixedcolumns"
+}

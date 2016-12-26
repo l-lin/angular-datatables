@@ -1,0 +1,67 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Row click event</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            Simple example to bind a click event on each row of the DataTable with the help of <a href="http://datatables.net/reference/option/rowCallback">rowCallback</a>.
+        </p>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="RowClickEventCtrl as showCase">
+                        <blockquote>Please click on a row</blockquote>
+                        <p class="text-danger">You clicked on: <strong>{{ showCase.message }}</strong></p>
+                        <br />
+                        <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="RowClickEventCtrl as showCase">
+    <blockquote>Please click on a row</blockquote>
+    <p class="text-danger">You clicked on: <strong>{{ showCase.message }}</strong></p>
+    <br />
+    <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['datatables']).controller('RowClickEventCtrl', RowClickEventCtrl);
+
+function RowClickEventCtrl($scope, DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.message = '';
+    vm.someClickHandler = someClickHandler;
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withPaginationType('full_numbers')
+        .withOption('rowCallback', rowCallback);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+
+    function someClickHandler(info) {
+        vm.message = info.id + ' - ' + info.firstName;
+    }
+    function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+        // Unbind first in order to avoid any duplicate handler (see https://github.com/l-lin/angular-datatables/issues/87)
+        $('td', nRow).unbind('click');
+        $('td', nRow).bind('click', function() {
+            $scope.$apply(function() {
+                vm.someClickHandler(aData);
+            });
+        });
+        return nRow;
+    }
+}
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

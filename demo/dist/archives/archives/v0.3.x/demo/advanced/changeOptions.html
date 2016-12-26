@@ -1,0 +1,118 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Change DataTable <a href="http://www.datatables.net/reference/option/">options</a>/<a href="http://datatables.net/reference/option/columns">columns</a>/<a href="http://datatables.net/reference/option/columnDefs">columnDef</a></h1>
+    </header>
+    <section class="article-content">
+        <p>
+            You can change the DataTable options, columns or columnDefs seamlessly. All you need to do is to change the <code>dtOptions</code>, <code>dtColumns</code> or <code>dtColumnDefs</code> of your DataTable.
+        </p>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="ChangeOptionsCtrl as showCase">
+                        <p>
+                            <button type="button" class="btn btn-primary" ng-click="showCase.changeOptions()">Change options</button>
+                            <button type="button" class="btn btn-primary" ng-click="showCase.changeColumnDefs()">Change column defs</button>
+                        </p>
+                        <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Foo</td>
+                                <td>Bar</td>
+                            </tr>
+                            <tr>
+                                <td>123</td>
+                                <td>Someone</td>
+                                <td>Youknow</td>
+                            </tr>
+                            <tr>
+                                <td>987</td>
+                                <td>Iamout</td>
+                                <td>Ofinspiration</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="ChangeOptionsCtrl as showCase">
+    <p>
+        <button type="button" class="btn btn-primary" ng-click="showCase.changeOptions()">Change options</button>
+        <button type="button" class="btn btn-primary" ng-click="showCase.changeColumnDefs()">Change column defs</button>
+    </p>
+    <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Foo</td>
+            <td>Bar</td>
+        </tr>
+        <tr>
+            <td>123</td>
+            <td>Someone</td>
+            <td>Youknow</td>
+        </tr>
+        <tr>
+            <td>987</td>
+            <td>Iamout</td>
+            <td>Ofinspiration</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('datatablesSampleApp', ['datatables']).controller('ChangeOptionsCtrl', ChangeOptionsCtrl);
+
+function ChangeOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions();
+    vm.dtColumnDefs = [
+        DTColumnDefBuilder.newColumnDef(0),
+        DTColumnDefBuilder.newColumnDef(1).notVisible(),
+        DTColumnDefBuilder.newColumnDef(2).notSortable()
+    ];
+
+    vm.changeOptions = changeOptions;
+    vm.changeColumnDefs = changeColumnDefs;
+
+    function changeOptions() {
+        vm.dtOptions = DTOptionsBuilder.newOptions()
+            .withPaginationType('full_numbers')
+            .withDisplayLength(2)
+            .withDOM('pitrfl');
+    }
+    function changeColumnDefs() {
+        vm.dtColumnDefs = [
+            DTColumnDefBuilder.newColumnDef(0).notVisible(),
+            DTColumnDefBuilder.newColumnDef(1).notVisible(),
+            DTColumnDefBuilder.newColumnDef(2).notSortable()
+        ];
+    }
+}
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

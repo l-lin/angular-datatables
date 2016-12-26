@@ -1,0 +1,11 @@
+.container {
+  height: 100%;
+
+  & :global .ui.grid {
+    height: 100%;
+
+    & .column {
+      max-width: 450px;
+    }
+  }
+}

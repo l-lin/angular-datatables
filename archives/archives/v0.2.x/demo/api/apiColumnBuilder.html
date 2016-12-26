@@ -1,0 +1,156 @@
+<h3><code>DTColumnBuilder</code></h3>
+    <p>
+        This service will help you build your datatables column options. All it's doing is appending to the DataTables options the object <code>aoColumns</code>
+    </p>
+    <p>For instance, the following:</p>
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function($scope, DTOptionsBuilder, DTColumnBuilder) {
+    $scope.dtOptions = DTOptionsBuilder.newOptions();
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('fooData', 'FooTitle')
+    ];
+});
+</div>
+    <p>
+        is the same as writing:
+    </p>
+<div hljs language="js">
+    $scope.options = {
+        'aoColumns': [{
+            'mData': 'fooData',
+            'sTitle': 'FooTitle'
+        }]
+    };
+</div>
+    <p>
+        <strong>Note</strong>: Of course, this helper is not mandatory. This helper only constructs a JSON object.
+        You can directly pass the datatable column options on the element attributes and <code>dt-columns</code>.
+    </p>
+    <p class="text-danger">
+        <i class="fa fa-warning"></i>&nbsp;The column defs must be provided in the <code>dt-column-defs</code> directive whereas the column options must be provided in
+        the <code>dt-columns"</code> directive.
+    </p>
+<div hljs language="html">
+<table datatable dt-options="dtOptions" dt-columns="dtColumns" dt-column-defs="dtColumnDefs"></table>
+</div>
+    <br />
+    <table datatable dt-options="dtOptions" class="row-border hover">
+        <thead>
+        <tr>
+            <th>Helper/Wrapper</th>
+            <th>API</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>DTColumnBuilder</code></td>
+            <td><code>newColumn(mData, label)</code></td>
+            <td>
+                <p>Create a new wrapped <code>DTColumn</code>.</p>
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function($scope, DTColumnBuilder) {
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('foo', 'Foo')
+    ];
+});
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>withOption(key, value)</code></td>
+            <td>
+                Add the option of the column. For example, the following code add the option <code>sContentPadding</code>:
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function($scope, DTColumnBuilder) {
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('foo').withOption('sContentPadding', 'mmm')
+    ];
+});
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>withTitle(title)</code></td>
+            <td>
+                <p>Set the title of the colum.</p>
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function($scope, DTColumnBuilder) {
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('foo').withTitle('FooTitle')
+    ];
+});
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>withClass(sClass)</code></td>
+            <td>
+                <p>Set the CSS class of the column</p>
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function($scope, DTColumnBuilder) {
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('foo').withClass('foo-class')
+    ];
+});
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>notVisible()</code></td>
+            <td>
+                <p>Hide the column.</p>
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function($scope, DTColumnBuilder) {
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('foo').notVisible()
+    ];
+});
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>notSortable()</code></td>
+            <td>
+                <p>Set the column as not sortable</p>
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function($scope, DTColumnBuilder) {
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('foo').notSortable()
+    ];
+});
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td><code>DTColumn</code></td>
+            <td><code>renderWith(mrender)</code></td>
+            <td>
+                Render each cell with the given parameter
+<div hljs language="js">
+angular.module('myModule', ['datatables'])
+.controller('myCtrl', function($scope, DTColumnBuilder) {
+    // Data fetched: {gender: 'Mr', firstName: 'foo', lastName: 'bar'}
+    $scope.dtColumns = [
+        DTColumnBuilder.newColumn('firstName').withLabel('First name').renderWith(function(data, type, full) {
+            return full.gender + ' ' + full.firstName;
+        });
+    ];
+});
+</div>
+            </td>
+        </tr>
+        </tbody>
+    </table>

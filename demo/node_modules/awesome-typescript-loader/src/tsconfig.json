@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "outDir": "../dist",
+        "moduleResolution": "node",
+        "skipDefaultLibCheck": true,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "lib": [ "es6", "dom" ]
+    },
+    "compileOnSave": false,
+    "exclude": [
+        "test",
+        "test/fixtures",
+        "test/output/*"
+    ]
+}

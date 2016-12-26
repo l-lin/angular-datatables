@@ -1,0 +1,9 @@
+--require ts-node/register
+--require test/setup/setup-dom.ts
+--require test/setup/setup-mocha.ts
+--require test/setup/setup-mobx.ts
+--recursive
+--reporter nyan
+--watch-extensions tsx,ts
+--ui bdd
+--colors

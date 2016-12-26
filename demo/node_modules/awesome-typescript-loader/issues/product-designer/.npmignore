@@ -1,0 +1,7 @@
+build/
+typings/
+node_modules/
+.nyc_output/
+.idea/
+coverage/
+.awcache/

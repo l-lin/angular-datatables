@@ -1,0 +1,10 @@
+# Own
+example/dest/*
+/dist
+!example/dest/index.html
+
+# Node
+node_modules
+
+# IDEs
+.idea

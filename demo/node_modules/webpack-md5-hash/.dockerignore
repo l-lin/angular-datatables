@@ -1,0 +1,7 @@
+node_modules
+.vim
+.git
+.idea
+example/dest/*
+/dist
+!example/dest/index.html

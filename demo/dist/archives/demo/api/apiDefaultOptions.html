@@ -1,0 +1,105 @@
+<h3><code>DTDefaultOptions</code></h3>
+<p>
+    You can provide default options to set for all your datatables, such as the language, the number of items to display...
+</p>
+<table datatable dt-options="api.dtOptions" class="row-border hover">
+    <thead>
+    <tr>
+        <th>Helper/Wrapper</th>
+        <th>API</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>DTDefaultOptions</code></td>
+        <td><code>setLanguageSource(sLanguageSource)</code></td>
+        <td>
+            Set the default language source for all datatables.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function(DTDefaultOptions) {
+    DTDefaultOptions.setLanguageSource('/path/to/language');
+});
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTDefaultOptions</code></td>
+        <td><code>setLanguage(oLanguage)</code></td>
+        <td>
+            Set the default language for all datatables.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function(DTDefaultOptions) {
+    DTDefaultOptions.setLanguage({
+        sUrl: '/path/to/language'
+    });
+});
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTDefaultOptions</code></td>
+        <td><code>setDisplayLength(iDisplayLength)</code></td>
+        <td>
+            Set the default numbers of items to display for all datatables.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function(DTDefaultOptions) {
+    // Display 25 items per page by default
+    DTDefaultOptions.setDisplayLength(25);
+});
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTDefaultOptions</code></td>
+        <td><code>setBootstrapOptions(oBootstrapOptions)</code></td>
+        <td>
+            Set the default options for Bootstrap integration.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function(DTDefaultOptions) {
+    // Override the Bootstrap default options
+    DTDefaultOptions.setBootstrapOptions({
+        TableTools: {
+            classes: {
+                container: 'btn-group',
+                buttons: {
+                    normal: 'btn btn-danger'
+                }
+            }
+        },
+        ColVis: {
+            classes: {
+                masterButton: 'btn btn-primary'
+            }
+        }
+    });
+});
+</div>
+        </td>
+    </tr>
+    <tr>
+        <td><code>DTDefaultOptions</code></td>
+        <td><code>setDOM(sDom)</code></td>
+        <td>
+            Set the default <a href="https://datatables.net/reference/option/dom">DOM</a> for all DataTables.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function(DTDefaultOptions) {
+    DTDefaultOptions.setDOM('lpfrtip');
+});
+</div>
+        </td>
+    </tr>
+    <tr>
+      <td><code>DTDefaultoptions</code></td>
+      <td><code>setOption(key, value)</code></td>
+      <td>
+        Set a default option for all DataTables.
+<div hljs language="js">
+angular.module('myModule', ['datatables']).run(function(DTDefaultOptions) {
+    DTDefaultOptions.setOption('dom', 'lpfrtip');
+});
+</div>
+      </td>
+    </tr>
+    </tbody>
+</table>

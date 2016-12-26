@@ -1,0 +1,42 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;Override <code>Loading</code> template</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            There are two loading with angular-datatables:
+        </p>
+        <ul>
+            <li>
+                One comes from this module. It is displayed before the table is rendered. This loading has been added because
+                angular-datables offers the possibility to fetch the data and options with promises. So before rendering the
+                table, the promises need to be resolved, thus adding a loading message to let users know that something is
+                processing.
+            </li>
+            <li>
+                The other comes from DataTables. The message <code>Loading</code> is displayed inside the Table while fetching
+                the data from the server.
+            </li>
+        </ul>
+        <p>
+            When loading data, the angular module will display by default <code>&lt;h3 class="dt-loading"&gt;Loading...&lt;/h3&gt;</code>.
+        </p>
+        <p>
+            You can make your own custom loading html by calling the method <code>DTDefaultOptions.setLoadingTemplate()</code> like this:
+        </p>
+        <div class="alert alert-info">
+            <p>
+                Angular-datatables is using the angular service <code>$compile</code>. So you can use angular directives if you want.
+            </p>
+        </div>
+    </section>
+    <section class="showcase no-tab">
+<div hljs>
+angular.module('showcase', ['datatables']).
+run(initDT);
+function initDT(DTDefaultOptions) {
+    DTDefaultOptions.setLoadingTemplate('<img src="images/loading.gif" />');
+}
+</div>
+    </section>
+</article>

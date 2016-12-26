@@ -1,0 +1,21 @@
+{
+  "files.exclude": {
+    "**/npm-debug.log": true,
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "build/**": true,
+    ".nyc_output/**": true,
+    "coverage/**": true,
+    ".idea": true,
+    ".awcache": true
+  },
+  "search.exclude": {
+    "node_modules/**": true,
+    "typings/**": true
+  },
+  "tslint.enable": true,
+  "jscs.enable": false,
+  "jshint.enable": false,
+  "eslint.enable": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

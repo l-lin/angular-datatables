@@ -1,0 +1,113 @@
+<article class="main-content">
+    <header class="article-header">
+        <h1><i class="fa fa-play"></i>&nbsp;With options</h1>
+    </header>
+    <section class="article-content">
+        <p>
+            The <code>angular-datatables</code> provides the helper <code>DTOptionsBuilder</code> that lets you build the datatables options.
+        </p>
+        <p>
+            It also provides the helper <code>DTColumnBuilder</code> that lets you build the column and column defs options.
+        </p>
+        <p>
+            See the <a ui-sref="api">API</a> for the complete list of methods of the helpers.
+        </p>
+        <p>
+            <strong>Note:</strong>
+        </p>
+        <ul>
+            <li class="text-danger">
+                <i class="fa fa-warning"></i>&nbsp;When rendering a static table, you CANNOT use the <code>dt-column</code> directive. Indeed,
+                the module will render the datatable after the promise is resolved. So for DataTables, it's like rendering a static table.
+                If you need to provide some options to your column, your must provide the <code>dt-column-defs</code> directive (which corresponds
+                to the <a href="https://datatables.net/reference/option/columnDefs">DataTables columnDefs</a>).
+            </li>
+        </ul>
+    </section>
+    <section class="showcase">
+        <tabset>
+            <tab heading="Preview">
+                <article class="preview">
+                    <div ng-controller="WithOptionsCtrl as showCase">
+                        <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Foo</td>
+                                <td>Bar</td>
+                            </tr>
+                            <tr>
+                                <td>123</td>
+                                <td>Someone</td>
+                                <td>Youknow</td>
+                            </tr>
+                            <tr>
+                                <td>987</td>
+                                <td>Iamout</td>
+                                <td>Ofinspiration</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </tab>
+            <tab heading="HTML">
+<div hljs>
+<div ng-controller="WithOptionsCtrl as showCase">
+    <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Foo</td>
+            <td>Bar</td>
+        </tr>
+        <tr>
+            <td>123</td>
+            <td>Someone</td>
+            <td>Youknow</td>
+        </tr>
+        <tr>
+            <td>987</td>
+            <td>Iamout</td>
+            <td>Ofinspiration</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+            </tab>
+            <tab heading="JS">
+<div hljs language="js">
+angular.module('showcase.withOptions', ['datatables']).controller('WithOptionsCtrl', WithOptionsCtrl);
+
+function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
+    var vm = this;
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+        .withPaginationType('full_numbers')
+        .withDisplayLength(2)
+        .withDOM('pitrfl');
+    vm.dtColumnDefs = [
+        DTColumnDefBuilder.newColumnDef(0),
+        DTColumnDefBuilder.newColumnDef(1).notVisible(),
+        DTColumnDefBuilder.newColumnDef(2).notSortable()
+    ];
+}
+</div>
+            </tab>
+        </tabset>
+    </section>
+</article>

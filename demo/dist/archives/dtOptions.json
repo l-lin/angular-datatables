@@ -1,0 +1,5 @@
+{
+    "ajax": "/archives/data.json",
+    "dom": "pitrfl",
+    "pagingType": "full_numbers"
+}
