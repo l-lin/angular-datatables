@@ -16,3 +16,4 @@ DEVELOPER.md
 systemjs.config.js
 .vscode
 demo
+deploy-doc.sh
