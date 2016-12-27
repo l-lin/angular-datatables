@@ -4,7 +4,7 @@ angular.module('datatables.directive', ['datatables.instances', 'datatables.rend
     .directive('datatable', dataTable);
 
 /* @ngInject */
-function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUtil) {
+function dataTable($q, $http, $log, DTRendererFactory, DTRendererService, DTPropertyUtil) {
     return {
         restrict: 'A',
         scope: {
@@ -81,8 +81,11 @@ function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUt
                     // See https://github.com/l-lin/angular-datatables/issues/181
                     if (options.language && options.language.url) {
                         var languageDefer = $q.defer();
-                        $http.get(options.language.url).success(function(language) {
+                        var languageUrl = options.language.url;
+                        $http.get(options.language.url).then(function(language) {
                             languageDefer.resolve(language);
+                        }, function() {
+                            $log.error('Could not fetch the content of the language from ' + languageUrl);
                         });
                         options.language = languageDefer.promise;
                     }

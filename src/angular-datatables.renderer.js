@@ -446,27 +446,27 @@ function dtAjaxRenderer($q, $timeout, DTRenderer, DTRendererService, DT_DEFAULT_
         }
 
         function _doRender(options, $elem) {
-                var defer = $q.defer();
-                // Destroy the table if it exists in order to be able to redraw the dataTable
-                options.bDestroy = true;
-                if (_oTable) {
-                    _oTable.destroy();
-                    DTRendererService.showLoading(_$elem, _$scope);
-                    // Empty in case of columns change
-                    $elem.empty();
-                }
-                DTRendererService.hideLoading($elem);
-                // Condition to refresh the dataTable
-                if (_shouldDeferRender(options)) {
-                    $timeout(function() {
-                        defer.resolve(DTRendererService.renderDataTable($elem, options));
-                    }, 0, false);
-                } else {
-                    defer.resolve(DTRendererService.renderDataTable($elem, options));
-                }
-                return defer.promise;
+            var defer = $q.defer();
+            // Destroy the table if it exists in order to be able to redraw the dataTable
+            options.bDestroy = true;
+            if (_oTable) {
+                _oTable.destroy();
+                DTRendererService.showLoading(_$elem, _$scope);
+                // Empty in case of columns change
+                $elem.empty();
             }
-            // See https://github.com/l-lin/angular-datatables/issues/147
+            DTRendererService.hideLoading($elem);
+            // Condition to refresh the dataTable
+            if (_shouldDeferRender(options)) {
+                $timeout(function() {
+                    defer.resolve(DTRendererService.renderDataTable($elem, options));
+                }, 0, false);
+            } else {
+                defer.resolve(DTRendererService.renderDataTable($elem, options));
+            }
+            return defer.promise;
+        }
+        // See https://github.com/l-lin/angular-datatables/issues/147
         function _shouldDeferRender(options) {
             if (angular.isDefined(options) && angular.isDefined(options.dom)) {
                 // S for scroller plugin
