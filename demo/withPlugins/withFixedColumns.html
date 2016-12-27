@@ -661,8 +661,8 @@
                 </tbody>
             </table>
         </div>
-        <tabset>
-            <tab heading="HTML">
+        <uib-tabset>
+            <uib-tab heading="HTML">
 <div hljs>
 <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.2/css/fixedColumns.dataTables.min.css">
 <style>
@@ -713,8 +713,8 @@
 <script src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
 <script src="vendor/angular-datatables/dist/plugins/fixedcolumns/angular-datatables.fixedcolumns.min.js"></script>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.withFixedColumns', ['datatables', 'datatables.fixedcolumns'])
 .controller('WithFixedColumnsCtrl', WithFixedColumnsCtrl);
@@ -732,7 +732,7 @@ function WithFixedColumnsCtrl(DTOptionsBuilder) {
         });
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>

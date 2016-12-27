@@ -25,8 +25,8 @@
         </ul>
     </section>
     <section class="showcase">
-        <tabset>
-            <tab heading="Preview">
+        <uib-tabset>
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="WithOptionsCtrl as showCase">
                         <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
@@ -57,8 +57,8 @@
                         </table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="WithOptionsCtrl as showCase">
     <table datatable dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
@@ -89,8 +89,8 @@
     </table>
 </div>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.withOptions', ['datatables']).controller('WithOptionsCtrl', WithOptionsCtrl);
 
@@ -107,7 +107,7 @@ function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
     ];
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>

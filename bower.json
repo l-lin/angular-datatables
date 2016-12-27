@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables",
-  "version": "0.5.6",
+  "version": "0.6.0",
   "author": "l-lin",
   "license": "MIT",
   "main": [
@@ -50,12 +50,12 @@
     "dtColumns.json"
   ],
   "dependencies": {
-    "angular": ">=1.3.0",
+    "angular": "~1.6.0",
     "datatables.net": ">=1.10.9",
     "jquery": ">=1.11.0"
   },
   "devDependencies": {
-    "angular-mocks": ">=1.3.0",
+    "angular-mocks": "~1.6.0",
     "bootstrap": ">=3.0.1",
     "angular-bootstrap": ">=0.10.0"
   }

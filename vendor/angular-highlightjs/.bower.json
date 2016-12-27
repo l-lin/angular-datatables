@@ -1,13 +1,14 @@
 {
   "name": "angular-highlightjs",
-  "version": "0.3.0",
+  "version": "0.6.2",
   "description": "AngularJS directive for syntax highlighting with highlight.js.",
-  "main": "angular-highlightjs.js",
+  "main": "./build/angular-highlightjs.js",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "example",
+    "with-browserify",
     "plunk-source",
     "Gruntfile.js",
     "package.json",
@@ -15,19 +16,18 @@
     "tests"
   ],
   "dependencies": {
-    "highlightjs": "8.0.0",
-    "angular": ">1.0.8"
+    "angular": "^1.0.1"
   },
   "devDependencies": {},
   "homepage": "https://github.com/pc035860/angular-highlightjs",
-  "_release": "0.3.0",
+  "_release": "0.6.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.0",
-    "commit": "eee0ac94c2a627c5cfe4034fde7eccd55bad9a55"
+    "tag": "v0.6.2",
+    "commit": "1434444953ca259bac0316c24df8001c4b9a0ab8"
   },
-  "_source": "git://github.com/pc035860/angular-highlightjs.git",
-  "_target": "~0.3.0",
+  "_source": "https://github.com/pc035860/angular-highlightjs.git",
+  "_target": "^0.6.2",
   "_originalSource": "angular-highlightjs",
   "_direct": true
 }

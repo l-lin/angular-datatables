@@ -89,6 +89,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
 
       forEach(isDefined(state.views) ? state.views : { '': state }, function (view, name) {
         if (name.indexOf('@') < 0) name += '@' + state.parent.name;
+        view.resolveAs = view.resolveAs || state.resolveAs || '$resolve';
         views[name] = view;
       });
       return views;
@@ -715,10 +716,12 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
   $get.$inject = ['$rootScope', '$q', '$view', '$injector', '$resolve', '$stateParams', '$urlRouter', '$location', '$urlMatcherFactory'];
   function $get(   $rootScope,   $q,   $view,   $injector,   $resolve,   $stateParams,   $urlRouter,   $location,   $urlMatcherFactory) {
 
-    var TransitionSuperseded = $q.reject(new Error('transition superseded'));
-    var TransitionPrevented = $q.reject(new Error('transition prevented'));
-    var TransitionAborted = $q.reject(new Error('transition aborted'));
-    var TransitionFailed = $q.reject(new Error('transition failed'));
+    var TransitionSupersededError = new Error('transition superseded');
+
+    var TransitionSuperseded = silenceUncaughtInPromise($q.reject(TransitionSupersededError));
+    var TransitionPrevented = silenceUncaughtInPromise($q.reject(new Error('transition prevented')));
+    var TransitionAborted = silenceUncaughtInPromise($q.reject(new Error('transition aborted')));
+    var TransitionFailed = silenceUncaughtInPromise($q.reject(new Error('transition failed')));
 
     // Handles the case where a state which is the target of a transition is not found, and the user
     // can optionally retry or defer the transition
@@ -774,7 +777,10 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
       var retryTransition = $state.transition = $q.when(evt.retry);
 
       retryTransition.then(function() {
-        if (retryTransition !== $state.transition) return TransitionSuperseded;
+        if (retryTransition !== $state.transition) {
+          $rootScope.$broadcast('$stateChangeCancel', redirect.to, redirect.toParams, state, params);
+          return TransitionSuperseded;
+        }
         redirect.options.$retry = true;
         return $state.transitionTo(redirect.to, redirect.toParams, redirect.options);
       }, function() {
@@ -1113,7 +1119,10 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
       var transition = $state.transition = resolved.then(function () {
         var l, entering, exiting;
 
-        if ($state.transition !== transition) return TransitionSuperseded;
+        if ($state.transition !== transition) {
+          $rootScope.$broadcast('$stateChangeCancel', to.self, toParams, from.self, fromParams);
+          return TransitionSuperseded;
+        }
 
         // Exit 'from' states not kept
         for (l = fromPath.length - 1; l >= keep; l--) {
@@ -1134,7 +1143,10 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
         }
 
         // Run it again, to catch any transitions in callbacks
-        if ($state.transition !== transition) return TransitionSuperseded;
+        if ($state.transition !== transition) {
+          $rootScope.$broadcast('$stateChangeCancel', to.self, toParams, from.self, fromParams);
+          return TransitionSuperseded;
+        }
 
         // Update globals in $state
         $state.$current = to;
@@ -1169,8 +1181,15 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
         $urlRouter.update(true);
 
         return $state.current;
-      }, function (error) {
-        if ($state.transition !== transition) return TransitionSuperseded;
+      }).then(null, function (error) {
+        // propagate TransitionSuperseded error without emitting $stateChangeCancel
+        // as it was already emitted in the success handler above
+        if (error === TransitionSupersededError) return TransitionSuperseded;
+
+        if ($state.transition !== transition) {
+          $rootScope.$broadcast('$stateChangeCancel', to.self, toParams, from.self, fromParams);
+          return TransitionSuperseded;
+        }
 
         $state.transition = null;
         /**
@@ -1194,7 +1213,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
         evt = $rootScope.$broadcast('$stateChangeError', to.self, toParams, from.self, fromParams, error);
 
         if (!evt.defaultPrevented) {
-            $urlRouter.update();
+          $urlRouter.update();
         }
 
         return $q.reject(error);
@@ -1309,7 +1328,17 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
       var state = findState(stateOrName, options.relative);
       if (!isDefined(state)) { return undefined; }
       if (!isDefined($state.$current.includes[state.name])) { return false; }
-      return params ? equalForKeys(state.params.$$values(params), $stateParams, objectKeys(params)) : true;
+      if (!params) { return true; }
+
+      var keys = objectKeys(params);
+      for (var i = 0; i < keys.length; i++) {
+        var key = keys[i], paramDef = state.params[key];
+        if (paramDef && !paramDef.type.equals($stateParams[key], params[key])) {
+          return false;
+        }
+      }
+
+      return true;
     };
 
 
@@ -1421,6 +1450,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
             // Provide access to the state itself for internal use
             result.$$state = state;
             result.$$controllerAs = view.controllerAs;
+            result.$$resolveAs = view.resolveAs;
             dst[name] = result;
           }));
         });
@@ -1467,4 +1497,12 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
 
 angular.module('ui.router.state')
   .factory('$stateParams', function () { return {}; })
-  .provider('$state', $StateProvider);
+  .constant("$state.runtime", { autoinject: true })
+  .provider('$state', $StateProvider)
+  // Inject $state to initialize when entering runtime. #2574
+  .run(['$injector', function ($injector) {
+    // Allow tests (stateSpec.js) to turn this off by defining this constant
+    if ($injector.get("$state.runtime").autoinject) {
+      $injector.get('$state');
+    }
+  }]);

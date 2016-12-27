@@ -20,8 +20,8 @@
         </p>
     </section>
     <section class="showcase">
-        <tabset>
-            <tab heading="Preview">
+        <uib-tabset>
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="WithLightColumnFilterCtrl as showCase">
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
@@ -35,8 +35,8 @@
                         </table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="WithLightColumnFilterCtrl as showCase">
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
@@ -53,8 +53,8 @@
 <script src="vendor/datatables-light-columnfilter/dist/dataTables.lightColumnFilter.min.js"></script>
 <script src="vendor/angular-datatables/dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.min.js"></script>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.withLightColumnFilter', ['datatables', 'datatables.light-columnfilter'])
 .controller('WithLightColumnFilterCtrl', WithLightColumnFilterCtrl);
@@ -92,7 +92,7 @@ function WithColumnFilterCtrl(DTOptionsBuilder, DTColumnBuilder) {
     ];
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>

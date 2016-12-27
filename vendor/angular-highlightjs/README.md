@@ -1,4 +1,4 @@
-# angular-highlightjs
+# angular-highlightjs [![npm](https://img.shields.io/npm/v/angular-highlightjs.svg)](https://www.npmjs.com/package/angular-highlightjs) [![Bower](https://img.shields.io/bower/v/angular-highlightjs.svg)](http://bower.io/search/?q=angular-highlightjs) [![Join the chat at https://gitter.im/pc035860/angular-highlightjs](https://badges.gitter.im/pc035860/angular-highlightjs.svg)](https://gitter.im/pc035860/angular-highlightjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 AngularJS directive for syntax highlighting with [highlight.js](http://highlightjs.org/).
 
@@ -9,7 +9,7 @@ AngularJS directive for syntax highlighting with [highlight.js](http://highlight
 
 ## Requirements
 
-* Highlight.js (.js & .css)
+* Highlight.js v7.0.0+
 * AngularJS v1.0.1+
 
 
@@ -17,16 +17,17 @@ AngularJS directive for syntax highlighting with [highlight.js](http://highlight
 
 Follow the instructions [here](http://softwaremaniacs.org/soft/highlight/en/download/) to setup highlight.js.
 
-Using a prebuilt version of highlight.js hosted at Yandex here.
+Using a prebuilt version of highlight.js hosted at cdnjs here.
+
 ```html
 <!-- personal preference: github theme -->
-<link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/github.min.css">
-<script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
 ```
 
 Include `angular-highlightjs` module script with AngularJS script on your page.
 ```html
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 <script src="http://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script>
 ```
 
@@ -35,17 +36,17 @@ Add `hljs` to your app module's dependency.
 angular.module('myApp', ['hljs']);
 ```
 
-## Install with Bower
-
-Note that the `angular-highlightjs` bower package contains no AngularJS dependency.
+## Install with npm
 
 ```sh
-# install AngularJS (stable)
-bower install angular
-# or (unstable)
-bower install PatternConsulting/bower-angular
+npm install angular-highlightjs
+```
 
-# install angular-highlightjs & highlightjs
+## Install with Bower
+
+There's currently no official bower package of highlight.js ([see here](https://github.com/isagalaev/highlight.js/issues/182#issuecomment-29251147)). You should either build highlight.js yourself or use the [pre-built one on cdnjs](https://cdnjs.com/libraries/highlight.js).
+
+```sh
 bower install angular-highlightjs
 ```
 
@@ -69,6 +70,8 @@ myApp.config(function (hljsServiceProvider) {
 ### hljs
 This is a required directive. Without any other supportive directives, it provides basic inline highlight function. For better understanding, some notes about using it are specified in the live example page.
 
+The directive automatically escapes its content HTML entities by default. Can be turned off with explicitly configuration `hljs-escape="{expression evaled to false}"` or `hljs-no-escape`, and **they're only applicable for "just-`hljs`" usage**.
+
 [Live example](http://pc035860.github.io/angular-highlightjs/example/#/hljs)
 
 ```html
@@ -77,13 +80,24 @@ This is a required directive. Without any other supportive directives, it provid
 <!-- put your codes here -->
 </div>
 <!-- hljs end -->
+
+<!-- Will get the same result as above -->
+<div hljs
+    hljs-no-escape>
+&lt;!-- put your codes here --&gt;
+</div>
 ```
 
-#### source (optional)
+**Frequently Asked Question**
+
+Since the code inside `hljs` will be parsed by browser even before AngularJS bootstraped, it sometimes demonstrates strange highlight result when the code you put inside `hljs` have HTML-tag-like syntax (`<blah>`).  
+To deal with the issue, use `hljs-no-escape` option with manually escaped code or switch to `hljs-source` or `hljs-include` for highlighting.
+
+#### hljs-source (optional)
 Type: `expression`
 Default: `undefined`
 
-If `source` is presented, the `hljs` directive will evaluate the expression and highlight the result string. This is pretty useful for dynamically changed content.
+If `hljs-source` is presented, the `hljs` directive will evaluate the expression and highlight the result string. This is pretty useful for dynamically changed content.
 
 [Live example](http://pc035860.github.io/angular-highlightjs/example/#/hljs-source)
 
@@ -91,23 +105,27 @@ Dynamically changed content.
 ```html
 <!-- buttons for put/clear $scope.subSource content -->
 <button class="btn btn-primary show-source" 
-        ng-click="toggleSource('subSource')" ng-show="!subSource">put $scope.subSource</button>
+        ng-click="toggleSource('subSource')"
+        ng-show="!subSource">put $scope.subSource</button>
 <button class="btn btn-primary show-source" 
-        ng-click="toggleSource('subSource')" ng-show="subSource">clear $scope.subSource</button>
+        ng-click="toggleSource('subSource')"
+        ng-show="subSource">clear $scope.subSource</button>
 <div ng-show="subSource">
   <br>
   <!-- hljs connected with $scope.subSource -->
-  <div hljs source="subSource"></div>
+  <div hljs
+    hljs-source="subSource"></div>
 </div>
 ```
 
 The expression. Beware of single-quotes.
 ```html
 <!-- hljs connected with independent string -->
-<div hljs source="'<html><head><body></body></head></html>'"></div>
+<div hljs
+    hljs-source="'<html><head><body></body></head></html>'"></div>
 ```
 
-#### include (optional)
+#### hljs-include (optional)
 Type: `expression`
 Default: `undefined`
 
@@ -118,16 +136,18 @@ Works as the built-in `ng-include` directive, utilizes `$templateCache` and `$ht
 From `text/ng-template` script `localOne`. Beware of single-quotes in the expression.
 ```html
 <!-- load text/ng-template named 'localOne' -->
-<div hljs include="'localOne'"></div>
+<div hljs
+    hljs-include="'localOne'"></div>
 ```
 
 From `partials/lang-perl` XHR. Again, beware of single-quotes.
 ```html
 <!-- load "partials/lang-perl" -->
-<div hljs include="'partials/lang-perl'"></div>
+<div hljs
+    hljs-include="'partials/lang-perl'"></div>
 ```
 
-#### language (optional)
+#### hljs-language (optional)
 Type: `string`
 Default: `undefined`
 
@@ -137,25 +157,30 @@ Tells the highlight.js which language syntax should be used to highlight the cod
 
 ```html
 <!-- PHP codes highlight with language detection -->
-<div hljs include="'partials/lang-php'"></div>
+<div hljs 
+    hljs-include="'partials/lang-php'"></div>
 
 <!-- PHP codes highlight with specified language: perl -->
-<div hljs include="'partials/lang-php'" language="perl"></div>
+<div hljs 
+    hljs-include="'partials/lang-php'"
+    hljs-language="perl"></div>
 ```
 
 
-#### compile (optional)
+#### hljs-interpolate (optional)
 Type: `expression`
 Default: `undefined`
 
-Compiles the highlighted code and links it with current scope. The expression will be evaluated after every actual highlight action.
+Interpolates the highlighted code and links it with current scope.
 
-The attribute works with all methhods of highlighting: `hljs`, `hljs source` and `hljs include`.
+The attribute works with all methods of highlighting: `hljs`, `hljs-source` and `hljs-include`.
 
 [Live example](http://pc035860.github.io/angular-highlightjs/example/#/hljs-compile)
 
 ```html
-<div hljs include="'compile-me'" compile="true"></div>
+<div hljs
+    hljs-include="'interpolate-me'"
+    hljs-interpolate="true"></div>
 ```
 
 ### Happy highlighting!!!

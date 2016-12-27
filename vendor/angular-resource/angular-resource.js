@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.5.7
+ * @license AngularJS v1.6.1
  * (c) 2010-2016 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -119,8 +119,9 @@ function shallowClearAndCopy(src, dst) {
  *   can escape it with `/\.`.
  *
  * @param {Object=} paramDefaults Default values for `url` parameters. These can be overridden in
- *   `actions` methods. If a parameter value is a function, it will be executed every time
- *   when a param value needs to be obtained for a request (unless the param was overridden).
+ *   `actions` methods. If a parameter value is a function, it will be called every time
+ *   a param value needs to be obtained for a request (unless the param was overridden). The function
+ *   will be passed the current data value as an argument.
  *
  *   Each key value in the parameter object is first bound to url template if present and then any
  *   excess keys are appended to the url search query after the `?`.
@@ -128,14 +129,20 @@ function shallowClearAndCopy(src, dst) {
  *   Given a template `/path/:verb` and parameter `{verb:'greet', salutation:'Hello'}` results in
  *   URL `/path/greet?salutation=Hello`.
  *
- *   If the parameter value is prefixed with `@` then the value for that parameter will be extracted
- *   from the corresponding property on the `data` object (provided when calling an action method).
+ *   If the parameter value is prefixed with `@`, then the value for that parameter will be
+ *   extracted from the corresponding property on the `data` object (provided when calling a
+ *   "non-GET" action method).
  *   For example, if the `defaultParam` object is `{someParam: '@someProp'}` then the value of
  *   `someParam` will be `data.someProp`.
+ *   Note that the parameter will be ignored, when calling a "GET" action method (i.e. an action
+ *   method that does not accept a request body)
  *
- * @param {Object.<Object>=} actions Hash with declaration of custom actions that should extend
- *   the default set of resource actions. The declaration should be created in the format of {@link
- *   ng.$http#usage $http.config}:
+ * @param {Object.<Object>=} actions Hash with declaration of custom actions that will be available
+ *   in addition to the default set of resource actions (see below). If a custom action has the same
+ *   key as a default action (e.g. `save`), then the default action will be *overwritten*, and not
+ *   extended.
+ *
+ *   The declaration should be created in the format of {@link ng.$http#usage $http.config}:
  *
  *       {action1: {method:?, params:?, isArray:?, headers:?, ...},
  *        action2: {method:?, params:?, isArray:?, headers:?, ...},
@@ -148,8 +155,9 @@ function shallowClearAndCopy(src, dst) {
  *   - **`method`** – {string} – Case insensitive HTTP method (e.g. `GET`, `POST`, `PUT`,
  *     `DELETE`, `JSONP`, etc).
  *   - **`params`** – {Object=} – Optional set of pre-bound parameters for this action. If any of
- *     the parameter value is a function, it will be executed every time when a param value needs to
- *     be obtained for a request (unless the param was overridden).
+ *     the parameter value is a function, it will be called every time when a param value needs to
+ *     be obtained for a request (unless the param was overridden). The function will be passed the
+ *     current data value as an argument.
  *   - **`url`** – {string} – action specific `url` override. The url templating is supported just
  *     like for the resource-level urls.
  *   - **`isArray`** – {boolean=} – If true then the returned object for this action is an array,
@@ -159,12 +167,13 @@ function shallowClearAndCopy(src, dst) {
  *     transform function or an array of such functions. The transform function takes the http
  *     request body and headers and returns its transformed (typically serialized) version.
  *     By default, transformRequest will contain one function that checks if the request data is
- *     an object and serializes to using `angular.toJson`. To prevent this behavior, set
+ *     an object and serializes it using `angular.toJson`. To prevent this behavior, set
  *     `transformRequest` to an empty array: `transformRequest: []`
  *   - **`transformResponse`** –
- *     `{function(data, headersGetter)|Array.<function(data, headersGetter)>}` –
+ *     `{function(data, headersGetter, status)|Array.<function(data, headersGetter, status)>}` –
  *     transform function or an array of such functions. The transform function takes the http
- *     response body and headers and returns its transformed (typically deserialized) version.
+ *     response body, headers and status and returns its transformed (typically deserialized)
+ *     version.
  *     By default, transformResponse will contain one function that checks if the response looks
  *     like a JSON string and deserializes it using `angular.fromJson`. To prevent this behavior,
  *     set `transformResponse` to an empty array: `transformResponse: []`
@@ -238,9 +247,9 @@ function shallowClearAndCopy(src, dst) {
  *   - non-GET instance actions:  `instance.$action([parameters], [success], [error])`
  *
  *
- *   Success callback is called with (value, responseHeaders) arguments, where the value is
- *   the populated resource instance or collection object. The error callback is called
- *   with (httpResponse) argument.
+ *   Success callback is called with (value (Object|Array), responseHeaders (Function),
+ *   status (number), statusText (string)) arguments, where the value is the populated resource
+ *   instance or collection object. The error callback is called with (httpResponse) argument.
  *
  *   Class actions return empty instance (with additional properties below).
  *   Instance actions return promise of the action.
@@ -425,8 +434,9 @@ function shallowClearAndCopy(src, dst) {
  *
  */
 angular.module('ngResource', ['ng']).
-  provider('$resource', function() {
-    var PROTOCOL_AND_DOMAIN_REGEX = /^https?:\/\/[^\/]*/;
+  provider('$resource', function ResourceProvider() {
+    var PROTOCOL_AND_IPV6_REGEX = /^https?:\/\/\[[^\]]*][^/]*/;
+
     var provider = this;
 
     /**
@@ -470,7 +480,7 @@ angular.module('ngResource', ['ng']).
      * ```js
      *   angular.
      *     module('myApp').
-     *     config(['resourceProvider', function ($resourceProvider) {
+     *     config(['$resourceProvider', function ($resourceProvider) {
      *       $resourceProvider.defaults.actions.update = {
      *         method: 'PUT'
      *       };
@@ -482,9 +492,9 @@ angular.module('ngResource', ['ng']).
      * ```js
      *   angular.
      *     module('myApp').
-     *     config(['resourceProvider', function ($resourceProvider) {
+     *     config(['$resourceProvider', function ($resourceProvider) {
      *       $resourceProvider.defaults.actions = {
-     *         create: {method: 'POST'}
+     *         create: {method: 'POST'},
      *         get:    {method: 'GET'},
      *         getAll: {method: 'GET', isArray:true},
      *         update: {method: 'PUT'},
@@ -514,49 +524,15 @@ angular.module('ngResource', ['ng']).
     this.$get = ['$http', '$log', '$q', '$timeout', function($http, $log, $q, $timeout) {
 
       var noop = angular.noop,
-        forEach = angular.forEach,
-        extend = angular.extend,
-        copy = angular.copy,
-        isFunction = angular.isFunction;
-
-      /**
-       * We need our custom method because encodeURIComponent is too aggressive and doesn't follow
-       * http://www.ietf.org/rfc/rfc3986.txt with regards to the character set
-       * (pchar) allowed in path segments:
-       *    segment       = *pchar
-       *    pchar         = unreserved / pct-encoded / sub-delims / ":" / "@"
-       *    pct-encoded   = "%" HEXDIG HEXDIG
-       *    unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
-       *    sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
-       *                     / "*" / "+" / "," / ";" / "="
-       */
-      function encodeUriSegment(val) {
-        return encodeUriQuery(val, true).
-          replace(/%26/gi, '&').
-          replace(/%3D/gi, '=').
-          replace(/%2B/gi, '+');
-      }
-
-
-      /**
-       * This method is intended for encoding *key* or *value* parts of query component. We need a
-       * custom method because encodeURIComponent is too aggressive and encodes stuff that doesn't
-       * have to be encoded per http://tools.ietf.org/html/rfc3986:
-       *    query       = *( pchar / "/" / "?" )
-       *    pchar         = unreserved / pct-encoded / sub-delims / ":" / "@"
-       *    unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
-       *    pct-encoded   = "%" HEXDIG HEXDIG
-       *    sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
-       *                     / "*" / "+" / "," / ";" / "="
-       */
-      function encodeUriQuery(val, pctEncodeSpaces) {
-        return encodeURIComponent(val).
-          replace(/%40/gi, '@').
-          replace(/%3A/gi, ':').
-          replace(/%24/g, '$').
-          replace(/%2C/gi, ',').
-          replace(/%20/g, (pctEncodeSpaces ? '%20' : '+'));
-      }
+          forEach = angular.forEach,
+          extend = angular.extend,
+          copy = angular.copy,
+          isArray = angular.isArray,
+          isDefined = angular.isDefined,
+          isFunction = angular.isFunction,
+          isNumber = angular.isNumber,
+          encodeUriQuery = angular.$$encodeUriQuery,
+          encodeUriSegment = angular.$$encodeUriSegment;
 
       function Route(template, defaults) {
         this.template = template;
@@ -570,42 +546,42 @@ angular.module('ngResource', ['ng']).
             url = actionUrl || self.template,
             val,
             encodedVal,
-            protocolAndDomain = '';
+            protocolAndIpv6 = '';
 
-          var urlParams = self.urlParams = {};
+          var urlParams = self.urlParams = Object.create(null);
           forEach(url.split(/\W/), function(param) {
             if (param === 'hasOwnProperty') {
-              throw $resourceMinErr('badname', "hasOwnProperty is not a valid parameter name.");
+              throw $resourceMinErr('badname', 'hasOwnProperty is not a valid parameter name.');
             }
-            if (!(new RegExp("^\\d+$").test(param)) && param &&
-              (new RegExp("(^|[^\\\\]):" + param + "(\\W|$)").test(url))) {
+            if (!(new RegExp('^\\d+$').test(param)) && param &&
+              (new RegExp('(^|[^\\\\]):' + param + '(\\W|$)').test(url))) {
               urlParams[param] = {
-                isQueryParamValue: (new RegExp("\\?.*=:" + param + "(?:\\W|$)")).test(url)
+                isQueryParamValue: (new RegExp('\\?.*=:' + param + '(?:\\W|$)')).test(url)
               };
             }
           });
           url = url.replace(/\\:/g, ':');
-          url = url.replace(PROTOCOL_AND_DOMAIN_REGEX, function(match) {
-            protocolAndDomain = match;
+          url = url.replace(PROTOCOL_AND_IPV6_REGEX, function(match) {
+            protocolAndIpv6 = match;
             return '';
           });
 
           params = params || {};
           forEach(self.urlParams, function(paramInfo, urlParam) {
             val = params.hasOwnProperty(urlParam) ? params[urlParam] : self.defaults[urlParam];
-            if (angular.isDefined(val) && val !== null) {
+            if (isDefined(val) && val !== null) {
               if (paramInfo.isQueryParamValue) {
                 encodedVal = encodeUriQuery(val, true);
               } else {
                 encodedVal = encodeUriSegment(val);
               }
-              url = url.replace(new RegExp(":" + urlParam + "(\\W|$)", "g"), function(match, p1) {
+              url = url.replace(new RegExp(':' + urlParam + '(\\W|$)', 'g'), function(match, p1) {
                 return encodedVal + p1;
               });
             } else {
-              url = url.replace(new RegExp("(\/?):" + urlParam + "(\\W|$)", "g"), function(match,
+              url = url.replace(new RegExp('(/?):' + urlParam + '(\\W|$)', 'g'), function(match,
                   leadingSlashes, tail) {
-                if (tail.charAt(0) == '/') {
+                if (tail.charAt(0) === '/') {
                   return tail;
                 } else {
                   return leadingSlashes + tail;
@@ -623,7 +599,7 @@ angular.module('ngResource', ['ng']).
           // E.g. `http://url.com/id./format?q=x` becomes `http://url.com/id.format?q=x`
           url = url.replace(/\/\.(?=\w+($|\?))/, '.');
           // replace escaped `/\.` with `/.`
-          config.url = protocolAndDomain + url.replace(/\/\\\./, '/.');
+          config.url = protocolAndIpv6 + url.replace(/\/\\\./, '/.');
 
 
           // set params - delegate param encoding to $http
@@ -646,8 +622,8 @@ angular.module('ngResource', ['ng']).
           var ids = {};
           actionParams = extend({}, paramDefaults, actionParams);
           forEach(actionParams, function(value, key) {
-            if (isFunction(value)) { value = value(); }
-            ids[key] = value && value.charAt && value.charAt(0) == '@' ?
+            if (isFunction(value)) { value = value(data); }
+            ids[key] = value && value.charAt && value.charAt(0) === '@' ?
               lookupDottedPath(data, value.substr(1)) : value;
           });
           return ids;
@@ -671,11 +647,10 @@ angular.module('ngResource', ['ng']).
         forEach(actions, function(action, name) {
           var hasBody = /^(POST|PUT|PATCH)$/i.test(action.method);
           var numericTimeout = action.timeout;
-          var cancellable = angular.isDefined(action.cancellable) ? action.cancellable :
-              (options && angular.isDefined(options.cancellable)) ? options.cancellable :
-              provider.defaults.cancellable;
+          var cancellable = isDefined(action.cancellable) ?
+              action.cancellable : route.defaults.cancellable;
 
-          if (numericTimeout && !angular.isNumber(numericTimeout)) {
+          if (numericTimeout && !isNumber(numericTimeout)) {
             $log.debug('ngResource:\n' +
                        '  Only numeric values are allowed as `timeout`.\n' +
                        '  Promises are not supported in $resource, because the same value would ' +
@@ -688,12 +663,11 @@ angular.module('ngResource', ['ng']).
           Resource[name] = function(a1, a2, a3, a4) {
             var params = {}, data, success, error;
 
-            /* jshint -W086 */ /* (purposefully fall through case statements) */
             switch (arguments.length) {
               case 4:
                 error = a4;
                 success = a3;
-              //fallthrough
+                // falls through
               case 3:
               case 2:
                 if (isFunction(a2)) {
@@ -705,13 +679,14 @@ angular.module('ngResource', ['ng']).
 
                   success = a2;
                   error = a3;
-                  //fallthrough
+                  // falls through
                 } else {
                   params = a1;
                   data = a2;
                   success = a3;
                   break;
                 }
+                // falls through
               case 1:
                 if (isFunction(a1)) success = a1;
                 else if (hasBody) data = a1;
@@ -720,10 +695,9 @@ angular.module('ngResource', ['ng']).
               case 0: break;
               default:
                 throw $resourceMinErr('badargs',
-                  "Expected up to 4 arguments [params, data, success, error], got {0} arguments",
+                  'Expected up to 4 arguments [params, data, success, error], got {0} arguments',
                   arguments.length);
             }
-            /* jshint +W086 */ /* (purposefully fall through case statements) */
 
             var isInstanceCall = this instanceof Resource;
             var value = isInstanceCall ? data : (action.isArray ? [] : new Resource(data));
@@ -732,6 +706,8 @@ angular.module('ngResource', ['ng']).
               defaultResponseInterceptor;
             var responseErrorInterceptor = action.interceptor && action.interceptor.responseError ||
               undefined;
+            var hasError = !!error;
+            var hasResponseErrorInterceptor = !!responseErrorInterceptor;
             var timeoutDeferred;
             var numericTimeoutPromise;
 
@@ -767,18 +743,16 @@ angular.module('ngResource', ['ng']).
 
               if (data) {
                 // Need to convert action.isArray to boolean in case it is undefined
-                // jshint -W018
-                if (angular.isArray(data) !== (!!action.isArray)) {
+                if (isArray(data) !== (!!action.isArray)) {
                   throw $resourceMinErr('badcfg',
                       'Error in resource configuration for action `{0}`. Expected response to ' +
                       'contain an {1} but got an {2} (Request: {3} {4})', name, action.isArray ? 'array' : 'object',
-                    angular.isArray(data) ? 'array' : 'object', httpConfig.method, httpConfig.url);
+                    isArray(data) ? 'array' : 'object', httpConfig.method, httpConfig.url);
                 }
-                // jshint +W018
                 if (action.isArray) {
                   value.length = 0;
                   forEach(data, function(item) {
-                    if (typeof item === "object") {
+                    if (typeof item === 'object') {
                       value.push(new Resource(item));
                     } else {
                       // Valid JSON values may be string literals, and these should not be converted
@@ -796,15 +770,12 @@ angular.module('ngResource', ['ng']).
               response.resource = value;
 
               return response;
-            }, function(response) {
-              (error || noop)(response);
-              return $q.reject(response);
             });
 
-            promise['finally'](function() {
+            promise = promise['finally'](function() {
               value.$resolved = true;
               if (!isInstanceCall && cancellable) {
-                value.$cancelRequest = angular.noop;
+                value.$cancelRequest = noop;
                 $timeout.cancel(numericTimeoutPromise);
                 timeoutDeferred = numericTimeoutPromise = httpConfig.timeout = null;
               }
@@ -813,10 +784,22 @@ angular.module('ngResource', ['ng']).
             promise = promise.then(
               function(response) {
                 var value = responseInterceptor(response);
-                (success || noop)(value, response.headers);
+                (success || noop)(value, response.headers, response.status, response.statusText);
                 return value;
               },
-              responseErrorInterceptor);
+              (hasError || hasResponseErrorInterceptor) ?
+              function(response) {
+                if (hasError) error(response);
+                return hasResponseErrorInterceptor ?
+                    responseErrorInterceptor(response) :
+                    $q.reject(response);
+              } :
+              undefined);
+            if (hasError && !hasResponseErrorInterceptor) {
+              // Avoid `Possibly Unhandled Rejection` error,
+              // but still fulfill the returned promise with a rejection
+              promise.catch(noop);
+            }
 
             if (!isInstanceCall) {
               // we are creating instance / collection
@@ -824,13 +807,18 @@ angular.module('ngResource', ['ng']).
               // - return the instance / collection
               value.$promise = promise;
               value.$resolved = false;
-              if (cancellable) value.$cancelRequest = timeoutDeferred.resolve;
+              if (cancellable) value.$cancelRequest = cancelRequest;
 
               return value;
             }
 
             // instance call
             return promise;
+
+            function cancelRequest(value) {
+              promise.catch(noop);
+              timeoutDeferred.resolve(value);
+            }
           };
 
 
@@ -844,7 +832,8 @@ angular.module('ngResource', ['ng']).
         });
 
         Resource.bind = function(additionalParamDefaults) {
-          return resourceFactory(url, extend({}, paramDefaults, additionalParamDefaults), actions);
+          var extendedParamDefaults = extend({}, paramDefaults, additionalParamDefaults);
+          return resourceFactory(url, extendedParamDefaults, actions, options);
         };
 
         return Resource;

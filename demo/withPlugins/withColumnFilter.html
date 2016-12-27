@@ -17,8 +17,8 @@
         </p>
     </section>
     <section class="showcase">
-        <tabset>
-            <tab heading="Preview">
+        <uib-tabset>
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="WithColumnFilterCtrl as showCase">
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
@@ -32,8 +32,8 @@
                         </table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="WithColumnFilterCtrl as showCase">
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
@@ -50,8 +50,8 @@
 <script src="vendor/datatables-columnfilter/js/dataTables.columnFilter.js"></script>
 <script src="vendor/angular-datatables/dist/plugins/columnfilter/angular-datatables.columnfilter.min.js"></script>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.withColumnFilter', ['datatables', 'datatables.columnfilter'])
 .controller('WithColumnFilterCtrl', WithColumnFilterCtrl);
@@ -80,7 +80,7 @@ function WithColumnFilterCtrl(DTOptionsBuilder, DTColumnBuilder) {
     ];
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>

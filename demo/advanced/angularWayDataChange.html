@@ -13,8 +13,8 @@
         </p>
     </section>
     <section class="showcase">
-        <tabset>
-            <tab heading="Preview">
+        <uib-tabset>
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="AngularWayChangeDataCtrl as showCase">
                         <form class="form-inline" ng-submit="showCase.addPerson()">
@@ -70,8 +70,8 @@
                         </form>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="AngularWayChangeDataCtrl as showCase">
     <form class="form-inline" ng-submit="showCase.addPerson()">
@@ -127,8 +127,8 @@
     </form>
 </div>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.angularWay.dataChange', ['datatables', 'ngResource'])
 .controller('AngularWayChangeDataCtrl', AngularWayChangeDataCtrl);
@@ -168,8 +168,8 @@ function AngularWayChangeDataCtrl($resource, DTOptionsBuilder, DTColumnDefBuilde
     }
 }
 </div>
-            </tab>
-            <tab heading="Example data">
+            </uib-tab>
+            <uib-tab heading="Example data">
                 <p class="example-data">
                     <a target="_blank" href="/angular-datatables/data1.json" tooltip="data1.json">data1.json&nbsp;<i class="fa fa-external-link"></i></a>
                 </p>
@@ -194,7 +194,7 @@ function AngularWayChangeDataCtrl($resource, DTOptionsBuilder, DTColumnDefBuilde
 ...
 ]
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>
