@@ -41,8 +41,4 @@ export class RowClickEventComponent implements OnInit {
       }
     };
   }
-
-  ngAfterViewInit(): void {
-    $('ul.tabs').tabs();
-  }
 }

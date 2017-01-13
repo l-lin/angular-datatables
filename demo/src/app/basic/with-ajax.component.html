@@ -15,14 +15,15 @@
           You can also fetch the data from a server using an Ajax call.
         </p>
         <div class="col s12 m9 l12 showcase-tabs">
-          <ul class="tabs">
-            <li class="tab col s3"><a (click)="$event.preventDefault()" href="#preview">Preview</a></li>
-            <li class="tab col s3"><a (click)="$event.preventDefault()" href="#html">HTML</a></li>
-            <li class="tab col s3"><a (click)="$event.preventDefault()" href="#ts">Typescript</a></li>
-            <li class="tab col s2"><a (click)="$event.preventDefault()" href="#data">Example data</a></li>
+          <ul class="anchor-links">
+            <li class="col s3"><a class="waves-effect btn" simplePageScroll href="#preview">Preview</a></li>
+            <li class="col s3"><a class="waves-effect btn" simplePageScroll href="#html">HTML</a></li>
+            <li class="col s3"><a class="waves-effect btn" simplePageScroll href="#ts">Typescript</a></li>
+            <li class="col s2"><a class="waves-effect btn" simplePageScroll href="#data">Example data</a></li>
           </ul>
         </div>
         <div id="preview" class="col s12 m9 l12">
+          <h4 class="header">Preview</h4>
           <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
         </div>
         <with-ajax-snippet></with-ajax-snippet>

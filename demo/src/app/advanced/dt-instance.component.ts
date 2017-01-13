@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
 
-declare var $: any;
-
 @Component({
   selector: 'dt-instance',
   templateUrl: 'dt-instance.component.html'
@@ -32,9 +30,5 @@ export class DtInstanceComponent implements OnInit {
         data: 'lastName'
       }]
     };
-  }
-
-  ngAfterViewInit(): void {
-    $('ul.tabs').tabs();
   }
 }

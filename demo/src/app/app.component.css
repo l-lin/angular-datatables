@@ -22,6 +22,10 @@ ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a {
   padding: 0 37.5px 0 45px;
 }
 
+.collapsible-body {
+  display: block;
+}
+
 .logo h3 {
   font-size: 20px;
   text-align: center;

@@ -4,9 +4,11 @@ import { Component } from '@angular/core';
   selector: 'row-click-event-snippet',
   template: `
   <div id="html" class="col s12 m9 l12">
+    <h4 class="header">HTML</h4>
     <section [innerHTML]="htmlSnippet" highlight-js-content=".xml"></section>
   </div>
   <div id="ts" class="col s12 m9 l12">
+    <h4 class="header">Typescript</h4>
     <section [innerHTML]="tsSnippet" highlight-js-content=".typescript"></section>
   </div>
   `
@@ -17,7 +19,7 @@ export class RowClickEventSnippetComponent {
 <code class="xml highlight">&lt;blockquote&gt;Please click on a row&lt;/blockquote&gt;
 &lt;p class="text-danger"&gt;You clicked on: &lt;strong&gt;{{ message }}&lt;/strong&gt;&lt;/p&gt;
 &lt;br /&gt;
-&lt;table datatable [dtOptions]="dtOptions" class="row-border hover"&gt;&lt;/table&gt;
+&lt;table datatable [dtOptions]="dtOptions" class="row-border hover"&gt;&lt;/table&gt;</code>
 </pre>
   `;
 

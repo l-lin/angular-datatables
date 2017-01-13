@@ -63,6 +63,10 @@ footer.page-footer {
   background-color: #66ceff;
 }
 
+.anchor-links {
+  text-align: center;
+}
+
 .showcase-tabs {
   margin-bottom: 20px;
 }

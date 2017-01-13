@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
+import { Ng2SimplePageScrollModule } from 'ng2-simple-page-scroll';
+
 import { DataTablesModule } from 'angular-datatables';
 
 import { AppRoutingModule } from './app.routing';
@@ -51,7 +53,8 @@ import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippe
     HighlightJsModule,
     HttpModule,
     DataTablesModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Ng2SimplePageScrollModule.forRoot()
   ],
   providers: [
     HighlightJsService
