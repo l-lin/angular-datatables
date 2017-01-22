@@ -2,10 +2,11 @@ Before you write your question, please take some extra time to write a good titl
 
 ## What versions you are using?
 
-- angular version:
-- jquery version:
+- angular version: 
+- jquery version: 
 - datatables version: 
-- angular-datatables version:
+- angular-datatables version: 
+- angular-MM version: 
 
 ## What's the problem?
 

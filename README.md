@@ -36,6 +36,6 @@ However, they seem to have brought more confusion instead. So, starting from ver
 
 Check the [developer guide](DEVELOPER.md)
 
-# LICENCE
+# LICENSE
 
-[MIT](LICENCE)
+[MIT](LICENSE)
