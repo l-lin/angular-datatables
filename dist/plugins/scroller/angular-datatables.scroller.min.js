@@ -1,5 +1,5 @@
 /*!
- * angular-datatables - v0.6.0
+ * angular-datatables - v0.5.7
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
