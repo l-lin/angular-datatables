@@ -39,9 +39,10 @@ The files can be downloaded from:
 > The CSS file only contains `Twitter Bootstrap` styles to support datatables.
 
 **With Bower**
+This will install `angular-datatables` for Angular 1.X. For Angular 2 supported version, please navigate to https://github.com/l-lin/angular-datatables/ 
 
 ```
-bower install angular-datatables
+bower install angular-datatables#0.6.0
 ```
 
 ### Installation
