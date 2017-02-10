@@ -29,7 +29,7 @@ export class DataTableDirective implements OnInit {
   dtInstance: Promise<any>;
 
   constructor(@Inject(ElementRef) private el: ElementRef) {
-    this.dtOptions = $.extend(true, {}, $.fn.DataTable.defaults);
+    this.dtOptions = {};
   }
 
   ngOnInit() {
