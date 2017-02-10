@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables",
-  "version": "2.1.0",
+  "version": "2.1.1-dev",
   "description": "Angular directive for DataTables",
   "scripts": {
     "lint": "tslint ./src/**/*.ts -t verbose",
