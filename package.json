@@ -5,16 +5,16 @@
   "scripts": {
     "lint": "tslint ./src/**/*.ts -t verbose",
     "lite": "lite-server",
-    "clean": "rm -f src/*.d.ts src/*.js src/*.map",
+    "clean": "rimraf -f src/*.d.ts src/*.js src/*.map",
     "test": "npm run clean && tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
     "test-once": "npm run clean && tsc && karma start karma.conf.js --single-run && npm run clean",
     "webdriver:update": "webdriver-manager update",
     "move": "mkdir dist && mv src/*.d.ts dist && mv src/*.js dist && mv src/*.map dist",
-    "rm-spec": "rm -f dist/*.spec.*",
+    "rm-spec": "rimraf -f dist/*.spec.*",
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "build": "rm -rf dist/ && npm run lint && npm run tsc && npm run move && npm run rm-spec"
+    "build": "rimraf -rf dist/ && npm run lint && npm run tsc && npm run move && npm run rm-spec"
   },
   "keywords": [
     "Angular",
@@ -27,20 +27,20 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@angular/common": "~2.2.0",
-    "@angular/compiler": "~2.2.0",
-    "@angular/core": "~2.2.0",
-    "@angular/forms": "~2.2.0",
-    "@angular/http": "~2.2.0",
-    "@angular/platform-browser": "~2.2.0",
-    "@angular/platform-browser-dynamic": "~2.2.0",
-    "@angular/upgrade": "~2.2.0",
+    "@angular/common": "~2.4.0",
+    "@angular/compiler": "~2.4.0",
+    "@angular/core": "~2.4.0",
+    "@angular/forms": "~2.4.0",
+    "@angular/http": "~2.4.0",
+    "@angular/platform-browser": "~2.4.0",
+    "@angular/platform-browser-dynamic": "~2.4.0",
+    "@angular/upgrade": "~2.4.0",
     "core-js": "~2.4.1",
-    "datatables.net": "~1.10.12",
+    "datatables.net": "~2.1.1",
     "jquery": "~3.1.1",
     "reflect-metadata": "~0.1.8",
-    "rxjs": "5.0.0-beta.12",
-    "zone.js": "~0.6.26"
+    "rxjs": "5.1.0",
+    "zone.js": "~0.7.6"
   },
   "devDependencies": {
     "@types/jasmine": "~2.5.36",
