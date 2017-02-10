@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables",
-  "version": "2.0.2-dev",
+  "version": "2.1.0",
   "description": "Angular directive for DataTables",
   "scripts": {
     "lint": "tslint ./src/**/*.ts -t verbose",
@@ -23,7 +23,8 @@
   ],
   "author": "Louis LIN <louis.lin.87@gmail.com> (https://l-lin.github.io/)",
   "contributors": [
-    "Michael Bennett <michael@strukt.org>"
+    "Michael Bennett <michael@strukt.org>",
+    "Steven Masala <me@smasalai.com>"
   ],
   "license": "MIT",
   "dependencies": {
@@ -43,7 +44,7 @@
     "zone.js": "~0.7.6"
   },
   "devDependencies": {
-    "@types/jasmine": "~2.5.36",
+    "@types/jasmine": "2.5.36",
     "@types/node": "~6.0.46",
     "canonical-path": "0.0.2",
     "concat-cli": "4.0.0",

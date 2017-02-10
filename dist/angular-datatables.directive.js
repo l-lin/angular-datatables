@@ -22,7 +22,7 @@ import 'datatables.net';
 export var DataTableDirective = (function () {
     function DataTableDirective(el) {
         this.el = el;
-        this.dtOptions = $.extend(true, {}, $.fn.DataTable.defaults);
+        this.dtOptions = {};
     }
     DataTableDirective.prototype.ngOnInit = function () {
         var _this = this;
