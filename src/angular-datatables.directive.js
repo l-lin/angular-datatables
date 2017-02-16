@@ -83,7 +83,7 @@ function dataTable($q, $http, $log, DTRendererFactory, DTRendererService, DTProp
                         var languageDefer = $q.defer();
                         var languageUrl = options.language.url;
                         $http.get(options.language.url).then(function(language) {
-                            languageDefer.resolve(language);
+                            languageDefer.resolve(language.data);
                         }, function() {
                             $log.error('Could not fetch the content of the language from ' + languageUrl);
                         });
