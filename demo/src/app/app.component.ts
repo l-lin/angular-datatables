@@ -1,7 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
 
-import { HighlightJsService } from 'angular2-highlight-js';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
