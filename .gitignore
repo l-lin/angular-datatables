@@ -17,6 +17,8 @@ _temp
 !protractor*.js
 !systemjs.config.js
 !demo/src/**/*.js
+!rollup.conf.js
+!rollup-uglify.conf.js
 
 # angular-datatables specific
 *.js.map
