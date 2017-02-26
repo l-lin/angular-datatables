@@ -1,0 +1,20 @@
+{
+  "ajax": "data/data.json",
+  "displayLength": 2,
+  "paginationType": "full_numbers",
+  "columns": [
+    {
+      "data": "id",
+      "title": "ID"
+    },
+    {
+      "data": "firstName",
+      "title": "First name"
+    },
+    {
+      "data": "lastName",
+      "title": "Last name",
+      "visible": false
+    }
+  ]
+}

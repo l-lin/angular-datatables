@@ -9,6 +9,7 @@ import { WithOptionsComponent } from './basic/with-options.component';
 import { WithAjaxComponent } from './basic/with-ajax.component';
 
 import { DtInstanceComponent } from './advanced/dt-instance.component';
+import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 
 const routes: Routes = [
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'advanced/dt-instance',
     component: DtInstanceComponent
+  },
+  {
+    path: 'advanced/load-dt-options-with-promise',
+    component: LoadDtOptionsWithPromiseComponent
   },
   {
     path: 'advanced/row-click-event',

@@ -26,6 +26,8 @@ import { WithAjaxSnippetComponent }  from './basic/with-ajax-snippet.component';
 // Advanced examples
 import { DtInstanceComponent } from './advanced/dt-instance.component';
 import { DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
+import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
+import { LoadDtOptionsWithPromiseSnippetComponent } from './advanced/load-dt-options-with-promise-snippet.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippet.component';
 
@@ -44,6 +46,8 @@ import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippe
 
     DtInstanceComponent,
     DtInstanceSnippetComponent,
+    LoadDtOptionsWithPromiseComponent,
+    LoadDtOptionsWithPromiseSnippetComponent,
     RowClickEventComponent,
     RowClickEventSnippetComponent
   ],
