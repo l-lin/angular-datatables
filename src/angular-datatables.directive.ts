@@ -5,7 +5,7 @@
  * found in the LICENSE file at https://raw.githubusercontent.com/l-lin/angular-datatables/master/LICENSE
  */
 
-import { Directive, ElementRef, Inject, OnInit, Input } from '@angular/core';
+import { Directive, ElementRef, Inject, OnInit, Input, Component } from '@angular/core';
 import 'jquery';
 import 'datatables.net';
 declare var $: any;
@@ -35,7 +35,7 @@ export class DataTableDirective implements OnInit {
   ngOnInit() {
     this.dtInstance = new Promise((resolve, reject) => {
       Promise.resolve(this.dtOptions).then(dtOptions => {
-        let dt = $(this.el.nativeElement).DataTable(dtOptions);
+        const dt = $(this.el.nativeElement).DataTable(dtOptions);
         resolve(dt);
       });
     });

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'with-ajax',
+  selector: 'app-with-ajax',
   templateUrl: 'with-ajax.component.html'
 })
 export class WithAjaxComponent implements OnInit {

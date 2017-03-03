@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'with-options',
+  selector: 'app-with-options',
   templateUrl: 'with-options.component.html'
 })
 export class WithOptionsComponent implements OnInit {

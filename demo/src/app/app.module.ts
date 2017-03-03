@@ -16,16 +16,16 @@ import { WelcomeComponent } from './welcome.component';
 import { GettingStartedComponent } from './getting-started.component';
 
 // Basic examples
-import { ZeroConfigComponent }  from './basic/zero-config.component';
-import { ZeroConfigSnippetComponent }  from './basic/zero-config-snippet.component';
-import { WithOptionsComponent }  from './basic/with-options.component';
-import { WithOptionsSnippetComponent }  from './basic/with-options-snippet.component';
-import { WithAjaxComponent }  from './basic/with-ajax.component';
-import { WithAjaxSnippetComponent }  from './basic/with-ajax-snippet.component';
+import { ZeroConfigComponent } from './basic/zero-config.component';
+import { ZeroConfigSnippetComponent } from './basic/zero-config-snippet.component';
+import { WithOptionsComponent } from './basic/with-options.component';
+import { WithOptionsSnippetComponent } from './basic/with-options-snippet.component';
+import { WithAjaxComponent } from './basic/with-ajax.component';
+import { WithAjaxSnippetComponent } from './basic/with-ajax-snippet.component';
 
 // Advanced examples
-import { DtInstanceComponent } from './advanced/dt-instance.component';
-import { DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
+import {  DtInstanceComponent } from './advanced/dt-instance.component';
+import {  DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
 import { LoadDtOptionsWithPromiseSnippetComponent } from './advanced/load-dt-options-with-promise-snippet.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
@@ -45,7 +45,7 @@ import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippe
     WithAjaxSnippetComponent,
 
     DtInstanceComponent,
-    DtInstanceSnippetComponent,
+    DtInstanceSnippetComponent,
     LoadDtOptionsWithPromiseComponent,
     LoadDtOptionsWithPromiseSnippetComponent,
     RowClickEventComponent,
@@ -63,6 +63,6 @@ import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippe
   providers: [
     HighlightJsService
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

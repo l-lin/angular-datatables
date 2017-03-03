@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'load-dt-options-with-promise-snippet',
+  selector: 'app-load-dt-options-with-promise-snippet',
   template: `
   <div id="html" class="col s12 m9 l12">
     <h4 class="header">HTML</h4>
@@ -78,5 +78,6 @@ export class LoadDtOptionsWithPromiseComponent implements OnInit {
     }
   ]
 }</code>
-</pre>`
+</pre>
+`;
 }

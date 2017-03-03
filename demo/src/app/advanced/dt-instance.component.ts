@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 
 @Component({
-  selector: 'dt-instance',
+  selector: 'app-dt-instance',
   templateUrl: 'dt-instance.component.html'
 })
 export class DtInstanceComponent implements OnInit {

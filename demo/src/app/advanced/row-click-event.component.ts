@@ -3,11 +3,11 @@ import { Component, NgZone, OnInit } from '@angular/core';
 declare var $: any;
 
 @Component({
-  selector: 'row-click-event',
+  selector: 'app-row-click-event',
   templateUrl: 'row-click-event.component.html'
 })
 export class RowClickEventComponent implements OnInit {
-  message: string = '';
+  message = '';
   dtOptions: any = {};
 
   constructor(private zone: NgZone) { }
@@ -30,7 +30,7 @@ export class RowClickEventComponent implements OnInit {
         data: 'lastName'
       }],
       rowCallback: (nRow: number, aData: any, iDisplayIndex: number, iDisplayIndexFull: number) => {
-        let self = this;
+        const self = this;
         // Unbind first in order to avoid any duplicate handler
         // (see https://github.com/l-lin/angular-datatables/issues/87)
         $('td', nRow).unbind('click');

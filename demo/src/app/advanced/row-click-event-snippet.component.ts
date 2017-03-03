@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'row-click-event-snippet',
+  selector: 'app-row-click-event-snippet',
   template: `
   <div id="html" class="col s12 m9 l12">
     <h4 class="header">HTML</h4>

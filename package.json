@@ -47,6 +47,7 @@
     "@types/jasmine": "2.5.40",
     "@types/node": "~6.0.46",
     "canonical-path": "0.0.2",
+    "codelyzer": "~2.0.1",
     "concat-cli": "4.0.0",
     "concurrently": "~2.2.0",
     "http-server": "~0.9.0",
@@ -61,7 +62,7 @@
     "rollup": "~0.41.4",
     "rollup-plugin-uglify": "~1.0.1",
     "systemjs": "0.19.41",
-    "tslint": "~3.7.4",
+    "tslint": "~4.5.1",
     "typescript": "~2.0.10"
   },
   "engines": {

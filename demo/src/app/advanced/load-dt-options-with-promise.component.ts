@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-  selector: 'load-dt-options-with-promise',
+  selector: 'app-load-dt-options-with-promise',
   templateUrl: 'load-dt-options-with-promise.component.html'
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
