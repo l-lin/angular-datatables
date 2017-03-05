@@ -28,7 +28,7 @@ info "Deloying the documentation to the GH pages from $cwd (project name is $pro
 
 info "Building documentation..."
 cd $cwd/demo
-npm run build
+npm run build:prod
 
 info "Copying the doc folder to /tmp"
 rm -rf /tmp/angular-datatables-demo
@@ -44,7 +44,7 @@ git checkout gh-pages
 git fetch && git reset --hard origin/gh-pages
 
 info "Remove all files except .git"
-rm -rf ^.git
+rm -rf *
 #find . -maxdepth 1 | grep -v ".git" | xargs rm -rf
 
 info "Copy the doc to the gh-pages branch"
