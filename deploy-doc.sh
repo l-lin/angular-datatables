@@ -28,7 +28,7 @@ info "Deloying the documentation to the GH pages from $cwd (project name is $pro
 
 info "Building documentation..."
 cd $cwd/demo
-npm run ng build -prod -aot --base-href /angular-datatables/
+npm run build
 
 info "Copying the doc folder to /tmp"
 rm -rf /tmp/angular-datatables-demo

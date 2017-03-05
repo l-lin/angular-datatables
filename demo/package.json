@@ -7,6 +7,7 @@
     "start": "ng serve",
     "test": "ng test",
     "lint": "ng lint",
+    "build": "ng build --base-href /angular-datatables/",
     "e2e": "ng e2e"
   },
   "private": true,
