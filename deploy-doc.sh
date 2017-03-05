@@ -3,12 +3,24 @@
 # Exit the script if a command fails
 set -e
 
-gitmessage=${1:-'Deploy documentation to gh-pages'}
-
 function info {
-  echo "[-] $1"
+    echo "[-] $1"
 }
 
+function help {
+    echo "[x] Missing arguments..."
+    info "Usage: $  deploy-doc.sh <version>"
+    info "Example:"
+    info "  $ deploy-doc.sh 2.0.0"
+}
+
+if [ -z "$1" ]; then
+    help
+    exit 1
+fi
+
+version=${1}
+gitmessage="Deploy documentation $version to gh-pages"
 cwd=$(pwd)
 project_name=${PWD##*/}
 
@@ -16,7 +28,7 @@ info "Deloying the documentation to the GH pages from $cwd (project name is $pro
 
 info "Building documentation..."
 cd $cwd/demo
-ng build --prod --aot --base-href /angular-datatables/
+npm run ng build -prod -aot --base-href /angular-datatables/
 
 info "Copying the doc folder to /tmp"
 rm -rf /tmp/angular-datatables-demo

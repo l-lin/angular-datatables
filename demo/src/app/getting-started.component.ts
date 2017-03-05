@@ -18,13 +18,15 @@ npm install angular-datatables --save</code>
   <code class="json highlight">{
   "apps": [
     {
+      ...
       "styles": [
         "../node_modules/datatables.net-dt/css/jquery.dataTables.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/datatables.net/js/jquery.dataTables.js"
-      ]
+      ],
+      ...
     }
   ]
 }</code>
