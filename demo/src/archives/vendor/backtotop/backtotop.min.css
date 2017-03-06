@@ -1,6 +1,0 @@
-/*!
- * backtotop - v0.0.1
- * https://github.com/l-lin/backtotop
- */
-
-a.back-top{position:fixed;z-index:9999;text-align:center;cursor:pointer}a.back-top i{font-size:16px}a.back-top.classic{right:20px;bottom:20px;width:45px;height:45px;background-color:#404040;border-radius:3px;opacity:.5;color:#FFF;line-height:45px}a.back-top.classic:hover{opacity:1}a.back-top.sky{right:0;bottom:0;background-color:#16cbe6;color:#FFF;line-height:25px;width:30px;height:30px}a.back-top.slate{background:#454545;color:#A8A8A8;height:36px;width:30px;right:20px;bottom:20px;border-radius:5px;margin-top:5px;font-size:19px;line-height:35px}a.back-top.slate:after{content:"";position:absolute;display:block;bottom:-1em;border:15px solid #454545;z-index:-1;right:0;border-left-width:15px;border-bottom-color:transparent}a.back-top.slate:hover{bottom:23px;background:#646464;color:#E4E4E4;-webkit-transition:all .1s linear 0s;transition:all .1s linear 0s}a.back-top.slate:hover:after{content:"";position:absolute;display:block;bottom:-1em;border:15px solid #646464;z-index:-1;right:0;border-left-width:15px;border-bottom-color:transparent}
