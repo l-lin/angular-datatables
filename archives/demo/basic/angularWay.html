@@ -40,8 +40,8 @@
         </div>
     </section>
     <section class="showcase">
-        <tabset>
-            <tab heading="Preview">
+        <uib-tabset>
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="AngularWayCtrl as showCase">
                         <table datatable="ng" class="row-border hover">
@@ -62,8 +62,8 @@
                         </table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="AngularWayCtrl as showCase">
     <table datatable="ng" class="row-border hover">
@@ -84,8 +84,8 @@
     </table>
 </div>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.angularWay', ['datatables', 'ngResource'])
 .controller('AngularWayCtrl', AngularWayCtrl);
@@ -97,8 +97,8 @@ function AngularWayCtrl($resource) {
     });
 }
 </div>
-            </tab>
-            <tab heading="HTML with One time binding">
+            </uib-tab>
+            <uib-tab heading="HTML with One time binding">
 <div hljs>
 <div ng-controller="AngularWayOneTimeBindingCtrl as showCase">
     <table datatable="ng" class="row-border hover">
@@ -119,8 +119,8 @@ function AngularWayCtrl($resource) {
     </table>
 </div>
 </div>
-            </tab>
-            <tab heading="JS with One time binding">
+            </uib-tab>
+            <uib-tab heading="JS with One time binding">
 <div hljs language="js">
 angular.module('showcase.angularWay', ['datatables', 'ngResource'])
 .controller('AngularWayOneTimeBindingCtrl', AngularWayCtrl);
@@ -132,8 +132,8 @@ function AngularWayOneTimeBindingCtrl($resource) {
     });
 }
 </div>
-            </tab>
-            <tab heading="Example data">
+            </uib-tab>
+            <uib-tab heading="Example data">
                 <p class="example-data">
                     <a target="_blank" href="data.json" tooltip="data.json">data.json&nbsp;<i class="fa fa-external-link"></i></a>
                 </p>
@@ -158,7 +158,7 @@ function AngularWayOneTimeBindingCtrl($resource) {
 ...
 ]
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>

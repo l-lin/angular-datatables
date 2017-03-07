@@ -17,15 +17,15 @@
         </p>
     </section>
     <section class="showcase">
-        <tabset>
-            <tab heading="Preview">
+        <uib-tabset>
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="WithScrollerCtrl as showCase">
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <link rel="stylesheet" href="https://cdn.datatables.net/scroller/1.4.2/css/scroller.dataTables.min.css">
 <!-- ... -->
@@ -36,8 +36,8 @@
 <script src="https://cdn.datatables.net/scroller/1.4.2/js/dataTables.scroller.min.js"></script>
 <script src="vendor/angular-datatables/dist/plugins/scroller/angular-datatables.scroller.min.js"></script>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.withScroller', ['datatables', 'datatables.scroller'])
 .controller('WithScrollerCtrl', WithScrollerCtrl);
@@ -57,7 +57,7 @@ function WithScrollerCtrl(DTOptionsBuilder, DTColumnBuilder) {
     ];
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>

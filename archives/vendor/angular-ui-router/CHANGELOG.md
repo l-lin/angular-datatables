@@ -1,3 +1,65 @@
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/angular-ui/ui-router/compare/0.3.1...0.3.2) (2016-11-03)
+
+
+### Bug Fixes
+
+* **$state.transitionTo:** trigger $stateChangeCancel appropriately ([#3039](https://github.com/angular-ui/ui-router/issues/3039)) ([ca7c366](https://github.com/angular-ui/ui-router/commit/ca7c366)), closes [#3027](https://github.com/angular-ui/ui-router/issues/3027)
+* **promise:** avoid uncaught in promise errors due to transition rejections ([66ab048](https://github.com/angular-ui/ui-router/commit/66ab048)), closes [#2889](https://github.com/angular-ui/ui-router/issues/2889)
+* **state.includes:** compare param vals using typed parameter (not using `==`) ([6958c24](https://github.com/angular-ui/ui-router/commit/6958c24)), closes [#2696](https://github.com/angular-ui/ui-router/issues/2696)
+* **stateDirective:** using on to attach an event handler instead of bind ([#3036](https://github.com/angular-ui/ui-router/issues/3036)) ([a8aa40a](https://github.com/angular-ui/ui-router/commit/a8aa40a))
+* **urlMatcherFactory:** fix tilde edge case with "string" encoding ([#3021](https://github.com/angular-ui/ui-router/issues/3021)) ([953235a](https://github.com/angular-ui/ui-router/commit/953235a))
+
+
+
+
+<a name="0.3.1"></a>
+### 0.3.1 (2016-06-03)
+
+# obscure BC-BREAK 
+
+If you're using `element.data('$uiView').$animEnter`, switch to `element.data('$uiViewAnim').$animEnter`
+This was necessary in order to fix #2763
+
+#### Bug Fixes
+
+* **state:**
+  * fire $stateChangeError if onEnter/onExit throws. closes #2772 ([a5756c38](https://github.com/angular-ui/ui-router/commit/a5756c38a282bd2556ed5faaf870d6e493722d1b))
+  * fail transition on exceptions in transition handler ([8222fb0e](https://github.com/angular-ui/ui-router/commit/8222fb0e7fd5eaaf6382f36db9ee9077a7bdbc6d))
+* **uiView:** separate $uiView and $uiViewAnim element.data() ([d3502f3c](https://github.com/angular-ui/ui-router/commit/d3502f3c0cb6a63f4b80aac91428f748b6460396), closes [#2763](https://github.com/angular-ui/ui-router/issues/2763))
+  * Fixes this error: `Cannot read property 'name' of undefined at getUiViewName`
+
+
+<a name="0.3.0"></a>
+## 0.3.0 (2016-05-14)
+
+This is a release of the `legacy` branch, primarily to fix the $scope destroy ordering issues introduced in 0.2.16.
+
+We recommend all users to try the 1.0.0 alpha and report any issues it causes with your application. Read the [known breaking changes](https://github.com/angular-ui/ui-router/issues/2219) between the legacy and 1.0 branches. 
+
+# BC-BREAK
+
+In 0.2.16 we delayed the ui-view $scope destroy() until after all animations were completed.  This was a mistake, and we're reverting it in 0.3.0. 
+
+The original issue that we tried to address: https://github.com/angular-ui/ui-router/issues/1643
+
+We are switching back to 0.2.15 behavior. The scope is now destroyed as soon as the view is swapped out. This allows cleanup to happen in response
+to the $destroy event. If you need to do things after the animation, we've put the promise on the `element.data('$uiView')` in #2562
+
+#### Bug Fixes
+
+* **state:** Inject $state at runtime to force initialization ([de3a04a7](https://github.com/angular-ui/ui-router/commit/de3a04a7c676e05b5b868de4f65d03d9c588773c), closes [#2574](https://github.com/angular-ui/ui-router/issues/2574))
+* **ui-sref:** update ui-sref-active/eq info when params change When ui-state dynamicly changes ([9698ec4d](https://github.com/angular-ui/ui-router/commit/9698ec4d2fbceb463cf11e43b7e74e385eda4beb), closes [#2554](https://github.com/angular-ui/ui-router/issues/2554))
+* **ui-state:** update ui-sref-active/eq info when ui-state dynamicly changes watchers, make sur ([abb3deba](https://github.com/angular-ui/ui-router/commit/abb3debacb87e1a6c398a13f2d64c53e8b08a233), closes [#2488](https://github.com/angular-ui/ui-router/issues/2488))
+
+
+#### Features
+
+* **uiView:**
+  * Fire the $onInit hook ([b090ca03](https://github.com/angular-ui/ui-router/commit/b090ca0352eabc13662a8702a2b227b7db606362), closes [#2559](https://github.com/angular-ui/ui-router/issues/2559))
+  * Put $animate promises on element.data('$uiView') closes #2562 closes #2579 ([fde64e18](https://github.com/angular-ui/ui-router/commit/fde64e1897041e59cbc9f8d07b269dcd487abb9c))
+
+
 <a name="0.2.18"></a>
 ### 0.2.18 (2016-02-07)
 

@@ -23,8 +23,8 @@
         </ul>
     </section>
     <section class="showcase">
-        <tabset>
-            <tab heading="Preview">
+        <uib-tabset>
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="AngularWayWithOptionsCtrl as showCase">
                         <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
@@ -45,8 +45,8 @@
                         </table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="AngularWayWithOptionsCtrl as showCase">
     <table datatable="ng" dt-options="showCase.dtOptions" dt-column-defs="showCase.dtColumnDefs" class="row-border hover">
@@ -67,8 +67,8 @@
     </table>
 </div>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.angularWay.withOptions', ['datatables', 'ngResource'])
 .controller('AngularWayWithOptionsCtrl', AngularWayWithOptionsCtrl);
@@ -87,8 +87,8 @@ function AngularWayWithOptionsCtrl($resource, DTOptionsBuilder, DTColumnDefBuild
     });
 }
 </div>
-            </tab>
-            <tab heading="Example data">
+            </uib-tab>
+            <uib-tab heading="Example data">
                 <p class="example-data">
                     <a target="_blank" href="data.json" tooltip="data.json">data.json&nbsp;<i class="fa fa-external-link"></i></a>
                 </p>
@@ -113,7 +113,7 @@ function AngularWayWithOptionsCtrl($resource, DTOptionsBuilder, DTColumnDefBuild
 ...
 ]
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>

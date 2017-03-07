@@ -50,22 +50,22 @@
         </p>
     </section>
     <section class="showcase">
-        <tabset>
-            <tab heading="Preview">
+        <uib-tabset>
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="ServerSideProcessingCtrl as showCase">
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="ServerSideProcessingCtrl as showCase">
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
 </div>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.serverSideProcessing', ['datatables'])
 .controller('ServerSideProcessingCtrl', ServerSideProcessingCtrl);
@@ -91,8 +91,8 @@ function ServerSideProcessingCtrl(DTOptionsBuilder, DTColumnBuilder) {
     ];
 }
 </div>
-            </tab>
-            <tab heading="Example data">
+            </uib-tab>
+            <uib-tab heading="Example data">
 <div hljs language="json">
 {
     "draw": 1,
@@ -121,7 +121,7 @@ function ServerSideProcessingCtrl(DTOptionsBuilder, DTColumnBuilder) {
     ]
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>

@@ -8,8 +8,8 @@
         </p>
     </section>
     <section class="showcase">
-        <tabset>
-            <tab heading="Preview">
+        <uib-tabset>
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="BindAngularDirectiveCtrl as showCase">
                         <p class="text-danger"><strong>{{ showCase.message }}</strong></p>
@@ -17,8 +17,8 @@
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="BindAngularDirectiveCtrl as showCase">
     <p class="text-danger"><strong>{{ showCase.message }}</strong></p>
@@ -26,8 +26,8 @@
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
 </div>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.bindAngularDirective', ['datatables'])
 .controller('BindAngularDirectiveCtrl', BindAngularDirectiveCtrl);
@@ -77,7 +77,7 @@ function BindAngularDirectiveCtrl($scope, $compile, DTOptionsBuilder, DTColumnBu
     }
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>

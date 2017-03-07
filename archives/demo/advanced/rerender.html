@@ -25,8 +25,8 @@
         </div>
     </section>
     <section class="showcase">
-        <tabset ng-if="showCaseToChoose == 'default'">
-            <tab heading="Preview">
+        <uib-tabset ng-if="showCaseToChoose == 'default'">
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="RerenderDefaultRendererCtrl as showCase">
                         <p>
@@ -60,8 +60,8 @@
                         </table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="RerenderDefaultRendererCtrl as showCase">
     <p>
@@ -95,8 +95,8 @@
     </table>
 </div>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderDefaultRendererCtrl', RerenderDefaultRendererCtrl);
 
@@ -111,11 +111,11 @@ function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
     vm.dtInstance = {};
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
 
-        <tabset  ng-if="showCaseToChoose == 'ajax'">
-            <tab heading="Preview">
+        <uib-tabset  ng-if="showCaseToChoose == 'ajax'">
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="RerenderAjaxRendererCtrl as showCase">
                         <p>
@@ -124,8 +124,8 @@ function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="RerenderAjaxRendererCtrl as showCase">
     <p>
@@ -134,8 +134,8 @@ function RerenderDefaultRendererCtrl(DTOptionsBuilder, DTColumnDefBuilder) {
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
 </div>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl);
 
@@ -150,11 +150,11 @@ function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder) {
     vm.dtInstance = {};
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
 
-        <tabset ng-if="showCaseToChoose == 'promise'">
-            <tab heading="Preview">
+        <uib-tabset ng-if="showCaseToChoose == 'promise'">
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="RerenderPromiseRendererCtrl as showCase">
                         <p>
@@ -163,8 +163,8 @@ function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder) {
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="RerenderPromiseRendererCtrl as showCase">
     <p>
@@ -173,8 +173,8 @@ function RerenderAjaxRendererCtrl(DTOptionsBuilder, DTColumnBuilder) {
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="row-border hover"></table>
 </div>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderPromiseRendererCtrl', RerenderPromiseRendererCtrl);
 
@@ -191,11 +191,11 @@ function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilde
     vm.dtInstance = {};
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
 
-        <tabset ng-if="showCaseToChoose == 'angular'">
-            <tab heading="Preview">
+        <uib-tabset ng-if="showCaseToChoose == 'angular'">
+            <uib-tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="RerenderNGRendererCtrl as showCase">
                         <p>
@@ -219,8 +219,8 @@ function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilde
                         </table>
                     </div>
                 </article>
-            </tab>
-            <tab heading="HTML">
+            </uib-tab>
+            <uib-tab heading="HTML">
 <div hljs>
 <div ng-controller="RerenderNGRendererCtrl as showCase">
     <p>
@@ -244,8 +244,8 @@ function RerenderPromiseRendererCtrl($resource, DTOptionsBuilder, DTColumnBuilde
     </table>
 </div>
 </div>
-            </tab>
-            <tab heading="JS">
+            </uib-tab>
+            <uib-tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.rerender', ['datatables', 'ngResource']).controller('RerenderAjaxRendererCtrl', RerenderAjaxRendererCtrl);
 
@@ -265,7 +265,7 @@ function RerenderNGRendererCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder)
     });
 }
 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
     </section>
 </article>

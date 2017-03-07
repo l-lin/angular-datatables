@@ -1,7 +1,0 @@
-.clang-format
-.gitignore
-.idea
-.travis.yml
-build/test
-tsd.json
-typings
