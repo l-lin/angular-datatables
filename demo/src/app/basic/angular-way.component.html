@@ -1,0 +1,47 @@
+<div class="section banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9">
+        <h1 class="header center-on-small-only">Angular way</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m9 l12">
+      <div class="section">
+        <p class="caption">
+          You can use the angular directives to render the table. Angular-datatables provides a <code>dtTrigger</code> you can use to manually trigger the rendering of the table.
+        </p>
+        <div class="col s12 m9 l12 showcase-tabs">
+          <ul class="anchor-links">
+            <li class="col s3"><a class="waves-effect btn" href="#preview">Preview</a></li>
+            <li class="col s3"><a class="waves-effect btn" href="#html">HTML</a></li>
+            <li class="col s3"><a class="waves-effect btn" href="#ts">Typescript</a></li>
+          </ul>
+        </div>
+        <div id="preview" class="col s12 m9 l12">
+          <h4 class="header">Preview</h4>
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let person of persons">
+                <td>{{ person.id }}</td>
+                <td>{{ person.firstName }}</td>
+                <td>{{ person.lastName }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <app-angular-way-snippet></app-angular-way-snippet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

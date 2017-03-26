@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
-import { DataTablesModule } from 'angular-datatables';
+import { DataTablesModule } from './angular-datatables';
 
 import { AppRoutingModule } from './app.routing';
 
@@ -20,6 +20,8 @@ import { WithOptionsComponent } from './basic/with-options.component';
 import { WithOptionsSnippetComponent } from './basic/with-options-snippet.component';
 import { WithAjaxComponent } from './basic/with-ajax.component';
 import { WithAjaxSnippetComponent } from './basic/with-ajax-snippet.component';
+import { AngularWayComponent } from './basic/angular-way.component';
+import { AngularWaySnippetComponent } from './basic/angular-way-snippet.component';
 
 // Advanced examples
 import {  DtInstanceComponent } from './advanced/dt-instance.component';
@@ -41,6 +43,8 @@ import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippe
     WithOptionsSnippetComponent,
     WithAjaxComponent,
     WithAjaxSnippetComponent,
+    AngularWayComponent,
+    AngularWaySnippetComponent,
 
     DtInstanceComponent,
     DtInstanceSnippetComponent,

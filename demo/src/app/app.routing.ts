@@ -7,6 +7,7 @@ import { GettingStartedComponent } from './getting-started.component';
 import { ZeroConfigComponent } from './basic/zero-config.component';
 import { WithOptionsComponent } from './basic/with-options.component';
 import { WithAjaxComponent } from './basic/with-ajax.component';
+import { AngularWayComponent } from './basic/angular-way.component';
 
 import { DtInstanceComponent } from './advanced/dt-instance.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'basic/with-ajax',
     component: WithAjaxComponent
+  },
+  {
+    path: 'basic/angular-way',
+    component: AngularWayComponent
   },
   {
     path: 'advanced/dt-instance',
