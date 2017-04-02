@@ -13,22 +13,22 @@
         </p>
     </section>
     <section class="showcase" ng-controller="DisableDeepWatchers as showCase">
-        <uib-tabset>
-            <uib-tab heading="Preview">
+        <tabset>
+            <tab heading="Preview">
                 <article class="preview">
                     <div>
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-disable-deep-watchers="true" class="row-border hover"></table>
                     </div>
                 </article>
-            </uib-tab>
-            <uib-tab heading="HTML">
+            </tab>
+            <tab heading="HTML">
 <div hljs>
 <div ng-controller="DisableDeepWatchers as showCase">
     <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-disable-deep-watchers="true" class="row-border hover"></table>
 </div>
 </div>
-            </uib-tab>
-            <uib-tab heading="JS">
+            </tab>
+            <tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.disableDeepWatchers', ['datatables'])
 .controller('DisableDeepWatchers', DisableDeepWatchers);
@@ -44,8 +44,8 @@ function DisableDeepWatchers(DTOptionsBuilder, DTColumnBuilder) {
     ];
 }
 </div>
-            </uib-tab>
-            <uib-tab heading="Example data">
+            </tab>
+            <tab heading="Example data">
                 <p class="example-data">
                     <a target="_blank" href="data.json" tooltip="data.json">data.json&nbsp;<i class="fa fa-external-link"></i></a>
                 </p>
@@ -70,7 +70,7 @@ function DisableDeepWatchers(DTOptionsBuilder, DTColumnBuilder) {
 ...
 ]
 </div>
-            </uib-tab>
-        </uib-tabset>
+            </tab>
+        </tabset>
     </section>
 </article>

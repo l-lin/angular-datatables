@@ -10,7 +10,7 @@
             <i class="fa fa-play faa-horizontal"></i>&nbsp;Basic usage
             <b class="arrow fa fa-angle-down"></b>
         </a>
-        <ul class="submenu" uib-collapse="!sidebar.isBasicUsageCollapsed">
+        <ul class="submenu" collapse="!sidebar.isBasicUsageCollapsed">
             <li ng-repeat="basicUsage in sidebar.basicUsages"
                 ng-class="{'active': sidebar.isActive(basicUsage.name)}">
                 <a ui-sref="{{ basicUsage.name }}">
@@ -24,7 +24,7 @@
             <i class="fa fa-play faa-horizontal"></i>&nbsp;Advanced usage
             <b class="arrow fa fa-angle-down"></b>
         </a>
-        <ul class="submenu" uib-collapse="!sidebar.isAdvancedUsageCollapsed">
+        <ul class="submenu" collapse="!sidebar.isAdvancedUsageCollapsed">
             <li ng-repeat="advancedUsage in sidebar.advancedUsages"
                 ng-class="{'active': sidebar.isActive(advancedUsage.name)}">
                 <a ui-sref="{{ advancedUsage.name }}">
@@ -38,7 +38,7 @@
             <i class="fa fa-play faa-horizontal"></i>&nbsp;With plugins
             <b class="arrow fa fa-angle-down"></b>
         </a>
-        <ul class="submenu" uib-collapse="!sidebar.isWithPluginsUsageCollapsed">
+        <ul class="submenu" collapse="!sidebar.isWithPluginsUsageCollapsed">
             <li ng-repeat="withPluginsUsage in sidebar.withPluginsUsages"
                 ng-class="{'active': sidebar.isActive(withPluginsUsage.name)}">
                 <a ui-sref="{{ withPluginsUsage.name }}">

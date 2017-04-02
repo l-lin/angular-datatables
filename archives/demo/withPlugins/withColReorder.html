@@ -17,15 +17,15 @@
         </p>
     </section>
     <section class="showcase">
-        <uib-tabset>
-            <uib-tab heading="Preview">
+        <tabset>
+            <tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="WithColReorderCtrl as showCase">
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
-            </uib-tab>
-            <uib-tab heading="HTML">
+            </tab>
+            <tab heading="HTML">
 <div hljs>
 <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.3.2/css/colReorder.dataTables.min.css">
 <!-- ... -->
@@ -36,8 +36,8 @@
 <script src="https://cdn.datatables.net/colreorder/1.3.2/js/dataTables.colReorder.min.js"></script>
 <script src="vendor/angular-datatables/dist/plugins/colreorder/angular-datatables.colreorder.min.js"></script>
 </div>
-            </uib-tab>
-            <uib-tab heading="JS">
+            </tab>
+            <tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.withColReorder', ['datatables', 'datatables.colreorder'])
 .controller('WithColReorderCtrl', WithColReorderCtrl);
@@ -62,7 +62,7 @@ function WithColReorderCtrl(DTOptionsBuilder, DTColumnBuilder) {
     ];
 }
 </div>
-            </uib-tab>
-        </uib-tabset>
+            </tab>
+        </tabset>
     </section>
 </article>

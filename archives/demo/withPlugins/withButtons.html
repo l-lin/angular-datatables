@@ -19,15 +19,15 @@
         </p>
     </section>
     <section class="showcase">
-        <uib-tabset>
-            <uib-tab heading="Preview">
+        <tabset>
+            <tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="WithButtonsCtrl as showCase">
                         <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
                     </div>
                 </article>
-            </uib-tab>
-            <uib-tab heading="HTML">
+            </tab>
+            <tab heading="HTML">
 <div hljs>
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css">
 <!-- ... -->
@@ -42,8 +42,8 @@
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
 <script src="vendor/angular-datatables/dist/plugins/buttons/angular-datatables.buttons.min.js"></script>
 </div>
-            </uib-tab>
-            <uib-tab heading="JS">
+            </tab>
+            <tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.withButtons', ['datatables', 'datatables.buttons'])
     .controller('WithButtonsCtrl', WithButtonsCtrl);
@@ -76,7 +76,7 @@ function WithButtonsCtrl(DTOptionsBuilder, DTColumnBuilder) {
 }
 
 </div>
-            </uib-tab>
-        </uib-tabset>
+            </tab>
+        </tabset>
     </section>
 </article>

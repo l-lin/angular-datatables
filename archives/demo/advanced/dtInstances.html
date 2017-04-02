@@ -36,8 +36,8 @@
         </ul>
     </section>
     <section class="showcase">
-        <uib-tabset>
-            <uib-tab heading="Preview">
+        <tabset>
+            <tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="DTInstancesCtrl as showCase">
                         <p class="text-danger">
@@ -50,8 +50,8 @@
                         <table datatable dt-options="showCase.dtOptions2" dt-columns="showCase.dtColumns2" dt-instance="showCase.dtInstanceCallback" class="row-border hover"></table>
                     </div>
                 </article>
-            </uib-tab>
-            <uib-tab heading="HTML">
+            </tab>
+            <tab heading="HTML">
 <div hljs>
 <div ng-controller="DTInstancesCtrl as showCase">
     <p class="text-danger">
@@ -64,8 +64,8 @@
     <table datatable dt-options="showCase.dtOptions2" dt-columns="showCase.dtColumns2" dt-instance="showCase.dtInstanceCallback" class="row-border hover"></table>
 </div>
 </div>
-            </uib-tab>
-            <uib-tab heading="JS">
+            </tab>
+            <tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.dtInstances', ['datatables']).controller('DTInstancesCtrl', DTInstancesCtrl);
 
@@ -96,7 +96,7 @@ function DTInstancesCtrl(DTOptionsBuilder, DTColumnBuilder) {
     }
 }
 </div>
-            </uib-tab>
-        </uib-tabset>
+            </tab>
+        </tabset>
     </section>
 </article>

@@ -1,5 +1,5 @@
 /*!
- * angular-datatables - v0.6.1
+ * angular-datatables - v0.5.6
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
@@ -357,15 +357,15 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         }
 
         function _setDom(options) {
-            if (!options.dom || options.dom === $.fn.dataTable.defaults.sDom) {
-                return DTBootstrapDefaultOptions.getOptions().dom;
+                if (!options.dom || options.dom === $.fn.dataTable.defaults.sDom) {
+                    return DTBootstrapDefaultOptions.getOptions().dom;
+                }
+                return options.dom;
             }
-            return options.dom;
-        }
-        /**
-         * Integrate Bootstrap
-         * @param options the datatables options
-         */
+            /**
+             * Integrate Bootstrap
+             * @param options the datatables options
+             */
         function integrate(options) {
             _init(options.bootstrap);
             DTBootstrapTableTools.integrate(options.bootstrap);

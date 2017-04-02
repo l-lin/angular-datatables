@@ -9,8 +9,8 @@
         </p>
     </section>
     <section class="showcase">
-        <uib-tabset>
-            <uib-tab heading="Preview">
+        <tabset>
+            <tab heading="Preview">
                 <article class="preview">
                     <div ng-controller="WithAngularTranslateSwitchLanguageCtrl as showCase">
                         <div class="form-horizontal">
@@ -38,8 +38,8 @@
                         </table>
                     </div>
                 </article>
-            </uib-tab>
-            <uib-tab heading="HTML">
+            </tab>
+            <tab heading="HTML">
 <div hljs>
 <div ng-controller="WithAngularTranslateSwitchLanguageCtrl as showCase">
     <div class="form-horizontal">
@@ -69,8 +69,8 @@
 <!-- ... -->
 <script src="vendor/angular-translate/angular-translate.min.js"></script>
 </div>
-            </uib-tab>
-            <uib-tab heading="JS">
+            </tab>
+            <tab heading="JS">
 <div hljs language="js">
 angular.module('showcase', ['datatables', 'pascalprecht.translate'])
 .config(translateConfig)
@@ -106,7 +106,7 @@ function WithAngularTranslateSwitchLanguageCtrl(DTOptionsBuilder, DTColumnBuilde
     }
 }
 </div>
-            </uib-tab>
-        </uib-tabset>
+            </tab>
+        </tabset>
     </section>
 </article>

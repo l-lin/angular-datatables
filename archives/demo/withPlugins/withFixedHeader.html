@@ -26,7 +26,7 @@
                 <button class="btn btn-danger" ng-click="showOtherRouterExample = !showOtherRouterExample;showNgRouterExample=false">Other routers</button>
             </p>
             <br />
-            <div uib-collapse="!showNgRouterExample">
+            <div collapse="!showNgRouterExample">
                 <p>
                     If you are using <a href="https://github.com/angular-ui/ui-router">Angular ui-router</a>, you can
                     add an <code>onExit</code> callback like this:
@@ -50,7 +50,7 @@ $stateProvider.state("contacts", {
 });
 </div>
             </div>
-            <div uib-collapse="!showOtherRouterExample">
+            <div collapse="!showOtherRouterExample">
 <div hljs>
 $scope.$on('$routeChangeStart', function(event, next, current) {
     var fixedHeaderEle = document.getElementsByClassName('fixedHeader');
@@ -63,8 +63,8 @@ $scope.$on('$routeChangeStart', function(event, next, current) {
         </div>
     </section>
     <section class="showcase">
-        <uib-tabset>
-            <uib-tab heading="HTML">
+        <tabset>
+            <tab heading="HTML">
 <div hljs>
 <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.dataTables.min.css">
 <!-- ... -->
@@ -83,8 +83,8 @@ $scope.$on('$routeChangeStart', function(event, next, current) {
 <script src="https://cdn.datatables.net/fixedheader/3.1.2/js/dataTables.fixedHeader.min.js"></script>
 <script src="vendor/angular-datatables/dist/plugins/fixedheader/angular-datatables.fixedheader.min.js"></script>
 </div>
-            </uib-tab>
-            <uib-tab heading="JS">
+            </tab>
+            <tab heading="JS">
 <div hljs language="js">
 angular.module('showcase.withFixedHeader', ['datatables', 'datatables.fixedheader'])
 .controller('WithFixedHeaderCtrl', WithFixedHeaderCtrl);
@@ -104,8 +104,8 @@ function WithFixedHeaderCtrl(DTOptionsBuilder, DTColumnBuilder) {
     ];
 }
 </div>
-            </uib-tab>
-        </uib-tabset>
+            </tab>
+        </tabset>
         <div ng-controller="WithFixedHeaderCtrl as showCase">
             <table datatable dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover">
                 <tfoot>
