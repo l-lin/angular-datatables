@@ -54,7 +54,7 @@ class Person {
   templateUrl: 'angular-way.component.html'
 })
 export class AngularWayComponent implements OnInit {
-  dtOptions: any = {};
+  dtOptions: DataTables.Settings = {};
   persons: Person[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering

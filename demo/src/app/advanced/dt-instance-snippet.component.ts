@@ -44,12 +44,12 @@ import { DataTableDirective } from 'angular-datatables';
 })
 export class DtInstanceComponent implements OnInit {
   @ViewChild(DataTableDirective)
-  private datatableEl: DataTableDirective;
+  private datatableElement: DataTableDirective;
 
-  dtOptions: any = {};
+  dtOptions: DataTables.Settings = {};
 
-  displayToConsole(): void {
-    this.datatableEl.dtInstance.then(dtInstance => console.log(dtInstance));
+  displayToConsole(datatableElement: DataTableDirective): void {
+    datatableElement.dtInstance.then((dtInstance: DataTables.Api) => console.log(dtInstance));
   }
 
   ngOnInit(): void {

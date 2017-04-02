@@ -27,15 +27,13 @@ export class RowClickEventSnippetComponent {
 <pre>
 <code class="typescript highlight">import { Component, NgZone, OnInit } from '@angular/core';
 
-declare var $: any;
-
 @Component({
   selector: 'row-click-event',
   templateUrl: 'row-click-event.component.html'
 })
 export class RowClickEventComponent implements OnInit {
-  message: string = '';
-  dtOptions: any = {};
+  message = '';
+  dtOptions: DataTables.Settings = {};
 
   constructor(private zone: NgZone) { }
 
@@ -56,15 +54,15 @@ export class RowClickEventComponent implements OnInit {
         title: 'Last name',
         data: 'lastName'
       }],
-      rowCallback: (nRow: number, aData: any, iDisplayIndex: number, iDisplayIndexFull: number) => {
-        let self = this;
+      rowCallback: (row: Node, data: any[] | Object, index: number) => {
+        const self = this;
         // Unbind first in order to avoid any duplicate handler
         // (see https://github.com/l-lin/angular-datatables/issues/87)
-        $('td', nRow).unbind('click');
-        $('td', nRow).bind('click', () => {
-          self.someClickHandler(aData);
+        $('td', row).unbind('click');
+        $('td', row).bind('click', () => {
+          self.someClickHandler(data);
         });
-        return nRow;
+        return row;
       }
     };
   }

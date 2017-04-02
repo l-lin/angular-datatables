@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
-import { DataTablesModule } from './angular-datatables';
+import { DataTablesModule } from 'angular-datatables';
 
 import { AppRoutingModule } from './app.routing';
 

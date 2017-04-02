@@ -15,7 +15,7 @@ class Person {
   templateUrl: 'angular-way.component.html'
 })
 export class AngularWayComponent implements OnInit {
-  dtOptions: any = {};
+  dtOptions: DataTables.Settings = {};
   persons: Person[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
@@ -25,8 +25,7 @@ export class AngularWayComponent implements OnInit {
 
   ngOnInit(): void {
     this.dtOptions = {
-      paginationType: 'full_numbers',
-      displayLength: 2
+      pagingType: 'full_numbers'
     };
     this.http.get('data/data.json')
       .map(this.extractData)

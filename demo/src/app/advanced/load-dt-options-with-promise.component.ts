@@ -8,7 +8,7 @@ import 'rxjs/add/operator/toPromise';
   templateUrl: 'load-dt-options-with-promise.component.html'
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
-  dtOptions: any = {};
+  dtOptions: DataTables.Settings = {};
 
   constructor( @Inject(Http) private http: Http) { }
 

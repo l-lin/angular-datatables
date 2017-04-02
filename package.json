@@ -44,7 +44,9 @@
   "devDependencies": {
     "@angular/compiler-cli": "~2.4.8",
     "@types/core-js": "~0.9.35",
-    "@types/jasmine": "2.5.40",
+    "@types/datatables.net": "~1.10.1",
+    "@types/jasmine": "~2.5.40",
+    "@types/jquery": "~2.0.41",
     "@types/node": "~6.0.46",
     "canonical-path": "0.0.2",
     "codelyzer": "~2.0.1",

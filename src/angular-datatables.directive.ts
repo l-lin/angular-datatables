@@ -7,9 +7,6 @@
 
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Rx';
-import 'jquery';
-import 'datatables.net';
-declare var $: any;
 
 @Directive({
   selector: '[datatable]'
@@ -19,7 +16,7 @@ export class DataTableDirective implements OnInit {
    * The DataTable option you pass to configure your table.
    */
   @Input()
-  dtOptions: any = {};
+  dtOptions: DataTables.Settings = {};
 
   /**
    * This trigger is used if one wants to trigger manually the DT rendering
@@ -34,7 +31,7 @@ export class DataTableDirective implements OnInit {
    * It's possible to execute the [DataTables APIs](https://datatables.net/reference/api/) with
    * this variable.
    */
-  dtInstance: Promise<any>;
+  dtInstance: Promise<DataTables.Api>;
 
   constructor(private el: ElementRef) { }
 
