@@ -11,6 +11,7 @@ import { AngularWayComponent } from './basic/angular-way.component';
 
 import { DtInstanceComponent } from './advanced/dt-instance.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
+import { RerenderComponent } from './advanced/rerender.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 
 const routes: Routes = [
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'advanced/load-dt-options-with-promise',
     component: LoadDtOptionsWithPromiseComponent
+  },
+  {
+    path: 'advanced/rerender',
+    component: RerenderComponent
   },
   {
     path: 'advanced/row-click-event',

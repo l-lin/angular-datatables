@@ -8,7 +8,7 @@ import { DataTableDirective } from 'angular-datatables';
 })
 export class DtInstanceComponent implements OnInit {
   @ViewChild(DataTableDirective)
-  private datatableElement: DataTableDirective;
+  datatableElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
 

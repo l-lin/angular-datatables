@@ -23,10 +23,6 @@ Only on bugs, and only if I have the time (which I don't really have much nowada
 
 Let's not multiply the tools and do all in NPM! 
 
-## Where is the Angular renderer? What about the Promise renderer?
-
-Not developed yet!
-
 ## Where are the DTOptionsBuilder, DTColumnBuilder and DTColumnDefBuilder?
 
 In the first versions of angular-datatables, there were some builder to help using the directive.

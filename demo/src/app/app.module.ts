@@ -28,6 +28,8 @@ import {  DtInstanceComponent } from './advanced/dt-instance.component';
 import {  DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
 import { LoadDtOptionsWithPromiseSnippetComponent } from './advanced/load-dt-options-with-promise-snippet.component';
+import { RerenderComponent } from './advanced/rerender.component';
+import { RerenderSnippetComponent } from './advanced/rerender-snippet.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippet.component';
 
@@ -50,6 +52,8 @@ import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippe
     DtInstanceSnippetComponent,
     LoadDtOptionsWithPromiseComponent,
     LoadDtOptionsWithPromiseSnippetComponent,
+    RerenderComponent,
+    RerenderSnippetComponent,
     RowClickEventComponent,
     RowClickEventSnippetComponent
   ],
