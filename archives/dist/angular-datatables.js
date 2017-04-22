@@ -1,5 +1,5 @@
 /*!
- * angular-datatables - v0.5.6
+ * angular-datatables - v0.6.3-dev
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
@@ -14,7 +14,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
         .directive('datatable', dataTable);
 
     /* @ngInject */
-    function dataTable($q, $http, DTRendererFactory, DTRendererService, DTPropertyUtil) {
+    function dataTable($q, $http, $log, DTRendererFactory, DTRendererService, DTPropertyUtil) {
         compileDirective.$inject = ['tElm'];
         ControllerDirective.$inject = ['$scope'];
         return {
@@ -93,8 +93,11 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         // See https://github.com/l-lin/angular-datatables/issues/181
                         if (options.language && options.language.url) {
                             var languageDefer = $q.defer();
-                            $http.get(options.language.url).success(function(language) {
-                                languageDefer.resolve(language);
+                            var languageUrl = options.language.url;
+                            $http.get(options.language.url).then(function(language) {
+                                languageDefer.resolve(language.data);
+                            }, function() {
+                                $log.error('Could not fetch the content of the language from ' + languageUrl);
                             });
                             options.language = languageDefer.promise;
                         }
@@ -138,7 +141,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             }
         }
     }
-    dataTable.$inject = ['$q', '$http', 'DTRendererFactory', 'DTRendererService', 'DTPropertyUtil'];
+    dataTable.$inject = ['$q', '$http', '$log', 'DTRendererFactory', 'DTRendererService', 'DTPropertyUtil'];
 
     'use strict';
     angular.module('datatables.factory', [])
@@ -1161,27 +1164,27 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
             }
 
             function _doRender(options, $elem) {
-                    var defer = $q.defer();
-                    // Destroy the table if it exists in order to be able to redraw the dataTable
-                    options.bDestroy = true;
-                    if (_oTable) {
-                        _oTable.destroy();
-                        DTRendererService.showLoading(_$elem, _$scope);
-                        // Empty in case of columns change
-                        $elem.empty();
-                    }
-                    DTRendererService.hideLoading($elem);
-                    // Condition to refresh the dataTable
-                    if (_shouldDeferRender(options)) {
-                        $timeout(function() {
-                            defer.resolve(DTRendererService.renderDataTable($elem, options));
-                        }, 0, false);
-                    } else {
-                        defer.resolve(DTRendererService.renderDataTable($elem, options));
-                    }
-                    return defer.promise;
+                var defer = $q.defer();
+                // Destroy the table if it exists in order to be able to redraw the dataTable
+                options.bDestroy = true;
+                if (_oTable) {
+                    _oTable.destroy();
+                    DTRendererService.showLoading(_$elem, _$scope);
+                    // Empty in case of columns change
+                    $elem.empty();
                 }
-                // See https://github.com/l-lin/angular-datatables/issues/147
+                DTRendererService.hideLoading($elem);
+                // Condition to refresh the dataTable
+                if (_shouldDeferRender(options)) {
+                    $timeout(function() {
+                        defer.resolve(DTRendererService.renderDataTable($elem, options));
+                    }, 0, false);
+                } else {
+                    defer.resolve(DTRendererService.renderDataTable($elem, options));
+                }
+                return defer.promise;
+            }
+            // See https://github.com/l-lin/angular-datatables/issues/147
             function _shouldDeferRender(options) {
                 if (angular.isDefined(options) && angular.isDefined(options.dom)) {
                     // S for scroller plugin
