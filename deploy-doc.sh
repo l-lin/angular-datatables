@@ -8,19 +8,17 @@ function info {
 }
 
 function help {
-    echo "[x] Missing arguments..."
-    info "Usage: $  deploy-doc.sh <version>"
+    info "Usage: $  deploy-doc.sh <commit message>"
     info "Example:"
-    info "  $ deploy-doc.sh 2.0.0"
+    info "  $ deploy-doc.sh \"Deploy documentation to gh-pages\""
 }
 
-if [ -z "$1" ]; then
+if [ "$1" == "-h" ] ; then
     help
-    exit 1
+    exit 0
 fi
 
-version=${1}
-gitmessage="Deploy documentation $version to gh-pages"
+gitmessage="${1:-Deploy documentation to gh-pages}"
 cwd=$(pwd)
 project_name=${PWD##*/}
 

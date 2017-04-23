@@ -33,6 +33,11 @@ import { RerenderSnippetComponent } from './advanced/rerender-snippet.component'
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippet.component';
 
+// Using extension examples
+import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
+import { ButtonsExtensionSnippetComponent } from './extensions/buttons-extension-snippet.component';
+import { ButtonsExtensionConfigurationComponent } from './extensions/buttons-extension-configuration.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +60,11 @@ import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippe
     RerenderComponent,
     RerenderSnippetComponent,
     RowClickEventComponent,
-    RowClickEventSnippetComponent
+    RowClickEventSnippetComponent,
+
+    ButtonsExtensionComponent,
+    ButtonsExtensionSnippetComponent,
+    ButtonsExtensionConfigurationComponent
   ],
   imports: [
     BrowserModule,

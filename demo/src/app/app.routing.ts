@@ -14,6 +14,8 @@ import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-wi
 import { RerenderComponent } from './advanced/rerender.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 
+import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -59,6 +61,10 @@ const routes: Routes = [
   {
     path: 'advanced/row-click-event',
     component: RowClickEventComponent
+  },
+  {
+    path: 'extensions/buttons-extension',
+    component: ButtonsExtensionComponent
   }
 ];
 
