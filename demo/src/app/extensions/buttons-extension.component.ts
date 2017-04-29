@@ -28,7 +28,12 @@ export class ButtonsExtensionComponent implements OnInit {
         'columnsToggle',
         'colvis',
         'copy',
-        'print',
+        {
+          extend: 'csv',
+          text: 'CSV export',
+          fieldSeparator: ';',
+          exportOption: [1, 2, 3]
+        },
         'excel',
         {
           text: 'Some button',

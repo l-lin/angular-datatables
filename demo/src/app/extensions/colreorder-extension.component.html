@@ -1,0 +1,31 @@
+<div class="section banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9">
+        <h1 class="header center-on-small-only">DataTables ColReorder extension</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m9 l12">
+      <div class="section">
+        <app-colreorder-extension-configuration></app-colreorder-extension-configuration>
+        <div class="col s12 m9 l12 showcase-tabs">
+          <ul class="anchor-links">
+            <li class="col s4"><a class="waves-effect btn" href="#preview">Preview</a></li>
+            <li class="col s4"><a class="waves-effect btn" href="#html">HTML</a></li>
+            <li class="col s3"><a class="waves-effect btn" href="#ts">Typescript</a></li>
+          </ul>
+        </div>
+        <div id="preview" class="col s12 m9 l12">
+          <h4 class="header">Preview</h4>
+          <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+        </div>
+        <app-colreorder-extension-snippet></app-colreorder-extension-snippet>
+      </div>
+
+    </div>
+  </div>
+</div>

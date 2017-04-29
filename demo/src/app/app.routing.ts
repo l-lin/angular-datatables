@@ -15,6 +15,7 @@ import { RerenderComponent } from './advanced/rerender.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
+import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
 
 const routes: Routes = [
   {
@@ -63,8 +64,12 @@ const routes: Routes = [
     component: RowClickEventComponent
   },
   {
-    path: 'extensions/buttons-extension',
+    path: 'extensions/buttons',
     component: ButtonsExtensionComponent
+  },
+  {
+    path: 'extensions/colreorder',
+    component: ColreorderExtensionComponent
   }
 ];
 

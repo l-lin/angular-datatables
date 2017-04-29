@@ -37,6 +37,9 @@ import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippe
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
 import { ButtonsExtensionSnippetComponent } from './extensions/buttons-extension-snippet.component';
 import { ButtonsExtensionConfigurationComponent } from './extensions/buttons-extension-configuration.component';
+import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
+import { ColreorderExtensionSnippetComponent } from './extensions/colreorder-extension-snippet.component';
+import { ColreorderExtensionConfigurationComponent } from './extensions/colreorder-extension-configuration.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,10 @@ import { ButtonsExtensionConfigurationComponent } from './extensions/buttons-ext
 
     ButtonsExtensionComponent,
     ButtonsExtensionSnippetComponent,
-    ButtonsExtensionConfigurationComponent
+    ButtonsExtensionConfigurationComponent,
+    ColreorderExtensionComponent,
+    ColreorderExtensionSnippetComponent,
+    ColreorderExtensionConfigurationComponent
   ],
   imports: [
     BrowserModule,
