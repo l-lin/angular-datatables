@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'with-ajax-snippet',
+  selector: 'app-with-ajax-snippet',
   template: `
   <div id="html" class="col s12 m9 l12">
     <h4 class="header">HTML</h4>
@@ -33,7 +33,7 @@ export class WithAjaxSnippetComponent {
   templateUrl: 'with-ajax.component.html'
 })
 export class WithAjaxComponent implements OnInit {
-  dtOptions: any = {};
+  dtOptions: DataTables.Settings = {};
 
   ngOnInit(): void {
     this.dtOptions = {

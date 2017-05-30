@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-Node.js and npm are essential to Angular 2 development.
+Node.js and npm are essential to Angular development.
 
 [Get it now](https://docs.npmjs.com/getting-started/installing-node) if it's not already installed on your machine.
 
@@ -71,3 +71,15 @@ Karma is occasionally confused and it is often necessary to shut down its browse
 restart it. No worries; it's pretty quick.
 
 The `HTML-Reporter` is also wired in. That produces a prettier output; look for it in `~_test-output/tests.html`.
+
+## Deploying the documentation to Github Pages
+
+Run `deploy-doc.sh` to deploy the documentation to the Github Pages
+
+You may need to have the following:
+- git
+- have the basic commands in your OS
+
+```
+./deploy-doc.sh <version>
+```

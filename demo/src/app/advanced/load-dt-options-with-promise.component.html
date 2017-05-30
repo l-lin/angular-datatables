@@ -1,0 +1,33 @@
+<div class="section banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9">
+        <h1 class="header center-on-small-only">Load DataTables options with promise</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m9 l12">
+      <div class="section">
+        <p class="caption">
+          Sometimes, your DataTable options are stored or computed server side. All you need to do is to return the expected result as a promise.
+        </p>
+        <div class="col s12 m9 l12 showcase-tabs">
+          <ul class="anchor-links">
+            <li class="col s3"><a class="waves-effect btn" href="#preview">Preview</a></li>
+            <li class="col s3"><a class="waves-effect btn" href="#html">HTML</a></li>
+            <li class="col s3"><a class="waves-effect btn" href="#ts">Typescript</a></li>
+            <li class="col s2"><a class="waves-effect btn" href="#data">Example data</a></li>
+          </ul>
+        </div>
+        <div id="preview" class="col s12 m9 l12">
+          <h4 class="header">Preview</h4>
+          <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+        </div>
+        <app-load-dt-options-with-promise-snippet></app-load-dt-options-with-promise-snippet>
+      </div>
+    </div>
+  </div>
+</div>

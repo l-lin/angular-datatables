@@ -1,0 +1,38 @@
+<div class="section banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9">
+        <h1 class="header center-on-small-only">Rerender</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m9 l12">
+      <div class="section">
+        <p class="caption">
+          For some cases, you may need to rerender your table. You can use the <a href="https://datatables.net/reference/api/destroy()">DataTable destroy() API</a> to remove the table and re-use the <code>dtTrigger</code> to render the table again.
+        </p>
+        <div class="col s12 m9 l12 showcase-tabs">
+          <ul class="anchor-links">
+            <li class="col s4"><a class="waves-effect btn" href="#preview">Preview</a></li>
+            <li class="col s4"><a class="waves-effect btn" href="#html">HTML</a></li>
+            <li class="col s3"><a class="waves-effect btn" href="#ts">Typescript</a></li>
+          </ul>
+        </div>
+        <div id="preview" class="col s12 m9 l12">
+          <h4 class="header">Preview</h4>
+          <p>
+            <button type="button" class="btn waves-effect waves-light blue" (click)="rerender()">
+              Rerender
+            </button>
+          </p>
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"></table>
+        </div>
+        <app-rerender-snippet></app-rerender-snippet>
+      </div>
+
+    </div>
+  </div>
+</div>

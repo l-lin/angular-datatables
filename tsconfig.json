@@ -1,23 +1,23 @@
 {
+  "version": "2.0.0",
   "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
     "declaration": true,
+    "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es6", "dom"],
-    "module": "es6",
-    "moduleResolution": "node",
     "noImplicitAny": true,
-    "removeComments": false,
-    "sourceMap": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "target": "es5",
-    "typeRoots": [
-      "./node_modules/@types/"
-    ]
+    "noImplicitReturns": true,
+    "listFiles": false,
+    "noLib": false
   },
   "files": [
-    "src/angular-datatables.ts",
-    "src/angular-datatables.directive.ts",
-    "src/angular-datatables.directive.spec.ts"
+    "node_modules/typescript/lib/lib.es6.d.ts"
+  ],
+  "include": [
+    "./index.ts"
   ]
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'getting-started',
+  selector: 'app-getting-started',
   templateUrl: 'getting-started.component.html'
 })
 export class GettingStartedComponent {
@@ -10,7 +10,9 @@ export class GettingStartedComponent {
 <code class="bash highlight">npm install jquery --save
 npm install datatables.net --save
 npm install datatables.net-dt --save
-npm install angular-datatables --save</code>
+npm install angular-datatables --save
+npm install @types/jquery --save-dev
+npm install @types/datatables.net --save-dev</code>
 </pre>`;
 
   angularCliJsonSnippet = `
@@ -18,13 +20,15 @@ npm install angular-datatables --save</code>
   <code class="json highlight">{
   "apps": [
     {
+      ...
       "styles": [
         "../node_modules/datatables.net-dt/css/jquery.dataTables.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/datatables.net/js/jquery.dataTables.js"
-      ]
+      ],
+      ...
     }
   ]
 }</code>

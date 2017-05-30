@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'with-options',
+  selector: 'app-with-options',
   templateUrl: 'with-options.component.html'
 })
 export class WithOptionsComponent implements OnInit {
-  dtOptions: any = {};
+  dtOptions: DataTables.Settings = {};
 
   ngOnInit(): void {
     this.dtOptions = {
-      displayLength: 2,
-      paginationType: 'full_numbers'
+      pagingType: 'full_numbers'
     };
   }
 }

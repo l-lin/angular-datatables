@@ -3,12 +3,22 @@
 # Exit the script if a command fails
 set -e
 
-gitmessage=${1:-'Deploy documentation to gh-pages'}
-
 function info {
-  echo "[-] $1"
+    echo "[-] $1"
 }
 
+function help {
+    info "Usage: $  deploy-doc.sh <commit message>"
+    info "Example:"
+    info "  $ deploy-doc.sh \"Deploy documentation to gh-pages\""
+}
+
+if [ "$1" == "-h" ] ; then
+    help
+    exit 0
+fi
+
+gitmessage="${1:-Deploy documentation to gh-pages}"
 cwd=$(pwd)
 project_name=${PWD##*/}
 
@@ -16,7 +26,7 @@ info "Deloying the documentation to the GH pages from $cwd (project name is $pro
 
 info "Building documentation..."
 cd $cwd/demo
-ng build -prod --base-href /angular-datatables/
+npm run build:prod
 
 info "Copying the doc folder to /tmp"
 rm -rf /tmp/angular-datatables-demo
@@ -32,13 +42,21 @@ git checkout gh-pages
 git fetch && git reset --hard origin/gh-pages
 
 info "Remove all files except .git"
-rm -rf ^.git
-#find . -maxdepth 1 | grep -v ".git" | xargs rm -rf
+rm -rf *
 
 info "Copy the doc to the gh-pages branch"
 cp -r /tmp/angular-datatables-demo/* /tmp/$project_name
 
+info "Download archives vendor from angular1 branch"
+cd /tmp
+rm -rf angular-datatables-angular1
+wget https://github.com/l-lin/angular-datatables/archive/angular1.zip
+unzip angular1.zip
+cp -r angular-datatables-angular1/vendor $project_name/archives
+cp -r angular-datatables-angular1/dist $project_name/archives
+
 info "Commit gh-pages"
+cd /tmp/$project_name
 git add -A && git commit -m "$gitmessage"
 
 info "Pushing to remote"

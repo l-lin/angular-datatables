@@ -5,8 +5,6 @@ import { HttpModule } from '@angular/http';
 
 import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
-import { Ng2SimplePageScrollModule } from 'ng2-simple-page-scroll';
-
 import { DataTablesModule } from 'angular-datatables';
 
 import { AppRoutingModule } from './app.routing';
@@ -16,18 +14,32 @@ import { WelcomeComponent } from './welcome.component';
 import { GettingStartedComponent } from './getting-started.component';
 
 // Basic examples
-import { ZeroConfigComponent }  from './basic/zero-config.component';
-import { ZeroConfigSnippetComponent }  from './basic/zero-config-snippet.component';
-import { WithOptionsComponent }  from './basic/with-options.component';
-import { WithOptionsSnippetComponent }  from './basic/with-options-snippet.component';
-import { WithAjaxComponent }  from './basic/with-ajax.component';
-import { WithAjaxSnippetComponent }  from './basic/with-ajax-snippet.component';
+import { ZeroConfigComponent } from './basic/zero-config.component';
+import { ZeroConfigSnippetComponent } from './basic/zero-config-snippet.component';
+import { WithOptionsComponent } from './basic/with-options.component';
+import { WithOptionsSnippetComponent } from './basic/with-options-snippet.component';
+import { WithAjaxComponent } from './basic/with-ajax.component';
+import { WithAjaxSnippetComponent } from './basic/with-ajax-snippet.component';
+import { AngularWayComponent } from './basic/angular-way.component';
+import { AngularWaySnippetComponent } from './basic/angular-way-snippet.component';
 
 // Advanced examples
-import { DtInstanceComponent } from './advanced/dt-instance.component';
-import { DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
+import {  DtInstanceComponent } from './advanced/dt-instance.component';
+import {  DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
+import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
+import { LoadDtOptionsWithPromiseSnippetComponent } from './advanced/load-dt-options-with-promise-snippet.component';
+import { RerenderComponent } from './advanced/rerender.component';
+import { RerenderSnippetComponent } from './advanced/rerender-snippet.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippet.component';
+
+// Using extension examples
+import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
+import { ButtonsExtensionSnippetComponent } from './extensions/buttons-extension-snippet.component';
+import { ButtonsExtensionConfigurationComponent } from './extensions/buttons-extension-configuration.component';
+import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
+import { ColreorderExtensionSnippetComponent } from './extensions/colreorder-extension-snippet.component';
+import { ColreorderExtensionConfigurationComponent } from './extensions/colreorder-extension-configuration.component';
 
 @NgModule({
   declarations: [
@@ -41,11 +53,24 @@ import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippe
     WithOptionsSnippetComponent,
     WithAjaxComponent,
     WithAjaxSnippetComponent,
+    AngularWayComponent,
+    AngularWaySnippetComponent,
 
     DtInstanceComponent,
-    DtInstanceSnippetComponent,
+    DtInstanceSnippetComponent,
+    LoadDtOptionsWithPromiseComponent,
+    LoadDtOptionsWithPromiseSnippetComponent,
+    RerenderComponent,
+    RerenderSnippetComponent,
     RowClickEventComponent,
-    RowClickEventSnippetComponent
+    RowClickEventSnippetComponent,
+
+    ButtonsExtensionComponent,
+    ButtonsExtensionSnippetComponent,
+    ButtonsExtensionConfigurationComponent,
+    ColreorderExtensionComponent,
+    ColreorderExtensionSnippetComponent,
+    ColreorderExtensionConfigurationComponent
   ],
   imports: [
     BrowserModule,
@@ -53,12 +78,11 @@ import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippe
     HighlightJsModule,
     HttpModule,
     DataTablesModule,
-    AppRoutingModule,
-    Ng2SimplePageScrollModule.forRoot()
+    AppRoutingModule
   ],
   providers: [
     HighlightJsService
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

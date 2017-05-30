@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'zero-config',
+  selector: 'app-zero-config',
   templateUrl: 'zero-config.component.html'
 })
 export class ZeroConfigComponent {

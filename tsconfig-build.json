@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+    "removeComments": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "listFiles": false,
+    "noLib": false
+  },
+  "files": [
+    "node_modules/typescript/lib/lib.es6.d.ts"
+  ],
+  "include": [
+    "./index.ts"
+  ],
+  "angularCompilerOptions": {
+    "skipMetadataEmit": false,
+    "skipTemplateCodegen": true
+  }
+}

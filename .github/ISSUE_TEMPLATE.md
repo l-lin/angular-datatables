@@ -6,7 +6,7 @@ Before you write your question, please take some extra time to write a good titl
 - jquery version: 
 - datatables version: 
 - angular-datatables version: 
-- angular-MM version: 
+- angular-cli version: 
 
 ## What's the problem?
 

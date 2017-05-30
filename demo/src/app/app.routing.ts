@@ -7,9 +7,15 @@ import { GettingStartedComponent } from './getting-started.component';
 import { ZeroConfigComponent } from './basic/zero-config.component';
 import { WithOptionsComponent } from './basic/with-options.component';
 import { WithAjaxComponent } from './basic/with-ajax.component';
+import { AngularWayComponent } from './basic/angular-way.component';
 
 import { DtInstanceComponent } from './advanced/dt-instance.component';
+import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
+import { RerenderComponent } from './advanced/rerender.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
+
+import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
+import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
 
 const routes: Routes = [
   {
@@ -38,12 +44,32 @@ const routes: Routes = [
     component: WithAjaxComponent
   },
   {
+    path: 'basic/angular-way',
+    component: AngularWayComponent
+  },
+  {
     path: 'advanced/dt-instance',
     component: DtInstanceComponent
   },
   {
+    path: 'advanced/load-dt-options-with-promise',
+    component: LoadDtOptionsWithPromiseComponent
+  },
+  {
+    path: 'advanced/rerender',
+    component: RerenderComponent
+  },
+  {
     path: 'advanced/row-click-event',
     component: RowClickEventComponent
+  },
+  {
+    path: 'extensions/buttons',
+    component: ButtonsExtensionComponent
+  },
+  {
+    path: 'extensions/colreorder',
+    component: ColreorderExtensionComponent
   }
 ];
 
