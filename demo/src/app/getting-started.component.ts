@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: 'getting-started.component.html'
 })
 export class GettingStartedComponent {
+  nodeVersion = '8.0.0';
+  npmVersion = '5';
+  angularCliVersion = '1.1.2';
   npmInstallSnippet = `
 <pre>
 <code class="bash highlight">npm install jquery --save
@@ -57,6 +60,21 @@ import { AppComponent } from './app.component';
   bootstrap: [ AppComponent ]
 })
 export class AppModule {}</code>
+</pre>
+  `;
+
+  errorResolvingSymbolSnippet = `
+<pre>
+<code class="json highlight">{
+  "compilerOptions": {
+    ...
+    "paths": {
+      "@angular/*": [
+        "../node_modules/@angular/*"
+      ]
+    }
+  }
+}</code>
 </pre>
   `;
 }

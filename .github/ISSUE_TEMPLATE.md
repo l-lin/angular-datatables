@@ -2,11 +2,13 @@ Before you write your question, please take some extra time to write a good titl
 
 ## What versions you are using?
 
-- angular version: 
-- jquery version: 
-- datatables version: 
-- angular-datatables version: 
-- angular-cli version: 
+- node version:
+- npm version:
+- angular version:
+- jquery version:
+- datatables version:
+- angular-datatables version:
+- angular-cli version:
 
 ## What's the problem?
 
@@ -18,4 +20,4 @@ Try to consistently reproduce your issue — in a clean environment.
 Write your example code using [Markdown](https://help.github.com/articles/github-flavored-markdown) syntax. Really, it's not difficult...
 If you can, a [plnkr](http://plnkr.co/), [jsfiddle](https://jsfiddle.net/), [codepen](http://codepen.io/) or something alike is even better!
 
-Forgive me for being blunt, but if you can't follow this simple issue template (especially the code), don't expect me to help you efficiently!!! 
+Forgive me for being blunt, but if you can't follow this simple issue template (especially the code), don't expect me to help you efficiently!!!

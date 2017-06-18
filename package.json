@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables",
-  "version": "4.1.2-dev",
+  "version": "4.2.0-dev",
   "description": "Angular directive for DataTables",
   "scripts": {
     "build": "npm run clean && npm run compile && npm run bundles",
@@ -29,11 +29,11 @@
   "typings": "index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@angular/common": "~4.1.2",
-    "@angular/compiler": "~4.1.2",
-    "@angular/core": "~4.1.2",
-    "@angular/platform-browser": "~4.1.2",
-    "@angular/platform-browser-dynamic": "~4.1.2",
+    "@angular/common": "~4.2.3",
+    "@angular/compiler": "~4.2.3",
+    "@angular/core": "~4.2.3",
+    "@angular/platform-browser": "~4.2.3",
+    "@angular/platform-browser-dynamic": "~4.2.3",
     "core-js": "~2.4.1",
     "datatables.net": "~1.10.13",
     "jquery": ">=3.1.1",
@@ -41,7 +41,7 @@
     "zone.js": "~0.8.8"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "~4.1.2",
+    "@angular/compiler-cli": "~4.2.3",
     "@types/datatables.net": "1.10.1",
     "@types/jasmine": "2.5.40",
     "@types/jquery": "2.0.41",

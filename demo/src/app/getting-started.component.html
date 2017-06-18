@@ -13,16 +13,16 @@
       <div class="section">
         <h2 class="header">Installation</h2>
         <p class="caption">
-          To use angular-datatables, you need to have <a href="https://docs.npmjs.com/getting-started/installing-node">Node 6.9.0 or higher and NPM 3 or higher installed</a>.
+          To use angular-datatables, you need to have <a href="https://docs.npmjs.com/getting-started/installing-node">Node {{ nodeVersion }} or higher and NPM {{ npmVersion }} or higher installed</a>.
         </p>
         <p class="caption">
           The documentation will only deal with projects that use <a href="https://github.com/angular/angular-cli">angular-cli</a>. Indeed, the front-end ecosystem is evolving at a pace I can't follow anymore. Thus, there will only have a tutorial for angular-cli's project. If you managed to make it work in, for example, SystemJS projects, please submit a pull request to improve this documentation. Thanks!
         </p>
         <div class="col s12">
-          <h4>Angular-CLI version 1.0.3</h4>
+          <h4>Angular-CLI version {{ angularCliVersion }}</h4>
           <p>I recommend using <a href="https://github.com/angular/angular-cli">angular-cli</a> to create and manage your angular project</p>
           <p>
-            I prefer to warn you the demo was developpped in version <b>1.0.3</b> and older and newer versions of Angular-CLI may need to have different configuration.
+            I prefer to warn you the demo was developpped in version <b>{{ angularCliVersion }}</b> and older and newer versions of Angular-CLI may need to have different configuration.
           </p>
         </div>
         <div class="col s12">
@@ -45,6 +45,26 @@
             Import the <code>DataTablesModule</code> at the appropriate level of your app.
           </p>
           <section [innerHTML]="ngModuleSnippet" highlight-js-content=".typescript"></section>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="header" id="faq">FAQ</h2>
+        <div class="col s12">
+          <h4 id="error-resolving-symbol">Error encountered resolving symbol values statically</h4>
+          <p>
+            If you encounter the following error:
+          </p>
+          <blockquote>
+ERROR in Error encountered resolving symbol values statically. Function calls are not supported. Consider replacing the function or lambda with a reference to an exported function (position 194:50 in the original .ts file), resolving symbol NgModule in /home/l-lin/projects/angular-datatables/demo/node_modules/angular-datatables/node_modules/@angular/core/core.d.ts, resolving symbol DataTablesModule in /home/l-lin/projects/angular-datatables/demo/node_modules/angular-datatables/src/angular-datatables.module.ts, resolving symbol DataTablesModule in /home/l-lin/projects/angular-datatables/demo/node_modules/angular-datatables/src/angular-datatables.module.ts
+          </blockquote>
+          <p>
+            Please update your <code>tsconfig.json</code> and add the following blocks:
+          </p>
+          <section [innerHTML]="errorResolvingSymbolSnippet" highlight-js-content=".json"></section>
+          <p>
+            More information <a href="https://github.com/l-lin/angular-datatables/issues/937">HERE</a>.
+          </p>
         </div>
       </div>
     </div>
