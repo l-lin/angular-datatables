@@ -9,7 +9,7 @@ Please check the [online documentation](http://l-lin.github.io/angular-datatable
 # FAQ
 ## Why version 4.X? Where is version 3.X? And 1.X?
 
-The major version of the projet (it's using a [Semantic versioning](http://semver.org/)) will be synchronized with the major version of Angular.
+The major version of the project (it's using a [Semantic versioning](http://semver.org/)) will be synchronized with the major version of Angular.
 
 ## Why is there less functionnalities?
 
