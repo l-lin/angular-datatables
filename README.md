@@ -9,9 +9,9 @@ Please check the [online documentation](http://l-lin.github.io/angular-datatable
 # FAQ
 ## Why version 4.X? Where is version 3.X? And 1.X?
 
-The major version of the projet (it's using a [Semantic versioning](http://semver.org/)) will be synchronized with the major version of Angular.
+The major version of the project (it's using a [Semantic versioning](http://semver.org/)) will be synchronized with the major version of Angular.
 
-## Why is there less functionnalities?
+## Why is there less functionality?
 
 Because, I'm still working on it... But, if you want to contribute, feel free to make a pull request!
 
@@ -25,7 +25,7 @@ Let's not multiply the tools and do all in NPM!
 
 ## Where are the DTOptionsBuilder, DTColumnBuilder and DTColumnDefBuilder?
 
-In the first versions of angular-datatables, there were some builder to help using the directive.
+In the first versions of angular-datatables, there is a builder to help with using the directive.
 However, they seem to have brought more confusion instead. So, starting from version 2, you will need to provide the options directly, like in the DataTable's documentation.
 
 # Getting involved
