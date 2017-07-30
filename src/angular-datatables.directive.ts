@@ -5,13 +5,13 @@
  * found in the LICENSE file at https://raw.githubusercontent.com/l-lin/angular-datatables/master/LICENSE
  */
 
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Rx';
 
 @Directive({
   selector: '[datatable]'
 })
-export class DataTableDirective implements OnInit {
+export class DataTableDirective implements OnDestroy, OnInit {
   /**
    * The DataTable option you pass to configure your table.
    */
@@ -42,6 +42,12 @@ export class DataTableDirective implements OnInit {
       });
     } else {
       this.displayTable();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.dtTrigger) {
+      this.dtTrigger.unsubscribe();
     }
   }
 
