@@ -19,7 +19,7 @@ export class AngularWayComponent implements OnInit {
   persons: Person[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
-  dtTrigger: Subject<any> = new Subject();
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private http: Http) { }
 
