@@ -24,8 +24,8 @@ import { AngularWayComponent } from './basic/angular-way.component';
 import { AngularWaySnippetComponent } from './basic/angular-way-snippet.component';
 
 // Advanced examples
-import {  DtInstanceComponent } from './advanced/dt-instance.component';
-import {  DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
+import { DtInstanceComponent } from './advanced/dt-instance.component';
+import { DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
 import { LoadDtOptionsWithPromiseSnippetComponent } from './advanced/load-dt-options-with-promise-snippet.component';
 import { RerenderComponent } from './advanced/rerender.component';
@@ -40,6 +40,9 @@ import { ButtonsExtensionConfigurationComponent } from './extensions/buttons-ext
 import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
 import { ColreorderExtensionSnippetComponent } from './extensions/colreorder-extension-snippet.component';
 import { ColreorderExtensionConfigurationComponent } from './extensions/colreorder-extension-configuration.component';
+import { SelectExtensionComponent } from './extensions/select-extension.component';
+import { SelectExtensionSnippetComponent } from './extensions/select-extension-snippet.component';
+import { SelectExtensionConfigurationComponent } from './extensions/select-extension-configuration.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,10 @@ import { ColreorderExtensionConfigurationComponent } from './extensions/colreord
     ButtonsExtensionConfigurationComponent,
     ColreorderExtensionComponent,
     ColreorderExtensionSnippetComponent,
-    ColreorderExtensionConfigurationComponent
+    ColreorderExtensionConfigurationComponent,
+    SelectExtensionComponent,
+    SelectExtensionSnippetComponent,
+    SelectExtensionConfigurationComponent
   ],
   imports: [
     BrowserModule,
