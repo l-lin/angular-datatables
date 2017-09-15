@@ -21,7 +21,7 @@ export class RerenderSnippetComponent {
     Rerender
   &lt;/button&gt;
 &lt;/p&gt;
-&lt;table datatable [dtOptions]="dtOptions" class="row-border hover"&gt;&lt;/table&gt;</code>
+&lt;table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"&gt;&lt;/table&gt;</code>
 </pre>
   `;
 
