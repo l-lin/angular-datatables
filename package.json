@@ -28,7 +28,7 @@
   "module": "index.js",
   "typings": "index.d.ts",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@angular/common": "~4.3.2",
     "@angular/compiler": "~4.3.2",
     "@angular/core": "~4.3.2",
@@ -41,7 +41,12 @@
     "zone.js": "~0.8.16"
   },
   "devDependencies": {
+    "@angular/common": "~4.3.2",
+    "@angular/compiler": "~4.3.2",
     "@angular/compiler-cli": "~4.3.2",
+    "@angular/core": "~4.3.2",
+    "@angular/platform-browser": "~4.3.2",
+    "@angular/platform-browser-dynamic": "~4.3.2",
     "@types/datatables.net": "1.10.5",
     "@types/jasmine": "2.5.40",
     "@types/jquery": "2.0.46",
@@ -50,8 +55,11 @@
     "codelyzer": "~2.0.1",
     "concat-cli": "4.0.0",
     "concurrently": "~2.2.0",
+    "core-js": "~2.4.1",
+    "datatables.net": "~1.10.15",
     "http-server": "~0.9.0",
     "jasmine-core": "~2.4.1",
+    "jquery": ">=3.1.1",
     "karma": "~1.2.0",
     "karma-chrome-launcher": "~0.2.3",
     "karma-cli": "~0.1.2",
@@ -61,9 +69,11 @@
     "rimraf": "~2.6.1",
     "rollup": "~0.41.6",
     "rollup-plugin-uglify": "~1.0.2",
+    "rxjs": "~5.4.2",
     "systemjs": "0.20.12",
     "tslint": "~4.5.1",
-    "typescript": "~2.2.2"
+    "typescript": "~2.2.2",
+    "zone.js": "~0.8.16"
   },
   "engines": {
     "node": ">=6.9.0"
