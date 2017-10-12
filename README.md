@@ -15,11 +15,11 @@ The major version of the project (it's using a [Semantic versioning](http://semv
 
 Because, I'm still working on it... But, if you want to contribute, feel free to make a pull request!
 
-## Will you still work on version 0.X.Y?
+## Will you still work on version 0.X.Y?
 
 Only on bugs, and only if I have the time (which I don't really have much nowadays...)
 
-## Why no BowerJS? GruntJS?
+## Why no BowerJS? GruntJS?
 
 Let's not multiply the tools and do all in NPM! 
 
