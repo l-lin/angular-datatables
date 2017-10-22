@@ -11,6 +11,7 @@ import { AngularWayComponent } from './basic/angular-way.component';
 
 import { CustomRangeSearchComponent } from './advanced/custom-range-search.component';
 import { DtInstanceComponent } from './advanced/dt-instance.component';
+import { IndividualColumnFilteringComponent } from './advanced/individual-column-filtering.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
 import { RerenderComponent } from './advanced/rerender.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'advanced/dt-instance',
     component: DtInstanceComponent
+  },
+  {
+    path: 'advanced/individual-column-filtering',
+    component: IndividualColumnFilteringComponent
   },
   {
     path: 'advanced/load-dt-options-with-promise',

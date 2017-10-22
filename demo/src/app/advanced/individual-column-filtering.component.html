@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12 m9">
-        <h1 class="header center-on-small-only">Custom filtering - Range search</h1>
+        <h1 class="header center-on-small-only">Individual column searching</h1>
       </div>
     </div>
   </div>
@@ -12,7 +12,7 @@
     <div class="col s12 m9 l12">
       <div class="section">
         <p class="caption">
-          Implementation of <a href="https://datatables.net/examples/plug-ins/range_filtering.html">the example on custom filtering with range search</a>
+          Implementation of <a href="https://datatables.net/examples/api/multi_filter.html">the example on individual column searching (text inputs)</a>
         </p>
         <div class="col s12 m9 l12 showcase-tabs">
           <ul class="anchor-links">
@@ -23,21 +23,17 @@
         </div>
         <div id="preview" class="col s12 m9 l12">
           <h4 class="header">Preview</h4>
-          <form (submit)="filterById()">
-            <label>
-              Min
-              <input type="number" name="min" id="min" [(ngModel)]="min" />
-            </label>
-            <label>
-              Max
-              <input type="number" name="max" id="max" [(ngModel)]="max" />
-            </label>
-            <button class="btn btn-primary" type="submit">Filter by ID</button>
-          </form>
-          <br />
-          <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+          <table datatable [dtOptions]="dtOptions" class="row-border hover">
+            <tfoot>
+              <tr>
+                <th><input type="text" placeholder="Search ID" name="search-id"/></th>
+                <th><input type="text" placeholder="Search first name" name="search-first-name"/></th>
+                <th><input type="text" placeholder="Search last name" name="search-last-name"/></th>
+              </tr>
+            </tfoot>
+          </table>
         </div>
-        <app-custom-range-search-snippet></app-custom-range-search-snippet>
+        <app-individual-column-filtering-snippet></app-individual-column-filtering-snippet>
       </div>
     </div>
   </div>

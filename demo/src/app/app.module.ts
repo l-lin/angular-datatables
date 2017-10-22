@@ -28,6 +28,8 @@ import { CustomRangeSearchComponent } from './advanced/custom-range-search.compo
 import { CustomRangeSearchSnippetComponent } from './advanced/custom-range-search-snippet.component';
 import { DtInstanceComponent } from './advanced/dt-instance.component';
 import { DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
+import { IndividualColumnFilteringComponent } from './advanced/individual-column-filtering.component';
+import { IndividualColumnFilteringSnippetComponent } from './advanced/individual-column-filtering-snippet.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
 import { LoadDtOptionsWithPromiseSnippetComponent } from './advanced/load-dt-options-with-promise-snippet.component';
 import { RerenderComponent } from './advanced/rerender.component';
@@ -65,6 +67,8 @@ import { SelectExtensionConfigurationComponent } from './extensions/select-exten
     CustomRangeSearchSnippetComponent,
     DtInstanceComponent,
     DtInstanceSnippetComponent,
+    IndividualColumnFilteringComponent,
+    IndividualColumnFilteringSnippetComponent,
     LoadDtOptionsWithPromiseComponent,
     LoadDtOptionsWithPromiseSnippetComponent,
     RerenderComponent,
