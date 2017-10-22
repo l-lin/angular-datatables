@@ -1,0 +1,44 @@
+<div class="section banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9">
+        <h1 class="header center-on-small-only">Custom filtering - Range search</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m9 l12">
+      <div class="section">
+        <p class="caption">
+          Implementation of <a href="https://datatables.net/examples/plug-ins/range_filtering.html">the example on cumstom filtering with range search</a>
+        </p>
+        <div class="col s12 m9 l12 showcase-tabs">
+          <ul class="anchor-links">
+            <li class="col s4"><a class="waves-effect btn" href="#preview">Preview</a></li>
+            <li class="col s4"><a class="waves-effect btn" href="#html">HTML</a></li>
+            <li class="col s3"><a class="waves-effect btn" href="#ts">Typescript</a></li>
+          </ul>
+        </div>
+        <div id="preview" class="col s12 m9 l12">
+          <h4 class="header">Preview</h4>
+          <form (submit)="filterById()">
+            <label>
+              Min
+              <input type="number" name="min" id="min" [(ngModel)]="min" />
+            </label>
+            <label>
+              Max
+              <input type="number" name="max" id="max" [(ngModel)]="max" />
+            </label>
+            <button class="btn btn-primary" type="submit">Filter by ID</button>
+          </form>
+          <br />
+          <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+        </div>
+        <app-custom-range-search-snippet></app-custom-range-search-snippet>
+      </div>
+    </div>
+  </div>
+</div>

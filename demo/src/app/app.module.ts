@@ -24,6 +24,8 @@ import { AngularWayComponent } from './basic/angular-way.component';
 import { AngularWaySnippetComponent } from './basic/angular-way-snippet.component';
 
 // Advanced examples
+import { CustomRangeSearchComponent } from './advanced/custom-range-search.component';
+import { CustomRangeSearchSnippetComponent } from './advanced/custom-range-search-snippet.component';
 import { DtInstanceComponent } from './advanced/dt-instance.component';
 import { DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
@@ -59,6 +61,8 @@ import { SelectExtensionConfigurationComponent } from './extensions/select-exten
     AngularWayComponent,
     AngularWaySnippetComponent,
 
+    CustomRangeSearchComponent,
+    CustomRangeSearchSnippetComponent,
     DtInstanceComponent,
     DtInstanceSnippetComponent,
     LoadDtOptionsWithPromiseComponent,

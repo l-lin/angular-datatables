@@ -9,6 +9,7 @@ import { WithOptionsComponent } from './basic/with-options.component';
 import { WithAjaxComponent } from './basic/with-ajax.component';
 import { AngularWayComponent } from './basic/angular-way.component';
 
+import { CustomRangeSearchComponent } from './advanced/custom-range-search.component';
 import { DtInstanceComponent } from './advanced/dt-instance.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
 import { RerenderComponent } from './advanced/rerender.component';
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'basic/angular-way',
     component: AngularWayComponent
+  },
+  {
+    path: 'advanced/custom-range-search',
+    component: CustomRangeSearchComponent
   },
   {
     path: 'advanced/dt-instance',
