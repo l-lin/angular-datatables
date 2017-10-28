@@ -71,6 +71,10 @@ datatables.net-select-dt@1.2.3
 MIT
 MIT
 
+datatables.net-responsive-dt@2.2.0
+MIT
+MIT
+
 datatables.net-buttons-dt@1.4.2
 MIT
 MIT
