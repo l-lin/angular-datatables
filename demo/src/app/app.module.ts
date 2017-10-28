@@ -44,6 +44,9 @@ import { ButtonsExtensionConfigurationComponent } from './extensions/buttons-ext
 import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
 import { ColreorderExtensionSnippetComponent } from './extensions/colreorder-extension-snippet.component';
 import { ColreorderExtensionConfigurationComponent } from './extensions/colreorder-extension-configuration.component';
+import { ResponsiveExtensionComponent } from './extensions/responsive-extension.component';
+import { ResponsiveExtensionSnippetComponent } from './extensions/responsive-extension-snippet.component';
+import { ResponsiveExtensionConfigurationComponent } from './extensions/responsive-extension-configuration.component';
 import { SelectExtensionComponent } from './extensions/select-extension.component';
 import { SelectExtensionSnippetComponent } from './extensions/select-extension-snippet.component';
 import { SelectExtensionConfigurationComponent } from './extensions/select-extension-configuration.component';
@@ -82,6 +85,9 @@ import { SelectExtensionConfigurationComponent } from './extensions/select-exten
     ColreorderExtensionComponent,
     ColreorderExtensionSnippetComponent,
     ColreorderExtensionConfigurationComponent,
+    ResponsiveExtensionComponent,
+    ResponsiveExtensionSnippetComponent,
+    ResponsiveExtensionConfigurationComponent,
     SelectExtensionComponent,
     SelectExtensionSnippetComponent,
     SelectExtensionConfigurationComponent

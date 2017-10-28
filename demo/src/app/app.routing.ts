@@ -18,6 +18,7 @@ import { RowClickEventComponent } from './advanced/row-click-event.component';
 
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
 import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
+import { ResponsiveExtensionComponent } from './extensions/responsive-extension.component';
 import { SelectExtensionComponent } from './extensions/select-extension.component';
 
 const routes: Routes = [
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path: 'extensions/colreorder',
     component: ColreorderExtensionComponent
+  },
+  {
+    path: 'extensions/responsive',
+    component: ResponsiveExtensionComponent
   },
   {
     path: 'extensions/select',

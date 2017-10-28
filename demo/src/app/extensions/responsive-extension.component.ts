@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-select-extension',
-  templateUrl: 'select-extension.component.html'
+  selector: 'app-responsive-extension',
+  templateUrl: 'responsive-extension.component.html'
 })
-export class SelectExtensionComponent implements OnInit {
+export class ResponsiveExtensionComponent implements OnInit {
   // Must be declared as "any", not as "DataTables.Settings"
   dtOptions: any = {};
 
@@ -19,10 +19,11 @@ export class SelectExtensionComponent implements OnInit {
         data: 'firstName'
       }, {
         title: 'Last name',
-        data: 'lastName'
+        data: 'lastName',
+        class: 'none'
       }],
-      // Use this attribute to enable the select extension
-      select: true
+      // Use this attribute to enable the responsive extension
+      responsive: true
     };
   }
 }
