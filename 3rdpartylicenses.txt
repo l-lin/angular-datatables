@@ -115,7 +115,7 @@ SOFTWARE.
 MIT
 MIT
 
-angular-datatables@4.4.0
+angular-datatables@4.5.0-dev
 MIT
 The MIT License
 
