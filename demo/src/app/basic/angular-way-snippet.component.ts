@@ -64,8 +64,8 @@ export class AngularWayComponent implements OnInit {
 
   ngOnInit(): void {
     this.dtOptions = {
-      paginationType: 'full_numbers',
-      displayLength: 2
+      pagingType: 'full_numbers',
+      pageLength: 2
     };
     this.http.get('data/data.json')
       .map(this.extractData)
