@@ -33,6 +33,9 @@ export class DataTableDirective implements OnDestroy, OnInit {
    */
   dtInstance: Promise<DataTables.Api>;
 
+  // Only used for destroying the table when destroying this directive
+  private dt: DataTables.Api;
+
   constructor(private el: ElementRef) { }
 
   ngOnInit(): void {
@@ -49,6 +52,9 @@ export class DataTableDirective implements OnDestroy, OnInit {
     if (this.dtTrigger) {
       this.dtTrigger.unsubscribe();
     }
+    if (this.dt) {
+      this.dt.destroy(true);
+    }
   }
 
   private displayTable(): void {
@@ -56,8 +62,8 @@ export class DataTableDirective implements OnDestroy, OnInit {
       Promise.resolve(this.dtOptions).then(dtOptions => {
         // Using setTimeout as a "hack" to be "part" of NgZone
         setTimeout(() => {
-          const dt = $(this.el.nativeElement).DataTable(dtOptions);
-          resolve(dt);
+          this.dt = $(this.el.nativeElement).DataTable(dtOptions);
+          resolve(this.dt);
         });
       });
     });
