@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables-demo",
-  "version": "4.4.1",
+  "version": "4.5.0-dev",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -21,7 +21,7 @@
     "@angular/platform-browser": "4.4.6",
     "@angular/platform-browser-dynamic": "4.4.6",
     "@angular/router": "4.4.6",
-    "angular-datatables": "4.4.0",
+    "angular-datatables": "4.4.1",
     "angular2-highlight-js": "5.0.0",
     "core-js": "~2.4.1",
     "datatables.net": "1.10.16",
