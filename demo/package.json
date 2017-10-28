@@ -48,6 +48,7 @@
     "@angular/language-service": "4.4.3",
     "@types/datatables.net": "~1.10.6",
     "@types/datatables.net-buttons": "~1.1.4",
+    "@types/datatables.net-select": "~1.2.2",
     "@types/jasmine": "2.6.0",
     "@types/jasminewd2": "2.0.3",
     "@types/jquery": "~3.2.12",

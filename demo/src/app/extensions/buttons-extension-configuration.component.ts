@@ -25,6 +25,8 @@ export class ButtonsExtensionConfigurationComponent {
 npm install datatables.net-buttons --save
 # CSS file
 npm install datatables.net-buttons-dt --save
+# Typings
+npm install @types/datatables.net-buttons --save-dev
 </pre>`;
 
   angularCliJsonSnippet = `
