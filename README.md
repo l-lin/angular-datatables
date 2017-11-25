@@ -17,7 +17,7 @@ Because, I'm still working on it... But, if you want to contribute, feel free to
 
 ## Will you still work on version 0.X.Y?
 
-Only on bugs, and only if I have the time (which I don't really have much nowadays...)
+Nope, not anymore!
 
 ## Why no BowerJS? GruntJS?
 
