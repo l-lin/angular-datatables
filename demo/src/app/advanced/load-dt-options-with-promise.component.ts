@@ -8,14 +8,14 @@ import 'rxjs/add/operator/toPromise';
   templateUrl: 'load-dt-options-with-promise.component.html'
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Promise<DataTables.Settings>;
 
-  constructor( @Inject(Http) private http: Http) { }
+  constructor(@Inject(Http) private http: Http) {}
 
   ngOnInit(): void {
     this.dtOptions = this.http.get('data/dtOptions.json')
       .toPromise()
-      .then(response => response.json())
+      .then((response) => response.json())
       .catch(this.handleError);
   }
 

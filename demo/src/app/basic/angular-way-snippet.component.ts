@@ -39,7 +39,7 @@ export class AngularWaySnippetComponent {
 <pre>
 <code class="typescript highlight">import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/operator/map';
 
@@ -58,7 +58,7 @@ export class AngularWayComponent implements OnInit {
   persons: Person[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
-  dtTrigger: Subject<any> = new Subject();
+  dtTrigger: Subject&lt;any&gt; = new Subject();
 
   constructor(private http: Http) { }
 

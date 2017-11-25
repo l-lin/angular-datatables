@@ -32,22 +32,22 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-  selector: 'load-dt-options-with-promise',
+  selector: 'app-load-dt-options-with-promise',
   templateUrl: 'load-dt-options-with-promise.component.html'
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Promise&lt;DataTables.Settings&gt;;
 
   constructor(@Inject(Http) private http: Http) {}
 
   ngOnInit(): void {
     this.dtOptions = this.http.get('data/dtOptions.json')
-    .toPromise()
-    .then(response => response.json())
-    .catch(this.handleError);
+      .toPromise()
+      .then((response) => response.json())
+      .catch(this.handleError);
   }
 
-  private handleError(error: any): Promise<any> {
+  private handleError(error: any): Promise&lt;any&gt; {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }

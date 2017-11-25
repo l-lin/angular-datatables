@@ -7,7 +7,8 @@ export default {
     external  : [
         '@angular/core',
         '@angular/platform-browser',
-        '@angular/common'
+        '@angular/common',
+        'rxjs/Subject'
     ],
     globals   : {
         '@angular/core': 'ng.core',

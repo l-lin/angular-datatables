@@ -29,7 +29,7 @@ export class RerenderSnippetComponent {
 <pre>
 <code class="typescript highlight">import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-rerender',
@@ -41,7 +41,7 @@ export class RerenderComponent implements OnInit, AfterViewInit {
 
   dtOptions: DataTables.Settings = {};
 
-  dtTrigger: Subject<any> = new Subject();
+  dtTrigger: Subject&lt;any&gt; = new Subject();
 
   ngOnInit(): void {
     this.dtOptions = {
