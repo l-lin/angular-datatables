@@ -112,3 +112,7 @@ footer.page-footer {
   background-color: #FFF;
   visibility: visible !important;
 }
+
+.dataTables_empty {
+    display: none;
+}

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 
@@ -22,6 +23,8 @@ import { WithAjaxComponent } from './basic/with-ajax.component';
 import { WithAjaxSnippetComponent } from './basic/with-ajax-snippet.component';
 import { AngularWayComponent } from './basic/angular-way.component';
 import { AngularWaySnippetComponent } from './basic/angular-way-snippet.component';
+import { ServerSideAngularWayComponent } from './basic/server-side-angular-way.component';
+import { ServerSideAngularWaySnippetComponent } from './basic/server-side-angular-way-snippet.component';
 
 // Advanced examples
 import { CustomRangeSearchComponent } from './advanced/custom-range-search.component';
@@ -52,57 +55,60 @@ import { SelectExtensionSnippetComponent } from './extensions/select-extension-s
 import { SelectExtensionConfigurationComponent } from './extensions/select-extension-configuration.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    WelcomeComponent,
-    GettingStartedComponent,
+    declarations: [
+        AppComponent,
+        WelcomeComponent,
+        GettingStartedComponent,
 
-    ZeroConfigComponent,
-    ZeroConfigSnippetComponent,
-    WithOptionsComponent,
-    WithOptionsSnippetComponent,
-    WithAjaxComponent,
-    WithAjaxSnippetComponent,
-    AngularWayComponent,
-    AngularWaySnippetComponent,
+        ZeroConfigComponent,
+        ZeroConfigSnippetComponent,
+        WithOptionsComponent,
+        WithOptionsSnippetComponent,
+        WithAjaxComponent,
+        WithAjaxSnippetComponent,
+        AngularWayComponent,
+        AngularWaySnippetComponent,
+        ServerSideAngularWayComponent,
+        ServerSideAngularWaySnippetComponent,
 
-    CustomRangeSearchComponent,
-    CustomRangeSearchSnippetComponent,
-    DtInstanceComponent,
-    DtInstanceSnippetComponent,
-    IndividualColumnFilteringComponent,
-    IndividualColumnFilteringSnippetComponent,
-    LoadDtOptionsWithPromiseComponent,
-    LoadDtOptionsWithPromiseSnippetComponent,
-    RerenderComponent,
-    RerenderSnippetComponent,
-    RowClickEventComponent,
-    RowClickEventSnippetComponent,
+        CustomRangeSearchComponent,
+        CustomRangeSearchSnippetComponent,
+        DtInstanceComponent,
+        DtInstanceSnippetComponent,
+        IndividualColumnFilteringComponent,
+        IndividualColumnFilteringSnippetComponent,
+        LoadDtOptionsWithPromiseComponent,
+        LoadDtOptionsWithPromiseSnippetComponent,
+        RerenderComponent,
+        RerenderSnippetComponent,
+        RowClickEventComponent,
+        RowClickEventSnippetComponent,
 
-    ButtonsExtensionComponent,
-    ButtonsExtensionSnippetComponent,
-    ButtonsExtensionConfigurationComponent,
-    ColreorderExtensionComponent,
-    ColreorderExtensionSnippetComponent,
-    ColreorderExtensionConfigurationComponent,
-    ResponsiveExtensionComponent,
-    ResponsiveExtensionSnippetComponent,
-    ResponsiveExtensionConfigurationComponent,
-    SelectExtensionComponent,
-    SelectExtensionSnippetComponent,
-    SelectExtensionConfigurationComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HighlightJsModule,
-    HttpModule,
-    DataTablesModule,
-    AppRoutingModule
-  ],
-  providers: [
-    HighlightJsService
-  ],
-  bootstrap: [AppComponent]
+        ButtonsExtensionComponent,
+        ButtonsExtensionSnippetComponent,
+        ButtonsExtensionConfigurationComponent,
+        ColreorderExtensionComponent,
+        ColreorderExtensionSnippetComponent,
+        ColreorderExtensionConfigurationComponent,
+        ResponsiveExtensionComponent,
+        ResponsiveExtensionSnippetComponent,
+        ResponsiveExtensionConfigurationComponent,
+        SelectExtensionComponent,
+        SelectExtensionSnippetComponent,
+        SelectExtensionConfigurationComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HighlightJsModule,
+        HttpModule,
+        HttpClientModule,
+        DataTablesModule,
+        AppRoutingModule
+    ],
+    providers: [
+        HighlightJsService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
