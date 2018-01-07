@@ -90,7 +90,7 @@ export class ServerSideAngularWayComponent implements OnInit {
     constructor(private http: HttpClient) { }
 
     ngOnInit(): void {
-        let that = this;
+        const that = this;
 
         this.dtOptions = {
             pagingType: 'full_numbers',
@@ -98,22 +98,22 @@ export class ServerSideAngularWayComponent implements OnInit {
             serverSide: true,
             processing: true,
             ajax: (dataTablesParameters: any, callback) =&gt; {
-                that.http
-                    .post&lt;DataTablesResponse&gt;('api/Persons', dataTablesParameters, {})
-                    .subscribe(resp =&gt; {
-                        that.persons = resp.data;
+              that.http
+                  .post&lt;DataTablesResponse&gt;(
+                    'https://angular-datatables-demo-server.herokuapp.com/',
+                    dataTablesParameters, {})
+                  .subscribe(resp =&gt; {
+                      that.persons = resp.data;
 
-                        callback({
-                            recordsTotal: resp.recordsTotal,
-                            recordsFiltered: resp.recordsFiltered,
-                            data: [],
-                        });
-                    });
+                      callback({
+                          recordsTotal: resp.recordsTotal,
+                          recordsFiltered: resp.recordsFiltered,
+                          data: [],
+                      });
+                  });
             },
             columns: [
-                { data: "id" },
-                { data: "firstName" },
-                { data: "lastName" },
+                { data: 'id' }, { data: 'firstName' }, { data: 'lastName' },
             ],
         };
     }
