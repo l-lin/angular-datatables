@@ -21,7 +21,7 @@ class DataTablesResponse {
 })
 export class ServerSideAngularWayComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
-  persons: Person[] = [];
+  persons: Person[];
 
   constructor(private http: HttpClient) {}
 
