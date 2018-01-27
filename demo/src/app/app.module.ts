@@ -39,6 +39,8 @@ import { RerenderComponent } from './advanced/rerender.component';
 import { RerenderSnippetComponent } from './advanced/rerender-snippet.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippet.component';
+import { MultipleTablesComponent } from './advanced/multiple-tables.component';
+import { MultipleTablesSnippetComponent } from './advanced/multiple-tables-snippet.component';
 
 // Using extension examples
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
@@ -83,6 +85,8 @@ import { SelectExtensionConfigurationComponent } from './extensions/select-exten
         RerenderSnippetComponent,
         RowClickEventComponent,
         RowClickEventSnippetComponent,
+        MultipleTablesComponent,
+        MultipleTablesSnippetComponent,
 
         ButtonsExtensionComponent,
         ButtonsExtensionSnippetComponent,

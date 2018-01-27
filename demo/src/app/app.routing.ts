@@ -16,6 +16,7 @@ import { IndividualColumnFilteringComponent } from './advanced/individual-column
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
 import { RerenderComponent } from './advanced/rerender.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
+import { MultipleTablesComponent } from './advanced/multiple-tables.component';
 
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
 import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
@@ -79,6 +80,10 @@ const routes: Routes = [
     {
         path: 'advanced/row-click-event',
         component: RowClickEventComponent
+    },
+    {
+        path: 'advanced/multiple-tables',
+        component: MultipleTablesComponent
     },
     {
         path: 'extensions/buttons',
