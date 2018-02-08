@@ -899,21 +899,20 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                 }
                 var _ngRepeatAttr = _match[1];
 
-                var _alreadyRendered = false;
-
                 _parentScope.$watchCollection(_ngRepeatAttr, function() {
-                    if (_oTable && _alreadyRendered) {
+                    if (_oTable) {
                         _destroyAndCompile();
                     }
                     $timeout(function() {
-                        _alreadyRendered = true;
-                        // Ensure that prerender is called when the collection is updated
-                        // See https://github.com/l-lin/angular-datatables/issues/502
-                        DTRendererService.preRender(renderer.options);
-                        var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
-                        _oTable = result.DataTable;
-                        DTInstanceFactory.copyDTProperties(result, dtInstance);
-                        defer.resolve(dtInstance);
+                        if (!_oTable) {
+                            // Ensure that prerender is called when the collection is updated
+                            // See https://github.com/l-lin/angular-datatables/issues/502
+                            DTRendererService.preRender(renderer.options);
+                            var result = DTRendererService.hideLoadingAndRenderDataTable(_$elem, renderer.options);
+                            _oTable = result.DataTable;
+                            DTInstanceFactory.copyDTProperties(result, dtInstance);
+                            defer.resolve(dtInstance);
+                        }
                     }, 0, false);
                 }, true);
                 return defer.promise;
@@ -945,6 +944,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     _newParentScope.$destroy();
                 }
                 _oTable.ngDestroy();
+                _oTable = null;
                 // Re-compile because we lost the angular binding to the existing data
                 _$elem.html(_staticHTML);
                 _newParentScope = _parentScope.$new();
