@@ -54,7 +54,7 @@
     "canonical-path": "0.0.2",
     "codelyzer": "^4.0.1",
     "concat-cli": "~4.0.0",
-    "concurrently": "~2.2.0",
+    "concurrently": "^2.2.0",
     "core-js": "^2.4.1",
     "datatables.net": "^1.10.16",
     "jasmine-core": "~2.4.1",
