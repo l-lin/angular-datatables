@@ -25,7 +25,7 @@ export class DtInstanceSnippetComponent {
 &lt;/p&gt;
 &lt;p&gt;
 &lt;blockquote&gt;
-  The DataTable instance ID is: {{ (datatableEl.dtInstance | async)?.table().node().id }}
+  The DataTable instance ID is: {{ (datatableElement.dtInstance | async)?.table().node().id }}
 &lt;/blockquote&gt;
 &lt;/p&gt;
 &lt;table datatable [dtOptions]="dtOptions" class="row-border hover"&gt;&lt;/table&gt;</code>
