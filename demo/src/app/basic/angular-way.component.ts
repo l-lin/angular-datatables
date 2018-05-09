@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Subject } from 'rxjs/Subject';
+import { Person } from '../person';
 
 import 'rxjs/add/operator/map';
-
-class Person {
-  id: number;
-  firstName: string;
-  lastName: string;
-}
 
 @Component({
   selector: 'app-angular-way',

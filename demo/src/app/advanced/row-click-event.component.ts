@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-row-click-event',
@@ -8,7 +8,7 @@ export class RowClickEventComponent implements OnInit {
   message = '';
   dtOptions: DataTables.Settings = {};
 
-  constructor(private zone: NgZone) { }
+  constructor() { }
 
   someClickHandler(info: any): void {
     this.message = info.id + ' - ' + info.firstName;

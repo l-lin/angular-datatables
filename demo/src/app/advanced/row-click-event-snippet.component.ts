@@ -25,7 +25,7 @@ export class RowClickEventSnippetComponent {
 
   tsSnippet = `
 <pre>
-<code class="typescript highlight">import { Component, NgZone, OnInit } from '@angular/core';
+<code class="typescript highlight">import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'row-click-event',
@@ -35,7 +35,7 @@ export class RowClickEventComponent implements OnInit {
   message = '';
   dtOptions: DataTables.Settings = {};
 
-  constructor(private zone: NgZone) { }
+  constructor() { }
 
   someClickHandler(info: any): void {
     this.message = info.id + ' - ' + info.firstName;

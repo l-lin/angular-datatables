@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { WelcomeComponent } from './welcome.component';
 import { GettingStartedComponent } from './getting-started.component';
+import { PersonComponent } from './person.component';
 
 import { ZeroConfigComponent } from './basic/zero-config.component';
 import { WithOptionsComponent } from './basic/with-options.component';
@@ -17,6 +18,7 @@ import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-wi
 import { RerenderComponent } from './advanced/rerender.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 import { MultipleTablesComponent } from './advanced/multiple-tables.component';
+import { RouterLinkComponent } from './advanced/router-link.component';
 
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
 import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
@@ -36,6 +38,10 @@ const routes: Routes = [
     {
         path: 'getting-started',
         component: GettingStartedComponent
+    },
+    {
+        path: 'person/:id',
+        component: PersonComponent
     },
     {
         path: 'basic/zero-config',
@@ -84,6 +90,10 @@ const routes: Routes = [
     {
         path: 'advanced/multiple-tables',
         component: MultipleTablesComponent
+    },
+    {
+        path: 'advanced/router-link',
+        component: RouterLinkComponent
     },
     {
         path: 'extensions/buttons',

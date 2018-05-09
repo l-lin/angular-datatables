@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-
-class Person {
-  id: number;
-  firstName: string;
-  lastName: string;
-}
+import { Person } from '../person';
 
 class DataTablesResponse {
   data: any[];

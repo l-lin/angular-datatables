@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome.component';
 import { GettingStartedComponent } from './getting-started.component';
+import { PersonComponent } from './person.component';
 
 // Basic examples
 import { ZeroConfigComponent } from './basic/zero-config.component';
@@ -41,6 +42,8 @@ import { RowClickEventComponent } from './advanced/row-click-event.component';
 import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippet.component';
 import { MultipleTablesComponent } from './advanced/multiple-tables.component';
 import { MultipleTablesSnippetComponent } from './advanced/multiple-tables-snippet.component';
+import { RouterLinkComponent } from './advanced/router-link.component';
+import { RouterLinkSnippetComponent } from './advanced/router-link-snippet.component';
 
 // Using extension examples
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
@@ -61,6 +64,7 @@ import { SelectExtensionConfigurationComponent } from './extensions/select-exten
         AppComponent,
         WelcomeComponent,
         GettingStartedComponent,
+        PersonComponent,
 
         ZeroConfigComponent,
         ZeroConfigSnippetComponent,
@@ -87,6 +91,8 @@ import { SelectExtensionConfigurationComponent } from './extensions/select-exten
         RowClickEventSnippetComponent,
         MultipleTablesComponent,
         MultipleTablesSnippetComponent,
+        RouterLinkComponent,
+        RouterLinkSnippetComponent,
 
         ButtonsExtensionComponent,
         ButtonsExtensionSnippetComponent,
