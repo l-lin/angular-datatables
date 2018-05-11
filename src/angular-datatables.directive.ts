@@ -6,7 +6,7 @@
  */
 
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 @Directive({
   selector: '[datatable]'

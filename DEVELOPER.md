@@ -15,6 +15,7 @@ We recommend [nvm](https://github.com/creationix/nvm) or [n](https://github.com/
 ## Clone this project
 
 Clone this repo into new project folder (e.g., `my-proj`).
+
 ```bash
 git clone  https://github.com/l-lin/angular-datatables
 cd angular-datatables
@@ -39,11 +40,21 @@ The `npm run build` command compiles the library,
 
 We've captured many of the most useful commands in npm scripts defined in the `package.json`:
 
-* `npm run tsc` - runs the TypeScript compiler once.
-* `npm run tsc:w` - runs the TypeScript compiler in watch mode; the process keeps running, awaiting changes to TypeScript files and re-compiling when it sees them.
+- `npm run tsc` - runs the TypeScript compiler once.
+- `npm run tsc:w` - runs the TypeScript compiler in watch mode; the process keeps running, awaiting changes to TypeScript files and re-compiling when it sees them.
 with excellent support for Angular apps that use routing.
-* `npm test` - compiles, runs and watches the karma unit tests
-* `npm build` - compiles and generate the JS files
+- `npm test` - compiles, runs and watches the karma unit tests
+- `npm build` - compiles and generate the JS files
+
+### Updating dependencies version
+
+We use [npm-check-updates](https://www.npmjs.org/package/npm-check-updates) to update automatically the dependencies:
+
+```bash
+npm i -g npm-check-updates
+ncu -u
+rm -rf node_modules && npm install
+```
 
 ## Testing
 
@@ -53,6 +64,7 @@ These tools are configured for specific conventions described below.
 We recommend that you shut down one before starting another.*
 
 ### Unit Tests
+
 TypeScript unit-tests are usually in the `src` folder. Their filenames must end in `.spec`.
 
 Look for the example `src/angular-datatables.directive.spec.ts`.
@@ -77,9 +89,10 @@ The `HTML-Reporter` is also wired in. That produces a prettier output; look for 
 Run `deploy-doc.sh` to deploy the documentation to the Github Pages
 
 You may need to have the following:
+
 - git
 - have the basic commands in your OS
 
-```
+```bash
 ./deploy-doc.sh <version>
 ```

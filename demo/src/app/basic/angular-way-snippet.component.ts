@@ -39,7 +39,7 @@ export class AngularWaySnippetComponent {
 <pre>
 <code class="typescript highlight">import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 import 'rxjs/add/operator/map';
 

@@ -26,7 +26,7 @@ info "Deloying the documentation to the GH pages from $cwd (project name is $pro
 
 info "Building documentation..."
 cd $cwd/demo
-npm run build:prod
+yarn run build:prod
 
 info "Copying the doc folder to /tmp"
 rm -rf /tmp/angular-datatables-demo

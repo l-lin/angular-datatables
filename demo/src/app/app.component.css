@@ -54,8 +54,9 @@ ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a {
 
 .side-nav .source a {
   width: 100%;
-  padding: 14px 0 0 0;
+  padding: 20px 0 0 0;
   height: 60px;
+  display: block;
 }
 
 .side-nav .source td {
@@ -67,4 +68,8 @@ ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a {
 
 .github-stars {
   vertical-align: middle;
+}
+
+#logo-container {
+  display: block;
 }
