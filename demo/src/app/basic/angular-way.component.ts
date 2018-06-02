@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Subject } from 'rxjs';
 import { Person } from '../person';
@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
   selector: 'app-angular-way',
   templateUrl: 'angular-way.component.html'
 })
-export class AngularWayComponent implements OnInit {
+export class AngularWayComponent implements OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
   persons: Person[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
@@ -30,6 +30,11 @@ export class AngularWayComponent implements OnInit {
         // Calling the DT trigger to manually render the table
         this.dtTrigger.next();
       });
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   private extractData(res: Response) {

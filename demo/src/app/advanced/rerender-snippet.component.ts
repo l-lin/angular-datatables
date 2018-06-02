@@ -27,7 +27,7 @@ export class RerenderSnippetComponent {
 
   tsSnippet = `
 <pre>
-<code class="typescript highlight">import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+<code class="typescript highlight">import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
@@ -35,13 +35,13 @@ import { Subject } from 'rxjs';
   selector: 'app-rerender',
   templateUrl: 'rerender.component.html'
 })
-export class RerenderComponent implements OnInit, AfterViewInit {
+export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
 
-  dtTrigger: Subject&lt;any&gt; = new Subject();
+  dtTrigger: Subject<any> = new Subject();
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -63,6 +63,11 @@ export class RerenderComponent implements OnInit, AfterViewInit {
     this.dtTrigger.next();
   }
 
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -71,8 +76,7 @@ export class RerenderComponent implements OnInit, AfterViewInit {
       this.dtTrigger.next();
     });
   }
-}
-</code>
+}</code>
 </pre>
   `;
 }

@@ -12,9 +12,9 @@ import { Component } from '@angular/core';
   <section [innerHTML]="npmInstallSnippet" highlight-js-content=".bash"></section>
 </div>
 <div class="col s12">
-  <h4 id="angular-cli">.angular-cli.json</h4>
+  <h4 id="angular-cli">angular.json</h4>
   <p>Add the dependencies in the scripts and styles attributes:</p>
-  <section [innerHTML]="angularCliJsonSnippet" highlight-js-content=".json"></section>
+  <section [innerHTML]="angularJsonSnippet" highlight-js-content=".json"></section>
   <blockquote>If you want to have the excel export functionnality, then you must import the <code>jszip.js</code> before the <code>buttons.html5.js</code> file.</blockquote>
 </div>
   `
@@ -32,28 +32,28 @@ npm install datatables.net-buttons-dt --save
 npm install @types/datatables.net-buttons --save-dev
 </pre>`;
 
-  angularCliJsonSnippet = `
+  angularJsonSnippet = `
 <pre>
   <code class="json highlight">{
-  "apps": [
-    {
-      ...
-      "styles": [
-          ...
-          "../node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
-      ],
-      "scripts": [
-        ...
-        "../node_modules/jszip/dist/jszip.js",
-        "../node_modules/datatables.net-buttons/js/dataTables.buttons.js",
-        "../node_modules/datatables.net-buttons/js/buttons.colVis.js",
-        "../node_modules/datatables.net-buttons/js/buttons.flash.js",
-        "../node_modules/datatables.net-buttons/js/buttons.html5.js",
-        "../node_modules/datatables.net-buttons/js/buttons.print.js"
-      ],
-      ...
-    }
-  ]
+  "projects": {
+    "your-app-name": {
+      "architect": {
+        "build": {
+          "options": {
+            "styles": [
+              ...
+              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css"
+            ],
+            "scripts": [
+              ...
+              "node_modules/jszip/dist/jszip.js",
+              "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+              "node_modules/datatables.net-buttons/js/buttons.colVis.js",
+              "node_modules/datatables.net-buttons/js/buttons.flash.js",
+              "node_modules/datatables.net-buttons/js/buttons.html5.js",
+              "node_modules/datatables.net-buttons/js/buttons.print.js"
+            ],
+            ...
 }</code>
 </pre>
   `;

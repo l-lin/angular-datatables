@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
   selector: 'app-rerender',
   templateUrl: 'rerender.component.html'
 })
-export class RerenderComponent implements OnInit, AfterViewInit {
+export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
@@ -32,6 +32,11 @@ export class RerenderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   rerender(): void {

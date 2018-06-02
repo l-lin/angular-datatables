@@ -37,28 +37,23 @@ export class AngularWaySnippetComponent {
 
   tsSnippet = `
 <pre>
-<code class="typescript highlight">import { Component, OnInit } from '@angular/core';
+<code class="typescript highlight">import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Subject } from 'rxjs';
+import { Person } from '../person';
 
 import 'rxjs/add/operator/map';
-
-class Person {
-  id: number;
-  firstName: string;
-  lastName: string;
-}
 
 @Component({
   selector: 'app-angular-way',
   templateUrl: 'angular-way.component.html'
 })
-export class AngularWayComponent implements OnInit {
+export class AngularWayComponent implements OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
   persons: Person[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
-  dtTrigger: Subject&lt;any&gt; = new Subject();
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private http: Http) { }
 
@@ -74,6 +69,11 @@ export class AngularWayComponent implements OnInit {
         // Calling the DT trigger to manually render the table
         this.dtTrigger.next();
       });
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   private extractData(res: Response) {

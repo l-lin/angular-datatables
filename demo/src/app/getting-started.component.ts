@@ -18,22 +18,22 @@ npm install @types/jquery --save-dev
 npm install @types/datatables.net --save-dev</code>
 </pre>`;
 
-  angularCliJsonSnippet = `
+  angularJsonSnippet = `
 <pre>
   <code class="json highlight">{
-  "apps": [
-    {
-      ...
-      "styles": [
-        "../node_modules/datatables.net-dt/css/jquery.dataTables.css"
-      ],
-      "scripts": [
-        "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/datatables.net/js/jquery.dataTables.js"
-      ],
-      ...
-    }
-  ]
+  "projects": {
+    "your-app-name": {
+      "architect": {
+        "build": {
+          "options": {
+            "styles": [
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js"
+            ],
+            ...
 }</code>
 </pre>
   `;

@@ -12,9 +12,9 @@ import { Component } from '@angular/core';
   <section [innerHTML]="npmInstallSnippet" highlight-js-content=".bash"></section>
 </div>
 <div class="col s12">
-  <h4 id="angular-cli">.angular-cli.json</h4>
+  <h4 id="angular-cli">angular.json</h4>
   <p>Add the dependencies in the scripts and styles attributes:</p>
-  <section [innerHTML]="angularCliJsonSnippet" highlight-js-content=".json"></section>
+  <section [innerHTML]="angularJsonSnippet" highlight-js-content=".json"></section>
 </div>
   `
 })
@@ -27,23 +27,23 @@ npm install datatables.net-colreorder --save
 npm install datatables.net-colreorder-dt --save
 </pre>`;
 
-  angularCliJsonSnippet = `
+  angularJsonSnippet = `
 <pre>
   <code class="json highlight">{
-  "apps": [
-    {
-      ...
-      "styles": [
-          ...
-          "../node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css",
-      ],
-      "scripts": [
-        ...
-        "../node_modules/datatables.net-colreorder/js/dataTables.colReorder.js"
-      ],
-      ...
-    }
-  ]
+  "projects": {
+    "your-app-name": {
+      "architect": {
+        "build": {
+          "options": {
+            "styles": [
+              ...
+              "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css"
+            ],
+            "scripts": [
+              ...
+              "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js"
+            ],
+            ...
 }</code>
 </pre>
   `;
