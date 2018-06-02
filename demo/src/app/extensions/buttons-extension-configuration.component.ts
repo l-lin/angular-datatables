@@ -15,13 +15,16 @@ import { Component } from '@angular/core';
   <h4 id="angular-cli">.angular-cli.json</h4>
   <p>Add the dependencies in the scripts and styles attributes:</p>
   <section [innerHTML]="angularCliJsonSnippet" highlight-js-content=".json"></section>
+  <blockquote>If you want to have the excel export functionnality, then you must import the <code>jszip.js</code> before the <code>buttons.html5.js</code> file.</blockquote>
 </div>
   `
 })
 export class ButtonsExtensionConfigurationComponent {
   npmInstallSnippet = `
 <pre>
-<code class="bash highlight"># JS file
+<code class="bash highlight"># If you want to export excel files
+npm install jszip --save
+# JS file
 npm install datatables.net-buttons --save
 # CSS file
 npm install datatables.net-buttons-dt --save
@@ -41,6 +44,7 @@ npm install @types/datatables.net-buttons --save-dev
       ],
       "scripts": [
         ...
+        "../node_modules/jszip/dist/jszip.js",
         "../node_modules/datatables.net-buttons/js/dataTables.buttons.js",
         "../node_modules/datatables.net-buttons/js/buttons.colVis.js",
         "../node_modules/datatables.net-buttons/js/buttons.flash.js",
