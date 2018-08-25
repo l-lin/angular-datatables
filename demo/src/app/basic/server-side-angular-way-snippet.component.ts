@@ -28,16 +28,18 @@ export class ServerSideAngularWaySnippetComponent {
       &lt;th&gt;Last name&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr *ngFor="let person of persons"&gt;
-      &lt;td&gt;{{ person.id }}&lt;/td&gt;
-      &lt;td&gt;{{ person.firstName }}&lt;/td&gt;
-      &lt;td&gt;{{ person.lastName }}&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr *ngIf="persons?.length == 0"&gt;
+  &lt;tbody *ngIf="persons?.length != 0"&gt;
+      &lt;tr *ngFor="let person of persons"&gt;
+          &lt;td&gt;{{ person.id }}&lt;/td&gt;
+          &lt;td&gt;{{ person.firstName }}&lt;/td&gt;
+          &lt;td&gt;{{ person.lastName }}&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tbody *ngIf="persons?.length == 0"&gt;
+    &lt;tr&gt;
       &lt;td colspan="3" class="no-data-available"&gt;No data!&lt;/td&gt;
     &lt;/tr&gt;
-  &lt;/tbody&gt;
+  &lt;tbody&gt;
 &lt;/table&gt;</code>
 </pre>
   `;
