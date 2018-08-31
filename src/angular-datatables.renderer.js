@@ -185,6 +185,7 @@ function dtNGRenderer($log, $q, $compile, $timeout, DTRenderer, DTRendererServic
 
             _parentScope.$watchCollection(_ngRepeatAttr, function() {
                 if (_oTable) {
+                    DTRendererService.showLoading(_$elem, _parentScope);
                     _destroyAndCompile();
                 }
                 $timeout(function() {
