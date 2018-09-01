@@ -33,7 +33,7 @@
     "dtColumns.json"
   ],
   "dependencies": {
-    "angular": ">=1.6.0",
+    "angular": ">=1.7.0",
     "datatables.net": "^1.10.11",
     "datatables.net-dt": "^1.10.11",
     "jquery": ">=1.11.0"
