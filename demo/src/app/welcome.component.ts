@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent {
-  angularjsDataTablesVersion = 'v0.6.2';
-  angularDataTablesVersion = 'v6.0.0';
+  angularjsDataTablesVersion = 'v0.Y.Z';
+  angularDataTablesVersion = 'v7.Y.Z';
 }
