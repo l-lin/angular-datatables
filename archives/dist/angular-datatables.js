@@ -1,5 +1,5 @@
 /*!
- * angular-datatables - v0.6.3-dev
+ * angular-datatables - v0.6.5-dev
  * https://github.com/l-lin/angular-datatables
  * License: MIT
  */
@@ -901,6 +901,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
 
                 _parentScope.$watchCollection(_ngRepeatAttr, function() {
                     if (_oTable) {
+                        DTRendererService.showLoading(_$elem, _parentScope);
                         _destroyAndCompile();
                     }
                     $timeout(function() {
