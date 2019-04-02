@@ -20,6 +20,8 @@
       "@angular/*": [
         "../node_modules/@angular/*"
       ]
-    }
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true  
   }
 }
