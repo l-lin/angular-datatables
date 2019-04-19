@@ -1,4 +1,4 @@
-# Angular DataTables [![Build Status](https://travis-ci.org/l-lin/angular-datatables.png?branch=angular2)](https://travis-ci.org/l-lin/angular-datatables) [![npm version](https://badge.fury.io/js/angular-datatables.svg)](https://badge.fury.io/js/angular-datatables)
+# Angular DataTables [![Build Status](https://travis-ci.org/l-lin/angular-datatables.png?branch=angular2)](https://travis-ci.org/l-lin/angular-datatables) [![npm version](https://badge.fury.io/js/angular-datatables.svg)](https://badge.fury.io/js/angular-datatables) [![Maintainers Wanted](https://img.shields.io/badge/maintainers-wanted-red.svg)](https://github.com/pickhardt/maintainers-wanted)
 
 > [Angular](https://angular.io/) + [DataTables](https://datatables.net/)
 
