@@ -6,7 +6,7 @@ Node.js and npm are essential to Angular development.
 
 [Get it now](https://docs.npmjs.com/getting-started/installing-node) if it's not already installed on your machine.
 
-**Verify that you are running at least node `v4.x.x` and npm `3.x.x`**
+**Verify that you are running at least node `v10.x.x` and npm `6.x.x`**
 by running `node -v` and `npm -v` in a terminal/console window.
 Older versions produce errors.
 

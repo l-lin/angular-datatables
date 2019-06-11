@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 export class GettingStartedComponent {
   nodeVersion = '8.9';
   npmVersion = '6';
-  angularCliVersion = '7.Y.Z';
+  angularCliVersion = '8.Y.Z';
   npmInstallSnippet = `
 <pre>
 <code class="bash highlight">npm install jquery --save

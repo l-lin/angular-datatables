@@ -7,7 +7,7 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: 'dt-instance.component.html'
 })
 export class DtInstanceComponent implements OnInit {
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};

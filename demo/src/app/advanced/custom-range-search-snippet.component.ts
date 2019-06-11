@@ -44,7 +44,7 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: 'custom-range-search.component.html'
 })
 export class CustomRangeSearchComponent implements OnDestroy, OnInit {
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
   min: number;
   max: number;

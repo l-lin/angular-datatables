@@ -8,7 +8,7 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: 'custom-range-search.component.html'
 })
 export class CustomRangeSearchComponent implements OnDestroy, OnInit {
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
   min: number;
   max: number;
@@ -50,9 +50,10 @@ export class CustomRangeSearchComponent implements OnDestroy, OnInit {
     $.fn['dataTable'].ext.search.pop();
   }
 
-  filterById(): void {
+  filterById(): boolean {
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.draw();
     });
+    return false;
   }
 }

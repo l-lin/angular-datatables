@@ -39,7 +39,7 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: 'individual-column-filtering.component.html'
 })
 export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit {
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};

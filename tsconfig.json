@@ -1,8 +1,8 @@
 {
   "version": "2.0.0",
   "compilerOptions": {
-    "target": "es5",
-    "module": "es2015",
+    "target": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,
     "declaration": true,

@@ -36,7 +36,7 @@ import { Subject } from 'rxjs';
   templateUrl: 'rerender.component.html'
 })
 export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild(DataTableDirective)
+  @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
