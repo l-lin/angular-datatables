@@ -56,6 +56,12 @@ ncu -u
 rm -rf node_modules && npm install
 ```
 
+If you want to update angular, use the cli:
+
+```bash
+ng update @angular/cli @angular/core
+```
+
 ## Testing
 
 These tools are configured for specific conventions described below.

@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: 'getting-started.component.html'
 })
 export class GettingStartedComponent {
-  nodeVersion = '8.9';
+  nodeVersion = '10';
   npmVersion = '6';
   angularCliVersion = '8.Y.Z';
   npmInstallSnippet = `

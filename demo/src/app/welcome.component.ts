@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class WelcomeComponent {
   angularjsDataTablesVersion = 'v0.Y.Z';
-  angularDataTablesVersion = 'v7.Y.Z';
+  angularDataTablesVersion = 'v8.Y.Z';
 }
