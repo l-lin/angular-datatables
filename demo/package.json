@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables-demo",
-  "version": "9.0.1-dev",
+  "version": "9.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
