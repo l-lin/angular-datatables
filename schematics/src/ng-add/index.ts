@@ -21,7 +21,7 @@ function addPackageJsonDependencies() {
       { type: NodeDependencyType.Default, version: '^3.4.1', name: 'jquery' },
       { type: NodeDependencyType.Default, version: '^1.10.20', name: 'datatables.net' },
       { type: NodeDependencyType.Default, version: '^1.10.20', name: 'datatables.net-dt' },
-      { type: NodeDependencyType.Default, version: '^8.0.0', name: 'angular-datatables' },
+      { type: NodeDependencyType.Default, version: '^9.0.1', name: 'angular-datatables' },
       { type: NodeDependencyType.Dev, version: '^3.3.33', name: '@types/jquery' },
       { type: NodeDependencyType.Dev, version: '^1.10.18', name: '@types/datatables.net' }
     ];
@@ -54,29 +54,22 @@ function updateAngularJsonFile() {
         const angularJsonFileObject = JSON.parse(angularJsonFile.toString('utf-8'));
         const project = Object.keys(angularJsonFileObject['projects'])[0];
         const projectObject = angularJsonFileObject.projects[project];
+        const targets = projectObject.targets ? projectObject.targets : projectObject.architect;
 
-        const styles = projectObject.targets.build.options.styles;
-        const scripts = projectObject.targets.build.options.scripts;
+        const styles = targets.build.options.styles;
+        const scripts = targets.build.options.scripts;
 
-        styles.push({
-          input: "node_modules/datatables.net-dt/css/jquery.dataTables.css"
-        });
-
-        scripts.push({
-          input: "node_modules/jquery/dist/jquery.js"
-        });
-
-        scripts.push({
-          input: "node_modules/datatables.net/js/jquery.dataTables.js"
-        });
+        styles.push('node_modules/datatables.net-dt/css/jquery.dataTables.css');
+        scripts.push('node_modules/jquery/dist/jquery.js');
+        scripts.push('node_modules/datatables.net/js/jquery.dataTables.js');
 
         tree.overwrite('angular.json', JSON.stringify(angularJsonFileObject, null, 2));
         context.logger.log('info', `✅️ Updated angular.json`);
       } else {
-        context.logger.log('error', '🚫 Failed to locate angular.json.')
+        context.logger.log('error', '🚫 Failed to locate angular.json else.')
       }
     } catch (e) {
-      context.logger.log('error', `🚫 Failed to update angular.json.`);
+      context.logger.log('error', `🚫 Failed to update angular.json foobar.`);
     }
 
   }
@@ -97,5 +90,6 @@ function addModuleToAppModule(): Rule {
       return host;
     }
     context.logger.log('info', `✅️ "${moduleName}" is imported`);
+    return host;
   }
 }
