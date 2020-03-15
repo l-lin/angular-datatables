@@ -5,11 +5,11 @@ import { Component } from '@angular/core';
   template: `
   <div id="html" class="col s12 m9 l12">
     <h4 class="header">HTML</h4>
-    <section [innerHTML]="htmlSnippet" highlight-js-content=".xml"></section>
+    <section [innerHTML]="htmlSnippet" hljsContent=".xml"></section>
   </div>
   <div id="ts" class="col s12 m9 l12">
     <h4 class="header">Typescript</h4>
-    <section [innerHTML]="tsSnippet" highlight-js-content=".typescript"></section>
+    <section [innerHTML]="tsSnippet" hljsContent=".typescript"></section>
   </div>
   `
 })
@@ -38,7 +38,7 @@ export class AngularWaySnippetComponent {
   tsSnippet = `
 <pre>
 <code class="typescript highlight">import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Person } from '../person';
 
@@ -53,19 +53,18 @@ export class AngularWayComponent implements OnDestroy, OnInit {
   persons: Person[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
-  dtTrigger: Subject<any> = new Subject<any>();
+  dtTrigger: Subject&lt;any&gt; = new Subject&lt;any&gt;();
 
-  constructor(private http: Http) { }
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 2
     };
-    this.http.get('data/data.json')
-      .map(this.extractData)
-      .subscribe(persons => {
-        this.persons = persons;
+    this.httpClient.get&lt;Person[]&gt;('data/data.json')
+      .subscribe(data => {
+        this.persons = (data as any).data;
         // Calling the DT trigger to manually render the table
         this.dtTrigger.next();
       });
@@ -74,11 +73,6 @@ export class AngularWayComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body.data || {};
   }
 }</code>
 </pre>

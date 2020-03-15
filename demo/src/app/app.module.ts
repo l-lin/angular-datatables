@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
+import { AngularHighlightJsModule } from 'angular2-highlight-js';
 
 import { DataTablesModule } from 'angular-datatables';
 
@@ -59,6 +58,16 @@ import { SelectExtensionComponent } from './extensions/select-extension.componen
 import { SelectExtensionSnippetComponent } from './extensions/select-extension-snippet.component';
 import { SelectExtensionConfigurationComponent } from './extensions/select-extension-configuration.component';
 
+// HightlightJS
+import hljs from 'highlight.js/lib/highlight';
+import javascript from 'highlight.js/lib/languages/javascript';
+import typescript from 'highlight.js/lib/languages/typescript';
+import xml from 'highlight.js/lib/languages/xml';
+
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('xml', xml);
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -110,14 +119,12 @@ import { SelectExtensionConfigurationComponent } from './extensions/select-exten
     imports: [
         BrowserModule,
         FormsModule,
-        HighlightJsModule,
-        HttpModule,
+        AngularHighlightJsModule,
         HttpClientModule,
         DataTablesModule,
         AppRoutingModule
     ],
     providers: [
-        HighlightJsService
     ],
     bootstrap: [AppComponent]
 })

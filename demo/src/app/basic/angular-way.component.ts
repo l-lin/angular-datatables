@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Person } from '../person';
 
@@ -16,17 +16,16 @@ export class AngularWayComponent implements OnDestroy, OnInit {
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private http: Http) { }
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 2
     };
-    this.http.get('data/data.json')
-      .map(this.extractData)
-      .subscribe(persons => {
-        this.persons = persons;
+    this.httpClient.get<Person[]>('data/data.json')
+      .subscribe(data => {
+        this.persons = (data as any).data;
         // Calling the DT trigger to manually render the table
         this.dtTrigger.next();
       });
@@ -35,10 +34,5 @@ export class AngularWayComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body.data || {};
   }
 }

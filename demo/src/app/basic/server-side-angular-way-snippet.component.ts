@@ -5,15 +5,15 @@ import { Component } from '@angular/core';
   template: `
   <div id="html" class="col s12 m9 l12">
     <h4 class="header">HTML</h4>
-    <section [innerHTML]="htmlSnippet" highlight-js-content=".xml"></section>
+    <section [innerHTML]="htmlSnippet" hljsContent=".xml"></section>
   </div>
   <div id="css" class="col s12 m9 l12">
     <h4 class="header">CSS</h4>
-    <section [innerHTML]="cssSnippet" highlight-js-content=".css"></section>
+    <section [innerHTML]="cssSnippet" hljsContent=".css"></section>
   </div>
   <div id="ts" class="col s12 m9 l12">
     <h4 class="header">Typescript</h4>
-    <section [innerHTML]="tsSnippet" highlight-js-content=".typescript"></section>
+    <section [innerHTML]="tsSnippet" hljsContent=".typescript"></section>
   </div>
   `
 })

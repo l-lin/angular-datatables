@@ -9,12 +9,12 @@ import { Component } from '@angular/core';
 <div class="col s12">
   <h4>NPM</h4>
   <p>You need to install its dependencies:</p>
-  <section [innerHTML]="npmInstallSnippet" highlight-js-content=".bash"></section>
+  <section [innerHTML]="npmInstallSnippet" hljsContent=".bash"></section>
 </div>
 <div class="col s12">
   <h4 id="angular-cli">angular.json</h4>
   <p>Add the dependencies in the scripts and styles attributes:</p>
-  <section [innerHTML]="angularJsonSnippet" highlight-js-content=".json"></section>
+  <section [innerHTML]="angularJsonSnippet" hljsContent=".json"></section>
   <blockquote>If you want to have the excel export functionnality, then you must import the <code>jszip.js</code> before the <code>buttons.html5.js</code> file.</blockquote>
 </div>
   `

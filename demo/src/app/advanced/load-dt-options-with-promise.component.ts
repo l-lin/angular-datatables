@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -10,12 +10,11 @@ import 'rxjs/add/operator/toPromise';
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
   dtOptions: Promise<DataTables.Settings>;
 
-  constructor(@Inject(Http) private http: Http) {}
+  constructor(@Inject(HttpClient) private httpClient: HttpClient) {}
 
   ngOnInit(): void {
-    this.dtOptions = this.http.get('data/dtOptions.json')
+  this.dtOptions = this.httpClient.get<DataTables.Settings>('data/dtOptions.json')
       .toPromise()
-      .then((response) => response.json())
       .catch(this.handleError);
   }
 
