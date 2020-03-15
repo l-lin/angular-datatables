@@ -2,6 +2,12 @@
 
 > [Angular](https://angular.io/) + [DataTables](https://datatables.net/)
 
+# Usage
+
+```
+ng add angular-datatables
+```
+
 # Documentation
 
 Please check the [online documentation](http://l-lin.github.io/angular-datatables/)

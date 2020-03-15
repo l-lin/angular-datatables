@@ -3,11 +3,12 @@
   "version": "8.0.1-dev",
   "description": "Angular directive for DataTables",
   "scripts": {
-    "build": "npm run clean && npm run compile && npm run bundles",
-    "clean": "rimraf -f index.{d.ts,js,js.map,metadata.json} src/*.{d.ts,js,map,metadata.json} bundles",
+    "build": "npm run clean && npm run compile && npm run bundles && npm run schematics:build",
+    "clean": "rimraf -f index.{d.ts,js,js.map,metadata.json} src/*.{d.ts,js,map,metadata.json} bundles schematics/**/*.{d.ts,js,map}",
     "compile": "npm run lint:code && ngc -p tsconfig-build.json",
     "compile:tsc": "npm run lint && tsc -p tsconfig.json",
     "bundles": "npm run rollup && npm run rollup:min",
+    "schematics:build": "tsc -p schematics/tsconfig.json",
     "lint": "npm run lint:code && npm run lint:test",
     "lint:code": "tslint ./src/**/*.ts -t verbose --exclude ./src/**/*.d.ts",
     "lint:test": "tslint ./test/**/*.ts -t verbose --exclude ./test/**/*.d.ts",
@@ -23,6 +24,7 @@
     "Michael Bennett <michael@strukt.org>",
     "Steven Masala <me@smasalai.com>"
   ],
+  "schematics": "./schematics/src/collection.json",
   "main": "bundles/angular-datatables.umd.js",
   "module": "index.js",
   "typings": "index.d.ts",
@@ -38,6 +40,8 @@
     "jquery": ">=3.4.1"
   },
   "devDependencies": {
+    "@angular-devkit/core": "^9.0.5",
+    "@angular-devkit/schematics": "^9.0.5",
     "@angular/common": "^8.0.0",
     "@angular/compiler": "^8.0.0",
     "@angular/compiler-cli": "^8.0.0",
@@ -66,6 +70,7 @@
     "rollup": "~1.15.0",
     "rollup-plugin-uglify": "~6.0.2",
     "rxjs": "^6.5.2",
+    "schematics-utilities": "^2.0.1",
     "tslint": "~5.17.0",
     "typescript": "~3.4.5",
     "zone.js": "~0.9.1"
