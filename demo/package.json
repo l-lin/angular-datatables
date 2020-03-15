@@ -49,7 +49,7 @@
     "@angular/cli": "^8.0.2",
     "@angular/compiler-cli": "^8.0.0",
     "@angular/language-service": "^8.0.0",
-    "@angular-devkit/build-angular": "~0.800.2",
+    "@angular-devkit/build-angular": "~0.803.25",
     "@types/datatables.net": "^1.10.17",
     "@types/datatables.net-buttons": "^1.4.2",
     "@types/datatables.net-select": "^1.2.5",
