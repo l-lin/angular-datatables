@@ -1,10 +1,10 @@
 {
-  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
-    "angular-datatables": {
+    "ng-add": {
       "description": "Adds Angular Datatables to the application without affecting any templates",
-      "factory": "./angular-datatables/index",
-      "schema": "./angular-datatables/schema.json",
+      "factory": "./ng-add/index",
+      "schema": "./ng-add/schema.json",
       "aliases": ["install"]
     }
   }

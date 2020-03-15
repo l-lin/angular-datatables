@@ -4,7 +4,7 @@
   "description": "Angular directive for DataTables",
   "scripts": {
     "build": "npm run clean && npm run compile && npm run bundles",
-    "clean": "rimraf -f index.{d.ts,js,js.map,metadata.json} src/*.{d.ts,js,map,metadata.json} bundles",
+    "clean": "rimraf -f index.{d.ts,js,js.map,metadata.json} src/*.{d.ts,js,map,metadata.json} bundles schematics/**/*.{d.ts,js,map}",
     "compile": "npm run lint:code && ngc -p tsconfig-build.json",
     "compile:tsc": "npm run lint && tsc -p tsconfig.json",
     "bundles": "npm run rollup && npm run rollup:min",
@@ -24,6 +24,7 @@
     "Michael Bennett <michael@strukt.org>",
     "Steven Masala <me@smasalai.com>"
   ],
+  "schematics": "./schematics/src/collection.json",
   "main": "bundles/angular-datatables.umd.js",
   "module": "index.js",
   "typings": "index.d.ts",
