@@ -18,12 +18,12 @@ function addPackageJsonDependencies() {
   return (tree: Tree, context: SchematicContext) => {
     // Update package.json
     const dependencies: NodeDependency[] = [
-      { type: NodeDependencyType.Default, version: '3.4.1', name: 'jquery' },
-      { type: NodeDependencyType.Default, version: '1.1.0', name: 'datatables.net' },
-      { type: NodeDependencyType.Default, version: '1.1.0', name: 'datatables.net-dt' },
-      { type: NodeDependencyType.Default, version: '1.1.0', name: 'angular-datatables' },
-      { type: NodeDependencyType.Dev, version: '1.1.0', name: '@types/jquery' },
-      { type: NodeDependencyType.Dev, version: '1.1.0', name: '@types/datatables.net' }
+      { type: NodeDependencyType.Default, version: '^3.4.1', name: 'jquery' },
+      { type: NodeDependencyType.Default, version: '^1.10.20', name: 'datatables.net' },
+      { type: NodeDependencyType.Default, version: '^1.10.20', name: 'datatables.net-dt' },
+      { type: NodeDependencyType.Default, version: '^8.0.0', name: 'angular-datatables' },
+      { type: NodeDependencyType.Dev, version: '^3.3.33', name: '@types/jquery' },
+      { type: NodeDependencyType.Dev, version: '^1.10.18', name: '@types/datatables.net' }
     ];
 
     dependencies.forEach(dependency => {

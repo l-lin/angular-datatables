@@ -3,7 +3,7 @@
   "version": "8.0.1-dev",
   "description": "Angular directive for DataTables",
   "scripts": {
-    "build": "npm run clean && npm run compile && npm run bundles",
+    "build": "npm run clean && npm run compile && npm run bundles && npm run schematics:build",
     "clean": "rimraf -f index.{d.ts,js,js.map,metadata.json} src/*.{d.ts,js,map,metadata.json} bundles schematics/**/*.{d.ts,js,map}",
     "compile": "npm run lint:code && ngc -p tsconfig-build.json",
     "compile:tsc": "npm run lint && tsc -p tsconfig.json",
