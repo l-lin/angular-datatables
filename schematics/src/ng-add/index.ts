@@ -13,7 +13,6 @@ export default function (_options: any): Rule {
 function addPackageJsonDependencies() {
   return (tree: Tree, context: SchematicContext) => {
     // Update package.json
-    // TODO sort dev dependencies??
     const dependencies = [
       { version: '^3.4.1', name: 'jquery', isDev: false },
       { version: '^1.10.20', name: 'datatables.net', isDev: false },
