@@ -93,6 +93,13 @@ function sortObjectByKeys(obj: { [key: string]: string }) {
     ) && result, {});
 }
 
+/**
+ * This function has been borrowed from:
+ * https://github.com/valor-software/ngx-bootstrap/tree/development/schematics/src/utils/index.ts
+ *
+ * Note: This function accepts an additional parameter `isDevDependency` so we
+ * can place a given dependency in the correct dependencies array inside package.json
+ */
 export function addPackageToPackageJson(host: Tree, pkg: string, version: string, isDevDependency = false): Tree {
 
   if (host.exists('package.json')) {
