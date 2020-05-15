@@ -4,9 +4,13 @@
 
 # Usage
 
+Step 1:
 ```
 ng add angular-datatables
 ```
+Step 2:
+
+Import `DataTablesModule` to your required module in your project.
 
 # Documentation
 

@@ -70,7 +70,6 @@
     "rollup": "~2.0.6",
     "rollup-plugin-uglify": "^6.0.4",
     "rxjs": "^6.5.4",
-    "schematics-utilities": "^2.0.1",
     "tslint": "~6.1.0",
     "typescript": "~3.7.5",
     "zone.js": "~0.10.2"
