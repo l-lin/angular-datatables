@@ -48,6 +48,9 @@ header, main, footer {
 footer.page-footer {
   padding-top: 0;
   background-color: #66ceff;
+  position:fixed;
+  width:100%;
+  bottom:0;
 }
 
 /* Tabs */
