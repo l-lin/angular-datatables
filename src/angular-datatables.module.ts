@@ -15,7 +15,7 @@ import { DataTableDirective } from './angular-datatables.directive';
   exports: [ DataTableDirective ]
 })
 export class DataTablesModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<DataTablesModule> {
     return {
       ngModule: DataTablesModule
     };
