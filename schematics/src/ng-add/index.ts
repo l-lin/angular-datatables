@@ -17,17 +17,17 @@ function addPackageJsonDependencies() {
       { version: '^3.4.1', name: 'jquery', isDev: false },
       { version: '^1.10.20', name: 'datatables.net', isDev: false },
       { version: '^1.10.20', name: 'datatables.net-dt', isDev: false },
-      { version: '^9.0.1', name: 'angular-datatables', isDev: false },
+      { version: '^10.0.0', name: 'angular-datatables', isDev: false },
       { version: '^3.3.33', name: '@types/jquery', isDev: true },
       { version: '^1.10.18', name: '@types/datatables.net', isDev: true }
     ];
 
     dependencies.forEach(dependency => {
-      addPackageToPackageJson(tree, dependency.name, dependency.version, dependency.isDev)
-      context.logger.log('info', `✅️ Added "${dependency.name}" into "${dependency.isDev ? "devDependencies" : "dependencies" }"`);
+      addPackageToPackageJson(tree, dependency.name, dependency.version, dependency.isDev);
+      context.logger.log('info', `✅️ Added "${dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies' }"`);
     });
-    return tree
-  }
+    return tree;
+  };
 }
 
 function installPackageJsonDependencies(): Rule {
@@ -61,11 +61,10 @@ function updateAngularJsonFile() {
         tree.overwrite('angular.json', JSON.stringify(angularJsonFileObject, null, 2));
         context.logger.log('info', `✅️ Updated angular.json`);
       } else {
-        context.logger.log('error', '🚫 Failed to locate angular.json else.')
+        context.logger.log('error', '🚫 Failed to locate angular.json else.');
       }
     } catch (e) {
       context.logger.log('error', `🚫 Failed to update angular.json foobar.`);
     }
-
-  }
+  };
 }
