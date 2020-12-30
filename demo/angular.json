@@ -47,6 +47,9 @@
               "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js",
               "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
               "node_modules/datatables.net-select/js/dataTables.select.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "highlight.js"
             ]
           },
           "configurations": {
