@@ -17,7 +17,7 @@ function addPackageJsonDependencies() {
       { version: '^3.4.1', name: 'jquery', isDev: false },
       { version: '^1.10.20', name: 'datatables.net', isDev: false },
       { version: '^1.10.20', name: 'datatables.net-dt', isDev: false },
-      { version: '^10.0.0', name: 'angular-datatables', isDev: false },
+      { version: '^11.0.0', name: 'angular-datatables', isDev: false },
       { version: '^3.3.33', name: '@types/jquery', isDev: true },
       { version: '^1.10.18', name: '@types/datatables.net', isDev: true }
     ];
