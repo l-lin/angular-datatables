@@ -43,6 +43,7 @@ node_modules
 *.js.map
 !/bundles/*.js.map
 !/src/*.js.map
+!index.js.map
 !*.metadata.json
 tsconfig.json
 tsconfig-build.json
