@@ -7,15 +7,9 @@ import { Component } from '@angular/core';
 export class GettingStartedComponent {
   nodeVersion = '10';
   npmVersion = '6';
-  angularCliVersion = '8.Y.Z';
-  npmInstallSnippet = `
+  ngAddSnippet = `
 <pre>
-<code class="bash highlight">npm install jquery --save
-npm install datatables.net --save
-npm install datatables.net-dt --save
-npm install angular-datatables --save
-npm install @types/jquery --save-dev
-npm install @types/datatables.net --save-dev</code>
+<code class="bash highlight">ng add angular-datatables</code>
 </pre>`;
 
   angularJsonSnippet = `
