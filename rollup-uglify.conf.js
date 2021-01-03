@@ -10,7 +10,8 @@ export default {
       '@angular/platform-browser': 'ng.platform-browser',
       '@angular/common': 'ng.common'
     },
-    name: 'angular.datatables'
+    name: 'angular.datatables',
+    sourcemap: true
   },
   external: [
     '@angular/core',
