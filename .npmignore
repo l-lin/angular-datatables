@@ -41,7 +41,9 @@ node_modules
 *.ts
 !*.d.ts
 *.js.map
+!index.js.map
 !/bundles/*.js.map
+!/src/*.js.map
 !*.metadata.json
 tsconfig.json
 tsconfig-build.json
