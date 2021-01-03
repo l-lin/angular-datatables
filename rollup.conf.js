@@ -9,7 +9,8 @@ export default {
       '@angular/common': 'ng.common',
       'jquery': '$'
     },
-    format: 'umd'
+    format: 'umd',
+    sourcemap: true
   },
   external: [
     '@angular/core',
