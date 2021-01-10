@@ -57,12 +57,15 @@ import { ResponsiveExtensionConfigurationComponent } from './extensions/responsi
 import { SelectExtensionComponent } from './extensions/select-extension.component';
 import { SelectExtensionSnippetComponent } from './extensions/select-extension-snippet.component';
 import { SelectExtensionConfigurationComponent } from './extensions/select-extension-configuration.component';
+import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
+import { UsingPipeSnippetComponent } from './advanced/using-pipe-snippet.component';
 
 // HightlightJS
 import hljs from 'highlight.js/lib/highlight';
 import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
 import xml from 'highlight.js/lib/languages/xml';
+import { UpperCasePipe } from '@angular/common';
 
 hljs.registerLanguage('typescript', typescript);
 hljs.registerLanguage('javascript', javascript);
@@ -114,7 +117,9 @@ hljs.registerLanguage('xml', xml);
         ResponsiveExtensionConfigurationComponent,
         SelectExtensionComponent,
         SelectExtensionSnippetComponent,
-        SelectExtensionConfigurationComponent
+        SelectExtensionConfigurationComponent,
+        UsingNgPipeComponent,
+        UsingPipeSnippetComponent
     ],
     imports: [
         BrowserModule,
@@ -125,6 +130,7 @@ hljs.registerLanguage('xml', xml);
         AppRoutingModule
     ],
     providers: [
+      UpperCasePipe
     ],
     bootstrap: [AppComponent]
 })

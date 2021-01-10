@@ -7,6 +7,7 @@
 
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { ADTSettings } from './models/settings';
 
 @Directive({
   selector: '[datatable]'
@@ -16,7 +17,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
    * The DataTable option you pass to configure your table.
    */
   @Input()
-  dtOptions: DataTables.Settings = {};
+  dtOptions: ADTSettings = {};
 
   /**
    * This trigger is used if one wants to trigger manually the DT rendering
@@ -62,7 +63,34 @@ export class DataTableDirective implements OnDestroy, OnInit {
       Promise.resolve(this.dtOptions).then(dtOptions => {
         // Using setTimeout as a "hack" to be "part" of NgZone
         setTimeout(() => {
-          this.dt = $(this.el.nativeElement).DataTable(dtOptions);
+          this.dt = $(this.el.nativeElement).DataTable({
+            ...dtOptions,
+            rowCallback: (row, data, index) => {
+              if (dtOptions.columns) {
+                const columns = dtOptions.columns;
+                // Filter columns with pipe declared
+                const colsWithPipe = columns.filter(x => x.ngPipeInstance);
+                // Iterate
+                colsWithPipe.forEach(el => {
+                  const pipe = el.ngPipeInstance;
+                  // find index of column using `data` attr
+                  const i = columns.findIndex(e => e.data == el.data);
+                  // get <td> element which holds data using index
+                  const rowFromCol = row.childNodes.item(i);
+                  // Transform data with Pipe
+                  const rowVal = $(rowFromCol).text();
+                  const rowValAfter = pipe.transform(rowVal);
+                  // Apply transformed string to <td>
+                  $(rowFromCol).text(rowValAfter);
+                });
+              }
+
+              // run user specified row callback if provided.
+              if (this.dtOptions.rowCallback) {
+                this.dtOptions.rowCallback(row, data, index);
+              }
+            }
+          });
           resolve(this.dt);
         });
       });
