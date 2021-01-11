@@ -63,8 +63,8 @@ export class DataTableDirective implements OnDestroy, OnInit {
       Promise.resolve(this.dtOptions).then(dtOptions => {
         // Using setTimeout as a "hack" to be "part" of NgZone
         setTimeout(() => {
-          this.dt = $(this.el.nativeElement).DataTable({
-            ...dtOptions,
+          // Assign DT properties here
+          let options: ADTSettings = {
             rowCallback: (row, data, index) => {
               if (dtOptions.columns) {
                 const columns = dtOptions.columns;
@@ -90,7 +90,10 @@ export class DataTableDirective implements OnDestroy, OnInit {
                 this.dtOptions.rowCallback(row, data, index);
               }
             }
-          });
+          };
+          // merge user's config with ours
+          options = Object.assign({}, dtOptions, options);
+          this.dt = $(this.el.nativeElement).DataTable(options);
           resolve(this.dt);
         });
       });
