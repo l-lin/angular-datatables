@@ -12,7 +12,7 @@ export class UsingNgPipeComponent implements OnInit {
     private pipeInstance: UpperCasePipe
   ) { }
 
-  dtOptions: ADTSettings = {}
+  dtOptions: ADTSettings = {};
 
   ngOnInit(): void {
 
@@ -34,7 +34,7 @@ export class UsingNgPipeComponent implements OnInit {
           ngPipeInstance: this.pipeInstance
         }
       ]
-    }
+    };
   }
 
 }
