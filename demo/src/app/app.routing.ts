@@ -24,6 +24,7 @@ import { ButtonsExtensionComponent } from './extensions/buttons-extension.compon
 import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
 import { ResponsiveExtensionComponent } from './extensions/responsive-extension.component';
 import { SelectExtensionComponent } from './extensions/select-extension.component';
+import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
 
 const routes: Routes = [
     {
@@ -94,6 +95,10 @@ const routes: Routes = [
     {
         path: 'advanced/router-link',
         component: RouterLinkComponent
+    },
+    {
+        path: 'advanced/using-pipe',
+        component: UsingNgPipeComponent
     },
     {
         path: 'extensions/buttons',
