@@ -58,7 +58,7 @@ import { SelectExtensionComponent } from './extensions/select-extension.componen
 import { SelectExtensionSnippetComponent } from './extensions/select-extension-snippet.component';
 import { SelectExtensionConfigurationComponent } from './extensions/select-extension-configuration.component';
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
-import { UsingPipeSnippetComponent } from './advanced/using-ng-pipe-snippet.component';
+import { UsingNgPipeSnippetComponent } from './advanced/using-ng-pipe-snippet.component';
 
 // HightlightJS
 import hljs from 'highlight.js/lib/highlight';
@@ -119,7 +119,7 @@ hljs.registerLanguage('xml', xml);
         SelectExtensionSnippetComponent,
         SelectExtensionConfigurationComponent,
         UsingNgPipeComponent,
-        UsingPipeSnippetComponent
+        UsingNgPipeSnippetComponent
     ],
     imports: [
         BrowserModule,

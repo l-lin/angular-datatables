@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-using-pipe-snippet',
+  selector: 'app-using-ng-pipe-snippet',
   template: `
   <div id="html" class="col s12 m9 l12">
     <h4 class="header">HTML</h4>
@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
   </div>
   `
 })
-export class UsingPipeSnippetComponent implements OnInit {
+export class UsingNgPipeSnippetComponent implements OnInit {
 
   constructor() { }
 
