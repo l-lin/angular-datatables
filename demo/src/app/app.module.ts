@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, SecurityContext } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -65,11 +65,15 @@ import hljs from 'highlight.js/lib/highlight';
 import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
 import xml from 'highlight.js/lib/languages/xml';
-import { UpperCasePipe } from '@angular/common';
-
 hljs.registerLanguage('typescript', typescript);
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('xml', xml);
+
+// Using Angular Pipe
+import { UpperCasePipe } from '@angular/common';
+
+// Markdown
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
     declarations: [
@@ -127,7 +131,12 @@ hljs.registerLanguage('xml', xml);
         AngularHighlightJsModule,
         HttpClientModule,
         DataTablesModule,
-        AppRoutingModule
+        AppRoutingModule,
+        MarkdownModule.forRoot(
+          {
+            sanitize: SecurityContext.NONE
+          }
+        )
     ],
     providers: [
       UpperCasePipe
