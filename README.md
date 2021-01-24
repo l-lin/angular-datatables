@@ -1,4 +1,9 @@
-# Angular DataTables [![Build Status](https://travis-ci.org/l-lin/angular-datatables.png?branch=master)](https://travis-ci.org/l-lin/angular-datatables) [![npm version](https://badge.fury.io/js/angular-datatables.svg)](https://badge.fury.io/js/angular-datatables) [![Maintainers Wanted](https://img.shields.io/badge/maintainers-wanted-red.svg)](https://github.com/pickhardt/maintainers-wanted)
+# Angular DataTables
+
+![build](https://github.com/l-lin/angular-datatables/workflows/build/badge.svg)
+[![npm](https://img.shields.io/npm/v/angular-datatables.svg)][npm-link]
+[![npm](https://img.shields.io/npm/dm/angular-datatables.svg)][npm-link]
+[![Maintainers Wanted](https://img.shields.io/badge/maintainers-wanted-red.svg)](https://github.com/pickhardt/maintainers-wanted)
 
 > [Angular](https://angular.io/) + [DataTables](https://datatables.net/)
 
@@ -18,3 +23,6 @@ Check the [developer guide](DEVELOPER.md)
 # LICENSE
 
 [MIT](LICENSE)
+
+[npm-link]: https://www.npmjs.com/package/angular-datatables
+
