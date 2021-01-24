@@ -9,7 +9,7 @@ export class PersonService {
   constructor() { }
 
   getPerson(id: number): Person {
-    const persons = (<any>data).data;
-    return persons.filter(person => person.id === id)[0];
+    const persons: Person[] = data.data;
+    return persons.find(person => person.id === id);
   }
 }
