@@ -10,6 +10,9 @@ export class BaseDemoComponent {
   constructor() { }
 
   @Input()
+  pageTitle: string = '';
+
+  @Input()
   mdIntro: string = '';
 
   @Input()
