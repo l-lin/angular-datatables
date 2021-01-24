@@ -13,13 +13,15 @@
     "lint:code": "tslint ./src/**/*.ts -t verbose --exclude ./src/**/*.d.ts",
     "lint:test": "tslint ./test/**/*.ts -t verbose --exclude ./test/**/*.d.ts",
     "rollup": "rollup -c rollup.conf.js",
-    "rollup:min": "rollup -c rollup-uglify.conf.js"
+    "rollup:min": "rollup -c rollup-uglify.conf.js",
+    "version": "npm run build && git add -A",
+    "postversion": "git push && git push --tags"
   },
   "keywords": [
     "Angular",
     "DataTables"
   ],
-  "author": "Louis LIN <louis.lin.87@gmail.com> (https://l-lin.github.io/)",
+  "author": "Louis LIN <lin.louis@pm.me> (https://l-lin.github.io/)",
   "contributors": [
     "Michael Bennett <michael@strukt.org>",
     "Steven Masala <me@smasalai.com>",

@@ -105,26 +105,26 @@ You may need to have the following:
 
 ## Release
 
-```bash
-# update version on package.json files
-sed -i 's/"version": "\(.\+\)-dev",/"version": "\1",/g' package.json
-sed -i 's/"version": "\(.\+\)-dev",/"version": "\1",/g' demo/package.json
-# update the version for schematics in file 'schematics/src/ng-add/index.ts'
-# build
-npm run build
-# commit
-git add -A && git commit -m "chore: release vX.Y.Z"
-git tag vX.Y.Z
-git push && git push --tags
-# publish
-npm publish
+```sh
+# this will create a new version and push to remote repository
+npm version [<newversion> | major | minor | patch]
 
-# don't forget to set the next iteration by editing the files:
-# - package.json
-# - demo/package.json
-git add -A && git commit -m "chore: prepare next iteration vX.Y.Z-dev"
-git push
+# examples
+# create a patch version to publish fixes to the package
+npm version patch
+# provide a commit message ('%s' will be replaced by the version number)
+npm version patch -m "chore: release %s"
+# create a minor version to publish new features
+npm version minor
+# create a major version to follow Angular major version
+npm version major
+# more control to the version to set
+npm version 8.3.2
 ```
+
+Then go to the [release page](https://github.com/l-lin/angular-datatables/releases) and manually
+create a new release. There is an automatic [Github action](./.github/workflows/publish.yml) that
+publishes automatically to NPM repository.
 
 # Angular Schematics
 
