@@ -22,7 +22,8 @@
   "author": "Louis LIN <louis.lin.87@gmail.com> (https://l-lin.github.io/)",
   "contributors": [
     "Michael Bennett <michael@strukt.org>",
-    "Steven Masala <me@smasalai.com>"
+    "Steven Masala <me@smasalai.com>",
+    "Surya Teja K <shanmukhateja@gmail.com>"
   ],
   "schematics": "./schematics/src/collection.json",
   "main": "bundles/angular-datatables.umd.js",
