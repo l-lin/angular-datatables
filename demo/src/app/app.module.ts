@@ -16,7 +16,6 @@ import { PersonComponent } from './person.component';
 
 // Basic examples
 import { ZeroConfigComponent } from './basic/zero-config.component';
-import { ZeroConfigSnippetComponent } from './basic/zero-config-snippet.component';
 import { WithOptionsComponent } from './basic/with-options.component';
 import { WithOptionsSnippetComponent } from './basic/with-options-snippet.component';
 import { WithAjaxComponent } from './basic/with-ajax.component';
@@ -83,7 +82,6 @@ import { MarkdownModule } from 'ngx-markdown';
         PersonComponent,
 
         ZeroConfigComponent,
-        ZeroConfigSnippetComponent,
         WithOptionsComponent,
         WithOptionsSnippetComponent,
         WithAjaxComponent,
