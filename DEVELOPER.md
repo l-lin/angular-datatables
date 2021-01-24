@@ -108,6 +108,18 @@ You may need to have the following:
 ```sh
 # this will create a new version and push to remote repository
 npm version [<newversion> | major | minor | patch]
+
+# examples
+# create a patch version to publish fixes to the package
+npm version patch
+# provide a commit message ('%s' will be replaced by the version number)
+npm version patch -m "chore: release %s"
+# create a minor version to publish new features
+npm version minor
+# create a major version to follow Angular major version
+npm version major
+# more control to the version to set
+npm version 8.3.2
 ```
 
 Then go to the [release page](https://github.com/l-lin/angular-datatables/releases) and manually
