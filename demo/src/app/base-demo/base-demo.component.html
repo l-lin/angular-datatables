@@ -1,0 +1,39 @@
+<div class="section banner">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m9">
+        <h1 class="header center-on-small-only">Zero configuration</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m9 l12">
+      <div class="section">
+        <span class="caption">
+          <markdown [src]="mdIntro"></markdown>
+        </span>
+        <div class="showcase-tabs">
+          <ul class="anchor-links">
+            <li class="col s4"><a class="waves-effect btn" href="#preview">Preview</a></li>
+            <li class="col s4"><a class="waves-effect btn" href="#html">HTML</a></li>
+            <li class="col s4"><a class="waves-effect btn" href="#ts">Typescript</a></li>
+          </ul>
+        </div>
+        <div id="preview" class="col s12 m9 l12">
+          <h4 class="header">Preview</h4>
+          <ng-container *ngTemplateOutlet="template"></ng-container>
+        </div>
+        <div id="html" class="col s12 m9 l12">
+          <h4 class="header">HTML</h4>
+          <markdown [src]="mdHTML"></markdown>
+        </div>
+        <div id="ts" class="col s12 m9 l12">
+          <h4 class="header">TypeScript</h4>
+          <markdown [src]="mdTS"></markdown>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
