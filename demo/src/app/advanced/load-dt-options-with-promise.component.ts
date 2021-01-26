@@ -1,8 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import 'rxjs/add/operator/toPromise';
-
 @Component({
   selector: 'app-load-dt-options-with-promise',
   templateUrl: 'load-dt-options-with-promise.component.html'

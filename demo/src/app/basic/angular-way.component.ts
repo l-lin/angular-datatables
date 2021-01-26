@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Person } from '../person';
 
-import 'rxjs/add/operator/map';
-
 @Component({
   selector: 'app-angular-way',
   templateUrl: 'angular-way.component.html'
