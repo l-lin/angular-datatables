@@ -1,59 +1,25 @@
-<div class="section banner">
-    <div class="container">
-        <div class="row">
-            <div class="col s12 m9">
-                <h1 class="header center-on-small-only">Server side the Angular way</h1>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col s12 m9 l12">
-            <div class="section">
-                <p class="caption">
-                    For server side processing, you need to override the
-                    <code>ajax</code> option and connect to your API.
-                </p>
-                <div class="col s12 m9 l12 showcase-tabs">
-                    <ul class="anchor-links">
-                        <li class="col s3">
-                            <a class="waves-effect btn" href="#preview">Preview</a>
-                        </li>
-                        <li class="col s3">
-                            <a class="waves-effect btn" href="#html">HTML</a>
-                        </li>
-                        <li class="col s3">
-                            <a class="waves-effect btn" href="#ts">Typescript</a>
-                        </li>
-                    </ul>
-                </div>
-                <div id="preview" class="col s12 m9 l12">
-                    <h4 class="header">Preview</h4>
-                    <table datatable [dtOptions]="dtOptions" class="row-border hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>First name</th>
-                                <th>Last name</th>
-                            </tr>
-                        </thead>
-                        <tbody *ngIf="persons?.length != 0">
-                            <tr *ngFor="let person of persons">
-                                <td>{{ person.id }}</td>
-                                <td>{{ person.firstName }}</td>
-                                <td>{{ person.lastName }}</td>
-                            </tr>
-                        </tbody>
-                        <tbody *ngIf="persons?.length == 0">
-                          <tr>
-                            <td colspan="3" class="no-data-available">No data!</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <app-server-side-angular-way-snippet></app-server-side-angular-way-snippet>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<ng-template #preview>
+  <table datatable [dtOptions]="dtOptions" class="row-border hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+        </tr>
+    </thead>
+    <tbody *ngIf="persons?.length != 0">
+        <tr *ngFor="let person of persons">
+            <td>{{ person.id }}</td>
+            <td>{{ person.firstName }}</td>
+            <td>{{ person.lastName }}</td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="persons?.length == 0">
+      <tr>
+        <td colspan="3" class="no-data-available">No data!</td>
+    </tr>
+    </tbody>
+</table>
+</ng-template>
+<app-base-demo [pageTitle]="pageTitle" [mdIntro]="mdIntro" [mdHTML]="mdHTML" [mdTS]="mdTS" [template]="preview">
+</app-base-demo>
