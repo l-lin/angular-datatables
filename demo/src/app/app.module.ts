@@ -26,7 +26,6 @@ import { CustomRangeSearchComponent } from './advanced/custom-range-search.compo
 import { DtInstanceComponent } from './advanced/dt-instance.component';
 import { IndividualColumnFilteringComponent } from './advanced/individual-column-filtering.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
-import { LoadDtOptionsWithPromiseSnippetComponent } from './advanced/load-dt-options-with-promise-snippet.component';
 import { RerenderComponent } from './advanced/rerender.component';
 import { RerenderSnippetComponent } from './advanced/rerender-snippet.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
@@ -85,7 +84,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
         DtInstanceComponent,
         IndividualColumnFilteringComponent,
         LoadDtOptionsWithPromiseComponent,
-        LoadDtOptionsWithPromiseSnippetComponent,
         RerenderComponent,
         RerenderSnippetComponent,
         RowClickEventComponent,
