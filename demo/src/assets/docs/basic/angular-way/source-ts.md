@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -10,11 +11,6 @@ import 'rxjs/add/operator/map';
   templateUrl: 'angular-way.component.html'
 })
 export class AngularWayComponent implements OnDestroy, OnInit {
-
-  pageTitle = 'Angular way';
-  mdIntro = 'assets/docs/basic/angular-way/intro.md';
-  mdHTML = 'assets/docs/basic/angular-way/source-html.md';
-  mdTS = 'assets/docs/basic/angular-way/source-ts.md';
 
   dtOptions: DataTables.Settings = {};
   persons: Person[] = [];
@@ -43,3 +39,4 @@ export class AngularWayComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 }
+```

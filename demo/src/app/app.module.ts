@@ -19,7 +19,6 @@ import { ZeroConfigComponent } from './basic/zero-config.component';
 import { WithOptionsComponent } from './basic/with-options.component';
 import { WithAjaxComponent } from './basic/with-ajax.component';
 import { AngularWayComponent } from './basic/angular-way.component';
-import { AngularWaySnippetComponent } from './basic/angular-way-snippet.component';
 import { ServerSideAngularWayComponent } from './basic/server-side-angular-way.component';
 import { ServerSideAngularWaySnippetComponent } from './basic/server-side-angular-way-snippet.component';
 
@@ -84,7 +83,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
         WithOptionsComponent,
         WithAjaxComponent,
         AngularWayComponent,
-        AngularWaySnippetComponent,
         ServerSideAngularWayComponent,
         ServerSideAngularWaySnippetComponent,
 
