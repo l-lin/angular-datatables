@@ -1,3 +1,12 @@
+```typescript
+// app.module.ts
+...,
+providers: [
+  UpperCasePipe     // declare your Pipe here
+],
+
+// using-ng-pipe.component
+
 import { UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ADTSettings } from 'angular-datatables/src/models/settings';
@@ -9,14 +18,8 @@ import { ADTSettings } from 'angular-datatables/src/models/settings';
 export class UsingNgPipeComponent implements OnInit {
 
   constructor(
-    private pipeInstance: UpperCasePipe
+    private pipeInstance: UpperCasePipe // inject the Pipe
   ) { }
-
-  pageTitle = 'Using Angular Pipe';
-  mdIntro = 'assets/docs/advanced/using-ng-pipe/intro.md';
-  mdHTML = 'assets/docs/advanced/using-ng-pipe/source-html.md';
-  mdTS = 'assets/docs/advanced/using-ng-pipe/source-ts.md';
-
 
   dtOptions: ADTSettings = {};
 
@@ -32,15 +35,16 @@ export class UsingNgPipeComponent implements OnInit {
         {
           title: 'First name',
           data: 'firstName',
-          ngPipeInstance: this.pipeInstance
+          ngPipeInstance: this.pipeInstance // pipe is referred here
         },
         {
           title: 'Last name',
           data: 'lastName',
-          ngPipeInstance: this.pipeInstance
+          ngPipeInstance: this.pipeInstance // pipe is referred here
         }
       ]
     };
   }
-
 }
+
+```
