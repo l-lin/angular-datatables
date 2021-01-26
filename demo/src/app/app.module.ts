@@ -30,7 +30,6 @@ import { RerenderComponent } from './advanced/rerender.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 import { MultipleTablesComponent } from './advanced/multiple-tables.component';
 import { RouterLinkComponent } from './advanced/router-link.component';
-import { RouterLinkSnippetComponent } from './advanced/router-link-snippet.component';
 
 // Using extension examples
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
@@ -85,7 +84,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
         RowClickEventComponent,
         MultipleTablesComponent,
         RouterLinkComponent,
-        RouterLinkSnippetComponent,
 
         ButtonsExtensionComponent,
         ButtonsExtensionSnippetComponent,
