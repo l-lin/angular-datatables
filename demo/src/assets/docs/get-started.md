@@ -58,23 +58,3 @@ import { AppComponent } from "./app.component";
 })
 export class AppModule {}
 ```
-
-#### Troubleshooting
-
-- Error encountered resolving symbol values statically.
-
-Solution: Please update your `tsconfig.json` as shown below. For more info, check the GitHub issue [here](https://github.com/l-lin/angular-datatables/issues/937)
-
-
-```json
-{
-  "compilerOptions": {
-    ...
-    "paths": {
-      "@angular/*": [
-        "../node_modules/@angular/*"
-      ]
-    }
-  }
-}
-```

@@ -42,6 +42,7 @@ import { UpperCasePipe } from '@angular/common';
 // Markdown
 import { MarkdownModule } from 'ngx-markdown';
 import { BaseDemoComponent } from './base-demo/base-demo.component';
+import { FAQComponent } from './f-a-q/f-a-q.component';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
         ResponsiveExtensionComponent,
         SelectExtensionComponent,
         UsingNgPipeComponent,
-        BaseDemoComponent
+        BaseDemoComponent,
+        FAQComponent
     ],
     imports: [
         BrowserModule,
