@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,13 +6,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'responsive-extension.component.html'
 })
 export class ResponsiveExtensionComponent implements OnInit {
-
-  pageTitle = 'DataTables Responsive extension';
-  mdIntro = 'assets/docs/extensions/responsive/intro.md';
-  mdInstall = 'assets/docs/extensions/responsive/installation.md';
-  mdHTML = 'assets/docs/extensions/responsive/source-html.md';
-  mdTS = 'assets/docs/extensions/responsive/source-ts.md';
-
   // Must be declared as "any", not as "DataTables.Settings"
   dtOptions: any = {};
 
@@ -34,3 +28,4 @@ export class ResponsiveExtensionComponent implements OnInit {
     };
   }
 }
+```

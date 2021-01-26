@@ -35,8 +35,6 @@ import { RouterLinkComponent } from './advanced/router-link.component';
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
 import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
 import { ResponsiveExtensionComponent } from './extensions/responsive-extension.component';
-import { ResponsiveExtensionSnippetComponent } from './extensions/responsive-extension-snippet.component';
-import { ResponsiveExtensionConfigurationComponent } from './extensions/responsive-extension-configuration.component';
 import { SelectExtensionComponent } from './extensions/select-extension.component';
 import { SelectExtensionSnippetComponent } from './extensions/select-extension-snippet.component';
 import { SelectExtensionConfigurationComponent } from './extensions/select-extension-configuration.component';
@@ -83,8 +81,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
         ButtonsExtensionComponent,
         ColreorderExtensionComponent,
         ResponsiveExtensionComponent,
-        ResponsiveExtensionSnippetComponent,
-        ResponsiveExtensionConfigurationComponent,
         SelectExtensionComponent,
         SelectExtensionSnippetComponent,
         SelectExtensionConfigurationComponent,
