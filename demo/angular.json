@@ -30,7 +30,6 @@
               "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
               "node_modules/datatables.net-select-dt/css/select.dataTables.css",
               "node_modules/materialize-css/dist/css/materialize.css",
-              "node_modules/highlight.js/styles/github.css",
               "node_modules/prism-themes/themes/prism-material-dark.css",
               "src/styles.css",
               "node_modules/prismjs/plugins/toolbar/prism-toolbar.css"
@@ -58,9 +57,6 @@
               "node_modules/prismjs/components/prism-bash.min.js",
               "node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js",
               "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"
-            ],
-            "allowedCommonJsDependencies": [
-              "highlight.js"
             ]
           },
           "configurations": {

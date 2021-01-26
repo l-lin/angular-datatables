@@ -3,8 +3,6 @@ import { NgModule, SecurityContext } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AngularHighlightJsModule } from 'angular2-highlight-js';
-
 import { DataTablesModule } from 'angular-datatables';
 
 import { AppRoutingModule } from './app.routing';
@@ -37,15 +35,6 @@ import { ColreorderExtensionComponent } from './extensions/colreorder-extension.
 import { ResponsiveExtensionComponent } from './extensions/responsive-extension.component';
 import { SelectExtensionComponent } from './extensions/select-extension.component';
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
-
-// HightlightJS
-import hljs from 'highlight.js/lib/highlight';
-import javascript from 'highlight.js/lib/languages/javascript';
-import typescript from 'highlight.js/lib/languages/typescript';
-import xml from 'highlight.js/lib/languages/xml';
-hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('xml', xml);
 
 // Using Angular Pipe
 import { UpperCasePipe } from '@angular/common';
@@ -86,7 +75,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
     imports: [
         BrowserModule,
         FormsModule,
-        AngularHighlightJsModule,
         HttpClientModule,
         DataTablesModule,
         AppRoutingModule,
