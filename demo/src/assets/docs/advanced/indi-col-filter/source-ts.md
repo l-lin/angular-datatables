@@ -1,3 +1,4 @@
+```typescript
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
@@ -7,12 +8,6 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: 'individual-column-filtering.component.html'
 })
 export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit {
-
-  pageTitle = 'Individual column searching';
-  mdIntro = 'assets/docs/advanced/indi-col-filter/intro.md';
-  mdHTML = 'assets/docs/advanced/indi-col-filter/source-html.md';
-  mdTS = 'assets/docs/advanced/indi-col-filter/source-ts.md';
-
   @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
 
@@ -49,3 +44,4 @@ export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit
     });
   }
 }
+```
