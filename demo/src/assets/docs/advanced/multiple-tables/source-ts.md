@@ -1,4 +1,6 @@
+```typescript
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+
 import { DataTableDirective } from 'angular-datatables';
 
 @Component({
@@ -6,14 +8,8 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: 'multiple-tables.component.html'
 })
 export class MultipleTablesComponent implements OnInit {
-
-  pageTitle = 'Multiple DataTables in the same page';
-  mdIntro = 'assets/docs/advanced/multiple-tables/intro.md';
-  mdHTML = 'assets/docs/advanced/multiple-tables/source-html.md';
-  mdTS = 'assets/docs/advanced/multiple-tables/source-ts.md';
-
   @ViewChildren(DataTableDirective)
-  dtElements: QueryList<DataTableDirective>;
+  dtElements: QueryList;
 
   dtOptions: DataTables.Settings[] = [];
 
@@ -46,3 +42,4 @@ export class MultipleTablesComponent implements OnInit {
     };
   }
 }
+```
