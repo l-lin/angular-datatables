@@ -1,40 +1,5 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-custom-range-search-snippet',
-  template: `
-  <div id="html" class="col s12 m9 l12">
-    <h4 class="header">HTML</h4>
-    <section [innerHTML]="htmlSnippet" hljsContent=".xml"></section>
-  </div>
-  <div id="ts" class="col s12 m9 l12">
-    <h4 class="header">Typescript</h4>
-    <section [innerHTML]="tsSnippet" hljsContent=".typescript"></section>
-  </div>
-  `
-})
-export class CustomRangeSearchSnippetComponent {
-  htmlSnippet = `
-<pre>
-<code class="xml highlight">&lt;form (submit)="filterById()"&gt;
-  &lt;label&gt;
-    Min
-    &lt;input type="number" name="min" id="min" [(ngModel)]="min" /&gt;
-  &lt;/label&gt;
-  &lt;label&gt;
-    Max
-    &lt;input type="number" name="max" id="max" [(ngModel)]="max" /&gt;
-  &lt;/label&gt;
-  &lt;button class="btn btn-primary" type="submit"&gt;Filter by ID&lt;/button&gt;
-&lt;/form&gt;
-&lt;br /&gt;
-&lt;table datatable [dtOptions]="dtOptions" class="row-border hover"&gt;&lt;/table&gt;</code>
-</pre>
-  `;
-
-  tsSnippet = `
-<pre>
-<code class="typescript highlight">import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+```typescript
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
 
@@ -81,7 +46,7 @@ export class CustomRangeSearchComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     // We remove the last function in the global ext search array so we do not add the fn each time the component is drawn
-    // /!\\ This is not the ideal solution as other components may add other search function in this array, so be careful when
+    // /!\ This is not the ideal solution as other components may add other search function in this array, so be careful when
     // handling this global variable
     $.fn['dataTable'].ext.search.pop();
   }
@@ -91,7 +56,5 @@ export class CustomRangeSearchComponent implements OnDestroy, OnInit {
       dtInstance.draw();
     });
   }
-}</code>
-</pre>
-  `;
 }
+```

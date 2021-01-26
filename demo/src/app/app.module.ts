@@ -23,7 +23,6 @@ import { ServerSideAngularWayComponent } from './basic/server-side-angular-way.c
 
 // Advanced examples
 import { CustomRangeSearchComponent } from './advanced/custom-range-search.component';
-import { CustomRangeSearchSnippetComponent } from './advanced/custom-range-search-snippet.component';
 import { DtInstanceComponent } from './advanced/dt-instance.component';
 import { DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
 import { IndividualColumnFilteringComponent } from './advanced/individual-column-filtering.component';
@@ -85,7 +84,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
         ServerSideAngularWayComponent,
 
         CustomRangeSearchComponent,
-        CustomRangeSearchSnippetComponent,
         DtInstanceComponent,
         DtInstanceSnippetComponent,
         IndividualColumnFilteringComponent,
