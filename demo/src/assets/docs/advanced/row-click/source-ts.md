@@ -1,16 +1,11 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-row-click-event',
+  selector: 'row-click-event',
   templateUrl: 'row-click-event.component.html'
 })
 export class RowClickEventComponent implements OnInit {
-
-  pageTitle = 'Row click event';
-  mdIntro = 'assets/docs/advanced/row-click/intro.md';
-  mdHTML = 'assets/docs/advanced/row-click/source-html.md';
-  mdTS = 'assets/docs/advanced/row-click/source-ts.md';
-
   message = '';
   dtOptions: DataTables.Settings = {};
 
@@ -37,7 +32,7 @@ export class RowClickEventComponent implements OnInit {
         const self = this;
         // Unbind first in order to avoid any duplicate handler
         // (see https://github.com/l-lin/angular-datatables/issues/87)
-        // Note: In newer jQuery v3 versions, `unbind` and `bind` are
+        // Note: In newer jQuery v3 versions, `unbind` and `bind` are 
         // deprecated in favor of `off` and `on`
         $('td', row).off('click');
         $('td', row).on('click', () => {
@@ -48,3 +43,4 @@ export class RowClickEventComponent implements OnInit {
     };
   }
 }
+```

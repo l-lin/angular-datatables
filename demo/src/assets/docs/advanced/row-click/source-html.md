@@ -1,8 +1,6 @@
-<ng-template #preview>
+```html
 <blockquote>Please click on a row</blockquote>
 <p class="text-danger">You clicked on: <strong>{{ message }}</strong></p>
 <br />
 <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
-</ng-template>
-<app-base-demo [pageTitle]="pageTitle" [mdIntro]="mdIntro" [mdHTML]="mdHTML" [mdTS]="mdTS" [template]="preview">
-</app-base-demo>
+```

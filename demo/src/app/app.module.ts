@@ -28,7 +28,6 @@ import { IndividualColumnFilteringComponent } from './advanced/individual-column
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
 import { RerenderComponent } from './advanced/rerender.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
-import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippet.component';
 import { MultipleTablesComponent } from './advanced/multiple-tables.component';
 import { MultipleTablesSnippetComponent } from './advanced/multiple-tables-snippet.component';
 import { RouterLinkComponent } from './advanced/router-link.component';
@@ -85,7 +84,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
         LoadDtOptionsWithPromiseComponent,
         RerenderComponent,
         RowClickEventComponent,
-        RowClickEventSnippetComponent,
         MultipleTablesComponent,
         MultipleTablesSnippetComponent,
         RouterLinkComponent,
