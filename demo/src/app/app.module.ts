@@ -24,7 +24,6 @@ import { ServerSideAngularWayComponent } from './basic/server-side-angular-way.c
 // Advanced examples
 import { CustomRangeSearchComponent } from './advanced/custom-range-search.component';
 import { DtInstanceComponent } from './advanced/dt-instance.component';
-import { DtInstanceSnippetComponent } from './advanced/dt-instance-snippet.component';
 import { IndividualColumnFilteringComponent } from './advanced/individual-column-filtering.component';
 import { IndividualColumnFilteringSnippetComponent } from './advanced/individual-column-filtering-snippet.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
@@ -85,7 +84,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
 
         CustomRangeSearchComponent,
         DtInstanceComponent,
-        DtInstanceSnippetComponent,
         IndividualColumnFilteringComponent,
         IndividualColumnFilteringSnippetComponent,
         LoadDtOptionsWithPromiseComponent,
