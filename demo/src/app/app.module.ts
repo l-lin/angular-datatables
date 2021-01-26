@@ -36,8 +36,6 @@ import { ButtonsExtensionComponent } from './extensions/buttons-extension.compon
 import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
 import { ResponsiveExtensionComponent } from './extensions/responsive-extension.component';
 import { SelectExtensionComponent } from './extensions/select-extension.component';
-import { SelectExtensionSnippetComponent } from './extensions/select-extension-snippet.component';
-import { SelectExtensionConfigurationComponent } from './extensions/select-extension-configuration.component';
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
 
 // HightlightJS
@@ -82,8 +80,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
         ColreorderExtensionComponent,
         ResponsiveExtensionComponent,
         SelectExtensionComponent,
-        SelectExtensionSnippetComponent,
-        SelectExtensionConfigurationComponent,
         UsingNgPipeComponent,
         BaseDemoComponent
     ],
