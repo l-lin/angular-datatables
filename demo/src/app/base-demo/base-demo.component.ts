@@ -16,6 +16,9 @@ export class BaseDemoComponent {
   mdIntro: string = '';
 
   @Input()
+  mdInstall: string = '';
+
+  @Input()
   mdHTML: string = '';
 
   @Input()
