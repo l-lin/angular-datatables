@@ -17,7 +17,6 @@ import { PersonComponent } from './person.component';
 // Basic examples
 import { ZeroConfigComponent } from './basic/zero-config.component';
 import { WithOptionsComponent } from './basic/with-options.component';
-import { WithOptionsSnippetComponent } from './basic/with-options-snippet.component';
 import { WithAjaxComponent } from './basic/with-ajax.component';
 import { WithAjaxSnippetComponent } from './basic/with-ajax-snippet.component';
 import { AngularWayComponent } from './basic/angular-way.component';
@@ -84,7 +83,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
 
         ZeroConfigComponent,
         WithOptionsComponent,
-        WithOptionsSnippetComponent,
         WithAjaxComponent,
         WithAjaxSnippetComponent,
         AngularWayComponent,
