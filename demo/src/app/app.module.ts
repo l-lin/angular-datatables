@@ -27,7 +27,6 @@ import { DtInstanceComponent } from './advanced/dt-instance.component';
 import { IndividualColumnFilteringComponent } from './advanced/individual-column-filtering.component';
 import { LoadDtOptionsWithPromiseComponent } from './advanced/load-dt-options-with-promise.component';
 import { RerenderComponent } from './advanced/rerender.component';
-import { RerenderSnippetComponent } from './advanced/rerender-snippet.component';
 import { RowClickEventComponent } from './advanced/row-click-event.component';
 import { RowClickEventSnippetComponent } from './advanced/row-click-event-snippet.component';
 import { MultipleTablesComponent } from './advanced/multiple-tables.component';
@@ -85,7 +84,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
         IndividualColumnFilteringComponent,
         LoadDtOptionsWithPromiseComponent,
         RerenderComponent,
-        RerenderSnippetComponent,
         RowClickEventComponent,
         RowClickEventSnippetComponent,
         MultipleTablesComponent,

@@ -1,10 +1,8 @@
-<ng-template #preview>
+```html
   <p>
     <button type="button" class="btn waves-effect waves-light blue" (click)="rerender()">
       Rerender
     </button>
   </p>
   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"></table>
-</ng-template>
-<app-base-demo [pageTitle]="pageTitle" [mdIntro]="mdIntro" [mdHTML]="mdHTML" [mdTS]="mdTS" [template]="preview">
-</app-base-demo>
+```

@@ -1,33 +1,5 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-rerender-snippet',
-  template: `
-  <div id="html" class="col s12 m9 l12">
-    <h4 class="header">HTML</h4>
-    <section [innerHTML]="htmlSnippet" hljsContent=".xml"></section>
-  </div>
-  <div id="ts" class="col s12 m9 l12">
-    <h4 class="header">Typescript</h4>
-    <section [innerHTML]="tsSnippet" hljsContent=".typescript"></section>
-  </div>
-  `
-})
-export class RerenderSnippetComponent {
-  htmlSnippet = `
-<pre>
-<code class="xml highlight">&lt;p&gt;
-  &lt;button type="button" class="btn waves-effect waves-light blue" (click)="rerender()"&gt;
-    Rerender
-  &lt;/button&gt;
-&lt;/p&gt;
-&lt;table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"&gt;&lt;/table&gt;</code>
-</pre>
-  `;
-
-  tsSnippet = `
-<pre>
-<code class="typescript highlight">import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+```typescript
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
@@ -41,7 +13,7 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
 
   dtOptions: DataTables.Settings = {};
 
-  dtTrigger: Subject<any> = new Subject();
+  dtTrigger: Subject = new Subject();
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -76,7 +48,5 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
       this.dtTrigger.next();
     });
   }
-}</code>
-</pre>
-  `;
 }
+```
