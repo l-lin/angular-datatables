@@ -34,8 +34,6 @@ import { RouterLinkComponent } from './advanced/router-link.component';
 // Using extension examples
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
 import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
-import { ColreorderExtensionSnippetComponent } from './extensions/colreorder-extension-snippet.component';
-import { ColreorderExtensionConfigurationComponent } from './extensions/colreorder-extension-configuration.component';
 import { ResponsiveExtensionComponent } from './extensions/responsive-extension.component';
 import { ResponsiveExtensionSnippetComponent } from './extensions/responsive-extension-snippet.component';
 import { ResponsiveExtensionConfigurationComponent } from './extensions/responsive-extension-configuration.component';
@@ -84,8 +82,6 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
 
         ButtonsExtensionComponent,
         ColreorderExtensionComponent,
-        ColreorderExtensionSnippetComponent,
-        ColreorderExtensionConfigurationComponent,
         ResponsiveExtensionComponent,
         ResponsiveExtensionSnippetComponent,
         ResponsiveExtensionConfigurationComponent,

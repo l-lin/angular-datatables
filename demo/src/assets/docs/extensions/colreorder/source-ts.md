@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,13 +6,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'colreorder-extension.component.html'
 })
 export class ColreorderExtensionComponent implements OnInit {
-
-  pageTitle = 'DataTables ColReorder extension';
-  mdIntro = 'assets/docs/extensions/colreorder/intro.md';
-  mdInstall = 'assets/docs/extensions/colreorder/installation.md';
-  mdHTML = 'assets/docs/extensions/colreorder/source-html.md';
-  mdTS = 'assets/docs/extensions/colreorder/source-ts.md';
-
   // Must be declared as "any", not as "DataTables.Settings"
   dtOptions: any = {};
 
@@ -37,3 +31,4 @@ export class ColreorderExtensionComponent implements OnInit {
     };
   }
 }
+```
