@@ -30,8 +30,12 @@
           <markdown [src]="mdHTML"></markdown>
         </div>
         <div id="ts" class="col s12 m9 l12">
-          <h4 class="header">TypeScript</h4>
+          <h4 class="header">{{mdTSHeading}}</h4>
           <markdown [src]="mdTS"></markdown>
+          <ng-container *ngIf="mdTSHigh.length > 0">
+            <h4 class="header">{{mdTSHighHeading}}</h4>
+            <markdown [src]="mdTSHigh"></markdown>
+          </ng-container>
         </div>
       </div>
     </div>

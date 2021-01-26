@@ -22,6 +22,15 @@ export class BaseDemoComponent {
   mdTS: string = '';
 
   @Input()
+  mdTSHeading: string = 'TypeScript';
+
+  @Input()
+  mdTSHigh: string = '';
+
+  @Input()
+  mdTSHighHeading: string = '';
+
+  @Input()
   template: TemplateRef<any> = null;
 
 }
