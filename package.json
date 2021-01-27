@@ -33,7 +33,6 @@
   "typings": "index.d.ts",
   "license": "MIT",
   "peerDependencies": {
-    "core-js": "^3.6.5",
     "datatables.net": "^1.10.22",
     "jquery": ">=3.5.1"
   },
