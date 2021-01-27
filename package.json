@@ -35,7 +35,6 @@
     "@angular/core": "^9.0.6",
     "@angular/platform-browser": "^9.0.6",
     "@angular/platform-browser-dynamic": "^9.0.6",
-    "core-js": "^3.6.4",
     "datatables.net": "^1.10.20",
     "jquery": ">=3.4.1"
   },
