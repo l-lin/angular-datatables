@@ -47,7 +47,12 @@ header, main, footer {
 /* Footer */
 footer.page-footer {
   padding-top: 0;
+  margin-top: 5px;
   background-color: #66ceff;
+}
+
+.footer-copyright {
+  font-weight: 400 !important;
 }
 
 /* Tabs */
@@ -115,4 +120,19 @@ footer.page-footer {
 
 .dataTables_empty {
     display: none;
+}
+
+/** copy to clipboard button css */
+
+div.code-toolbar > .toolbar {
+  opacity: unset !important;
+  top: 0.5em !important;
+  right: 0.5em !important;
+}
+
+div.code-toolbar > .toolbar button {
+  color: black !important;
+  background-color: white !important;
+  padding: 4px !important;
+  font-size: 15px !important;
 }

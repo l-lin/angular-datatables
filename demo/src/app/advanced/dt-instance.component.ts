@@ -7,6 +7,12 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: 'dt-instance.component.html'
 })
 export class DtInstanceComponent implements OnInit {
+
+  pageTitle = 'Getting the DataTable instance';
+  mdIntro = 'assets/docs/advanced/dt-instance/intro.md';
+  mdHTML = 'assets/docs/advanced/dt-instance/source-html.md';
+  mdTS = 'assets/docs/advanced/dt-instance/source-ts.md';
+
   @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
 

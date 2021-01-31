@@ -30,8 +30,9 @@
               "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
               "node_modules/datatables.net-select-dt/css/select.dataTables.css",
               "node_modules/materialize-css/dist/css/materialize.css",
-              "node_modules/highlight.js/styles/github.css",
-              "src/styles.css"
+              "node_modules/prism-themes/themes/prism-material-dark.css",
+              "src/styles.css",
+              "node_modules/prismjs/plugins/toolbar/prism-toolbar.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
@@ -46,10 +47,17 @@
               "node_modules/datatables.net-buttons/js/buttons.print.js",
               "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js",
               "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
-              "node_modules/datatables.net-select/js/dataTables.select.js"
-            ],
-            "allowedCommonJsDependencies": [
-              "highlight.js"
+              "node_modules/datatables.net-select/js/dataTables.select.js",
+              "node_modules/marked/lib/marked.js",
+              "node_modules/prismjs/prism.js",
+              "node_modules/prismjs/components/prism-typescript.min.js",
+              "node_modules/prismjs/components/prism-javascript.min.js",
+              "node_modules/prismjs/components/prism-css.min.js",
+              "node_modules/prismjs/components/prism-json.min.js",
+              "node_modules/prismjs/components/prism-bash.min.js",
+              "node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js",
+              "node_modules/clipboard/dist/clipboard.min.js",
+              "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"
             ]
           },
           "configurations": {

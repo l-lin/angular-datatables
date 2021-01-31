@@ -5,6 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'with-ajax.component.html'
 })
 export class WithAjaxComponent implements OnInit {
+
+  pageTitle = 'With Ajax';
+  mdIntro = 'assets/docs/basic/with-ajax/intro.md';
+  mdHTML = 'assets/docs/basic/with-ajax/source-html.md';
+  mdTS = 'assets/docs/basic/with-ajax/source-ts.md';
+
   dtOptions: DataTables.Settings = {};
 
   ngOnInit(): void {

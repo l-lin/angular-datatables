@@ -5,6 +5,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'buttons-extension.component.html'
 })
 export class ButtonsExtensionComponent implements OnInit {
+
+  pageTitle = 'DataTables Buttons extension';
+  mdIntro = 'assets/docs/extensions/buttons/intro.md';
+  mdInstall = 'assets/docs/extensions/buttons/installation.md';
+  mdHTML = 'assets/docs/extensions/buttons/source-html.md';
+  mdTS = 'assets/docs/extensions/buttons/source-ts.md';
+
+
   // Must be declared as "any", not as "DataTables.Settings"
   dtOptions: any = {};
 

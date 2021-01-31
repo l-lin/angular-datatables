@@ -8,6 +8,12 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: 'custom-range-search.component.html'
 })
 export class CustomRangeSearchComponent implements OnDestroy, OnInit {
+
+  pageTitle = 'Custom filtering - Range search';
+  mdIntro = 'assets/docs/advanced/custom-range/intro.md';
+  mdHTML = 'assets/docs/advanced/custom-range/source-html.md';
+  mdTS = 'assets/docs/advanced/custom-range/source-ts.md';
+
   @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
   min: number;

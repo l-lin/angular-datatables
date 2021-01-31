@@ -7,6 +7,13 @@ import { Subject } from 'rxjs';
   templateUrl: 'rerender.component.html'
 })
 export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
+
+  pageTitle = 'Rerender';
+  mdIntro = 'assets/docs/advanced/rerender/intro.md';
+  mdHTML = 'assets/docs/advanced/rerender/source-html.md';
+  mdTS = 'assets/docs/advanced/rerender/source-ts.md';
+
+
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
 

@@ -25,6 +25,7 @@ import { ColreorderExtensionComponent } from './extensions/colreorder-extension.
 import { ResponsiveExtensionComponent } from './extensions/responsive-extension.component';
 import { SelectExtensionComponent } from './extensions/select-extension.component';
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
+import { FAQComponent } from './f-a-q/f-a-q.component';
 
 const routes: Routes = [
     {
@@ -115,6 +116,10 @@ const routes: Routes = [
     {
         path: 'extensions/select',
         component: SelectExtensionComponent
+    },
+    {
+        path: 'faq',
+        component: FAQComponent
     }
 ];
 

@@ -1,35 +1,8 @@
-<div class="section banner">
-  <div class="container">
-    <div class="row">
-      <div class="col s12 m9">
-        <h1 class="header center-on-small-only">Row click event</h1>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col s12 m9 l12">
-      <div class="section">
-        <p class="caption">
-          Simple example to bind a click event on each row of the DataTable with the help of <a href="http://datatables.net/reference/option/rowCallback">rowCallback</a>.
-        </p>
-        <div class="col s12 m9 l12 showcase-tabs">
-          <ul class="anchor-links">
-            <li class="col s4"><a class="waves-effect btn" href="#preview">Preview</a></li>
-            <li class="col s4"><a class="waves-effect btn" href="#html">HTML</a></li>
-            <li class="col s3"><a class="waves-effect btn" href="#ts">Typescript</a></li>
-          </ul>
-        </div>
-        <div id="preview" class="col s12 m9 l12">
-          <h4 class="header">Preview</h4>
-          <blockquote>Please click on a row</blockquote>
-          <p class="text-danger">You clicked on: <strong>{{ message }}</strong></p>
-          <br />
-          <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
-        </div>
-        <app-row-click-event-snippet></app-row-click-event-snippet>
-      </div>
-    </div>
-  </div>
-</div>
+<ng-template #preview>
+<blockquote>Please click on a row</blockquote>
+<p class="text-danger">You clicked on: <strong>{{ message }}</strong></p>
+<br />
+<table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+</ng-template>
+<app-base-demo [pageTitle]="pageTitle" [mdIntro]="mdIntro" [mdHTML]="mdHTML" [mdTS]="mdTS" [template]="preview">
+</app-base-demo>

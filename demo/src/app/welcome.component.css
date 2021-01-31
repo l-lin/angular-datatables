@@ -2,3 +2,19 @@
   height: 140px;
   padding: 10px;
 }
+
+.feature-item {
+  text-align: center;
+}
+
+.material-icons {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  color: white;
+  background-color: #039be5;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  font-size: 3em;
+  line-height: 1.8;
+}

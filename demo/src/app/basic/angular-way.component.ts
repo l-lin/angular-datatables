@@ -3,15 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Person } from '../person';
 
-import 'rxjs/add/operator/map';
-
 @Component({
   selector: 'app-angular-way',
   templateUrl: 'angular-way.component.html'
 })
 export class AngularWayComponent implements OnDestroy, OnInit {
+
+  pageTitle = 'Angular way';
+  mdIntro = 'assets/docs/basic/angular-way/intro.md';
+  mdHTML = 'assets/docs/basic/angular-way/source-html.md';
+  mdTS = 'assets/docs/basic/angular-way/source-ts.md';
+
   dtOptions: DataTables.Settings = {};
   persons: Person[] = [];
+
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
