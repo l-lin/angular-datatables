@@ -7,10 +7,14 @@ assignees: ''
 
 ---
 
+> **Note:** We offer assistance for Angular >=8 projects only. Do not open an issue if this is regarding AngularJS issue.
+
 **Describe the bug**
+
 A clear and concise description of what the bug is.
 
 **To Reproduce**
+
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
@@ -18,9 +22,11 @@ Steps to reproduce the behavior:
 4. See error
 
 **Expected behavior**
+
 A clear and concise description of what you expected to happen.
 
 **Screenshots**
+
 If applicable, add screenshots to help explain your problem.
 
 **Environment**
@@ -32,4 +38,5 @@ If applicable, add screenshots to help explain your problem.
 - angular-datatables version: 
 
 **Additional context**
+
 Add any other context about the problem here.

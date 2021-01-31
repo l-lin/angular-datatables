@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+> **Note:** We offer assistance for Angular >=8 projects only. Do not open an issue if this is regarding AngularJS issue.
+
 **Be specific and imagine you’re asking a question to another person**
 Summarize the problem:
 - Include details about your goal
