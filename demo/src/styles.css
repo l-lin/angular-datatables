@@ -46,8 +46,13 @@ header, main, footer {
 
 /* Footer */
 footer.page-footer {
-  padding-top: 5px;
+  padding-top: 0;
+  margin-top: 5px;
   background-color: #66ceff;
+}
+
+.footer-copyright {
+  font-weight: 400 !important;
 }
 
 /* Tabs */
