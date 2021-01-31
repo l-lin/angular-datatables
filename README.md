@@ -3,7 +3,6 @@
 ![build](https://github.com/l-lin/angular-datatables/workflows/build/badge.svg)
 [![npm](https://img.shields.io/npm/v/angular-datatables.svg)][npm-link]
 [![npm](https://img.shields.io/npm/dm/angular-datatables.svg)][npm-link]
-[![Maintainers Wanted](https://img.shields.io/badge/maintainers-wanted-red.svg)](https://github.com/pickhardt/maintainers-wanted)
 
 > [Angular](https://angular.io/) + [DataTables](https://datatables.net/)
 

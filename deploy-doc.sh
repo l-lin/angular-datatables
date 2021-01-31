@@ -47,14 +47,6 @@ rm -rf *
 info "Copy the doc to the gh-pages branch"
 cp -r /tmp/angular-datatables-demo/* /tmp/$project_name
 
-info "Download archives vendor from angular1 branch"
-cd /tmp
-rm -rf angular-datatables-angular1
-wget https://github.com/l-lin/angular-datatables/archive/angular1.zip
-unzip angular1.zip
-cp -r angular-datatables-angular1/vendor $project_name/archives
-cp -r angular-datatables-angular1/dist $project_name/archives
-
 info "Commit gh-pages"
 cd /tmp/$project_name
 git add -A && git commit -m "$gitmessage"
