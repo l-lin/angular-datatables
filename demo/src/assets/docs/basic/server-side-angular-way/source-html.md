@@ -1,4 +1,4 @@
-```typescript
+```html
 <table datatable [dtOptions]="dtOptions" class="row-border hover">
   <thead>
     <tr>
