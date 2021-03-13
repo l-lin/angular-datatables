@@ -39,9 +39,10 @@ export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          if (that.search() !== this['value']) {
+          let thisInput = this as HTMLInputElement;
+          if (that.search() !== thisInput.value) {
             that
-              .search(this['value'])
+              .search(thisInput.value)
               .draw();
           }
         });
