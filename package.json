@@ -30,13 +30,7 @@
   "typings": "index.d.ts",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^10.2.2",
-    "@angular/compiler": "^10.2.2",
-    "@angular/core": "^10.2.2",
-    "@angular/platform-browser": "^10.2.2",
-    "@angular/platform-browser-dynamic": "^10.2.2",
-    "datatables.net": "^1.10.22",
-    "jquery": ">=3.5.1"
+    "@angular/core": "^10.0.0"
   },
   "devDependencies": {
     "@angular-devkit/core": "^10.2.0",
