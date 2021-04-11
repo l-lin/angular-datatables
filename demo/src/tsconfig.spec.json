@@ -4,6 +4,7 @@
     "declaration": false,
     "moduleResolution": "node",
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "target": "es6",
