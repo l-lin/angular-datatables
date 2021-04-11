@@ -4,9 +4,6 @@
     "declaration": false,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "lib": [
-      "es2016"
-    ],
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "target": "es6",
