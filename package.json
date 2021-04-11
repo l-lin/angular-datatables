@@ -33,8 +33,7 @@
   "typings": "index.d.ts",
   "license": "MIT",
   "peerDependencies": {
-    "datatables.net": "^1.10.22",
-    "jquery": ">=3.5.1"
+    "@angular/core": "^11"
   },
   "devDependencies": {
     "@angular-devkit/core": "^11.0.5",
