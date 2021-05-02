@@ -1,0 +1,12 @@
+<ng-template #preview>
+  <blockquote>Please click on Action button</blockquote>
+  <p class="text-danger">You clicked on: <strong>{{ message }}</strong></p>
+  <br />
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"></table>
+</ng-template>
+<app-base-demo [pageTitle]="pageTitle" [mdIntro]="mdIntro" [mdHTML]="mdHTML" [mdTS]="mdTS" [template]="preview">
+</app-base-demo>
+
+<ng-template #demoNg let-data="adtData" let-emitter="captureEvents">
+  <app-demo-ng-template-ref [data]="data" (emitter)="emitter($event)"></app-demo-ng-template-ref>
+</ng-template>

@@ -26,6 +26,7 @@ import { ResponsiveExtensionComponent } from './extensions/responsive-extension.
 import { SelectExtensionComponent } from './extensions/select-extension.component';
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
 import { FAQComponent } from './f-a-q/f-a-q.component';
+import { UsingNgTemplateRefComponent } from './advanced/using-ng-template-ref.component';
 
 const routes: Routes = [
     {
@@ -100,6 +101,10 @@ const routes: Routes = [
     {
         path: 'advanced/using-pipe',
         component: UsingNgPipeComponent
+    },
+    {
+        path: 'advanced/using-template-ref',
+        component: UsingNgTemplateRefComponent
     },
     {
         path: 'extensions/buttons',
