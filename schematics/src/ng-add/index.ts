@@ -1,5 +1,5 @@
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
-import { addPackageToPackageJson } from './utils';
+import { addAssetToAngularJson, addPackageToPackageJson } from './utils';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
 export default function (_options: any): Rule {
@@ -46,29 +46,25 @@ function installPackageJsonDependencies(): Rule {
 
 function updateAngularJsonFile() {
   return (tree: Tree, context: SchematicContext) => {
-    try {
-      const angularJsonFile = tree.read('angular.json');
 
-      if (angularJsonFile) {
-        const angularJsonFileObject = JSON.parse(angularJsonFile.toString('utf-8'));
-        const project = Object.keys(angularJsonFileObject['projects'])[0];
-        const projectObject = angularJsonFileObject.projects[project];
-        const targets = projectObject.targets ? projectObject.targets : projectObject.architect;
+    /**
+     * @param path: asset path to be stored inside angular.json
+     * @param target: specify whether asset is stylesheet or script file
+     * @param fancyName: name to be displayed for asset on log
+     */
+    const assets = [
+      { path: 'node_modules/datatables.net-dt/css/jquery.dataTables.css', target: 'styles', fancyName: 'DataTables.net Core CSS' },
+      { path: 'node_modules/jquery/dist/jquery.js', target: 'scripts', fancyName: 'jQuery Core' },
+      { path: 'node_modules/datatables.net/js/jquery.dataTables.js', target: 'scripts', fancyName: 'DataTables.net Core JS' },
+    ];
 
-        const styles = targets.build.options.styles;
-        const scripts = targets.build.options.scripts;
-
-        styles.push('node_modules/datatables.net-dt/css/jquery.dataTables.css');
-        scripts.push('node_modules/jquery/dist/jquery.js');
-        scripts.push('node_modules/datatables.net/js/jquery.dataTables.js');
-
-        tree.overwrite('angular.json', JSON.stringify(angularJsonFileObject, null, 2));
-        context.logger.log('info', `✅️ Updated angular.json`);
+    assets.forEach(asset => {
+      const result = addAssetToAngularJson(tree, asset.target, asset.path);
+      if (result) {
+        context.logger.log('info', `✅️ Added "${asset.fancyName}" into angular.json`);
       } else {
-        context.logger.log('error', '🚫 Failed to locate angular.json else.');
+        context.logger.log('info', `ℹ️  Skipped adding "${asset.fancyName}" into angular.json`);
       }
-    } catch (e) {
-      context.logger.log('error', `🚫 Failed to update angular.json foobar.`);
-    }
+    });
   };
 }

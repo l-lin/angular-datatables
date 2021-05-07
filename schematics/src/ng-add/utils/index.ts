@@ -134,6 +134,30 @@ export function addPackageToPackageJson(host: Tree, pkg: string, version: string
   return false;
 }
 
+export function addAssetToAngularJson(host: Tree, assetType: string, assetPath: string): boolean {
+  /* tslint:disable-next-line: no-non-null-assertion */
+  const sourceText = host.read('angular.json')!.toString('utf-8');
+  const json = JSON.parse(sourceText);
+
+  if (!json) return false;
+
+  const projectName = Object.keys(json['projects'])[0];
+  const projectObject = json.projects[projectName];
+  const targets = projectObject.targets || projectObject.architect;
+
+  const targetLocation: string[] = targets.build.options[assetType];
+
+  // update UI that `assetPath` wasn't re-added to angular.json
+  if (targetLocation.indexOf(assetPath) != -1) return false;
+
+  targetLocation.push(assetPath);
+
+  host.overwrite('angular.json', JSON.stringify(json, null, 2));
+
+  return true;
+
+}
+
 export function removePackageJsonDependency(tree: Tree, dependencyName: string) {
   const packageContent = JSON.parse(getFileContent(tree, '/package.json'));
   delete packageContent.dependencies[dependencyName];
