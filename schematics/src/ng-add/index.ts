@@ -23,8 +23,12 @@ function addPackageJsonDependencies() {
     ];
 
     dependencies.forEach(dependency => {
-      addPackageToPackageJson(tree, dependency.name, dependency.version, dependency.isDev);
-      context.logger.log('info', `✅️ Added "${dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies' }"`);
+      const result = addPackageToPackageJson(tree, dependency.name, dependency.version, dependency.isDev);
+      if (result) {
+        context.logger.log('info', `✅️ Added "${dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies'}"`);
+      } else {
+        context.logger.log('info', `ℹ️  Skipped adding "${dependency.name}" into package.json`);
+      }
     });
     return tree;
   };

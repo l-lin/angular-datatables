@@ -27,7 +27,7 @@ export function installPackageJsonDependencies(): Rule {
 }
 
 export function addStyleToTarget(project: WorkspaceProject, targetName: string, host: Tree,
-                                 assetPath: string, workspace: WorkspaceSchema) {
+  assetPath: string, workspace: WorkspaceSchema) {
 
   const targetOptions = getProjectTargetOptions(project, targetName);
 
@@ -99,7 +99,7 @@ function sortObjectByKeys(obj: { [key: string]: string }) {
  * Note: This function accepts an additional parameter `isDevDependency` so we
  * can place a given dependency in the correct dependencies array inside package.json
  */
-export function addPackageToPackageJson(host: Tree, pkg: string, version: string, isDevDependency = false): Tree {
+export function addPackageToPackageJson(host: Tree, pkg: string, version: string, isDevDependency = false): boolean {
 
   if (host.exists('package.json')) {
     /* tslint:disable-next-line: no-non-null-assertion */
@@ -114,20 +114,24 @@ export function addPackageToPackageJson(host: Tree, pkg: string, version: string
       json.dependencies = {};
     }
 
+    // update UI that `pkg` wasn't re-added to package.json
+    if (json.dependencies[pkg] || json.devDependencies[pkg]) return false;
+
     if (!json.dependencies[pkg] && !isDevDependency) {
       json.dependencies[pkg] = version;
       json.dependencies = sortObjectByKeys(json.dependencies);
     }
 
-    if(!json.devDependencies[pkg] && isDevDependency) {
+    if (!json.devDependencies[pkg] && isDevDependency) {
       json.devDependencies[pkg] = version;
       json.devDependencies = sortObjectByKeys(json.devDependencies);
     }
 
     host.overwrite('package.json', JSON.stringify(json, null, 2));
+    return true;
   }
 
-  return host;
+  return false;
 }
 
 export function removePackageJsonDependency(tree: Tree, dependencyName: string) {
