@@ -1,26 +1,34 @@
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
 import { addAssetToAngularJson, addPackageToPackageJson } from './utils';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { IADTSchematicsOptions } from './models/schematics-options';
+import { ADT_SUPPORTED_STYLES, ADTStyleOptions } from './models/style-options';
 
-export default function (_options: any): Rule {
+export default function (_options: IADTSchematicsOptions): Rule {
   return chain([
-    addPackageJsonDependencies(),
+    addPackageJsonDependencies(_options),
     installPackageJsonDependencies(),
-    updateAngularJsonFile()
+    updateAngularJsonFile(_options)
   ]);
 }
 
-function addPackageJsonDependencies() {
+function addPackageJsonDependencies(options: IADTSchematicsOptions) {
   return (tree: Tree, context: SchematicContext) => {
     // Update package.json
+    const styleDeps = ADT_SUPPORTED_STYLES.find(e => e.style == options.style);
+
     const dependencies = [
       { version: '^3.4.1', name: 'jquery', isDev: false },
       { version: '^1.10.20', name: 'datatables.net', isDev: false },
-      { version: '^1.10.20', name: 'datatables.net-dt', isDev: false },
-      { version: '^11.0.0', name: 'angular-datatables', isDev: false },
       { version: '^3.3.33', name: '@types/jquery', isDev: true },
       { version: '^1.10.18', name: '@types/datatables.net', isDev: true }
     ];
+
+    if (styleDeps) {
+      if (styleDeps.style != ADTStyleOptions.DT)
+        context.logger.log('warn', 'Your project needs Bootstrap CSS installed and configured for changes to take affect.');
+      styleDeps.packageJson.forEach(e => dependencies.push(e));
+    }
 
     dependencies.forEach(dependency => {
       const result = addPackageToPackageJson(tree, dependency.name, dependency.version, dependency.isDev);
@@ -44,19 +52,19 @@ function installPackageJsonDependencies(): Rule {
 }
 
 
-function updateAngularJsonFile() {
+function updateAngularJsonFile(options: IADTSchematicsOptions) {
   return (tree: Tree, context: SchematicContext) => {
 
-    /**
-     * @param path: asset path to be stored inside angular.json
-     * @param target: specify whether asset is stylesheet or script file
-     * @param fancyName: name to be displayed for asset on log
-     */
+    const styleDeps = ADT_SUPPORTED_STYLES.find(e => e.style == options.style);
+
     const assets = [
-      { path: 'node_modules/datatables.net-dt/css/jquery.dataTables.css', target: 'styles', fancyName: 'DataTables.net Core CSS' },
       { path: 'node_modules/jquery/dist/jquery.js', target: 'scripts', fancyName: 'jQuery Core' },
       { path: 'node_modules/datatables.net/js/jquery.dataTables.js', target: 'scripts', fancyName: 'DataTables.net Core JS' },
     ];
+
+    if (styleDeps) {
+      styleDeps.angularJson.forEach(e => assets.push(e));
+    }
 
     assets.forEach(asset => {
       const result = addAssetToAngularJson(tree, asset.target, asset.path);
