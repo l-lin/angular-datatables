@@ -11,6 +11,27 @@
       "$default": {
         "$source": "projectName"
       }
+    },
+    "style": {
+      "description": "The styling library to use for Datatables.",
+      "type": "string",
+      "default": "dt",
+      "enum": ["dt", "bs3", "bs4"],
+      "x-prompt": {
+        "message": "Which styling library would you like to use for DataTables?",
+        "type": "list",
+        "items": [
+          { "value": "dt", "label": "DataTables (Default)" },
+          {
+            "value": "bs3",
+            "label": "Bootstrap 3"
+          },
+          {
+            "value": "bs4",
+            "label": "Bootstrap 4"
+          }
+        ]
+      }
     }
   }
 }

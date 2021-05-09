@@ -1,30 +1,42 @@
 import { Rule, SchematicContext, Tree, chain } from '@angular-devkit/schematics';
-import { addPackageToPackageJson } from './utils';
+import { addAssetToAngularJson, addPackageToPackageJson } from './utils';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { IADTSchematicsOptions } from './models/schematics-options';
+import { ADT_SUPPORTED_STYLES, ADTStyleOptions } from './models/style-options';
 
-export default function (_options: any): Rule {
+export default function (_options: IADTSchematicsOptions): Rule {
   return chain([
-    addPackageJsonDependencies(),
+    addPackageJsonDependencies(_options),
     installPackageJsonDependencies(),
-    updateAngularJsonFile()
+    updateAngularJsonFile(_options)
   ]);
 }
 
-function addPackageJsonDependencies() {
+function addPackageJsonDependencies(options: IADTSchematicsOptions) {
   return (tree: Tree, context: SchematicContext) => {
     // Update package.json
+    const styleDeps = ADT_SUPPORTED_STYLES.find(e => e.style == options.style);
+
     const dependencies = [
       { version: '^3.4.1', name: 'jquery', isDev: false },
       { version: '^1.10.20', name: 'datatables.net', isDev: false },
-      { version: '^1.10.20', name: 'datatables.net-dt', isDev: false },
-      { version: '^11.0.0', name: 'angular-datatables', isDev: false },
       { version: '^3.3.33', name: '@types/jquery', isDev: true },
       { version: '^1.10.18', name: '@types/datatables.net', isDev: true }
     ];
 
+    if (styleDeps) {
+      if (styleDeps.style != ADTStyleOptions.DT)
+        context.logger.log('warn', 'Your project needs Bootstrap CSS installed and configured for changes to take affect.');
+      styleDeps.packageJson.forEach(e => dependencies.push(e));
+    }
+
     dependencies.forEach(dependency => {
-      addPackageToPackageJson(tree, dependency.name, dependency.version, dependency.isDev);
-      context.logger.log('info', `✅️ Added "${dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies' }"`);
+      const result = addPackageToPackageJson(tree, dependency.name, dependency.version, dependency.isDev);
+      if (result) {
+        context.logger.log('info', `✅️ Added "${dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies'}"`);
+      } else {
+        context.logger.log('info', `ℹ️  Skipped adding "${dependency.name}" into package.json`);
+      }
     });
     return tree;
   };
@@ -40,31 +52,27 @@ function installPackageJsonDependencies(): Rule {
 }
 
 
-function updateAngularJsonFile() {
+function updateAngularJsonFile(options: IADTSchematicsOptions) {
   return (tree: Tree, context: SchematicContext) => {
-    try {
-      const angularJsonFile = tree.read('angular.json');
 
-      if (angularJsonFile) {
-        const angularJsonFileObject = JSON.parse(angularJsonFile.toString('utf-8'));
-        const project = Object.keys(angularJsonFileObject['projects'])[0];
-        const projectObject = angularJsonFileObject.projects[project];
-        const targets = projectObject.targets ? projectObject.targets : projectObject.architect;
+    const styleDeps = ADT_SUPPORTED_STYLES.find(e => e.style == options.style);
 
-        const styles = targets.build.options.styles;
-        const scripts = targets.build.options.scripts;
+    const assets = [
+      { path: 'node_modules/jquery/dist/jquery.js', target: 'scripts', fancyName: 'jQuery Core' },
+      { path: 'node_modules/datatables.net/js/jquery.dataTables.js', target: 'scripts', fancyName: 'DataTables.net Core JS' },
+    ];
 
-        styles.push('node_modules/datatables.net-dt/css/jquery.dataTables.css');
-        scripts.push('node_modules/jquery/dist/jquery.js');
-        scripts.push('node_modules/datatables.net/js/jquery.dataTables.js');
-
-        tree.overwrite('angular.json', JSON.stringify(angularJsonFileObject, null, 2));
-        context.logger.log('info', `✅️ Updated angular.json`);
-      } else {
-        context.logger.log('error', '🚫 Failed to locate angular.json else.');
-      }
-    } catch (e) {
-      context.logger.log('error', `🚫 Failed to update angular.json foobar.`);
+    if (styleDeps) {
+      styleDeps.angularJson.forEach(e => assets.push(e));
     }
+
+    assets.forEach(asset => {
+      const result = addAssetToAngularJson(tree, asset.target, asset.path);
+      if (result) {
+        context.logger.log('info', `✅️ Added "${asset.fancyName}" into angular.json`);
+      } else {
+        context.logger.log('info', `ℹ️  Skipped adding "${asset.fancyName}" into angular.json`);
+      }
+    });
   };
 }
