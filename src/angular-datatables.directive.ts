@@ -7,7 +7,7 @@
 
 import { Directive, ElementRef, Input, OnDestroy, OnInit, NgZone, Renderer2, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ADTSettings, ADTTemplateRefContext } from './models/settings';
+import { ADTSettings } from './models/settings';
 
 @Directive({
   selector: '[datatable]'
@@ -63,8 +63,11 @@ export class DataTableDirective implements OnDestroy, OnInit {
     }
   }
 
-  private displayTable(): void {
+  private async displayTable() {
     const self = this;
+    // resolve dtOptions if Promise was provided.
+    if ('then' in this.dtOptions) this.dtOptions = await Promise.resolve(this.dtOptions);
+    // process request
     this.dtInstance = this.ngZone.runTask(_ => {
       // Assign DT properties here
       let options: ADTSettings = {
