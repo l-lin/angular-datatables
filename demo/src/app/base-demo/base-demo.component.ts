@@ -10,30 +10,34 @@ export class BaseDemoComponent {
   constructor() { }
 
   @Input()
-  pageTitle: string = '';
+  pageTitle = '';
 
   @Input()
-  mdIntro: string = '';
+  mdIntro = '';
 
   @Input()
-  mdInstall: string = '';
+  mdInstall = '';
 
   @Input()
-  mdHTML: string = '';
+  mdHTML = '';
 
   @Input()
-  mdTS: string = '';
+  mdTS = '';
 
   @Input()
-  mdTSHeading: string = 'TypeScript';
+  mdTSHeading = 'TypeScript';
 
   @Input()
-  mdTSHigh: string = '';
+  mdTSHigh = '';
 
   @Input()
-  mdTSHighHeading: string = '';
+  mdTSHighHeading = '';
 
   @Input()
   template: TemplateRef<any> = null;
+
+  scrollToElement($elem): void {
+    $elem.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+  }
 
 }
