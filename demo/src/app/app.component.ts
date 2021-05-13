@@ -12,5 +12,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     $.fn.dataTable.ext.errMode = 'none';
+    $('.button-collapse').sideNav({
+      closeOnClick: true
+    });
   }
 }
