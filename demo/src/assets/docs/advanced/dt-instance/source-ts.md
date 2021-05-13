@@ -14,7 +14,7 @@ export class DtInstanceComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
 
   displayToConsole(datatableElement: DataTableDirective): void {
-    datatableElement.dtInstance.then((dtInstance: DataTables.Api) => console.log(dtInstance));
+    console.log(datatableElement.dtInstance);
   }
 
   ngOnInit(): void {

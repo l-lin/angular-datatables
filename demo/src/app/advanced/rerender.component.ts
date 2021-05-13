@@ -14,7 +14,7 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   mdTS = 'assets/docs/advanced/rerender/source-ts.md';
 
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
@@ -47,11 +47,9 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
+    // Destroy the table first
+    this.dtElement.dtInstance.destroy();
+    // Call the dtTrigger to rerender again
+    this.dtTrigger.next();
   }
 }

@@ -19,9 +19,7 @@ export class MultipleTablesComponent implements OnInit {
 
   displayToConsole(): void {
     this.dtElements.forEach((dtElement: DataTableDirective, index: number) => {
-      dtElement.dtInstance.then((dtInstance: any) => {
-        console.log(`The DataTable ${index} instance ID is: ${dtInstance.table().node().id}`);
-      });
+      console.log(`The DataTable ${index} instance ID is: ${(dtElement.dtInstance as any).table().node().id}`)
     });
   }
 

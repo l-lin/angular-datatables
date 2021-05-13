@@ -13,7 +13,7 @@ export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit
   mdHTML = 'assets/docs/advanced/indi-col-filter/source-html.md';
   mdTS = 'assets/docs/advanced/indi-col-filter/source-ts.md';
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
 
   dtOptions: DataTables.Settings = {};
@@ -35,16 +35,14 @@ export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit
   }
 
   ngAfterViewInit(): void {
-    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.columns().every(function () {
-        const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (that.search() !== this['value']) {
-            that
-              .search(this['value'])
-              .draw();
-          }
-        });
+    this.datatableElement.dtInstance.columns().every(function () {
+      const that = this;
+      $('input', this.footer()).on('keyup change', function () {
+        if (that.search() !== this['value']) {
+          that
+            .search(this['value'])
+            .draw();
+        }
       });
     });
   }

@@ -57,9 +57,7 @@ export class CustomRangeSearchComponent implements OnDestroy, OnInit {
   }
 
   filterById(): boolean {
-    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.draw();
-    });
+    this.datatableElement.dtInstance.draw();
     return false;
   }
 }
