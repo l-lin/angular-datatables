@@ -80,7 +80,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
             colsWithPipe.forEach(el => {
               const pipe = el.ngPipeInstance;
               // find index of column using `data` attr
-              const i = columns.findIndex(e => e.data == el.data);
+              const i = columns.findIndex(e => e.data === el.data);
               // get <td> element which holds data using index
               const rowFromCol = row.childNodes.item(i);
               // Transform data with Pipe
