@@ -95,7 +95,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
             colsWithTemplate.forEach(el => {
               const { ref, context } = el.ngTemplateRef;
               // get <td> element which holds data using index
-              const index = columns.findIndex(e => e.data == el.data);
+              const columnIndex = columns.findIndex(e => e.data === el.data);
               const cellFromIndex = row.childNodes.item(index);
               // render onto DOM
               // finalize context to be sent to user
