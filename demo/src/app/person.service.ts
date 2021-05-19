@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Person } from './person';
 
-import * as data from '../data/data.json';
+import data from '../data/data.json';
 
 @Injectable()
 export class PersonService {
