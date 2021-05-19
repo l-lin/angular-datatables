@@ -15,7 +15,6 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "aot": true,
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
@@ -58,7 +57,13 @@
               "node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js",
               "node_modules/clipboard/dist/clipboard.min.js",
               "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"
-            ]
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
