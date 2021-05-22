@@ -32,18 +32,16 @@
   "module": "index.js",
   "typings": "index.d.ts",
   "license": "MIT",
-  "peerDependencies": {
-    "@angular/core": "^11"
-  },
+  "peerDependencies": {},
   "devDependencies": {
-    "@angular-devkit/core": "^11.0.5",
-    "@angular-devkit/schematics": "^11.0.5",
-    "@angular/common": "^11.0.5",
-    "@angular/compiler": "^11.0.5",
-    "@angular/compiler-cli": "^11.0.5",
-    "@angular/core": "^11.0.5",
-    "@angular/platform-browser": "^11.0.5",
-    "@angular/platform-browser-dynamic": "^11.0.5",
+    "@angular-devkit/core": "^12.0.0",
+    "@angular-devkit/schematics": "^12.0.0",
+    "@angular/common": "^12.0.0",
+    "@angular/compiler": "^12.0.0",
+    "@angular/compiler-cli": "^12.0.0",
+    "@angular/core": "^12.0.0",
+    "@angular/platform-browser": "^12.0.0",
+    "@angular/platform-browser-dynamic": "^12.0.0",
     "@types/datatables.net": "~1.10.19",
     "@types/jasmine": "~3.6.1",
     "@types/jquery": "~3.5.4",
@@ -67,8 +65,8 @@
     "rollup-plugin-uglify": "^6.0.4",
     "rxjs": "^6.6.3",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.5",
-    "zone.js": "~0.11.3"
+    "typescript": "~4.2.4",
+    "zone.js": "~0.11.4"
   },
   "engines": {
     "node": ">=8.9.0"
@@ -82,6 +80,6 @@
   },
   "homepage": "https://github.com/l-lin/angular-datatables#readme",
   "dependencies": {
-    "@angular/cli": "^11.0.5"
+    "@angular/cli": "^12.0.0"
   }
 }

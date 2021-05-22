@@ -2,7 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "declaration": false,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "module": "commonjs",
     "moduleResolution": "node",
