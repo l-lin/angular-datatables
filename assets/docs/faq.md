@@ -32,7 +32,7 @@ It could be many things but in general it could be because you're using "Angular
 
 This has been fixed in newer version of `angular-datatables`. You can find latest releases for your project's Angular version on [Releases](https://github.com/l-lin/angular-datatables/releases) page.
 
-##### 'DataTables warning: table id=xx - Cannot reinitialise DataTable. For more information about this error, please see http://datatables.net/tn/3*'
+##### 'DataTables warning: table id=xx - Cannot reinitialise DataTable. For more information about this error, please see http://datatables.net/tn/3'
 
 This error occurs when you're trying to change `dtOptions` on a table which has been previously initialised by DataTables.
 If you're using a shared table component, just call `destroy()` method on `ngOnDestroy` of the component.
