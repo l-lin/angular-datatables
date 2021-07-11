@@ -51,25 +51,16 @@ describe('WithAjaxComponent', () => {
     expect(app.pageTitle).toBe('With Ajax');
   }));
 
-  it('should have table populated via AJAX', function (done) {
+  it('should have table populated via AJAX', async () => {
     const app = fixture.debugElement.componentInstance as WithAjaxComponent;
+    await fixture.whenStable();
     expect(app.dtOptions.columns).toBeDefined();
     const query = fixture.debugElement.query(By.directive(DataTableDirective));
     const dir = query.injector.get(DataTableDirective);
     expect(dir).toBeTruthy();
-    dir.dtInstance
-      .then(_ => {
-        // TODO use table instance to figure this out
-        expect($('#preview table tbody').children().length).toBeGreaterThan(0);
-        done();
-      })
-      .catch(e => {
-        done.fail(e);
-      });
-    done();
-    // // check table is populated
-    // setTimeout(() => {
-    // }, 700);
+    const instance = await dir.dtInstance;
+    fixture.detectChanges();
+    expect(instance.rows().length).toBeGreaterThan(0);
   });
 
 });
