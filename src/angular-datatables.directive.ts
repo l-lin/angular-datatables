@@ -76,22 +76,28 @@ export class DataTableDirective implements OnDestroy, OnInit {
           return;
         }
         // Using setTimeout as a "hack" to be "part" of NgZone
-        setTimeout(() => {
+        setTimeout.call(this, () => {
           // Assign DT properties here
           let options: ADTSettings = {
             rowCallback: (row, data, index) => {
               if (resolvedDTOptions.columns) {
-                const columns = resolvedDTOptions.columns;
+                // `colVis` extension support
+                // See: https://github.com/l-lin/angular-datatables/issues/1576
+                const visibleTableColumns = (this.dt.columns().visible() as any).toArray();
+                const columns = resolvedDTOptions.columns.filter((_,i)  => visibleTableColumns[i]);
+
+                // Apply transforms
                 this.applyNgPipeTransform(row, columns);
                 this.applyNgRefTemplate(row, columns, data);
-              }
 
               // run user specified row callback if provided.
               if (resolvedDTOptions.rowCallback) {
                 resolvedDTOptions.rowCallback(row, data, index);
               }
             }
-          };
+          }
+
+        };
           // merge user's config with ours
           options = Object.assign({}, resolvedDTOptions, options);
           this.dt = $(this.el.nativeElement).DataTable(options);
