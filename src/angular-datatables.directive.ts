@@ -72,7 +72,10 @@ export class DataTableDirective implements OnDestroy, OnInit {
           let options: ADTSettings = {
             rowCallback: (row, data, index) => {
               if (dtOptions.columns) {
-                const columns = dtOptions.columns;
+                // `colVis` extension support
+                // See: https://github.com/l-lin/angular-datatables/issues/1576
+                const visibleTableColumns = (self.dt.columns().visible() as any).toArray();
+                const columns = dtOptions.columns.filter((_,i)  => visibleTableColumns[i]);
                 // Filter columns with pipe declared
                 const colsWithPipe = columns.filter(x => x.ngPipeInstance && !x.ngTemplateRef);
                 // Iterate
