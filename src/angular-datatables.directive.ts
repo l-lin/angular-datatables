@@ -24,7 +24,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
    * Useful when rendering angular rendered DOM
    */
   @Input()
-  dtTrigger: Subject<any>;
+  dtTrigger: Subject<ADTSettings>;
 
   /**
    * The DataTable instance built by the jQuery library [DataTables](datatables.net).
@@ -45,11 +45,11 @@ export class DataTableDirective implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     if (this.dtTrigger) {
-      this.dtTrigger.subscribe(() => {
-        this.displayTable();
+      this.dtTrigger.subscribe((options) => {
+        this.displayTable(options);
       });
     } else {
-      this.displayTable();
+      this.displayTable(null);
     }
   }
 
@@ -62,10 +62,19 @@ export class DataTableDirective implements OnDestroy, OnInit {
     }
   }
 
-  private displayTable(): void {
+  private displayTable(dtOptions: ADTSettings): void {
     const self = this;
+    // assign new options if provided
+    if (dtOptions) {
+      this.dtOptions = dtOptions;
+    }
     this.dtInstance = new Promise((resolve, reject) => {
       Promise.resolve(this.dtOptions).then(dtOptions => {
+        // validate object
+        if (Object.keys(dtOptions).length == 0) {
+          reject('dtOptions cannot be empty');
+          return;
+        }
         // Using setTimeout as a "hack" to be "part" of NgZone
         setTimeout(() => {
           // Assign DT properties here
