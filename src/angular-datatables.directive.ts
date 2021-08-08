@@ -71,8 +71,9 @@ export class DataTableDirective implements OnDestroy, OnInit {
     this.dtInstance = new Promise((resolve, reject) => {
       Promise.resolve(this.dtOptions).then(dtOptions => {
         // validate object
-        if (Object.keys(dtOptions).length == 0) {
-          reject('dtOptions cannot be empty');
+        const isTableEmpty = Object.keys(dtOptions).length == 0 && $('tbody tr', this.el.nativeElement).length == 0;
+        if (isTableEmpty) {
+          reject('Both the table and dtOptions cannot be empty');
           return;
         }
         // Using setTimeout as a "hack" to be "part" of NgZone
