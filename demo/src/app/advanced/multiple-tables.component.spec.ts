@@ -1,5 +1,3 @@
-/* tslint:disable:no-unused-variable */
-
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA, QueryList, SecurityContext } from '@angular/core';
