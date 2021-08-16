@@ -60,7 +60,8 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
 
     // wait before loading table
     setTimeout(() => {
-      this.dtTrigger.next();
+      // race condition fails unit tests if dtOptions isn't sent with dtTrigger
+      this.dtTrigger.next(this.dtOptions);
     }, 200);
   }
 
