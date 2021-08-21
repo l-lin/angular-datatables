@@ -69,9 +69,9 @@ export class DataTableDirective implements OnDestroy, OnInit {
       this.dtOptions = dtOptions;
     }
     this.dtInstance = new Promise((resolve, reject) => {
-      Promise.resolve(this.dtOptions).then(dtOptions => {
+      Promise.resolve(this.dtOptions).then(resolvedDTOptions => {
         // validate object
-        const isTableEmpty = Object.keys(dtOptions).length == 0 && $('tbody tr', this.el.nativeElement).length == 0;
+        const isTableEmpty = Object.keys(resolvedDTOptions).length === 0 && $('tbody tr', this.el.nativeElement).length === 0;
         if (isTableEmpty) {
           reject('Both the table and dtOptions cannot be empty');
           return;
@@ -81,15 +81,15 @@ export class DataTableDirective implements OnDestroy, OnInit {
           // Assign DT properties here
           let options: ADTSettings = {
             rowCallback: (row, data, index) => {
-              if (dtOptions.columns) {
-                const columns = dtOptions.columns;
+              if (resolvedDTOptions.columns) {
+                const columns = resolvedDTOptions.columns;
                 // Filter columns with pipe declared
                 const colsWithPipe = columns.filter(x => x.ngPipeInstance && !x.ngTemplateRef);
                 // Iterate
                 colsWithPipe.forEach(el => {
                   const pipe = el.ngPipeInstance;
                   // find index of column using `data` attr
-                  const i = columns.findIndex(e => e.data == el.data);
+                  const i = columns.findIndex(e => e.data === el.data);
                   // get <td> element which holds data using index
                   const rowFromCol = row.childNodes.item(i);
                   // Transform data with Pipe
@@ -104,8 +104,8 @@ export class DataTableDirective implements OnDestroy, OnInit {
                 colsWithTemplate.forEach(el => {
                   const { ref, context } = el.ngTemplateRef;
                   // get <td> element which holds data using index
-                  const index = columns.findIndex(e => e.data == el.data);
-                  const cellFromIndex = row.childNodes.item(index);
+                  const i = columns.findIndex(e => e.data === el.data);
+                  const cellFromIndex = row.childNodes.item(i);
                   // render onto DOM
                   // finalize context to be sent to user
                   const _context = Object.assign({}, context, context?.userData, {
@@ -117,13 +117,13 @@ export class DataTableDirective implements OnDestroy, OnInit {
               }
 
               // run user specified row callback if provided.
-              if (this.dtOptions.rowCallback) {
-                this.dtOptions.rowCallback(row, data, index);
+              if (resolvedDTOptions.rowCallback) {
+                resolvedDTOptions.rowCallback(row, data, index);
               }
             }
           };
           // merge user's config with ours
-          options = Object.assign({}, dtOptions, options);
+          options = Object.assign({}, resolvedDTOptions, options);
           this.dt = $(this.el.nativeElement).DataTable(options);
           resolve(this.dt);
         });
