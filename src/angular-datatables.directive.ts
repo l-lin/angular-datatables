@@ -7,7 +7,7 @@
 
 import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ADTSettings, ADTTemplateRefContext } from './models/settings';
+import { ADTSettings, ADTColumns } from './models/settings';
 
 @Directive({
   selector: '[datatable]'
@@ -83,37 +83,8 @@ export class DataTableDirective implements OnDestroy, OnInit {
             rowCallback: (row, data, index) => {
               if (resolvedDTOptions.columns) {
                 const columns = resolvedDTOptions.columns;
-                // Filter columns with pipe declared
-                const colsWithPipe = columns.filter(x => x.ngPipeInstance && !x.ngTemplateRef);
-                // Iterate
-                colsWithPipe.forEach(el => {
-                  const pipe = el.ngPipeInstance;
-                  // find index of column using `data` attr
-                  const i = columns.findIndex(e => e.data === el.data);
-                  // get <td> element which holds data using index
-                  const rowFromCol = row.childNodes.item(i);
-                  // Transform data with Pipe
-                  const rowVal = $(rowFromCol).text();
-                  const rowValAfter = pipe.transform(rowVal);
-                  // Apply transformed string to <td>
-                  $(rowFromCol).text(rowValAfter);
-                });
-
-                // Filter columns using `ngTemplateRef`
-                const colsWithTemplate = columns.filter(x => x.ngTemplateRef && !x.ngPipeInstance);
-                colsWithTemplate.forEach(el => {
-                  const { ref, context } = el.ngTemplateRef;
-                  // get <td> element which holds data using index
-                  const i = columns.findIndex(e => e.data === el.data);
-                  const cellFromIndex = row.childNodes.item(i);
-                  // render onto DOM
-                  // finalize context to be sent to user
-                  const _context = Object.assign({}, context, context?.userData, {
-                    adtData: data
-                  });
-                  const instance = self.vcr.createEmbeddedView(ref, _context);
-                  self.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
-                });
+                this.applyNgPipeTransform(row, columns);
+                this.applyNgRefTemplate(row, columns, data);
               }
 
               // run user specified row callback if provided.
@@ -128,6 +99,41 @@ export class DataTableDirective implements OnDestroy, OnInit {
           resolve(this.dt);
         });
       });
+    });
+  }
+
+  private applyNgPipeTransform(row: Node, columns: ADTColumns[]): void {
+    // Filter columns with pipe declared
+    const colsWithPipe = columns.filter(x => x.ngPipeInstance && !x.ngTemplateRef);
+    colsWithPipe.forEach(el => {
+      const pipe = el.ngPipeInstance;
+      // find index of column using `data` attr
+      const i = columns.findIndex(e => e.data === el.data);
+      // get <td> element which holds data using index
+      const rowFromCol = row.childNodes.item(i);
+      // Transform data with Pipe
+      const rowVal = $(rowFromCol).text();
+      const rowValAfter = pipe.transform(rowVal);
+      // Apply transformed string to <td>
+      $(rowFromCol).text(rowValAfter);
+    });
+  }
+
+  private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: Object): void {
+    // Filter columns using `ngTemplateRef`
+    const colsWithTemplate = columns.filter(x => x.ngTemplateRef && !x.ngPipeInstance);
+    colsWithTemplate.forEach(el => {
+      const { ref, context } = el.ngTemplateRef;
+      // get <td> element which holds data using index
+      const i = columns.findIndex(e => e.data === el.data);
+      const cellFromIndex = row.childNodes.item(i);
+      // render onto DOM
+      // finalize context to be sent to user
+      const _context = Object.assign({}, context, context?.userData, {
+        adtData: data
+      });
+      const instance = this.vcr.createEmbeddedView(ref, _context);
+      this.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
     });
   }
 }
