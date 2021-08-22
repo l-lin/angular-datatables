@@ -7,7 +7,7 @@
 
 import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ADTSettings, ADTTemplateRefContext } from './models/settings';
+import { ADTSettings, ADTColumns } from './models/settings';
 
 @Directive({
   selector: '[datatable]'
@@ -63,15 +63,14 @@ export class DataTableDirective implements OnDestroy, OnInit {
   }
 
   private displayTable(dtOptions: ADTSettings): void {
-    const self = this;
     // assign new options if provided
     if (dtOptions) {
       this.dtOptions = dtOptions;
     }
     this.dtInstance = new Promise((resolve, reject) => {
-      Promise.resolve(this.dtOptions).then(dtOptions => {
+      Promise.resolve(this.dtOptions).then(resolvedDTOptions => {
         // validate object
-        const isTableEmpty = Object.keys(dtOptions).length == 0 && $('tbody tr', this.el.nativeElement).length == 0;
+        const isTableEmpty = Object.keys(resolvedDTOptions).length === 0 && $('tbody tr', this.el.nativeElement).length === 0;
         if (isTableEmpty) {
           reject('Both the table and dtOptions cannot be empty');
           return;
@@ -81,53 +80,59 @@ export class DataTableDirective implements OnDestroy, OnInit {
           // Assign DT properties here
           let options: ADTSettings = {
             rowCallback: (row, data, index) => {
-              if (dtOptions.columns) {
-                const columns = dtOptions.columns;
-                // Filter columns with pipe declared
-                const colsWithPipe = columns.filter(x => x.ngPipeInstance && !x.ngTemplateRef);
-                // Iterate
-                colsWithPipe.forEach(el => {
-                  const pipe = el.ngPipeInstance;
-                  // find index of column using `data` attr
-                  const i = columns.findIndex(e => e.data == el.data);
-                  // get <td> element which holds data using index
-                  const rowFromCol = row.childNodes.item(i);
-                  // Transform data with Pipe
-                  const rowVal = $(rowFromCol).text();
-                  const rowValAfter = pipe.transform(rowVal);
-                  // Apply transformed string to <td>
-                  $(rowFromCol).text(rowValAfter);
-                });
-
-                // Filter columns using `ngTemplateRef`
-                const colsWithTemplate = columns.filter(x => x.ngTemplateRef && !x.ngPipeInstance);
-                colsWithTemplate.forEach(el => {
-                  const { ref, context } = el.ngTemplateRef;
-                  // get <td> element which holds data using index
-                  const index = columns.findIndex(e => e.data == el.data);
-                  const cellFromIndex = row.childNodes.item(index);
-                  // render onto DOM
-                  // finalize context to be sent to user
-                  const _context = Object.assign({}, context, context?.userData, {
-                    adtData: data
-                  });
-                  const instance = self.vcr.createEmbeddedView(ref, _context);
-                  self.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
-                });
+              if (resolvedDTOptions.columns) {
+                const columns = resolvedDTOptions.columns;
+                this.applyNgPipeTransform(row, columns);
+                this.applyNgRefTemplate(row, columns, data);
               }
 
               // run user specified row callback if provided.
-              if (this.dtOptions.rowCallback) {
-                this.dtOptions.rowCallback(row, data, index);
+              if (resolvedDTOptions.rowCallback) {
+                resolvedDTOptions.rowCallback(row, data, index);
               }
             }
           };
           // merge user's config with ours
-          options = Object.assign({}, dtOptions, options);
+          options = Object.assign({}, resolvedDTOptions, options);
           this.dt = $(this.el.nativeElement).DataTable(options);
           resolve(this.dt);
         });
       });
+    });
+  }
+
+  private applyNgPipeTransform(row: Node, columns: ADTColumns[]): void {
+    // Filter columns with pipe declared
+    const colsWithPipe = columns.filter(x => x.ngPipeInstance && !x.ngTemplateRef);
+    colsWithPipe.forEach(el => {
+      const pipe = el.ngPipeInstance;
+      // find index of column using `data` attr
+      const i = columns.findIndex(e => e.data === el.data);
+      // get <td> element which holds data using index
+      const rowFromCol = row.childNodes.item(i);
+      // Transform data with Pipe
+      const rowVal = $(rowFromCol).text();
+      const rowValAfter = pipe.transform(rowVal);
+      // Apply transformed string to <td>
+      $(rowFromCol).text(rowValAfter);
+    });
+  }
+
+  private applyNgRefTemplate(row: Node, columns: ADTColumns[], data: Object): void {
+    // Filter columns using `ngTemplateRef`
+    const colsWithTemplate = columns.filter(x => x.ngTemplateRef && !x.ngPipeInstance);
+    colsWithTemplate.forEach(el => {
+      const { ref, context } = el.ngTemplateRef;
+      // get <td> element which holds data using index
+      const i = columns.findIndex(e => e.data === el.data);
+      const cellFromIndex = row.childNodes.item(i);
+      // render onto DOM
+      // finalize context to be sent to user
+      const _context = Object.assign({}, context, context?.userData, {
+        adtData: data
+      });
+      const instance = this.vcr.createEmbeddedView(ref, _context);
+      this.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
     });
   }
 }

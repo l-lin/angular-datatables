@@ -1,10 +1,13 @@
+---
 name: build
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - '*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,7 +22,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '16.x'
 
       - name: Install dependencies
         run: npm install
@@ -27,3 +30,18 @@ jobs:
       - name: Run build
         run: npm run build
 
+      - name: Pack library
+        run: npm pack
+
+      # test demo
+      - name: Install demo dependencies
+        working-directory: ./demo
+        run: npm install
+
+      - name: Install current angular-datatables to demo
+        working-directory: ./demo
+        run: rm -rf node_modules/angular-datatables && npm install --no-save --no-package-lock ../angular-datatables-*.tgz
+
+      - name: Run demo test
+        working-directory: ./demo
+        run: npm run test-ci

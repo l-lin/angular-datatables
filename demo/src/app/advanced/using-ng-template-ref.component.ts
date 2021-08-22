@@ -18,57 +18,60 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
   mdTS = 'assets/docs/advanced/using-ng-template-ref/source-ts.md';
 
   dtOptions: ADTSettings = {};
-  dtTrigger = new Subject();
+  dtTrigger: Subject<ADTSettings> = new Subject<ADTSettings>();
 
   @ViewChild('demoNg') demoNg: TemplateRef<DemoNgComponent>;
   message = '';
 
   ngOnInit(): void {
+    // use setTimeout as a hack to ensure the `demoNg` is usable in the datatables rowCallback function
+    setTimeout(() => {
+      const self = this;
+      this.dtOptions = {
+        ajax: 'data/data.json',
+        columns: [
+          {
+            title: 'ID',
+            data: 'id'
+          },
+          {
+            title: 'First name',
+            data: 'firstName',
+          },
+          {
+            title: 'Last name',
+            data: 'lastName'
+          },
+          {
+            title: 'Actions',
+            data: null,
+            defaultContent: '',
+            ngTemplateRef: {
+              ref: this.demoNg,
+              context: {
+                // needed for capturing events inside <ng-template>
+                captureEvents: self.onCaptureEvent.bind(self)
+              }
+            }
+          }
+        ]
+      };
+    });
   }
 
   ngAfterViewInit() {
-    const self = this;
-    this.dtOptions = {
-      ajax: 'data/data.json',
-      columns: [
-        {
-          title: 'ID',
-          data: 'id'
-        },
-        {
-          title: 'First name',
-          data: 'firstName',
-        },
-        {
-          title: 'Last name',
-          data: 'lastName'
-        },
-        {
-          title: 'Actions',
-          data: null,
-          defaultContent: '',
-          ngTemplateRef: {
-            ref: this.demoNg,
-            context: {
-              // needed for capturing events inside <ng-template>
-              captureEvents: self.onCaptureEvent.bind(self)
-            }
-          }
-        }
-      ]
-    };
-
-    // wait before loading table
     setTimeout(() => {
       // race condition fails unit tests if dtOptions isn't sent with dtTrigger
       this.dtTrigger.next(this.dtOptions);
     }, 200);
   }
 
-
   onCaptureEvent(event: IDemoNgComponentEventType) {
     this.message = `Event '${event.cmd}' with data '${JSON.stringify(event.data)}`;
   }
 
-
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
 }

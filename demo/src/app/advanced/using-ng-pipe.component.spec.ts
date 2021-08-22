@@ -79,7 +79,7 @@ describe('UsingNgPipeComponent', () => {
 
       const lastNameFromData = (instance.row(dataRow).data()  as Person).lastName;
       const lastNameFromTable = $('td:nth-child(3)', dataRow).text();
-      return firstNameFromTable == firstNameFromData.toUpperCase() && lastNameFromTable == lastNameFromData.toUpperCase();
+      return firstNameFromTable === firstNameFromData.toUpperCase() && lastNameFromTable === lastNameFromData.toUpperCase();
     }))
     .toEqual(expectedArray);
   });
