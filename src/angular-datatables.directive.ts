@@ -63,7 +63,6 @@ export class DataTableDirective implements OnDestroy, OnInit {
   }
 
   private displayTable(dtOptions: ADTSettings): void {
-    const self = this;
     // assign new options if provided
     if (dtOptions) {
       this.dtOptions = dtOptions;
