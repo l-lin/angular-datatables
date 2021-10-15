@@ -75,4 +75,26 @@ describe('UsingNgTemplateRefComponent', () => {
 
   });
 
+  it('should not have duplicate contents in ngTemplateRef column when navigating pages', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const query = fixture.debugElement.query(By.directive(DataTableDirective));
+    const dir = query.injector.get(DataTableDirective);
+    expect(dir).toBeTruthy();
+
+    // trigger pagination events
+    (await dir.dtInstance).page(2).draw(false);
+    await fixture.whenRenderingDone();
+
+    (await dir.dtInstance).page(0).draw(false);
+    await fixture.whenRenderingDone();
+    fixture.detectChanges();
+
+    // verify no duplication
+    const firstRow = fixture.debugElement.query(By.css('tbody'));
+    const templatedCell = firstRow.children[0].children[3];
+    expect(templatedCell.children.length).toBe(1);
+  });
+
 });
