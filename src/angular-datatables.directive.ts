@@ -126,6 +126,8 @@ export class DataTableDirective implements OnDestroy, OnInit {
       // get <td> element which holds data using index
       const i = columns.findIndex(e => e.data === el.data);
       const cellFromIndex = row.childNodes.item(i);
+      // reset cell before applying transform
+      $(cellFromIndex).html('');
       // render onto DOM
       // finalize context to be sent to user
       const _context = Object.assign({}, context, context?.userData, {
