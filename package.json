@@ -36,6 +36,7 @@
   "devDependencies": {
     "@angular-devkit/core": "^12.0.0",
     "@angular-devkit/schematics": "^12.0.0",
+    "@angular/cli": "^12.0.0",
     "@angular/common": "^12.0.0",
     "@angular/compiler": "^12.0.0",
     "@angular/compiler-cli": "^12.0.0",
@@ -80,6 +81,5 @@
   },
   "homepage": "https://github.com/l-lin/angular-datatables#readme",
   "dependencies": {
-    "@angular/cli": "^12.0.0"
   }
 }
