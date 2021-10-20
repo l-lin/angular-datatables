@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables",
-  "version": "12.0.0",
+  "version": "12.0.1",
   "description": "Angular directive for DataTables",
   "scripts": {
     "build": "npm run clean && npm run compile && npm run bundles && npm run schematics:build",
@@ -80,6 +80,5 @@
     "url": "https://github.com/l-lin/angular-datatables/issues"
   },
   "homepage": "https://github.com/l-lin/angular-datatables#readme",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
