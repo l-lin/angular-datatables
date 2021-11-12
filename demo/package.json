@@ -13,14 +13,14 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^12.0.0",
-    "@angular/common": "^12.0.0",
-    "@angular/compiler": "^12.0.0",
-    "@angular/core": "^12.0.0",
-    "@angular/forms": "^12.0.0",
-    "@angular/platform-browser": "^12.0.0",
-    "@angular/platform-browser-dynamic": "^12.0.0",
-    "@angular/router": "^12.0.0",
+    "@angular/animations": "^13.0.1",
+    "@angular/common": "^13.0.1",
+    "@angular/compiler": "^13.0.1",
+    "@angular/core": "^13.0.1",
+    "@angular/forms": "^13.0.1",
+    "@angular/platform-browser": "^13.0.1",
+    "@angular/platform-browser-dynamic": "^13.0.1",
+    "@angular/router": "^13.0.1",
     "angular-datatables": "^12.0.0",
     "clipboard": "^2.0.6",
     "core-js": "^3.6.5",
@@ -48,10 +48,10 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.0.0",
-    "@angular/cli": "^12.0.0",
-    "@angular/compiler-cli": "^12.0.0",
-    "@angular/language-service": "^12.0.0",
+    "@angular-devkit/build-angular": "~13.0.2",
+    "@angular/cli": "^13.0.2",
+    "@angular/compiler-cli": "^13.0.1",
+    "@angular/language-service": "^13.0.1",
     "@types/datatables.net": "^1.10.19",
     "@types/datatables.net-buttons": "^1.4.3",
     "@types/datatables.net-select": "^1.2.6",
@@ -72,7 +72,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~9.0.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.2.4"
+    "typescript": "~4.4.4"
   },
   "engines": {
     "node": ">=8.9.0"
