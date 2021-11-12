@@ -3,7 +3,6 @@
   "compilerOptions": {
     "declaration": false,
     "experimentalDecorators": true,
-    "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "../dist/out-tsc-e2e",
     "sourceMap": true,
