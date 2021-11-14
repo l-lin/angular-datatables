@@ -38,7 +38,7 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(null);
   }
 
   ngOnDestroy(): void {
@@ -51,7 +51,7 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
       // Destroy the table first
       dtInstance.destroy();
       // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
+      this.dtTrigger.next(null);
     });
   }
 }
