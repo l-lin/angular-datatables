@@ -41,7 +41,7 @@ export function hasNgModuleImport(tree: Tree, modulePath: string, className: str
   }
 
   /* tslint:disable-next-line: no-non-null-assertion */
-  for (const property of ngModuleMetadata!.properties) {
+  for (const property of (ngModuleMetadata as ts.ObjectLiteralExpression)!.properties) {
     if (!ts.isPropertyAssignment(property) || property.name.getText() !== 'imports' ||
         !ts.isArrayLiteralExpression(property.initializer)) {
       continue;

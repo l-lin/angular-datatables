@@ -23,6 +23,6 @@
   "angularCompilerOptions": {
     "skipMetadataEmit": false,
     "skipTemplateCodegen": true,
-    "enableIvy": false
+    "enableIvy": true
   },
 }

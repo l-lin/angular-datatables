@@ -32,7 +32,7 @@ export class AngularWayComponent implements OnDestroy, OnInit {
       .subscribe(data => {
         this.persons = (data as any).data;
         // Calling the DT trigger to manually render the table
-        this.dtTrigger.next();
+        this.dtTrigger.next(null);
       });
   }
 
