@@ -8,7 +8,7 @@
     "test": "ng test",
     "test-ci": "ng test --karma-config=karma-ci.conf.js --no-progress",
     "lint": "ng lint",
-    "build:prod": "ng build --prod --aot --base-href /angular-datatables/",
+    "build:prod": "ng build --configuration production --aot --base-href /angular-datatables/",
     "e2e": "ng e2e"
   },
   "private": true,
