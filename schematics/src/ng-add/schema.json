@@ -16,7 +16,7 @@
       "description": "The styling library to use for Datatables.",
       "type": "string",
       "default": "dt",
-      "enum": ["dt", "bs3", "bs4"],
+      "enum": ["dt", "bs3", "bs4", "bs5"],
       "x-prompt": {
         "message": "Which styling library would you like to use for DataTables?",
         "type": "list",
@@ -29,6 +29,10 @@
           {
             "value": "bs4",
             "label": "Bootstrap 4"
+          },
+          {
+            "value": "bs5",
+            "label": "Bootstrap 5"
           }
         ]
       }
