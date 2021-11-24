@@ -58,8 +58,8 @@ function updateAngularJsonFile(options: IADTSchematicsOptions) {
     const styleDeps = ADT_SUPPORTED_STYLES.find(e => e.style == options.style);
 
     const assets = [
-      { path: 'node_modules/jquery/dist/jquery.js', target: 'scripts', fancyName: 'jQuery Core' },
-      { path: 'node_modules/datatables.net/js/jquery.dataTables.js', target: 'scripts', fancyName: 'DataTables.net Core JS' },
+      { path: 'node_modules/jquery/dist/jquery.min.js', target: 'scripts', fancyName: 'jQuery Core' },
+      { path: 'node_modules/datatables.net/js/jquery.dataTables.min.js', target: 'scripts', fancyName: 'DataTables.net Core JS' },
     ];
 
     if (styleDeps) {
