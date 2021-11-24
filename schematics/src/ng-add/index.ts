@@ -18,10 +18,10 @@ function addPackageJsonDependencies(options: IADTSchematicsOptions) {
     const styleDeps = ADT_SUPPORTED_STYLES.find(e => e.style == options.style);
 
     const dependencies = [
-      { version: '^3.4.1', name: 'jquery', isDev: false },
-      { version: '^1.10.20', name: 'datatables.net', isDev: false },
-      { version: '^3.3.33', name: '@types/jquery', isDev: true },
-      { version: '^1.10.18', name: '@types/datatables.net', isDev: true }
+      { version: '^3.6.0', name: 'jquery', isDev: false },
+      { version: '^1.11.3', name: 'datatables.net', isDev: false },
+      { version: '^3.5.9', name: '@types/jquery', isDev: true },
+      { version: '^1.10.21', name: '@types/datatables.net', isDev: true }
     ];
 
     if (styleDeps) {
@@ -58,8 +58,8 @@ function updateAngularJsonFile(options: IADTSchematicsOptions) {
     const styleDeps = ADT_SUPPORTED_STYLES.find(e => e.style == options.style);
 
     const assets = [
-      { path: 'node_modules/jquery/dist/jquery.js', target: 'scripts', fancyName: 'jQuery Core' },
-      { path: 'node_modules/datatables.net/js/jquery.dataTables.js', target: 'scripts', fancyName: 'DataTables.net Core JS' },
+      { path: 'node_modules/jquery/dist/jquery.min.js', target: 'scripts', fancyName: 'jQuery Core' },
+      { path: 'node_modules/datatables.net/js/jquery.dataTables.min.js', target: 'scripts', fancyName: 'DataTables.net Core JS' },
     ];
 
     if (styleDeps) {
