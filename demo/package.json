@@ -40,7 +40,7 @@
     "materialize-css": "^0.100.2",
     "ngx-markdown": "^13.0.0",
     "prism-themes": "^1.9.0",
-    "prismjs": "^1.25.0",
+    "prismjs": "^1.27.0",
     "rxjs": "^7.4.0",
     "rxjs-compat": "^6.6.7",
     "tether": "^2.0.0",
