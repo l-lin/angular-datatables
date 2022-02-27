@@ -6,6 +6,8 @@ export interface ADTSettings extends DataTables.Settings {
 export interface ADTColumns extends DataTables.ColumnSettings {
   /** Set instance of Angular pipe to transform the data of particular column */
   ngPipeInstance?: PipeTransform;
+  /** Define the arguments for the tranform method of the pipe, to change its behavior */
+  ngPipeArgs?: any[];
   /** Set `TemplateRef` to transform the data of this column */
   ngTemplateRef?: ADTTemplateRef;
 }

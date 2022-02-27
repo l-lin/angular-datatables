@@ -8,7 +8,7 @@ import { BaseDemoComponent } from '../base-demo/base-demo.component';
 import { AppRoutingModule } from '../app.routing';
 import { FormsModule } from '@angular/forms';
 import { UsingNgPipeComponent } from './using-ng-pipe.component';
-import { UpperCasePipe } from '@angular/common';
+import { UpperCasePipe, CurrencyPipe } from '@angular/common';
 import { By } from '@angular/platform-browser';
 import { Person } from 'app/person';
 
@@ -37,7 +37,8 @@ describe('UsingNgPipeComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        UpperCasePipe
+        UpperCasePipe,
+        CurrencyPipe
       ]
     }).createComponent(UsingNgPipeComponent);
 
@@ -74,14 +75,42 @@ describe('UsingNgPipeComponent', () => {
     expect(testsArray.map(index => {
       const dataRow = rows[index];
 
-      const firstNameFromData = (instance.row(dataRow).data()  as Person).firstName;
+      const firstNameFromData = (instance.row(dataRow).data() as Person).firstName;
       const firstNameFromTable = $('td:nth-child(2)', dataRow).text();
 
-      const lastNameFromData = (instance.row(dataRow).data()  as Person).lastName;
+      const lastNameFromData = (instance.row(dataRow).data() as Person).lastName;
       const lastNameFromTable = $('td:nth-child(3)', dataRow).text();
       return firstNameFromTable === firstNameFromData.toUpperCase() && lastNameFromTable === lastNameFromData.toUpperCase();
     }))
-    .toEqual(expectedArray);
+      .toEqual(expectedArray);
+  });
+
+
+  it('should have money on id column', async () => {
+    const app = fixture.debugElement.componentInstance as UsingNgPipeComponent;
+    await fixture.whenStable();
+
+    const query = fixture.debugElement.query(By.directive(DataTableDirective));
+    const dir = query.injector.get(DataTableDirective);
+    expect(dir).toBeTruthy();
+
+    const instance = await dir.dtInstance;
+
+    const rows = fixture.nativeElement.querySelectorAll('tbody tr');
+
+    const testsArray = [0, 3, 6];
+    const expectedArray = testsArray.map(_ => true);
+
+    expect(testsArray.map(index => {
+      const dataRow = rows[index];
+
+      const pipeInstance = app.pipeCurrencyInstance;
+
+      const IdFromData = (instance.row(dataRow).data() as Person).id;
+      const IdFromTable = $('td:nth-child(1)', dataRow).text();
+      return IdFromTable === pipeInstance.transform(IdFromData,'USD','symbol');
+    }))
+      .toEqual(expectedArray);
   });
 
 });
