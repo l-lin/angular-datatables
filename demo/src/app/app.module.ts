@@ -37,7 +37,7 @@ import { SelectExtensionComponent } from './extensions/select-extension.componen
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
 
 // Using Angular Pipe
-import { UpperCasePipe } from '@angular/common';
+import { CurrencyPipe, UpperCasePipe } from '@angular/common';
 
 // Markdown
 import { MarkdownModule } from 'ngx-markdown';
@@ -47,52 +47,53 @@ import { UsingNgTemplateRefComponent } from './advanced/using-ng-template-ref.co
 import { DemoNgComponent } from './advanced/demo-ng-template-ref.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        WelcomeComponent,
-        GettingStartedComponent,
-        PersonComponent,
+  declarations: [
+    AppComponent,
+    WelcomeComponent,
+    GettingStartedComponent,
+    PersonComponent,
 
-        ZeroConfigComponent,
-        WithOptionsComponent,
-        WithAjaxComponent,
-        AngularWayComponent,
-        ServerSideAngularWayComponent,
+    ZeroConfigComponent,
+    WithOptionsComponent,
+    WithAjaxComponent,
+    AngularWayComponent,
+    ServerSideAngularWayComponent,
 
-        CustomRangeSearchComponent,
-        DtInstanceComponent,
-        IndividualColumnFilteringComponent,
-        LoadDtOptionsWithPromiseComponent,
-        RerenderComponent,
-        RowClickEventComponent,
-        MultipleTablesComponent,
-        RouterLinkComponent,
+    CustomRangeSearchComponent,
+    DtInstanceComponent,
+    IndividualColumnFilteringComponent,
+    LoadDtOptionsWithPromiseComponent,
+    RerenderComponent,
+    RowClickEventComponent,
+    MultipleTablesComponent,
+    RouterLinkComponent,
 
-        ButtonsExtensionComponent,
-        ColreorderExtensionComponent,
-        ResponsiveExtensionComponent,
-        SelectExtensionComponent,
-        UsingNgPipeComponent,
-        BaseDemoComponent,
-        FAQComponent,
-        UsingNgTemplateRefComponent,
-        DemoNgComponent
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        DataTablesModule,
-        AppRoutingModule,
-        MarkdownModule.forRoot(
-          {
-            sanitize: SecurityContext.NONE
-          }
-        )
-    ],
-    providers: [
-      UpperCasePipe
-    ],
-    bootstrap: [AppComponent]
+    ButtonsExtensionComponent,
+    ColreorderExtensionComponent,
+    ResponsiveExtensionComponent,
+    SelectExtensionComponent,
+    UsingNgPipeComponent,
+    BaseDemoComponent,
+    FAQComponent,
+    UsingNgTemplateRefComponent,
+    DemoNgComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    DataTablesModule,
+    AppRoutingModule,
+    MarkdownModule.forRoot(
+      {
+        sanitize: SecurityContext.NONE
+      }
+    )
+  ],
+  providers: [
+    UpperCasePipe,
+    CurrencyPipe
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
