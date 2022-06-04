@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables",
-  "version": "13.0.1",
+  "version": "13.1.0",
   "description": "Angular directive for DataTables",
   "scripts": {
     "build": "npm run clean && npm run compile && npm run bundles && npm run schematics:build",
