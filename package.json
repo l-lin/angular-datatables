@@ -34,15 +34,15 @@
   "license": "MIT",
   "peerDependencies": {},
   "devDependencies": {
-    "@angular-devkit/core": "^13.0.2",
-    "@angular-devkit/schematics": "^13.0.2",
-    "@angular/cli": "^13.0.2",
-    "@angular/common": "^13.0.1",
-    "@angular/compiler": "^13.0.1",
-    "@angular/compiler-cli": "^13.0.1",
-    "@angular/core": "^13.0.1",
-    "@angular/platform-browser": "^13.0.1",
-    "@angular/platform-browser-dynamic": "^13.0.1",
+    "@angular-devkit/core": "^14.0.3",
+    "@angular-devkit/schematics": "^14.0.3",
+    "@angular/cli": "^14.0.3",
+    "@angular/common": "^14.0.3",
+    "@angular/compiler": "^14.0.3",
+    "@angular/compiler-cli": "^14.0.3",
+    "@angular/core": "^14.0.3",
+    "@angular/platform-browser": "^14.0.3",
+    "@angular/platform-browser-dynamic": "^14.0.3",
     "@types/datatables.net": "~1.10.21",
     "@types/jasmine": "~3.10.2",
     "@types/jquery": "~3.5.8",
@@ -66,7 +66,7 @@
     "rollup-plugin-uglify": "^6.0.4",
     "rxjs": "^7.4.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.4.4",
+    "typescript": "^4.7.4",
     "zone.js": "~0.11.4"
   },
   "engines": {
@@ -80,5 +80,7 @@
     "url": "https://github.com/l-lin/angular-datatables/issues"
   },
   "homepage": "https://github.com/l-lin/angular-datatables#readme",
-  "dependencies": {}
+  "dependencies": {
+    "codelyzer": "^6.0.2"
+  }
 }
