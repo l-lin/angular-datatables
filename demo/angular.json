@@ -155,7 +155,6 @@
       }
     }
   },
-  "defaultProject": "angular-datatables-demo",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app"
