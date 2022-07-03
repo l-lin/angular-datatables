@@ -2,12 +2,13 @@
 // app.module.ts
 ...,
 providers: [
-  UpperCasePipe     // declare your Pipe here
+  UpperCasePipe,
+  CurrencyPipe     // declare your Pipe here
 ],
 
 // using-ng-pipe.component
 
-import { UpperCasePipe } from '@angular/common';
+import { UpperCasePipe, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ADTSettings } from 'angular-datatables/src/models/settings';
 
@@ -18,7 +19,8 @@ import { ADTSettings } from 'angular-datatables/src/models/settings';
 export class UsingNgPipeComponent implements OnInit {
 
   constructor(
-    private pipeInstance: UpperCasePipe // inject the Pipe
+    private pipeInstance: UpperCasePipe, // inject the Pipe
+    private pipeCurrencyInstance: CurrencyPipe // inject the Pipe
   ) { }
 
   dtOptions: ADTSettings = {};
@@ -29,21 +31,24 @@ export class UsingNgPipeComponent implements OnInit {
       ajax: 'data/data.json',
       columns: [
         {
-          title: 'ID',
-          data: 'id'
+          title: 'Id (Money)',
+          data: 'id',
+          ngPipeInstance: this.pipeCurrencyInstance,
+          ngPipeArgs: ['USD','symbol']
         },
         {
           title: 'First name',
           data: 'firstName',
-          ngPipeInstance: this.pipeInstance // pipe is referred here
+          ngPipeInstance: this.pipeInstance
         },
         {
           title: 'Last name',
           data: 'lastName',
-          ngPipeInstance: this.pipeInstance // pipe is referred here
+          ngPipeInstance: this.pipeInstance
         }
       ]
     };
+
   }
 }
 
