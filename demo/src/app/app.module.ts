@@ -3,8 +3,6 @@ import { NgModule, SecurityContext } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { DataTablesModule } from 'angular-datatables';
-
 import { AppRoutingModule } from './app.routing';
 
 import { AppComponent } from './app.component';
@@ -45,6 +43,7 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
 import { FAQComponent } from './f-a-q/f-a-q.component';
 import { UsingNgTemplateRefComponent } from './advanced/using-ng-template-ref.component';
 import { DemoNgComponent } from './advanced/demo-ng-template-ref.component';
+import { DataTableDirective } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -82,7 +81,7 @@ import { DemoNgComponent } from './advanced/demo-ng-template-ref.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    DataTablesModule,
+    DataTableDirective,
     AppRoutingModule,
     MarkdownModule.forRoot(
       {

@@ -10,7 +10,8 @@ import { Subject } from 'rxjs';
 import { ADTSettings, ADTColumns } from './models/settings';
 
 @Directive({
-  selector: '[datatable]'
+  selector: '[datatable]',
+  standalone: true
 })
 export class DataTableDirective implements OnDestroy, OnInit {
   /**

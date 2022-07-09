@@ -2,7 +2,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { SecurityContext } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
+import { DataTableDirective } from 'angular-datatables';
 import { MarkdownModule } from 'ngx-markdown';
 import { BaseDemoComponent } from '../base-demo/base-demo.component';
 import { WithOptionsComponent } from './with-options.component';
@@ -22,7 +22,6 @@ describe('WithOptionsComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
         HttpClientModule,
         MarkdownModule.forRoot(
           {

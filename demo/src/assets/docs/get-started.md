@@ -1,4 +1,4 @@
-##### Using Angular CLI (v9 and above)
+##### Using Angular CLI (recommended)
 
 ```bash
 ng add angular-datatables
@@ -40,19 +40,44 @@ npm install @types/datatables.net --save-dev
 }
 ```
 
-3. Import the DataTablesModule at the appropriate level of your app.
+3. 
+
+##### Angular <= 14
+
+Import `DataTablesModule` at the appropriate level of your app.
 
 ```typescript
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 
-import { DataTablesModule } from "angular-datatables";
+import { DataTablesDirective } from "angular-datatables";
+
+import { DataTablesModule } from "./app.component";
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, DataTablesModule],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+##### Angular > 14
+
+Import `DataTablesDirective` at the appropriate level of your app.
+
+```typescript
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+
+import { DataTablesDirective } from "angular-datatables";
 
 import { AppComponent } from "./app.component";
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, DataTablesModule],
+  imports: [BrowserModule, DataTablesDirective],
   providers: [],
   bootstrap: [AppComponent],
 })

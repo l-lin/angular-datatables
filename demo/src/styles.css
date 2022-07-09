@@ -136,3 +136,12 @@ div.code-toolbar > .toolbar button {
   padding: 4px !important;
   font-size: 15px !important;
 }
+
+code {
+  background-color: #EEE;
+  padding: 5px;
+}
+
+pre > code {
+  padding: 0;
+}

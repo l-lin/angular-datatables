@@ -2,7 +2,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
+import { DataTableDirective } from 'angular-datatables';
 import { MarkdownModule } from 'ngx-markdown';
 import { BaseDemoComponent } from '../base-demo/base-demo.component';
 import { AppRoutingModule } from '../app.routing';
@@ -27,7 +27,6 @@ describe('UsingNgTemplateRefComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
         HttpClientModule,
         MarkdownModule.forRoot(
           {
