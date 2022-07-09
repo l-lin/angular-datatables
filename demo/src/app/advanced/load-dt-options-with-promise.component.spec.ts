@@ -18,8 +18,7 @@ describe('LoadDtOptionsWithPromiseComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        LoadDtOptionsWithPromiseComponent,
-        DataTableDirective
+        LoadDtOptionsWithPromiseComponent
       ],
       imports: [
         AppRoutingModule,
@@ -30,7 +29,8 @@ describe('LoadDtOptionsWithPromiseComponent', () => {
             sanitize: SecurityContext.NONE
           }
         ),
-        FormsModule
+        FormsModule,
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(LoadDtOptionsWithPromiseComponent);

@@ -18,8 +18,7 @@ describe('RouterLinkComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        RouterLinkComponent,
-        DataTableDirective
+        RouterLinkComponent
       ],
       imports: [
         AppRoutingModule,
@@ -30,7 +29,8 @@ describe('RouterLinkComponent', () => {
             sanitize: SecurityContext.NONE
           }
         ),
-        FormsModule
+        FormsModule,
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(RouterLinkComponent);

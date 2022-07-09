@@ -20,8 +20,7 @@ describe('UsingNgPipeComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        UsingNgPipeComponent,
-        DataTableDirective
+        UsingNgPipeComponent
       ],
       imports: [
         AppRoutingModule,
@@ -32,7 +31,8 @@ describe('UsingNgPipeComponent', () => {
             sanitize: SecurityContext.NONE
           }
         ),
-        FormsModule
+        FormsModule,
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [

@@ -17,8 +17,7 @@ describe('WithAjaxComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        WithAjaxComponent,
-        DataTableDirective
+        WithAjaxComponent
       ],
       imports: [
         AppRoutingModule,
@@ -28,7 +27,8 @@ describe('WithAjaxComponent', () => {
           {
             sanitize: SecurityContext.NONE
           }
-        )
+        ),
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(WithAjaxComponent);

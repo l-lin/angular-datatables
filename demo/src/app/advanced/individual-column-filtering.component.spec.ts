@@ -25,8 +25,7 @@ describe('IndividualColumnFilteringComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        IndividualColumnFilteringComponent,
-        DataTableDirective
+        IndividualColumnFilteringComponent
       ],
       imports: [
         AppRoutingModule,
@@ -37,7 +36,8 @@ describe('IndividualColumnFilteringComponent', () => {
             sanitize: SecurityContext.NONE
           }
         ),
-        FormsModule
+        FormsModule,
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(IndividualColumnFilteringComponent);

@@ -18,8 +18,7 @@ describe('MultipleTablesComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        MultipleTablesComponent,
-        DataTableDirective
+        MultipleTablesComponent
       ],
       imports: [
         AppRoutingModule,
@@ -30,7 +29,8 @@ describe('MultipleTablesComponent', () => {
             sanitize: SecurityContext.NONE
           }
         ),
-        FormsModule
+        FormsModule,
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(MultipleTablesComponent);

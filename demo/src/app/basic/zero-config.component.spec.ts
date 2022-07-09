@@ -16,8 +16,7 @@ describe('ZeroConfigComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        ZeroConfigComponent,
-        DataTableDirective
+        ZeroConfigComponent
       ],
       imports: [
         AppRoutingModule,
@@ -27,7 +26,8 @@ describe('ZeroConfigComponent', () => {
           {
             sanitize: SecurityContext.NONE
           }
-        )
+        ),
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(ZeroConfigComponent);

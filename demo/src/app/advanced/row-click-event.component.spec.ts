@@ -17,8 +17,7 @@ describe('RowClickEventComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        RowClickEventComponent,
-        DataTableDirective
+        RowClickEventComponent
       ],
       imports: [
         AppRoutingModule,
@@ -29,7 +28,8 @@ describe('RowClickEventComponent', () => {
             sanitize: SecurityContext.NONE
           }
         ),
-        FormsModule
+        FormsModule,
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(RowClickEventComponent);

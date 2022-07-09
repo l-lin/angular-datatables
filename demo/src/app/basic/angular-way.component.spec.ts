@@ -17,8 +17,7 @@ describe('AngularWayComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        AngularWayComponent,
-        DataTableDirective
+        AngularWayComponent
       ],
       imports: [
         AppRoutingModule,
@@ -28,7 +27,8 @@ describe('AngularWayComponent', () => {
           {
             sanitize: SecurityContext.NONE
           }
-        )
+        ),
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(AngularWayComponent);

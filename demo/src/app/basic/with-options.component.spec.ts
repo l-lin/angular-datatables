@@ -16,8 +16,7 @@ describe('WithOptionsComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        WithOptionsComponent,
-        DataTableDirective
+        WithOptionsComponent
       ],
       imports: [
         AppRoutingModule,
@@ -27,7 +26,8 @@ describe('WithOptionsComponent', () => {
           {
             sanitize: SecurityContext.NONE
           }
-        )
+        ),
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(WithOptionsComponent);

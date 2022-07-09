@@ -17,8 +17,7 @@ describe('RerenderComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        RerenderComponent,
-        DataTableDirective
+        RerenderComponent
       ],
       imports: [
         AppRoutingModule,
@@ -29,7 +28,8 @@ describe('RerenderComponent', () => {
             sanitize: SecurityContext.NONE
           }
         ),
-        FormsModule
+        FormsModule,
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(RerenderComponent);

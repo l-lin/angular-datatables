@@ -21,8 +21,7 @@ describe('UsingNgTemplateRefComponent', () => {
       declarations: [
         BaseDemoComponent,
         UsingNgTemplateRefComponent,
-        DemoNgComponent,
-        DataTableDirective
+        DemoNgComponent
       ],
       imports: [
         AppRoutingModule,
@@ -33,7 +32,8 @@ describe('UsingNgTemplateRefComponent', () => {
             sanitize: SecurityContext.NONE
           }
         ),
-        FormsModule
+        FormsModule,
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [

@@ -18,8 +18,7 @@ describe('DtInstanceComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        DtInstanceComponent,
-        DataTableDirective
+        DtInstanceComponent
       ],
       imports: [
         AppRoutingModule,
@@ -30,7 +29,8 @@ describe('DtInstanceComponent', () => {
             sanitize: SecurityContext.NONE
           }
         ),
-        FormsModule
+        FormsModule,
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(DtInstanceComponent);

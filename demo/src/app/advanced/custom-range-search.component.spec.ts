@@ -18,8 +18,7 @@ describe('CustomRangeSearchComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        CustomRangeSearchComponent,
-        DataTableDirective
+        CustomRangeSearchComponent
       ],
       imports: [
         AppRoutingModule,
@@ -30,7 +29,8 @@ describe('CustomRangeSearchComponent', () => {
             sanitize: SecurityContext.NONE
           }
         ),
-        FormsModule
+        FormsModule,
+        DataTableDirective
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).createComponent(CustomRangeSearchComponent);
