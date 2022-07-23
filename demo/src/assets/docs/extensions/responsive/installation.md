@@ -4,9 +4,9 @@ You need to install its dependencies:
 
 ```bash
 # JS file
-npm install datatables.net-colreorder --save
+npm install datatables.net-responsive --save
 # CSS file
-npm install datatables.net-colreorder-dt --save
+npm install datatables.net-responsive-dt --save
 ```
 ##### angular.json
 
@@ -21,11 +21,11 @@ Add the dependencies in the scripts and styles attributes:
           "options": {
             "styles": [
               ...
-              "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css"
+              "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css"
             ],
             "scripts": [
               ...
-              "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js"
+              "node_modules/datatables.net-responsive/js/dataTables.responsive.js"
             ],
             ...
 }
