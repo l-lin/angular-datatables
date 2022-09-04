@@ -33,7 +33,7 @@ export class ServerSideAngularWayComponent implements OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         that.http
           .post<DataTablesResponse>(
-            'https://angular-datatables-demo-server.herokuapp.com/',
+            'https://xtlncifojk.eu07.qoddiapp.com/',
             dataTablesParameters, {}
           ).subscribe(resp => {
             that.persons = resp.data;
