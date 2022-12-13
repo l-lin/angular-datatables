@@ -80,7 +80,5 @@
     "url": "https://github.com/l-lin/angular-datatables/issues"
   },
   "homepage": "https://github.com/l-lin/angular-datatables#readme",
-  "dependencies": {
-    "codelyzer": "^6.0.2"
-  }
+  "dependencies": {}
 }
