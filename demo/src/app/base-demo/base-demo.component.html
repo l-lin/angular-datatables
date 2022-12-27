@@ -9,17 +9,67 @@
 </div>
 <div class="section" *ngIf="deprecated">
   <div class="section red white-text" style="padding-left: 10px">
-      This section has been marked as deprecated. It is listed here for documentation purposes only.
+    This section has been marked as deprecated. It is listed here for documentation purposes only.
   </div>
 </div>
+
 <div class="container">
+
+  <h5 class="header">Description</h5>
+  <markdown [src]="mdIntro"></markdown>
+
+  <!-- Tabs -->
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab col">
+          <a href="#previewTab">Preview</a>
+        </li>
+        <li class="tab col" *ngIf="mdInstall.length>0">
+          <a href="#installTab">Installation</a>
+        </li>
+        <li class="tab col">
+          <a href="#htmlTab">HTML</a>
+        </li>
+        <li class="tab col">
+          <a href="#typescriptTab">TS</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Preview -->
+    <div id="previewTab" class="  col s12">
+      <ng-container *ngTemplateOutlet="template"></ng-container>
+    </div>
+
+    <!-- Installation -->
+    <div id="installTab" class="col s12" *ngIf="mdInstall.length > 0">
+      <markdown [src]="mdInstall"></markdown>
+    </div>
+
+    <!-- HTML -->
+    <div id="htmlTab" class="col s12">
+      <markdown [src]="mdHTML"></markdown>
+    </div>
+
+    <div id="typescriptTab" class="col s12">
+      <h5 class="header" *ngIf="mdTSHigh.length>0">{{mdTSHeading}}</h5>
+      <markdown [src]="mdTS"></markdown>
+      <ng-container *ngIf="mdTSHigh.length > 0">
+        <h5 class="header">{{mdTSHighHeading}}</h5>
+        <markdown [src]="mdTSHigh"></markdown>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="container">
   <div class="row">
     <div class="col s12 m9 l12">
       <div class="section">
         <span class="caption">
-          <markdown [src]="mdIntro"></markdown>
         </span>
-        <markdown [src]="mdInstall" *ngIf="mdInstall.length > 0"></markdown>
         <div class="showcase-tabs">
           <ul class="anchor-links">
             <li class="col s4"><a class="waves-effect btn" (click)="scrollToElement(preview)">Preview</a></li>
@@ -29,7 +79,6 @@
         </div>
         <div #preview class="col s12 m9 l12">
           <h4 class="header">Preview</h4>
-          <ng-container *ngTemplateOutlet="template"></ng-container>
         </div>
         <div #html class="col s12 m9 l12">
           <h4 class="header">HTML</h4>
@@ -46,4 +95,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
