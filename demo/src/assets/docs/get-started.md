@@ -1,4 +1,4 @@
-##### Using Angular CLI (v9 and above)
+##### Angular CLI (Recommended)
 
 ```bash
 ng add angular-datatables
