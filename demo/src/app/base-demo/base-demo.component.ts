@@ -36,6 +36,9 @@ export class BaseDemoComponent {
   @Input()
   template: TemplateRef<any> = null;
 
+  @Input()
+  deprecated = false;
+
   scrollToElement($elem): void {
     $elem.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
   }
