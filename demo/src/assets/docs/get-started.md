@@ -1,4 +1,7 @@
-##### Angular CLI (Recommended)
+<h5 id="angular-cli-recommended">Angular CLI<sup style="
+    font-size: 14px;
+    margin-left: 10px;
+">(Recommended)</sup></h5>
 
 ```bash
 ng add angular-datatables
