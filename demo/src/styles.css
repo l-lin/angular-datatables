@@ -57,7 +57,7 @@ footer.page-footer {
 
 /* Tabs */
 .tabs .tab a {
-  color: #66ceff;
+  color: white;
 }
 
 .tabs .tab a:hover, .tabs .tab a.active {

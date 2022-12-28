@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WithAjaxComponent implements OnInit {
 
-  pageTitle = 'With Ajax';
+  pageTitle = 'Quickstart';
   mdIntro = 'assets/docs/basic/with-ajax/intro.md';
   mdHTML = 'assets/docs/basic/with-ajax/source-html.md';
   mdTS = 'assets/docs/basic/with-ajax/source-ts.md';
