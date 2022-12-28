@@ -49,14 +49,35 @@ export class BaseDemoComponent implements OnInit {
   ngOnInit() {
     // Re-init tabs on route change
     this.router.events
-    .pipe(filter(_ => _ instanceof NavigationEnd))
-    .subscribe(_ => {
-      $('ul.tabs').tabs();
-    })
+      .pipe(filter(_ => _ instanceof NavigationEnd))
+      .subscribe(_ => {
+        $('ul.tabs').tabs();
+      });
+
+    // Init back to top
+    this.initBackToTop();
+  }
+
+  private scrollCallback() {
+    if ($(this).scrollTop()) {
+      $('#toTop').fadeIn();
+    } else {
+      $('#toTop').fadeOut();
+    }
+  }
+  initBackToTop() {
+    // hide scroll button on page load
+    $().ready(this.scrollCallback);
+    // scroll handler
+    $(window).scroll(this.scrollCallback);
+
+    $("#toTop").on('click', function () {
+      $("html, body").animate({ scrollTop: 0 }, 1000);
+    });
   }
 
   scrollToElement($elem): void {
-    $elem.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+    $elem.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 
 }
