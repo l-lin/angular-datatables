@@ -51,7 +51,10 @@ export class BaseDemoComponent implements OnInit {
     this.router.events
       .pipe(filter(_ => _ instanceof NavigationEnd))
       .subscribe(_ => {
-        $('ul.tabs').tabs();
+        // Note: setTimeout is needed to let DOM render tabs
+        setTimeout(() => {
+          $('ul.tabs').tabs();
+        }, 600);
       });
 
     // Init back to top

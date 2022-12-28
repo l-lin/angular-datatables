@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
 
-  pageTitle = 'Load DataTables Options with Promise';
+  pageTitle = 'Load DT Options with Promise';
   mdIntro = 'assets/docs/advanced/load-dt-opt-with-promise/intro.md';
   mdHTML = 'assets/docs/advanced/load-dt-opt-with-promise/source-html.md';
   mdTS = 'assets/docs/advanced/load-dt-opt-with-promise/source-ts.md';

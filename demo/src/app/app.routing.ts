@@ -27,6 +27,7 @@ import { SelectExtensionComponent } from './extensions/select-extension.componen
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
 import { FAQComponent } from './f-a-q/f-a-q.component';
 import { UsingNgTemplateRefComponent } from './advanced/using-ng-template-ref.component';
+import { MoreHelpComponent } from './more-help/more-help.component';
 
 const routes: Routes = [
     {
@@ -41,6 +42,10 @@ const routes: Routes = [
     {
         path: 'getting-started',
         component: GettingStartedComponent
+    },
+    {
+        path: 'more-help',
+        component: MoreHelpComponent
     },
     {
         path: 'person/:id',

@@ -8,7 +8,7 @@ import { DataTableDirective } from 'angular-datatables';
 })
 export class DtInstanceComponent implements OnInit {
 
-  pageTitle = 'Getting the DataTable instance';
+  pageTitle = 'Finding DataTable instance';
   mdIntro = 'assets/docs/advanced/dt-instance/intro.md';
   mdHTML = 'assets/docs/advanced/dt-instance/source-html.md';
   mdTS = 'assets/docs/advanced/dt-instance/source-ts.md';

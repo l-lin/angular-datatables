@@ -45,6 +45,7 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
 import { FAQComponent } from './f-a-q/f-a-q.component';
 import { UsingNgTemplateRefComponent } from './advanced/using-ng-template-ref.component';
 import { DemoNgComponent } from './advanced/demo-ng-template-ref.component';
+import { MoreHelpComponent } from './more-help/more-help.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { DemoNgComponent } from './advanced/demo-ng-template-ref.component';
     BaseDemoComponent,
     FAQComponent,
     UsingNgTemplateRefComponent,
-    DemoNgComponent
+    DemoNgComponent,
+    MoreHelpComponent
   ],
   imports: [
     BrowserModule,
