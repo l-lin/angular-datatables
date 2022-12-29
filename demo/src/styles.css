@@ -93,6 +93,16 @@ footer.page-footer {
   margin-bottom: 20px;
 }
 
+/* blockquote */
+
+blockquote {
+  background-color: rgba(144, 202, 249, 0.6);
+  padding: 5px;
+  color: #666;
+  margin: 20px 0;
+  border-left: solid 5px #2196f3;
+}
+
 /* Revert DataTables styles, as Materialize override some default styles... */
 
 .dataTables_wrapper label {
@@ -141,6 +151,6 @@ div.code-toolbar > .toolbar button {
 
 /* markdown library stuff */
 
-markdown h5 {
-  color: #2196f3 !important;
+markdown h5:not(markdown.faqMarkdown) {
+  color: #2196f3;
 }
