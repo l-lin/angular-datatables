@@ -1,3 +1,13 @@
+> Deprecation of "Angular way" usage
+
+This was done to address few issues:
+
+1. The usage of `*ngFor` and setting AJAX callback's `data` property as empty, we're essentially tricking the library to consider "non-existent" data. (non-existent because AJAX callback is called with empty array and totalRecords* values don't match)
+
+2. It breaks DT extensions that perform additional data processing like exporting tabular data to a PDF or CSV, etc.
+
+We have introduced better ways to allow same level of control over rendering your data via [TemplateRef](https://l-lin.github.io/angular-datatables/#/advanced/using-template-ref) and [Pipes](https://l-lin.github.io/angular-datatables/#/advanced/using-pipe)
+
 > Error encountered resolving symbol values statically.
 
 Please update your `tsconfig.json` as shown below. For more info, check the GitHub issue [here](https://github.com/l-lin/angular-datatables/issues/937)
