@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { Router } from '@angular/router';
 
 // needed to re-init tabs on route change
 declare var $: any;
@@ -48,14 +47,6 @@ export class BaseDemoComponent implements OnInit {
 
   ngOnInit() {
     // Re-init tabs on route change
-    this.router.events
-      .pipe(filter(_ => _ instanceof NavigationEnd))
-      .subscribe(_ => {
-        // Note: setTimeout is needed to let DOM render tabs
-        setTimeout(() => {
-          $('ul.tabs').tabs();
-        }, 600);
-      });
 
     // Init back to top
     this.initBackToTop();
