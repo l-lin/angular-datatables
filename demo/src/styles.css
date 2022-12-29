@@ -9,18 +9,22 @@ header, main, footer {
   padding-left: 300px;
 }
 
+.waves-effect.waves-blue .waves-ripple {
+  background-color: #90caf9;
+}
+
 @media only screen and (max-width: 992px) {
   header, main, footer {
     padding-left: 0;
   }
 }
 
-  .top-banner {
+.top-banner {
   height: 120px !important;
 }
 
 .banner {
-  background-color: #66ceff;
+  background-color: #2196f3;
 }
 
 .banner .header {
@@ -36,7 +40,7 @@ header, main, footer {
 }
 
 .header {
-  color: #66ceff;
+  color: #2196f3;
 }
 
 .caption {
@@ -52,7 +56,7 @@ header, main, footer {
 footer.page-footer {
   padding-top: 0;
   margin-top: 5px;
-  background-color: #66ceff;
+  background-color: #2196f3;
 }
 
 .footer-copyright {
@@ -60,16 +64,25 @@ footer.page-footer {
 }
 
 /* Tabs */
+
+.tabs {
+  overflow: hidden;
+}
+
 .tabs .tab a {
   color: white;
 }
 
-.tabs .tab a:hover, .tabs .tab a.active {
-  color: #66ceff;
+.tabs .tab a:hover {
+  color: rgba(144, 202, 249, 0.6);
+}
+
+.tabs .tab a.active {
+  color: #90caf9;
 }
 
 .tabs .indicator {
-  background-color: #66ceff;
+  background-color: #2196f3;
 }
 
 .anchor-links {
@@ -78,21 +91,6 @@ footer.page-footer {
 
 .showcase-tabs {
   margin-bottom: 20px;
-}
-
-/* Loading */
-
-.loading {
-  background-color: #66ceff;
-  text-align: center;
-  height: 100%;
-}
-
-.loading img {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 /* Revert DataTables styles, as Materialize override some default styles... */
@@ -139,4 +137,10 @@ div.code-toolbar > .toolbar button {
   background-color: white !important;
   padding: 4px !important;
   font-size: 15px !important;
+}
+
+/* markdown library stuff */
+
+markdown h5 {
+  color: #2196f3 !important;
 }
