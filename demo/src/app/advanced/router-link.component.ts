@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ADTSettings } from 'angular-datatables/src/models/settings';
 import { Subject } from 'rxjs';
@@ -9,7 +9,7 @@ import { DemoNgComponent } from './demo-ng-template-ref.component';
   selector: 'app-router-link',
   templateUrl: 'router-link.component.html'
 })
-export class RouterLinkComponent implements AfterViewInit, OnInit {
+export class RouterLinkComponent implements AfterViewInit, OnInit, OnDestroy {
 
   pageTitle = 'Router Link';
   mdIntro = 'assets/docs/advanced/router-link/intro.md';
@@ -69,5 +69,9 @@ export class RouterLinkComponent implements AfterViewInit, OnInit {
 
   onCaptureEvent(event: IDemoNgComponentEventType) {
     this.router.navigate(["/person/" + event.data.id]);
+  }
+
+  ngOnDestroy(): void {
+    this.dtTrigger?.unsubscribe();
   }
 }
