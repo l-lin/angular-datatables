@@ -1,5 +1,9 @@
-import { AfterViewInit, Component, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ADTSettings } from 'angular-datatables/src/models/settings';
+import { Subject } from 'rxjs';
+import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
+import { DemoNgComponent } from './demo-ng-template-ref.component';
 
 @Component({
   selector: 'app-router-link',
@@ -15,36 +19,55 @@ export class RouterLinkComponent implements AfterViewInit, OnInit {
   mdTSHeading = 'TypeScript (Angular v9 and below)';
   mdTSHighHeading = 'TypeScript (Angular v10 and above)';
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: ADTSettings = {};
+  dtTrigger = new Subject<ADTSettings>();
 
-  constructor(private renderer: Renderer2, private router: Router) { }
+  @ViewChild('demoNg') demoNg: TemplateRef<DemoNgComponent>;
+
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      ajax: 'data/data.json',
-      columns: [{
-        title: 'ID',
-        data: 'id'
-      }, {
-        title: 'First name',
-        data: 'firstName'
-      }, {
-        title: 'Last name',
-        data: 'lastName'
-      }, {
-        title: 'Action',
-        render: function (data: any, type: any, full: any) {
-          return '<button class="waves-effect btn" view-person-id="' + full.id + '">View</button>';
-        }
-      }]
-    };
   }
 
-  ngAfterViewInit(): void {
-    this.renderer.listen('document', 'click', (event) => {
-      if (event.target.hasAttribute("view-person-id")) {
-        this.router.navigate(["/person/" + event.target.getAttribute("view-person-id")]);
-      }
-    });
+  ngAfterViewInit() {
+    const self = this;
+    // init here as we use ViewChild ref
+    this.dtOptions = {
+      ajax: 'data/data.json',
+      columns: [
+        {
+          title: 'ID',
+          data: 'id'
+        }, {
+          title: 'First name',
+          data: 'firstName'
+        }, {
+          title: 'Last name',
+          data: 'lastName'
+        },
+        {
+          title: 'Action',
+          defaultContent: '',
+          ngTemplateRef: {
+            ref: this.demoNg,
+            context: {
+              // needed for capturing events inside <ng-template>
+              captureEvents: self.onCaptureEvent.bind(self)
+            }
+          }
+        }
+      ]
+    };
+
+    // race condition fails unit tests if dtOptions isn't sent with dtTrigger
+    setTimeout(() => {
+      this.dtTrigger.next(this.dtOptions);
+    }, 200);
+  }
+
+  onCaptureEvent(event: IDemoNgComponentEventType) {
+    this.router.navigate(["/person/" + event.data.id]);
   }
 }
