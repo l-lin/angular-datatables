@@ -46,9 +46,9 @@ describe('DtInstanceComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it('should have title "Getting the DataTable instance"', waitForAsync(() => {
+  it('should have title "Finding DataTable instance"', waitForAsync(() => {
     const app = fixture.debugElement.componentInstance as DtInstanceComponent;
-    expect(app.pageTitle).toBe('Getting the DataTable instance');
+    expect(app.pageTitle).toBe('Finding DataTable instance');
   }));
 
   it('should retrieve Table instance', async () => {

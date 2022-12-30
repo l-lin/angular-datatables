@@ -46,9 +46,9 @@ describe('MultipleTablesComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it('should have title "Multiple DataTables in the same page"', waitForAsync(() => {
+  it('should have title "Multiple tables in the same page"', waitForAsync(() => {
     const app = fixture.debugElement.componentInstance as MultipleTablesComponent;
-    expect(app.pageTitle).toBe('Multiple DataTables in the same page');
+    expect(app.pageTitle).toBe('Multiple tables in the same page');
   }));
 
   it('should have two table instances in dtElements', async () => {

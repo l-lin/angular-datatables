@@ -44,9 +44,9 @@ describe('WithAjaxComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it('should have title "With Ajax"', waitForAsync(() => {
+  it('should have title "Quickstart"', waitForAsync(() => {
     const app = fixture.debugElement.componentInstance as WithAjaxComponent;
-    expect(app.pageTitle).toBe('With Ajax');
+    expect(app.pageTitle).toBe('Quickstart');
   }));
 
   it('should have table populated via AJAX', async () => {

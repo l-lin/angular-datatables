@@ -46,9 +46,9 @@ describe('LoadDtOptionsWithPromiseComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it('should have title "Load DataTables Options with Promise"', waitForAsync(() => {
+  it('should have title "Load DT Options with Promise"', waitForAsync(() => {
     const app = fixture.debugElement.componentInstance as LoadDtOptionsWithPromiseComponent;
-    expect(app.pageTitle).toBe('Load DataTables Options with Promise');
+    expect(app.pageTitle).toBe('Load DT Options with Promise');
   }));
 
   it('should render table from dtOptions as a Promise', async () => {
