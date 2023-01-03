@@ -1,6 +1,11 @@
 <ng-template #preview>
-  <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"></table>
 </ng-template>
+
+<ng-template #demoNg let-data="adtData" let-emitter="captureEvents">
+  <app-demo-ng-template-ref [data]="data" actionText="View" (emitter)="emitter($event)"></app-demo-ng-template-ref>
+</ng-template>
+
 <app-base-demo [pageTitle]="pageTitle" [mdIntro]="mdIntro" [mdHTML]="mdHTML"
  [mdTS]="mdTS" [mdTSHeading]="mdTSHeading" [mdTSHigh]="mdTSHigh" [mdTSHighHeading]="mdTSHighHeading"
   [template]="preview">

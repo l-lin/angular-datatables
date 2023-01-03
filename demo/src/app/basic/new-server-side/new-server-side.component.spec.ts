@@ -1,23 +1,24 @@
-import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
+import { SecurityContext, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
-import { MarkdownModule } from 'ngx-markdown';
-import { BaseDemoComponent } from '../base-demo/base-demo.component';
-import { WithAjaxComponent } from './with-ajax.component';
-import { AppRoutingModule } from '../app.routing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DataTableDirective, DataTablesModule } from 'angular-datatables';
+import { AppRoutingModule } from 'app/app.routing';
+import { BaseDemoComponent } from 'app/base-demo/base-demo.component';
+import { MarkdownModule } from 'ngx-markdown';
 
+import { NewServerSideComponent } from './new-server-side.component';
 
-let fixture: ComponentFixture<WithAjaxComponent>, component: WithAjaxComponent = null;
+describe('NewServerSideComponent', () => {
+  let component: NewServerSideComponent;
+  let fixture: ComponentFixture<NewServerSideComponent>;
 
-describe('WithAjaxComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        WithAjaxComponent,
+        NewServerSideComponent,
         DataTableDirective
       ],
       imports: [
@@ -32,25 +33,25 @@ describe('WithAjaxComponent', () => {
         )
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).createComponent(WithAjaxComponent);
+    }).createComponent(NewServerSideComponent);
 
     component = fixture.componentInstance;
 
     fixture.detectChanges(); // initial binding
   });
 
-  it('should create the app', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-  it('should have title "Quickstart"', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance as WithAjaxComponent;
-    expect(app.pageTitle).toBe('Quickstart');
+
+  it('should have title "Server-side processing"', waitForAsync(() => {
+    const app = fixture.debugElement.componentInstance as NewServerSideComponent;
+    expect(app.pageTitle).toBe('Server-side processing');
   }));
 
   it('should have table populated via AJAX', async () => {
-    const app = fixture.debugElement.componentInstance as WithAjaxComponent;
+    const app = fixture.debugElement.componentInstance as NewServerSideComponent;
     await fixture.whenStable();
     expect(app.dtOptions.columns).toBeDefined();
     const query = fixture.debugElement.query(By.directive(DataTableDirective));
@@ -60,5 +61,4 @@ describe('WithAjaxComponent', () => {
     fixture.detectChanges();
     expect(instance.rows().length).toBeGreaterThan(0);
   });
-
 });

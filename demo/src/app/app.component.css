@@ -34,8 +34,8 @@ ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a {
 }
 
 .side-nav .logo a {
-  height: 140px;
-  background-color: #66ceff;
+  height: 120px !important;
+  background-color: #2196f3;
   color: #fff;
 }
 

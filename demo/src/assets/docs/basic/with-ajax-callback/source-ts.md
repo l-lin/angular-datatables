@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,17 +6,23 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'with-ajax.component.html'
 })
 export class WithAjaxComponent implements OnInit {
-
-  pageTitle = 'Quickstart';
-  mdIntro = 'assets/docs/basic/with-ajax/intro.md';
-  mdHTML = 'assets/docs/basic/with-ajax/source-html.md';
-  mdTS = 'assets/docs/basic/with-ajax/source-ts.md';
-
   dtOptions: DataTables.Settings = {};
 
   ngOnInit(): void {
     this.dtOptions = {
-      ajax: 'data/data.json',
+      ajax: (dataTablesParameters: any, callback) => {
+        that.http
+          .post<DataTablesResponse>(
+            'https://xtlncifojk.eu07.qoddiapp.com/',
+            dataTablesParameters, {}
+          ).subscribe(resp => {
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsFiltered,
+              data: resp.data             // <-- see here
+            });
+          });
+      },
       columns: [{
         title: 'ID',
         data: 'id'
@@ -29,3 +36,4 @@ export class WithAjaxComponent implements OnInit {
     };
   }
 }
+```

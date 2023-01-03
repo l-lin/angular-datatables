@@ -45,6 +45,9 @@ import { BaseDemoComponent } from './base-demo/base-demo.component';
 import { FAQComponent } from './f-a-q/f-a-q.component';
 import { UsingNgTemplateRefComponent } from './advanced/using-ng-template-ref.component';
 import { DemoNgComponent } from './advanced/demo-ng-template-ref.component';
+import { MoreHelpComponent } from './more-help/more-help.component';
+import { WithAjaxCallbackComponent } from './basic/with-ajax-callback/with-ajax-callback.component';
+import { NewServerSideComponent } from './basic/new-server-side/new-server-side.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +79,10 @@ import { DemoNgComponent } from './advanced/demo-ng-template-ref.component';
     BaseDemoComponent,
     FAQComponent,
     UsingNgTemplateRefComponent,
-    DemoNgComponent
+    DemoNgComponent,
+    MoreHelpComponent,
+    WithAjaxCallbackComponent,
+    NewServerSideComponent
   ],
   imports: [
     BrowserModule,

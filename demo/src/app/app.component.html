@@ -1,144 +1,159 @@
 <header>
-    <div class="container">
-        <a data-activates="nav-mobile"
-            class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only">
-            <i class="material-icons">menu</i>
-        </a>
-    </div>
+  <div class="container">
+    <a data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only">
+      <i class="material-icons">menu</i>
+    </a>
+  </div>
 
-    <ul id="nav-mobile" class="side-nav fixed">
-        <li class="logo">
-            <h3>
-                <a id="logo-container" routerLink="" class="brand-logo">
-                    <div class="logo-img">
-                        <img src="assets/angular.png" alt="Angular" />
-                        <span class="plus">+</span>
-                        <img src="assets/datatables.png" alt="DataTables" />
-                    </div>
-                </a>
-            </h3>
-        </li>
-        <li class="source">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="https://www.npmjs.com/package/angular-datatables" title="Install with NPM">
-                                <img src="assets/npm.png" alt="NPM" />
-                            </a>
-                        </td>
-                        <td>
-                            <a href="https://github.com/l-lin/angular-datatables" title="View Source on Github">
-                                <img src="assets/github.png" alt="Github" />
-                            </a>
-                        </td>
-                </tbody>
-            </table>
-        </li>
+  <ul id="nav-mobile" class="side-nav fixed">
+    <li class="logo">
+      <h3>
+        <a id="logo-container" routerLink="" class="brand-logo">
+          <div class="logo-img">
+            <img src="assets/angular.png" alt="Angular" />
+            <span class="plus">+</span>
+            <img src="assets/datatables.png" alt="DataTables" />
+          </div>
+        </a>
+      </h3>
+    </li>
+    <li><a class="subheader">Getting Started</a></li>
+    <li class="bold">
+      <a routerLink="/getting-started" class="waves-effect waves-blue">Installation</a>
+    </li>
+    <li class="bold">
+      <a routerLink="/basic/with-ajax" class="waves-effect waves-blue">Quickstart</a>
+    </li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Usage</a></li>
+
+    <li class="no-padding">
+      <ul class="collapsible collapsible-accordion">
         <li class="bold">
-            <a routerLink="/getting-started" class="waves-effect waves-teal">Getting started</a>
-        </li>
-        <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li class="bold">
-                    <a class="collapsible-header waves-effect waves-teal">Basic examples</a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li>
-                                <a routerLink="/basic/zero-config">Zero configuration</a>
-                            </li>
-                            <li>
-                                <a routerLink="/basic/with-options">With options</a>
-                            </li>
-                            <li>
-                                <a routerLink="/basic/with-ajax">With ajax</a>
-                            </li>
-                            <li>
-                                <a routerLink="/basic/angular-way">Angular way</a>
-                            </li>
-                            <li>
-                                <a routerLink="/basic/server-side-angular-way">Server side the Angular way</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="bold">
-                    <a class="collapsible-header waves-effect waves-teal">Advanced examples</a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li>
-                                <a routerLink="/advanced/custom-range-search">Custom filtering - Range search</a>
-                            </li>
-                            <li>
-                                <a routerLink="/advanced/dt-instance">Fetching DataTable instances</a>
-                            </li>
-                            <li>
-                                <a routerLink="/advanced/individual-column-filtering">Individual column filtering</a>
-                            </li>
-                            <li>
-                                <a routerLink="/advanced/load-dt-options-with-promise">Load DT options with promise</a>
-                            </li>
-                            <li>
-                                <a routerLink="/advanced/rerender">Rerender</a>
-                            </li>
-                            <li>
-                                <a routerLink="/advanced/row-click-event">Row click event</a>
-                            </li>
-                            <li>
-                                <a routerLink="/advanced/multiple-tables">Multiple tables</a>
-                            </li>
-                            <li>
-                                <a routerLink="/advanced/router-link">Router link</a>
-                            </li>
-                            <li>
-                                <a routerLink="/advanced/using-pipe">Using Angular Pipes</a>
-                            </li>
-                            <li>
-                                <a routerLink="/advanced/using-template-ref">Using Angular TemplateRef</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="bold">
-                    <a class="collapsible-header waves-effect waves-teal">Using DT extensions</a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li>
-                                <a routerLink="/extensions/buttons">Buttons extension</a>
-                            </li>
-                            <li>
-                                <a routerLink="/extensions/colreorder">ColReorder extension</a>
-                            </li>
-                            <li>
-                                <a routerLink="/extensions/responsive">Responsive extension</a>
-                            </li>
-                            <li>
-                                <a routerLink="/extensions/select">Select extension</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+          <a class="collapsible-header waves-effect waves-blue">Basic Examples</a>
+          <div class="collapsible-body">
+            <ul>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/basic/zero-config">Zero configuration</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/basic/with-options">With options</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/basic/with-ajax-callback">AJAX using DT callback</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/basic/new-server-side">Server side</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/advanced/row-click-event">Row click event</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/advanced/multiple-tables">Multiple tables</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/advanced/dt-instance">Fetching DataTable instances</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/advanced/load-dt-options-with-promise">Load DT options with promise</a>
+              </li>
             </ul>
+          </div>
         </li>
         <li class="bold">
-          <a routerLink="/faq" class="waves-effect waves-teal">FAQ</a>
-      </li>
-    </ul>
+          <a class="collapsible-header waves-effect waves-blue">Angular</a>
+          <div class="collapsible-body">
+            <ul>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/advanced/using-pipe">Using Pipes</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/advanced/using-template-ref">Using TemplateRef</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/advanced/rerender">Re-render table</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/advanced/router-link">Router link</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="bold">
+          <a class="collapsible-header waves-effect waves-blue">Filtering</a>
+          <div class="collapsible-body">
+            <ul>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/advanced/custom-range-search">Custom filtering - Range search</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/advanced/individual-column-filtering">Individual column filtering</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="bold">
+          <a class="collapsible-header waves-effect waves-blue">DT extensions</a>
+          <div class="collapsible-body">
+            <ul>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/extensions/buttons">Buttons extension</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/extensions/colreorder">ColReorder extension</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/extensions/responsive">Responsive extension</a>
+              </li>
+              <li>
+                <a class="waves-effect waves-blue" routerLink="/extensions/select">Select extension</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="divider"></div>
+        </li>
+        <li><a class="subheader">Support</a></li>
+
+        <li class="bold">
+          <a routerLink="/faq" class="waves-effect waves-blue">FAQ</a>
+        </li>
+        <li class="bold">
+          <a routerLink="/more-help" class="waves-effect waves-blue">Resources</a>
+        </li>
+        <li>
+          <div class="divider"></div>
+        </li>
+        <li><a class="subheader">Deprecated <span class="new badge red" data-badge-caption="">NOT SUPPORTED</span></a>
+        </li>
+        <li class="bold">
+          <a class="waves-effect waves-blue" routerLink="/basic/angular-way">Angular way</a>
+        </li>
+        <li class="bold">
+          <a class="waves-effect waves-blue" routerLink="/basic/server-side-angular-way">Server side the Angular way</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </header>
 
 <main>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </main>
 
 <footer class="page-footer">
-    <div class="footer-copyright">
-        <div class="container">
-            <p>
-                <span class="white-text text-darken-2"> Designed and built with &lt;3 by
-                    <a class="grey-text text-darken-4" href="https://github.com/l-lin"><u>Louis LIN</u></a> and
-                    contributors.
-                </span>
-            </p>
-        </div>
+  <div class="footer-copyright">
+    <div class="container">
+      <p>
+        <span class="white-text text-darken-2"> Designed and built with ❤️ by
+          <a class="grey-text text-darken-4" href="https://github.com/l-lin"><u>Louis LIN</u></a>, <a
+            class="grey-text text-darken-4" href="https://github.com/shanmukhateja"><u>Surya Teja K</u></a> and
+          contributors.
+        </span>
+      </p>
     </div>
+  </div>
 </footer>

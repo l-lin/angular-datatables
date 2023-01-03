@@ -16,6 +16,9 @@ export class DemoNgComponent implements OnInit {
   @Input()
   data = {};
 
+  @Input()
+  actionText = 'Action 1';
+
   ngOnInit(): void {
   }
 

@@ -1,44 +1,73 @@
-<div class="section banner">
+<div class="top-banner section banner">
   <div class="container">
     <div class="row">
       <div class="col s12 m9">
-        <h1 class="header center-on-small-only">{{pageTitle}}</h1>
+        <h2 class="header center-on-small-only">{{pageTitle}}</h2>
       </div>
     </div>
   </div>
 </div>
-<div class="container">
-  <div class="row">
-    <div class="col s12 m9 l12">
-      <div class="section">
-        <span class="caption">
-          <markdown [src]="mdIntro"></markdown>
-        </span>
-        <markdown [src]="mdInstall" *ngIf="mdInstall.length > 0"></markdown>
-        <div class="showcase-tabs">
-          <ul class="anchor-links">
-            <li class="col s4"><a class="waves-effect btn" (click)="scrollToElement(preview)">Preview</a></li>
-            <li class="col s4"><a class="waves-effect btn" (click)="scrollToElement(html)">HTML</a></li>
-            <li class="col s4"><a class="waves-effect btn" (click)="scrollToElement(ts)">Typescript</a></li>
-          </ul>
-        </div>
-        <div #preview class="col s12 m9 l12">
-          <h4 class="header">Preview</h4>
-          <ng-container *ngTemplateOutlet="template"></ng-container>
-        </div>
-        <div #html class="col s12 m9 l12">
-          <h4 class="header">HTML</h4>
-          <markdown [src]="mdHTML"></markdown>
-        </div>
-        <div #ts class="col s12 m9 l12">
-          <h4 class="header">{{mdTSHeading}}</h4>
-          <markdown [src]="mdTS"></markdown>
-          <ng-container *ngIf="mdTSHigh.length > 0">
-            <h4 class="header">{{mdTSHighHeading}}</h4>
-            <markdown [src]="mdTSHigh"></markdown>
-          </ng-container>
-        </div>
-      </div>
+<div class="section" *ngIf="deprecated">
+  <div class="section red white-text">
+    <div class="container">
+      This section has been marked as deprecated. It is listed here for documentation purposes only. <a routerLink="/faq">Read More</a>
     </div>
   </div>
+</div>
+
+<div class="container">
+
+  <h5 class="header">Description</h5>
+  <p class="caption">
+    <markdown [src]="mdIntro"></markdown>
+  </p>
+
+  <!-- Tabs -->
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs tabs-fixed-width grey darken-1 z-depth-1">
+        <li class="tab col">
+          <a href="#previewTab">Preview</a>
+        </li>
+        <li class="tab col" *ngIf="mdInstall.length>0">
+          <a href="#installTab">Installation</a>
+        </li>
+        <li class="tab col">
+          <a href="#htmlTab">HTML</a>
+        </li>
+        <li class="tab col">
+          <a href="#typescriptTab">TS</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Preview -->
+    <div id="previewTab" class="  col s12">
+      <ng-container *ngTemplateOutlet="template"></ng-container>
+    </div>
+
+    <!-- Installation -->
+    <div id="installTab" class="col s12" *ngIf="mdInstall.length > 0">
+      <markdown [src]="mdInstall"></markdown>
+    </div>
+
+    <!-- HTML -->
+    <div id="htmlTab" class="col s12">
+      <markdown [src]="mdHTML"></markdown>
+    </div>
+
+    <div id="typescriptTab" class="col s12">
+      <h5 class="header" *ngIf="mdTSHigh.length>0">{{mdTSHeading}}</h5>
+      <markdown [src]="mdTS"></markdown>
+      <ng-container *ngIf="mdTSHigh.length > 0">
+        <h5 class="header">{{mdTSHighHeading}}</h5>
+        <markdown [src]="mdTSHigh"></markdown>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- Back to Top -->
+<div id="toTop">
+  <i class="material-icons">arrow_upward</i>
 </div>

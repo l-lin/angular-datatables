@@ -1,24 +1,24 @@
-import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
+import { SecurityContext, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
-import { MarkdownModule } from 'ngx-markdown';
-import { BaseDemoComponent } from '../base-demo/base-demo.component';
-import { AppRoutingModule } from '../app.routing';
 import { By } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { LoadDtOptionsWithPromiseComponent } from './load-dt-options-with-promise.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DataTableDirective, DataTablesModule } from 'angular-datatables';
+import { AppRoutingModule } from 'app/app.routing';
+import { BaseDemoComponent } from 'app/base-demo/base-demo.component';
+import { MarkdownModule } from 'ngx-markdown';
 
+import { WithAjaxCallbackComponent } from './with-ajax-callback.component';
 
-let fixture: ComponentFixture<LoadDtOptionsWithPromiseComponent>, component: LoadDtOptionsWithPromiseComponent = null;
+describe('WithAjaxCallbackComponent', () => {
+  let component: WithAjaxCallbackComponent;
+  let fixture: ComponentFixture<WithAjaxCallbackComponent>;
 
-describe('LoadDtOptionsWithPromiseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
-        LoadDtOptionsWithPromiseComponent,
+        WithAjaxCallbackComponent,
         DataTableDirective
       ],
       imports: [
@@ -30,11 +30,10 @@ describe('LoadDtOptionsWithPromiseComponent', () => {
           {
             sanitize: SecurityContext.NONE
           }
-        ),
-        FormsModule
+        )
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).createComponent(LoadDtOptionsWithPromiseComponent);
+    }).createComponent(WithAjaxCallbackComponent);
 
     component = fixture.componentInstance;
 
@@ -46,21 +45,20 @@ describe('LoadDtOptionsWithPromiseComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it('should have title "Load DT Options with Promise"', waitForAsync(() => {
-    const app = fixture.debugElement.componentInstance as LoadDtOptionsWithPromiseComponent;
-    expect(app.pageTitle).toBe('Load DT Options with Promise');
+  it('should have title "AJAX with callback"', waitForAsync(() => {
+    const app = fixture.debugElement.componentInstance as WithAjaxCallbackComponent;
+    expect(app.pageTitle).toBe('AJAX with callback');
   }));
 
-  it('should render table from dtOptions as a Promise', async () => {
-    const app = fixture.componentInstance as LoadDtOptionsWithPromiseComponent;
+  it('should have table populated via AJAX', async () => {
+    const app = fixture.debugElement.componentInstance as WithAjaxCallbackComponent;
     await fixture.whenStable();
-
+    expect(app.dtOptions.columns).toBeDefined();
     const query = fixture.debugElement.query(By.directive(DataTableDirective));
     const dir = query.injector.get(DataTableDirective);
     expect(dir).toBeTruthy();
-
     const instance = await dir.dtInstance;
-    expect(instance.rows().count()).toBeGreaterThan(0);
+    fixture.detectChanges();
+    expect(instance.rows().length).toBeGreaterThan(0);
   });
-
 });

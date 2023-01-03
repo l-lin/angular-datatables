@@ -27,6 +27,9 @@ import { SelectExtensionComponent } from './extensions/select-extension.componen
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
 import { FAQComponent } from './f-a-q/f-a-q.component';
 import { UsingNgTemplateRefComponent } from './advanced/using-ng-template-ref.component';
+import { MoreHelpComponent } from './more-help/more-help.component';
+import { WithAjaxCallbackComponent } from './basic/with-ajax-callback/with-ajax-callback.component';
+import { NewServerSideComponent } from './basic/new-server-side/new-server-side.component';
 
 const routes: Routes = [
     {
@@ -43,6 +46,10 @@ const routes: Routes = [
         component: GettingStartedComponent
     },
     {
+        path: 'more-help',
+        component: MoreHelpComponent
+    },
+    {
         path: 'person/:id',
         component: PersonComponent
     },
@@ -57,6 +64,14 @@ const routes: Routes = [
     {
         path: 'basic/with-ajax',
         component: WithAjaxComponent
+    },
+    {
+        path: 'basic/with-ajax-callback',
+        component: WithAjaxCallbackComponent
+    },
+    {
+        path: 'basic/new-server-side',
+        component: NewServerSideComponent
     },
     {
         path: 'basic/angular-way',

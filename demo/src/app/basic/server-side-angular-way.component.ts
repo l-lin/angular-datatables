@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Person } from '../person';
-
-class DataTablesResponse {
-  data: any[];
-  draw: number;
-  recordsFiltered: number;
-  recordsTotal: number;
-}
+import { DataTablesResponse } from 'app/datatables-response.model';
 
 @Component({
   selector: 'app-server-side-angular-way',

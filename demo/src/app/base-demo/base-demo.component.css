@@ -1,0 +1,28 @@
+.tabs{
+  margin-bottom: 15px;
+}
+
+.header {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+
+#toTop {
+  padding: 7px 14px;
+  background: #1565c0;
+  color: #fff;
+  position: fixed;
+  bottom: 65px;
+  right: 15px;
+  z-index: 999;
+  border: solid 1px #94bed1;
+  border-radius: 30px;
+  box-shadow: 3px 2px 5px #98b1bc;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+#toTop .material-icons {
+  vertical-align: middle;
+}

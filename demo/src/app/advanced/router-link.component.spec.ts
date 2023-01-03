@@ -9,6 +9,8 @@ import { AppRoutingModule } from '../app.routing';
 import { FormsModule } from '@angular/forms';
 import { RouterLinkComponent } from './router-link.component';
 import { Router } from '@angular/router';
+import { By } from '@angular/platform-browser';
+import { DemoNgComponent } from './demo-ng-template-ref.component';
 
 
 let fixture: ComponentFixture<RouterLinkComponent>, component: RouterLinkComponent = null, router: Router = null;
@@ -18,6 +20,7 @@ describe('RouterLinkComponent', () => {
     fixture = TestBed.configureTestingModule({
       declarations: [
         BaseDemoComponent,
+        DemoNgComponent,
         RouterLinkComponent,
         DataTableDirective
       ],
@@ -52,19 +55,20 @@ describe('RouterLinkComponent', () => {
     expect(app.pageTitle).toBe('Router Link');
   }));
 
-  it('should open Person info on click', async () => {
+  it('should respond to button click event inside TemplateRef', async () => {
     await fixture.whenStable();
+
+    const query = fixture.debugElement.query(By.directive(DataTableDirective));
+    const dir = query.injector.get(DataTableDirective);
+    expect(dir).toBeTruthy();
 
     const rSpy = spyOn(router, 'navigate');
 
-    const button = document.createElement('button');
-    button.setAttribute('view-person-id', '3');
-    fixture.nativeElement.appendChild(button);
+    const row: HTMLTableRowElement = fixture.nativeElement.querySelector('tbody tr:first-child');
+    const button: HTMLButtonElement = row.querySelector('button.btn-sm');
     button.click();
 
-
-    fixture.detectChanges();
-    expect(rSpy).toHaveBeenCalledWith(["/person/3"]);
+    expect(rSpy).toHaveBeenCalled();
   });
 
 });
