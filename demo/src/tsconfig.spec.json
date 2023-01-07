@@ -2,7 +2,6 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
-    "target": "es6",
     "baseUrl": "",
     "types": [
       "jasmine",
@@ -10,7 +9,6 @@
     ]
   },
   "files": [
-    "test.ts",
     "polyfills.ts"
   ],
   "include": [

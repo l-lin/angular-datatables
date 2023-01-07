@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "compilerOptions": {
-    "target": "es2015",
+    "target": "ES2022",
     "module": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -12,10 +12,11 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "listFiles": false,
-    "noLib": false
+    "noLib": false,
+    "useDefineForClassFields": false
   },
   "files": [
-    "node_modules/typescript/lib/lib.es6.d.ts"
+    "node_modules/typescript/lib/lib.es2022.d.ts"
   ],
   "include": [
     "./index.ts"
