@@ -108,7 +108,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
       const pipe = el.ngPipeInstance;
       const pipeArgs = el.ngPipeArgs || [];
       // find index of column using `data` attr
-      const i = columns.findIndex(e => e.data === el.data);
+      const i = columns.filter(c => c.visible !== false).findIndex(e => e.data === el.data);
       // get <td> element which holds data using index
       const rowFromCol = row.childNodes.item(i);
       // Transform data with Pipe and PipeArgs
@@ -125,7 +125,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
     colsWithTemplate.forEach(el => {
       const { ref, context } = el.ngTemplateRef;
       // get <td> element which holds data using index
-      const i = columns.findIndex(e => e.data === el.data);
+      const i = columns.filter(c => c.visible !== false).findIndex(e => e.data === el.data);
       const cellFromIndex = row.childNodes.item(i);
       // reset cell before applying transform
       $(cellFromIndex).html('');
