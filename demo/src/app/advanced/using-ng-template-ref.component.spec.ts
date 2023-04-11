@@ -75,6 +75,25 @@ describe('UsingNgTemplateRefComponent', () => {
 
   });
 
+  it('should not crash when using "visible: false" for columns', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const query = fixture.debugElement.query(By.directive(DataTableDirective));
+    const dir = query.injector.get(DataTableDirective);
+    expect(dir).toBeTruthy();
+
+    // hide first column
+    (await dir.dtInstance).columns(0).visible(false);
+    await fixture.whenRenderingDone();
+
+    fixture.detectChanges();
+
+    // verify app still works
+    expect((await dir.dtInstance).column(0).visible()).toBeFalse();
+  });
+
+
   it('should not have duplicate contents in ngTemplateRef column when navigating pages', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
