@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^15.0.4",
     "@angular/router": "^15.0.4",
     "@types/marked": "^4.0.8",
-    "angular-datatables": "^14.0.0",
+    "angular-datatables": "^15.0.0",
     "clipboard": "^2.0.8",
     "core-js": "^3.19.1",
     "datatables.net": "^1.11.3",

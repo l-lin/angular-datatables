@@ -52,3 +52,7 @@ If you're using DataTables v1.10.4 or later, you can add `destroy: true` to `dtO
 
 This usually occurs when your `dtOptions` are configured incorrectly. Make sure your AJAX response matches to our AJAX example [here](http://localhost:4200/#/basic/with-ajax). 
 We highly recommend checking out DataTables.net [documentation](https://datatables.net/manual/tech-notes/4) on this issue for more troubleshooting information. 
+
+> Blank screen when using `visible: true` on TemplateRef or Pipes
+
+This is a known issue with the library. Please upgrade to atleast [v15.0.1](https://github.com/l-lin/angular-datatables/releases/tag/v15.0.1) for the fix.
