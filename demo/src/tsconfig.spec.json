@@ -6,12 +6,14 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
   },
   "files": [
     "polyfills.ts"
   ],
   "include": [
     "**/*.spec.ts"
-  ]
+  ],
 }

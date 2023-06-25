@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables-demo",
-  "version": "15.0.1",
+  "version": "16.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -13,15 +13,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^15.0.4",
-    "@angular/common": "^15.0.4",
-    "@angular/compiler": "^15.0.4",
-    "@angular/core": "^15.0.4",
-    "@angular/forms": "^15.0.4",
-    "@angular/platform-browser": "^15.0.4",
-    "@angular/platform-browser-dynamic": "^15.0.4",
-    "@angular/router": "^15.0.4",
-    "@types/marked": "^4.0.8",
+    "@angular/animations": "^16.1.2",
+    "@angular/common": "^16.1.2",
+    "@angular/compiler": "^16.1.2",
+    "@angular/core": "^16.1.2",
+    "@angular/forms": "^16.1.2",
+    "@angular/platform-browser": "^16.1.2",
+    "@angular/platform-browser-dynamic": "^16.1.2",
+    "@angular/router": "^16.1.2",
+    "@types/marked": "^4.3.0",
     "angular-datatables": "^15.0.0",
     "clipboard": "^2.0.8",
     "core-js": "^3.19.1",
@@ -40,19 +40,19 @@
     "jszip": "^3.8.0",
     "marked": "^4.2.5",
     "materialize-css": "^0.100.2",
-    "ngx-markdown": "^15.0.0",
+    "ngx-markdown": "^16.0.0",
     "prism-themes": "^1.9.0",
     "prismjs": "^1.27.0",
     "rxjs": "^7.4.0",
     "rxjs-compat": "^6.6.7",
     "tether": "^2.0.0",
-    "zone.js": "^0.11.6"
+    "zone.js": "^0.13.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~15.2.4",
-    "@angular/cli": "^15.0.5",
-    "@angular/compiler-cli": "^15.0.4",
-    "@angular/language-service": "^15.0.4",
+    "@angular-devkit/build-angular": "~16.1.1",
+    "@angular/cli": "^16.1.1",
+    "@angular/compiler-cli": "^16.1.2",
+    "@angular/language-service": "^16.1.2",
     "@types/datatables.net": "^1.10.21",
     "@types/datatables.net-buttons": "^1.4.7",
     "@types/datatables.net-select": "^1.2.7",
@@ -72,6 +72,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~10.4.0",
     "tslint": "~6.1.0",
-    "typescript": "4.8.4"
+    "typescript": "5.1.3"
   }
 }

@@ -12,7 +12,9 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "listFiles": false,
-    "noLib": false
+    "noLib": false,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
   },
   "files": [
     "node_modules/typescript/lib/lib.es6.d.ts"
