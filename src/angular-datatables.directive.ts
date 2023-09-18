@@ -75,9 +75,13 @@ export class DataTableDirective implements OnDestroy, OnInit {
           reject('Both the table and dtOptions cannot be empty');
           return;
         }
-        
+
         // Set a column unique
-        resolvedDTOptions.columns.forEach((col: ADTColumns, i: number) => col.id = i);
+        resolvedDTOptions.columns.forEach(col => {
+          if ((col.id ?? '').trim() === '') {
+            col.id = this.getColumnUniqueId();
+          }
+        });
 
         // Using setTimeout as a "hack" to be "part" of NgZone
         setTimeout(() => {
@@ -142,4 +146,17 @@ export class DataTableDirective implements OnDestroy, OnInit {
       this.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
     });
   }
+
+  private getColumnUniqueId(): string {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (let i = 0; i < 6; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return result.trim();
+  }
+
 }
