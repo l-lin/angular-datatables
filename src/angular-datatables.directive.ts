@@ -77,11 +77,13 @@ export class DataTableDirective implements OnDestroy, OnInit {
         }
 
         // Set a column unique
-        resolvedDTOptions.columns.forEach(col => {
-          if ((col.id ?? '').trim() === '') {
-            col.id = this.getColumnUniqueId();
-          }
-        });
+        if (resolvedDTOptions.columns) {
+          resolvedDTOptions.columns.forEach(col => {
+            if ((col.id ?? '').trim() === '') {
+              col.id = this.getColumnUniqueId();
+            }
+          });
+        }
 
         // Using setTimeout as a "hack" to be "part" of NgZone
         setTimeout(() => {
