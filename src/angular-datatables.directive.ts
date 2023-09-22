@@ -75,6 +75,16 @@ export class DataTableDirective implements OnDestroy, OnInit {
           reject('Both the table and dtOptions cannot be empty');
           return;
         }
+
+        // Set a column unique
+        if (resolvedDTOptions.columns) {
+          resolvedDTOptions.columns.forEach(col => {
+            if ((col.id ?? '').trim() === '') {
+              col.id = this.getColumnUniqueId();
+            }
+          });
+        }
+
         // Using setTimeout as a "hack" to be "part" of NgZone
         setTimeout(() => {
           // Assign DT properties here
@@ -108,7 +118,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
       const pipe = el.ngPipeInstance;
       const pipeArgs = el.ngPipeArgs || [];
       // find index of column using `data` attr
-      const i = columns.filter(c => c.visible !== false).findIndex(e => e.data === el.data);
+      const i = columns.filter(c => c.visible !== false).findIndex(e => e.id === el.id);
       // get <td> element which holds data using index
       const rowFromCol = row.childNodes.item(i);
       // Transform data with Pipe and PipeArgs
@@ -125,7 +135,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
     colsWithTemplate.forEach(el => {
       const { ref, context } = el.ngTemplateRef;
       // get <td> element which holds data using index
-      const i = columns.filter(c => c.visible !== false).findIndex(e => e.data === el.data);
+      const i = columns.filter(c => c.visible !== false).findIndex(e => e.id === el.id);
       const cellFromIndex = row.childNodes.item(i);
       // reset cell before applying transform
       $(cellFromIndex).html('');
@@ -138,4 +148,17 @@ export class DataTableDirective implements OnDestroy, OnInit {
       this.renderer.appendChild(cellFromIndex, instance.rootNodes[0]);
     });
   }
+
+  private getColumnUniqueId(): string {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (let i = 0; i < 6; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return result.trim();
+  }
+
 }
