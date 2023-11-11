@@ -88,18 +88,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-datatables-demo:build"
+            "buildTarget": "angular-datatables-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-datatables-demo:build:production"
+              "buildTarget": "angular-datatables-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-datatables-demo:build"
+            "buildTarget": "angular-datatables-demo:build"
           }
         },
         "test": {
