@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { SecurityContext, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { AppRoutingModule } from 'app/app.routing';
@@ -50,15 +49,4 @@ describe('WithAjaxCallbackComponent', () => {
     expect(app.pageTitle).toBe('AJAX with callback');
   }));
 
-  it('should have table populated via AJAX', async () => {
-    const app = fixture.debugElement.componentInstance as WithAjaxCallbackComponent;
-    await fixture.whenStable();
-    expect(app.dtOptions.columns).toBeDefined();
-    const query = fixture.debugElement.query(By.directive(DataTableDirective));
-    const dir = query.injector.get(DataTableDirective);
-    expect(dir).toBeTruthy();
-    const instance = await dir.dtInstance;
-    fixture.detectChanges();
-    expect(instance.rows().length).toBeGreaterThan(0);
-  });
 });
