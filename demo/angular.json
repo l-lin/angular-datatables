@@ -33,7 +33,8 @@
               "node_modules/materialize-css/dist/css/materialize.css",
               "node_modules/prism-themes/themes/prism-material-dark.css",
               "src/styles.css",
-              "node_modules/prismjs/plugins/toolbar/prism-toolbar.css"
+              "node_modules/prismjs/plugins/toolbar/prism-toolbar.css",
+              "node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
@@ -58,7 +59,8 @@
               "node_modules/prismjs/components/prism-bash.min.js",
               "node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js",
               "node_modules/clipboard/dist/clipboard.min.js",
-              "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"
+              "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js",
+              "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js"
             ],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -123,7 +125,8 @@
               "node_modules/datatables.net-buttons/js/buttons.print.js",
               "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js",
               "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
-              "node_modules/datatables.net-select/js/dataTables.select.js"
+              "node_modules/datatables.net-select/js/dataTables.select.js",
+              "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js"
             ],
             "styles": [
               "node_modules/datatables.net-dt/css/jquery.dataTables.css",
@@ -132,7 +135,8 @@
               "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
               "node_modules/datatables.net-select-dt/css/select.dataTables.css",
               "node_modules/materialize-css/dist/css/materialize.css",
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.css"
             ],
             "assets": [
               "src/assets",

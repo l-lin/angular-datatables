@@ -30,6 +30,7 @@ import { UsingNgTemplateRefComponent } from './advanced/using-ng-template-ref.co
 import { MoreHelpComponent } from './more-help/more-help.component';
 import { WithAjaxCallbackComponent } from './basic/with-ajax-callback/with-ajax-callback.component';
 import { NewServerSideComponent } from './basic/new-server-side/new-server-side.component';
+import { FixedColumnsExtensionComponent } from './extensions/fixed-columns-extension.component';
 
 const routes: Routes = [
     {
@@ -128,6 +129,10 @@ const routes: Routes = [
     {
         path: 'extensions/colreorder',
         component: ColreorderExtensionComponent
+    },
+    {
+        path: 'extensions/fixed-columns',
+        component: FixedColumnsExtensionComponent
     },
     {
         path: 'extensions/responsive',
