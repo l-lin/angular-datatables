@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class SelectExtensionComponent implements OnInit {
   
   // Must be declared as "any", not as "DataTables.Settings"
-  // Must be declared as "any", not as "DataTables.Settings"
   dtOptions: any = {};
 
   ngOnInit(): void {
