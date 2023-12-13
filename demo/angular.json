@@ -33,8 +33,7 @@
               "node_modules/materialize-css/dist/css/materialize.css",
               "node_modules/prism-themes/themes/prism-material-dark.css",
               "src/styles.css",
-              "node_modules/prismjs/plugins/toolbar/prism-toolbar.css",
-              "node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.css"
+              "node_modules/prismjs/plugins/toolbar/prism-toolbar.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
@@ -135,8 +134,7 @@
               "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
               "node_modules/datatables.net-select-dt/css/select.dataTables.css",
               "node_modules/materialize-css/dist/css/materialize.css",
-              "src/styles.css",
-              "node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.css"
+              "src/styles.css"
             ],
             "assets": [
               "src/assets",
