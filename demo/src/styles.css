@@ -154,3 +154,34 @@ div.code-toolbar > .toolbar button {
 markdown h5:not(markdown.faqMarkdown) {
   color: #2196f3;
 }
+
+
+/** Fixed columns css 
+
+These classes are injected by fixed columns extensions
+and can be tweaked here to match the colors of headers and body
+to hide the scrolling element behind the fixed header.
+
+*/
+
+
+table.dataTable thead tr > .dtfc-fixed-left,
+table.dataTable thead tr > .dtfc-fixed-right,
+table.dataTable tfoot tr > .dtfc-fixed-left,
+table.dataTable tfoot tr > .dtfc-fixed-right {
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  background-color: white;
+}
+
+table.dataTable tbody tr > .dtfc-fixed-left,
+table.dataTable tbody tr > .dtfc-fixed-right {
+  z-index: 1;
+  background-color: white;
+}
+
+div.dtfc-left-top-blocker,
+div.dtfc-right-top-blocker {
+  background-color: white;
+}

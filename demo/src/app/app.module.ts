@@ -32,6 +32,7 @@ import { RouterLinkComponent } from './advanced/router-link.component';
 // Using extension examples
 import { ButtonsExtensionComponent } from './extensions/buttons-extension.component';
 import { ColreorderExtensionComponent } from './extensions/colreorder-extension.component';
+import { FixedColumnsExtensionComponent } from './extensions/fixed-columns-extension.component';
 import { ResponsiveExtensionComponent } from './extensions/responsive-extension.component';
 import { SelectExtensionComponent } from './extensions/select-extension.component';
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
@@ -73,6 +74,7 @@ import { NewServerSideComponent } from './basic/new-server-side/new-server-side.
 
     ButtonsExtensionComponent,
     ColreorderExtensionComponent,
+    FixedColumnsExtensionComponent,
     ResponsiveExtensionComponent,
     SelectExtensionComponent,
     UsingNgPipeComponent,

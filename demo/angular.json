@@ -58,7 +58,8 @@
               "node_modules/prismjs/components/prism-bash.min.js",
               "node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js",
               "node_modules/clipboard/dist/clipboard.min.js",
-              "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"
+              "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js",
+              "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js"
             ],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -123,7 +124,8 @@
               "node_modules/datatables.net-buttons/js/buttons.print.js",
               "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js",
               "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
-              "node_modules/datatables.net-select/js/dataTables.select.js"
+              "node_modules/datatables.net-select/js/dataTables.select.js",
+              "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js"
             ],
             "styles": [
               "node_modules/datatables.net-dt/css/jquery.dataTables.css",
