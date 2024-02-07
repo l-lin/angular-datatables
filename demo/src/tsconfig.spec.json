@@ -3,9 +3,8 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "baseUrl": "",
-    "types": [
-      "jasmine",
-      "node"
+    "typeRoots": [
+      "../node_modules/@types"
     ],
     "skipDefaultLibCheck": true,
     "skipLibCheck": true

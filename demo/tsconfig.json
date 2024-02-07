@@ -5,9 +5,10 @@
     "baseUrl": "src",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
     "experimentalDecorators": true,
     "target": "ES2022",
+    "module": "esnext",
+    "moduleResolution": "node",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -16,7 +17,6 @@
       "es2016",
       "dom"
     ],
-    "types": ["node"],
     "paths": {
       "@angular/*": [
         "../node_modules/@angular/*"
@@ -24,6 +24,8 @@
     },
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
   }
 }
