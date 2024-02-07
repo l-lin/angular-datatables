@@ -1,24 +1,36 @@
+/* To learn more about this file see: https://angular.io/guide/typescript-configuration. */
 {
-  "version": "2.0.0",
+  "compileOnSave": false,
   "compilerOptions": {
     "target": "ES2022",
     "module": "esnext",
     "moduleResolution": "node",
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "importHelpers": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "noPropertyAccessFromIndexSignature": true,
+    "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "declaration": true,
-    "removeComments": false,
+    "declaration": false,
+    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "listFiles": false,
-    "noLib": false,
     "useDefineForClassFields": false
   },
-  "files": [
-    "node_modules/typescript/lib/lib.es2022.d.ts"
-  ],
   "include": [
     "./index.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "disableTypeScriptVersionCheck": true,
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
 }
