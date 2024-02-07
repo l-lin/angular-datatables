@@ -54,7 +54,7 @@
     "@angular/cli": "^17.0.0",
     "@angular/compiler-cli": "^17.0.2",
     "@angular/language-service": "^17.0.2",
-    "@types/datatables.net": "^1.10.21",
+    "@types/datatables.net": "^1.10.28",
     "@types/datatables.net-buttons": "^1.4.7",
     "@types/datatables.net-select": "^1.2.7",
     "@types/jasmine": "~3.10.2",
