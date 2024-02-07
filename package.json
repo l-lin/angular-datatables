@@ -47,7 +47,7 @@
     "@types/jasmine": "~3.10.2",
     "@types/jquery": "~3.5.8",
     "@types/marked": "^4.0.8",
-    "@types/node": "~16.11.7",
+    "@types/node": "^20.11.16",
     "canonical-path": "1.0.0",
     "core-js": "^3.19.1",
     "datatables.net": "^1.11.3",
