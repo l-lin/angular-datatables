@@ -16,6 +16,7 @@
       "es2016",
       "dom"
     ],
+    "types": ["node"],
     "paths": {
       "@angular/*": [
         "../node_modules/@angular/*"
