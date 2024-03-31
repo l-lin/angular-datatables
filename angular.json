@@ -102,12 +102,11 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "karmaConfig": "./karma.conf.js",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
             ],
-            "tsConfig": "src/tsconfig.spec.json",
+            "tsConfig": "demo/src/tsconfig.spec.json",
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/tether/dist/js/tether.js",
@@ -130,13 +129,13 @@
               "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
               "node_modules/datatables.net-select-dt/css/select.dataTables.css",
               "node_modules/materialize-css/dist/css/materialize.css",
-              "src/styles.css"
+              "demo/src/styles.css"
             ],
             "assets": [
-              "src/assets",
-              "src/archives",
-              "src/data",
-              "src/favicon.png"
+              "demo/src/assets",
+              "demo/src/archives",
+              "demo/src/data",
+              "demo/src/favicon.png"
             ],
             "include": [
               "**/*.spec.ts"
@@ -170,7 +169,6 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "lib/tsconfig.spec.json",
-            "karmaConfig": "lib/karma.conf.js",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

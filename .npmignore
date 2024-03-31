@@ -54,8 +54,6 @@ tsconfig-build.json
 .vscode
 
 # test cases
-karma-test-shim.js
-karma.conf.js
 test
 _test-output
 

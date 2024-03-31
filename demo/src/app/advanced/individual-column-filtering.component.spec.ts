@@ -9,11 +9,12 @@ import { AppRoutingModule } from '../app.routing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { IndividualColumnFilteringComponent } from './individual-column-filtering.component';
+import { Api } from 'datatables.net';
 
 
 let fixture: ComponentFixture<IndividualColumnFilteringComponent>, component: IndividualColumnFilteringComponent = null;
 
-function applyValueToInput(inputElement: HTMLInputElement, value: string, table: DataTables.Api) {
+function applyValueToInput(inputElement: HTMLInputElement, value: string, table: Api) {
   inputElement.value = value;
   inputElement.dispatchEvent(new Event('input'));
   inputElement.dispatchEvent(new Event('change'));

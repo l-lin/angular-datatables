@@ -3,15 +3,9 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "baseUrl": "",
-    "typeRoots": [
-      "../node_modules/@types"
-    ],
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
-  "files": [
-    "polyfills.ts"
-  ],
   "include": [
     "**/*.spec.ts"
   ],

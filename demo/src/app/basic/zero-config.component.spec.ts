@@ -62,7 +62,6 @@ describe('ZeroConfigComponent', () => {
     .catch(e => {
       done.fail(e);
     });
-    done();
   });
 
 });
