@@ -1,20 +1,20 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
+  "newProjectRoot": "",
   "projects": {
     "angular-datatables-demo": {
-      "root": "",
+      "root": "demo",
       "sourceRoot": "src",
       "projectType": "application",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "outputPath": "dist/demo",
+            "index": "demo/src/index.html",
+            "main": "demo/src/main.ts",
+            "tsConfig": "demo/src/tsconfig.app.json",
             "polyfills": [
               "zone.js"
             ],
@@ -32,7 +32,7 @@
               "node_modules/datatables.net-select-dt/css/select.dataTables.css",
               "node_modules/materialize-css/dist/css/materialize.css",
               "node_modules/prism-themes/themes/prism-material-dark.css",
-              "src/styles.css",
+              "demo/src/styles.css",
               "node_modules/prismjs/plugins/toolbar/prism-toolbar.css"
             ],
             "scripts": [
@@ -76,13 +76,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
+              "buildOptimizer": true
             }
           }
         },
@@ -149,20 +143,51 @@
         }
       }
     },
-    "angular-datatables-demo-e2e": {
-      "root": "",
-      "sourceRoot": "",
-      "projectType": "application",
+    "angular-datatables": {
+      "root": "lib",
+      "sourceRoot": "lib/src",
+      "projectType": "library",
+      "prefix": "lib",
       "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "angular-datatables-demo:serve"
+            "project": "lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "lib/tsconfig.spec.json",
+            "karmaConfig": "lib/karma.conf.js",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "eslintConfig": "lib/.eslintrc.json",
+            "lintFilePatterns": [
+              "lib/**/*.ts",
+              "lib/**/*.html"
+            ]
           }
         }
       }
     }
+
   },
   "schematics": {
     "@schematics/angular:component": {
