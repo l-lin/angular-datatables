@@ -22,7 +22,7 @@
     "experimentalDecorators": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitReturns": true,
     "paths": {
       "@angular/*": [

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-load-dt-options-with-promise',
@@ -12,12 +13,12 @@ export class LoadDtOptionsWithPromiseComponent implements OnInit {
   mdHTML = 'assets/docs/advanced/load-dt-opt-with-promise/source-html.md';
   mdTS = 'assets/docs/advanced/load-dt-opt-with-promise/source-ts.md';
 
-  dtOptions: Promise<DataTables.Settings>;
+  dtOptions: Promise<Config>;
 
   constructor(@Inject(HttpClient) private httpClient: HttpClient) {}
 
   ngOnInit(): void {
-  this.dtOptions = this.httpClient.get<DataTables.Settings>('data/dtOptions.json')
+  this.dtOptions = this.httpClient.get<Config>('data/dtOptions.json')
       .toPromise()
       .catch(this.handleError);
   }

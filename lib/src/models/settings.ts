@@ -1,9 +1,10 @@
 import { PipeTransform, TemplateRef } from '@angular/core';
+import { Config, ConfigColumns } from 'datatables.net';
 
-export interface ADTSettings extends DataTables.Settings {
+export interface ADTSettings extends Config {
   columns?: ADTColumns[];
 }
-export interface ADTColumns extends DataTables.ColumnSettings {
+export interface ADTColumns extends ConfigColumns {
   /** Define the column's unique identifier */
   id?: string;
   /** Set instance of Angular pipe to transform the data of particular column */

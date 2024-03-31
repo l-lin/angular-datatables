@@ -5,7 +5,7 @@
   "projects": {
     "angular-datatables-demo": {
       "root": "demo",
-      "sourceRoot": "src",
+      "sourceRoot": "demo/src",
       "projectType": "application",
       "architect": {
         "build": {
@@ -19,17 +19,16 @@
               "zone.js"
             ],
             "assets": [
-              "src/assets",
-              "src/archives",
-              "src/data",
-              "src/favicon.png"
+              "demo/src/assets",
+              "demo/src/data",
+              "demo/src/favicon.png"
             ],
             "styles": [
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
-              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
-              "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css",
-              "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",
-              "node_modules/datatables.net-select-dt/css/select.dataTables.css",
+              "node_modules/datatables.net-dt/css/dataTables.dataTables.min.css",
+              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.min.css",
+              "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.min.css",
+              "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.min.css",
+              "node_modules/datatables.net-select-dt/css/select.dataTables.min.css",
               "node_modules/materialize-css/dist/css/materialize.css",
               "node_modules/prism-themes/themes/prism-material-dark.css",
               "demo/src/styles.css",
@@ -40,15 +39,15 @@
               "node_modules/tether/dist/js/tether.js",
               "node_modules/materialize-css/dist/js/materialize.js",
               "node_modules/jszip/dist/jszip.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js",
-              "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
-              "node_modules/datatables.net-buttons/js/buttons.colVis.js",
-              "node_modules/datatables.net-buttons/js/buttons.flash.js",
-              "node_modules/datatables.net-buttons/js/buttons.html5.js",
-              "node_modules/datatables.net-buttons/js/buttons.print.js",
-              "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js",
-              "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
-              "node_modules/datatables.net-select/js/dataTables.select.js",
+              "node_modules/datatables.net/js/dataTables.min.js",
+              "node_modules/datatables.net-buttons/js/dataTables.buttons.min.js",
+              "node_modules/datatables.net-buttons/js/buttons.colVis.min.js",
+              "node_modules/datatables.net-buttons/js/buttons.flash.min.js",
+              "node_modules/datatables.net-buttons/js/buttons.html5.min.js",
+              "node_modules/datatables.net-buttons/js/buttons.print.min.js",
+              "node_modules/datatables.net-colreorder/js/dataTables.colReorder.min.js",
+              "node_modules/datatables.net-responsive/js/dataTables.responsive.min.js",
+              "node_modules/datatables.net-select/js/dataTables.select.min.js",
               "node_modules/marked/marked.min.js",
               "node_modules/prismjs/prism.js",
               "node_modules/prismjs/components/prism-typescript.min.js",
@@ -66,7 +65,10 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "allowedCommonJsDependencies": [
+              "jquery"
+            ]
           },
           "configurations": {
             "production": {
@@ -109,7 +111,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/tether/dist/js/tether.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/datatables.net/js/dataTables.min.js",
               "node_modules/jszip/dist/jszip.js",
               "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
               "node_modules/datatables.net-buttons/js/buttons.colVis.js",
@@ -122,7 +124,7 @@
               "node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.js"
             ],
             "styles": [
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
+              "node_modules/datatables.net-dt/css/dataTables.dataTables.css",
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
               "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css",
               "node_modules/datatables.net-responsive-dt/css/responsive.dataTables.css",

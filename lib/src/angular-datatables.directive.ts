@@ -8,6 +8,7 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ADTSettings, ADTColumns } from './models/settings';
+import { Api } from 'datatables.net';
 
 @Directive({
   selector: '[datatable]'
@@ -32,10 +33,10 @@ export class DataTableDirective implements OnDestroy, OnInit {
    * It's possible to execute the [DataTables APIs](https://datatables.net/reference/api/) with
    * this variable.
    */
-  dtInstance: Promise<DataTables.Api>;
+  dtInstance: Promise<Api>;
 
   // Only used for destroying the table when destroying this directive
-  private dt: DataTables.Api;
+  private dt: Api;
 
   constructor(
     private el: ElementRef,

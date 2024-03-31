@@ -70,8 +70,8 @@ export class BaseDemoComponent implements OnInit {
     });
   }
 
-  scrollToElement($elem): void {
-    $elem.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+  scrollToElement(element: HTMLElement): void {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 
 }

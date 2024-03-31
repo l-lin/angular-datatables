@@ -1,36 +1,18 @@
-/* To learn more about this file see: https://angular.io/guide/typescript-configuration. */
 {
-  "compileOnSave": false,
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
-    "importHelpers": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": false,
-    "noPropertyAccessFromIndexSignature": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "useDefineForClassFields": false
+    "outDir": "../out-tsc/lib",
+    "target": "ES2015",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
   },
-  "include": [
-    "./index.ts"
-  ],
   "angularCompilerOptions": {
-    "disableTypeScriptVersionCheck": true,
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "enableResourceInlining": true
+  },
+  "exclude": [
+    "**/*.spec.ts"
+  ]
 }

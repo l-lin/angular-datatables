@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Person } from '../person';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-server-side-angular-way',
@@ -13,6 +14,6 @@ export class ServerSideAngularWayComponent {
   mdHTML = 'assets/docs/basic/server-side-angular-way/source-html.md';
   mdTS = 'assets/docs/basic/server-side-angular-way/source-ts.md';
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
   persons: Person[];
 }

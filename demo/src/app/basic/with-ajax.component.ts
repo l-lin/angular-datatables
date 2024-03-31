@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-with-ajax',
@@ -11,7 +12,7 @@ export class WithAjaxComponent implements OnInit {
   mdHTML = 'assets/docs/basic/with-ajax/source-html.md';
   mdTS = 'assets/docs/basic/with-ajax/source-ts.md';
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {

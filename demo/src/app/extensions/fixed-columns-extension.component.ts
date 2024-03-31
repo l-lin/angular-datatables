@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net';
+import 'datatables.net-fixedcolumns-dt';
 
 @Component({
   selector: 'app-fixed-columns-extension',
@@ -12,7 +14,7 @@ export class FixedColumnsExtensionComponent implements OnInit {
   mdHTML = 'assets/docs/extensions/fixedcolumns/source-html.md';
   mdTS = 'assets/docs/extensions/fixedcolumns/source-ts.md';
 
-  // Must be declared as "any", not as "DataTables.Settings"
+  // Unfortunately this still requires `any` due to types issue in fixedcolumns
   dtOptions: any = {};
 
   ngOnInit(): void {

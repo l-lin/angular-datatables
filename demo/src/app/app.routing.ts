@@ -9,7 +9,6 @@ import { ZeroConfigComponent } from './basic/zero-config.component';
 import { WithOptionsComponent } from './basic/with-options.component';
 import { WithAjaxComponent } from './basic/with-ajax.component';
 import { AngularWayComponent } from './basic/angular-way.component';
-import { ServerSideAngularWayComponent } from 'app/basic/server-side-angular-way.component';
 
 import { CustomRangeSearchComponent } from './advanced/custom-range-search.component';
 import { DtInstanceComponent } from './advanced/dt-instance.component';
@@ -31,6 +30,7 @@ import { MoreHelpComponent } from './more-help/more-help.component';
 import { WithAjaxCallbackComponent } from './basic/with-ajax-callback/with-ajax-callback.component';
 import { NewServerSideComponent } from './basic/new-server-side/new-server-side.component';
 import { FixedColumnsExtensionComponent } from './extensions/fixed-columns-extension.component';
+import { ServerSideAngularWayComponent } from './basic/server-side-angular-way.component';
 
 const routes: Routes = [
     {

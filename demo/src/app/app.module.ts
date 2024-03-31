@@ -38,7 +38,7 @@ import { SelectExtensionComponent } from './extensions/select-extension.componen
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
 
 // Using Angular Pipe
-import { CurrencyPipe, UpperCasePipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, UpperCasePipe } from '@angular/common';
 
 // Markdown
 import { MarkdownModule } from 'ngx-markdown';
@@ -87,6 +87,7 @@ import { NewServerSideComponent } from './basic/new-server-side/new-server-side.
     NewServerSideComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,

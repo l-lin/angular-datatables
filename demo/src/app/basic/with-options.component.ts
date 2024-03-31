@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-with-options',
@@ -11,8 +12,7 @@ export class WithOptionsComponent implements OnInit {
   mdHTML = 'assets/docs/basic/with-options/source-html.md';
   mdTS = 'assets/docs/basic/with-options/source-ts.md';
 
-
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {

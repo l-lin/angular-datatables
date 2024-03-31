@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Config } from "datatables.net";
 
 @Component({
   selector: "app-new-server-side",
@@ -11,5 +12,5 @@ export class NewServerSideComponent {
   mdHTML = "assets/docs/basic/new-server-side/source-html.md";
   mdTS = "assets/docs/basic/new-server-side/source-ts.md";
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
 }

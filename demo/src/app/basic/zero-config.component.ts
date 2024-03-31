@@ -1,5 +1,4 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { BaseDemoComponent } from 'app/base-demo/base-demo.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-zero-config',

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-row-click-event',
@@ -12,7 +13,7 @@ export class RowClickEventComponent implements OnInit {
   mdTS = 'assets/docs/advanced/row-click/source-ts.md';
 
   message = '';
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
 
   constructor() { }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-dt-instance',
@@ -16,10 +17,10 @@ export class DtInstanceComponent implements OnInit {
   @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
 
   displayToConsole(datatableElement: DataTableDirective): void {
-    datatableElement.dtInstance.then((dtInstance: DataTables.Api) => console.log(dtInstance));
+    datatableElement.dtInstance.then(dtInstance => console.log(dtInstance));
   }
 
   ngOnInit(): void {
