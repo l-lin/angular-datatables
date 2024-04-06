@@ -19,9 +19,8 @@ function addPackageJsonDependencies(options: IADTSchematicsOptions) {
 
     const dependencies = [
       { version: '^3.6.0', name: 'jquery', isDev: false },
-      { version: '^1.11.3', name: 'datatables.net', isDev: false },
-      { version: '^3.5.9', name: '@types/jquery', isDev: true },
-      { version: '^1.10.21', name: '@types/datatables.net', isDev: true }
+      { version: '^2.0.3', name: 'datatables.net (v2)', isDev: false },
+      { version: '^3.5.9', name: '@types/jquery', isDev: true }
     ];
 
     if (styleDeps) {
