@@ -19,12 +19,12 @@ jobs:
         run: npm install
 
       - name: Run build
-        run: npm run build
+        run: npm run build:lib
 
       - name: Publish to NPM packages
         # includes a --ignore-scripts command argument to avoid executing npm life cycle scripts during this phase
         # for security concerns as scripts could steal NODE_AUTH_TOKEN
-        run: npm publish --ignore-scripts --access public
+        run: cd lib && npm publish --ignore-scripts --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

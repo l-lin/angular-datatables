@@ -28,20 +28,12 @@ jobs:
         run: npm install
 
       - name: Run build
-        run: npm run build
-
-      - name: Pack library
-        run: npm pack
-
-      # test demo
-      - name: Install demo dependencies
-        working-directory: ./demo
-        run: npm install
+        run: npm run build:lib
 
       - name: Install current angular-datatables to demo
         working-directory: ./demo
-        run: rm -rf node_modules/angular-datatables && npm install --no-save --no-package-lock ../angular-datatables-*.tgz
+        run: npm run link:lib
 
       - name: Run demo test
         working-directory: ./demo
-        run: npm run test-ci
+        run: npm run demo:test-ci

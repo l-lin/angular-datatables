@@ -8,7 +8,7 @@
     "clean": "rimraf -f lib/**/index.{d.ts,js,js.map,metadata.json} demo/**/*.{d.ts,js,map,metadata.json} bundles schematics/**/*.{d.ts,js,map}",
     "link:lib": "rimraf node_modules/angular-datatables && linklocal",
     "demo:test": "ng test",
-    "demo:test-ci": "ng test --no-progress",
+    "demo:test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "lib:schematics:build": "tsc -p lib/schematics/tsconfig.json",
     "demo:build:prod": "ng build --configuration production --aot --base-href /angular-datatables/",
     "version": "npm run build && git add -A",
