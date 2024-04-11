@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
 
 // needed to re-init tabs on route change
 declare var $: any;
@@ -10,10 +9,6 @@ declare var $: any;
   styleUrls: ['./base-demo.component.css']
 })
 export class BaseDemoComponent implements OnInit {
-
-  constructor(
-    private router: Router
-  ) { }
 
   @Input()
   pageTitle = '';
@@ -29,15 +24,6 @@ export class BaseDemoComponent implements OnInit {
 
   @Input()
   mdTS = '';
-
-  @Input()
-  mdTSHeading = 'TypeScript';
-
-  @Input()
-  mdTSHigh = '';
-
-  @Input()
-  mdTSHighHeading = '';
 
   @Input()
   template: TemplateRef<any> = null;

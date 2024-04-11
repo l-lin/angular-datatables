@@ -30,13 +30,6 @@ node_modules
 /.eslintignore
 /.eslintrc
 
-# Build System files
-/tslint.json
-/rollup-uglify.conf.js
-/rollup.conf.js
-/protractor.config.js
-/systemjs.config.js
-
 # Typescript source files
 *.ts
 !*.d.ts

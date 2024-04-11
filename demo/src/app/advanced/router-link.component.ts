@@ -15,9 +15,7 @@ export class RouterLinkComponent implements AfterViewInit, OnInit, OnDestroy {
   mdIntro = 'assets/docs/advanced/router-link/intro.md';
   mdHTML = 'assets/docs/advanced/router-link/source-html.md';
   mdTS = 'assets/docs/advanced/router-link/source-ts.md';
-  mdTSHigh = 'assets/docs/advanced/router-link/source-tsHigh.md';
-  mdTSHeading = 'TypeScript (Angular v9 and below)';
-  mdTSHighHeading = 'TypeScript (Angular v10 and above)';
+  mdTSHeading = 'TypeScript';
 
   dtOptions: ADTSettings = {};
   dtTrigger = new Subject<ADTSettings>();
