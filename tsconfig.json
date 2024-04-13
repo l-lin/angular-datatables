@@ -27,9 +27,6 @@
     "paths": {
       "@angular/*": [
         "node_modules/@angular/*"
-      ],
-      "angular-datatables": [
-        "./lib/"
       ]
     },
     "resolveJsonModule": true,
