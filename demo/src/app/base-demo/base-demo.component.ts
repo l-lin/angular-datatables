@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 
 // needed to re-init tabs on route change
-declare var $: any;
+declare var $: JQueryStatic;
 
 @Component({
   selector: 'app-base-demo',
@@ -45,19 +45,16 @@ export class BaseDemoComponent implements OnInit {
       $('#toTop').fadeOut();
     }
   }
+
   initBackToTop() {
     // hide scroll button on page load
-    $().ready(this.scrollCallback);
+    $(this.scrollCallback);
     // scroll handler
-    $(window).scroll(this.scrollCallback);
+    $(window).on('scroll', this.scrollCallback);
 
     $("#toTop").on('click', function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
-  }
-
-  scrollToElement(element: HTMLElement): void {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 
 }
