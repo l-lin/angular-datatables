@@ -1,4 +1,6 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { DtVersionService } from '../dt-version.service';
+import { Subscription } from 'rxjs';
 
 // needed to re-init tabs on route change
 declare var $: JQueryStatic;
@@ -8,34 +10,42 @@ declare var $: JQueryStatic;
   templateUrl: './base-demo.component.html',
   styleUrls: ['./base-demo.component.css']
 })
-export class BaseDemoComponent implements OnInit {
+export class BaseDemoComponent implements OnInit, OnDestroy {
 
-  @Input()
-  pageTitle = '';
+  @Input() pageTitle = '';
 
-  @Input()
-  mdIntro = '';
+  @Input() mdIntro = '';
 
-  @Input()
-  mdInstall = '';
+  @Input() mdInstall = '';
+  @Input() mdInstallV2 = '';
 
-  @Input()
-  mdHTML = '';
+  @Input() mdHTML = '';
+  @Input() mdHTMLV2 = '';
 
-  @Input()
-  mdTS = '';
+  @Input() mdTS = '';
+  @Input() mdTSV2 = '';
 
-  @Input()
-  template: TemplateRef<any> = null;
+  @Input() template: TemplateRef<any> = null;
 
-  @Input()
-  deprecated = false;
+  @Input() deprecated = false;
+
+  dtVersion = null;
+  dtVersionSubscription$: Subscription = null;
+
+  constructor(
+    private dtVersionService: DtVersionService
+  ) {}
 
   ngOnInit() {
     // Re-init tabs on route change
 
     // Init back to top
     this.initBackToTop();
+
+    this.dtVersionSubscription$ = this.dtVersionService.versionChanged$.subscribe(v => {
+      console.log('dt version changed', v);
+      this.dtVersion = v;
+    });
   }
 
   private scrollCallback() {
@@ -55,6 +65,10 @@ export class BaseDemoComponent implements OnInit {
     $("#toTop").on('click', function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.dtVersionSubscription$?.unsubscribe();
   }
 
 }

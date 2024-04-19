@@ -1,19 +1,13 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { Config } from 'datatables.net';
-import 'datatables.net-colreorder'
+import 'datatables.net-colreorder';
 
 @Component({
   selector: 'app-colreorder-extension',
   templateUrl: 'colreorder-extension.component.html'
 })
 export class ColreorderExtensionComponent implements OnInit {
-
-  pageTitle = 'DataTables ColReorder extension';
-  mdIntro = 'assets/docs/extensions/colreorder/intro.md';
-  mdInstall = 'assets/docs/extensions/colreorder/installation.md';
-  mdHTML = 'assets/docs/extensions/colreorder/source-html.md';
-  mdTS = 'assets/docs/extensions/colreorder/source-ts.md';
-  mdTSV2 = 'assets/docs/extensions/colreorder/source-ts-dtv2.md';
 
   dtOptions: Config = {};
 
@@ -38,3 +32,5 @@ export class ColreorderExtensionComponent implements OnInit {
     };
   }
 }
+
+```

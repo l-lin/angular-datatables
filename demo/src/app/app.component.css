@@ -11,7 +11,7 @@ header .container a {
 .plus {
   font-size: 35px;
   position: relative;
-  top: 3vh;
+  top: -2vh;
 }
 
 ul.side-nav.fixed ul.collapsible-accordion a.collapsible-header {
@@ -73,4 +73,15 @@ ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a {
 
 #logo-container {
   display: block;
+}
+
+
+.dt-version-button {
+  text-transform: none;
+  text-align: center;
+}
+
+.dt-version-button svg {
+  position: relative;
+  top: 6px;
 }

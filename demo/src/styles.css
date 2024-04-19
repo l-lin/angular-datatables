@@ -20,7 +20,7 @@ header, main, footer {
 }
 
 .top-banner {
-  height: 120px !important;
+  min-height: 120px !important;
 }
 
 .banner {
@@ -156,7 +156,7 @@ markdown h5:not(markdown.faqMarkdown) {
 }
 
 
-/** Fixed columns css 
+/** Fixed columns css
 
 These classes are injected by fixed columns extensions
 and can be tweaked here to match the colors of headers and body
@@ -184,4 +184,16 @@ table.dataTable tbody tr > .dtfc-fixed-right {
 div.dtfc-left-top-blocker,
 div.dtfc-right-top-blocker {
   background-color: white;
+}
+
+/* Dt v2 CSS messed up some stuff */
+.dt-search input {
+  width: 200px !important;
+  height: 20px !important;
+}
+
+select.dt-input {
+  display: inline-block !important;
+  width: 60px;
+  height: 40px;
 }

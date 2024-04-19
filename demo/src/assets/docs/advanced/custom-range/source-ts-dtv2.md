@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
@@ -9,12 +10,6 @@ import { Config } from 'datatables.net';
   templateUrl: 'custom-range-search.component.html'
 })
 export class CustomRangeSearchComponent implements OnDestroy, OnInit {
-
-  pageTitle = 'Custom filtering - Range search';
-  mdIntro = 'assets/docs/advanced/custom-range/intro.md';
-  mdHTML = 'assets/docs/advanced/custom-range/source-html.md';
-  mdTS = 'assets/docs/advanced/custom-range/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/custom-range/source-ts-dtv2.md';
 
   @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
@@ -65,3 +60,5 @@ export class CustomRangeSearchComponent implements OnDestroy, OnInit {
     return false;
   }
 }
+
+```

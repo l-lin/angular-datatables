@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { Config } from 'datatables.net';
 
@@ -6,12 +7,6 @@ import { Config } from 'datatables.net';
   templateUrl: 'with-ajax.component.html'
 })
 export class WithAjaxComponent implements OnInit {
-
-  pageTitle = 'Quickstart';
-  mdIntro = 'assets/docs/basic/with-ajax/intro.md';
-  mdHTML = 'assets/docs/basic/with-ajax/source-html.md';
-  mdTS = 'assets/docs/basic/with-ajax/source-ts.md';
-  mdTSV2 = 'assets/docs/basic/with-ajax/source-ts-dtv2.md';
 
   dtOptions: Config = {};
 
@@ -31,3 +26,4 @@ export class WithAjaxComponent implements OnInit {
     };
   }
 }
+```

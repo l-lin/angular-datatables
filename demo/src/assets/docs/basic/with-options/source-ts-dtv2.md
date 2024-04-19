@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { Config } from 'datatables.net';
 
@@ -7,12 +8,6 @@ import { Config } from 'datatables.net';
 })
 export class WithOptionsComponent implements OnInit {
 
-  pageTitle = 'With Options';
-  mdIntro = 'assets/docs/basic/with-options/intro.md';
-  mdHTML = 'assets/docs/basic/with-options/source-html.md';
-  mdTS = 'assets/docs/basic/with-options/source-ts.md';
-  mdTSV2 = 'assets/docs/basic/with-options/source-ts-dtv2.md';
-
   dtOptions: Config = {};
 
   ngOnInit(): void {
@@ -21,3 +16,5 @@ export class WithOptionsComponent implements OnInit {
     };
   }
 }
+
+```

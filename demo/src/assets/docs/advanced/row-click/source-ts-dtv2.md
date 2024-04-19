@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { Config } from 'datatables.net';
 
@@ -6,12 +7,6 @@ import { Config } from 'datatables.net';
   templateUrl: 'row-click-event.component.html'
 })
 export class RowClickEventComponent implements OnInit {
-
-  pageTitle = 'Row click event';
-  mdIntro = 'assets/docs/advanced/row-click/intro.md';
-  mdHTML = 'assets/docs/advanced/row-click/source-html.md';
-  mdTS = 'assets/docs/advanced/row-click/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/row-click/source-ts-dtv2.md';
 
   message = '';
   dtOptions: Config = {};
@@ -50,3 +45,5 @@ export class RowClickEventComponent implements OnInit {
     };
   }
 }
+
+```

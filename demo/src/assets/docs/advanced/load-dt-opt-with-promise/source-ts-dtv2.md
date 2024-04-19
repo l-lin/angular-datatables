@@ -1,3 +1,4 @@
+```typescript
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Config } from 'datatables.net';
@@ -7,12 +8,6 @@ import { Config } from 'datatables.net';
   templateUrl: 'load-dt-options-with-promise.component.html'
 })
 export class LoadDtOptionsWithPromiseComponent implements OnInit {
-
-  pageTitle = 'Load DT Options with Promise';
-  mdIntro = 'assets/docs/advanced/load-dt-opt-with-promise/intro.md';
-  mdHTML = 'assets/docs/advanced/load-dt-opt-with-promise/source-html.md';
-  mdTS = 'assets/docs/advanced/load-dt-opt-with-promise/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/load-dt-opt-with-promise/source-ts-dtv2.md';
 
   dtOptions: Promise<Config>;
 
@@ -29,3 +24,4 @@ export class LoadDtOptionsWithPromiseComponent implements OnInit {
     return Promise.reject(error.message || error);
   }
 }
+```

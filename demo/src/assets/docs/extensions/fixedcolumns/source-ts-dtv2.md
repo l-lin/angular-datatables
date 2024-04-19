@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 import 'datatables.net-fixedcolumns-dt';
 
@@ -7,14 +8,7 @@ import 'datatables.net-fixedcolumns-dt';
 })
 export class FixedColumnsExtensionComponent implements OnInit {
 
-  pageTitle = 'DataTables Fixed Columns extension';
-  mdIntro = 'assets/docs/extensions/fixedcolumns/intro.md';
-  mdInstall = 'assets/docs/extensions/fixedcolumns/installation.md';
-  mdHTML = 'assets/docs/extensions/fixedcolumns/source-html.md';
-  mdTS = 'assets/docs/extensions/fixedcolumns/source-ts.md';
-  mdTSV2 = 'assets/docs/extensions/fixedcolumns/source-ts-dtv2.md';
-
-  // Unfortunately this still requires `any` due to types issue in fixedcolumns
+  // Unfortunately this still requires `any` due to "types" issues in fixedcolumns
   dtOptions: any = {};
 
   ngOnInit(): void {
@@ -97,3 +91,5 @@ export class FixedColumnsExtensionComponent implements OnInit {
     };
   }
 }
+
+```

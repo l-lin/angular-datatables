@@ -1,3 +1,4 @@
+```typescript
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Config } from 'datatables.net';
@@ -12,13 +13,6 @@ export class WithAjaxCallbackComponent implements OnInit {
   constructor(
     private http: HttpClient
   ) { }
-
-  pageTitle = 'AJAX with callback';
-  mdIntro = 'assets/docs/basic/with-ajax-callback/intro.md';
-  mdHTML = 'assets/docs/basic/with-ajax-callback/source-html.md';
-  mdHTMLV2 = 'assets/docs/basic/with-ajax-callback/source-html-dtv2.md';
-  mdTS = 'assets/docs/basic/with-ajax-callback/source-ts.md';
-  mdTSV2 = 'assets/docs/basic/with-ajax-callback/source-ts-dtv2.md';
 
   dtOptions: Config = {};
 
@@ -51,3 +45,5 @@ export class WithAjaxCallbackComponent implements OnInit {
     };
   }
 }
+
+```

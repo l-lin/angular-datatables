@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { Config } from 'datatables.net-dt';
 import 'datatables.net-buttons-dt';
@@ -7,13 +8,6 @@ import 'datatables.net-buttons-dt';
   templateUrl: 'buttons-extension.component.html'
 })
 export class ButtonsExtensionComponent implements OnInit {
-
-  pageTitle = 'DataTables Buttons extension';
-  mdIntro = 'assets/docs/extensions/buttons/intro.md';
-  mdInstall = 'assets/docs/extensions/buttons/installation.md';
-  mdHTML = 'assets/docs/extensions/buttons/source-html.md';
-  mdTS = 'assets/docs/extensions/buttons/source-ts.md';
-  mdTSV2 = 'assets/docs/extensions/buttons/source-ts-dtv2.md';
 
   dtOptions: Config = {};
 
@@ -55,3 +49,5 @@ export class ButtonsExtensionComponent implements OnInit {
     };
   }
 }
+
+```

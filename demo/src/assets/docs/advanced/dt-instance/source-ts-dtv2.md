@@ -1,3 +1,4 @@
+```typescript
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
@@ -8,12 +9,6 @@ import { Config } from 'datatables.net';
   templateUrl: 'dt-instance.component.html'
 })
 export class DtInstanceComponent implements OnInit {
-
-  pageTitle = 'Finding DataTable instance';
-  mdIntro = 'assets/docs/advanced/dt-instance/intro.md';
-  mdHTML = 'assets/docs/advanced/dt-instance/source-html.md';
-  mdTS = 'assets/docs/advanced/dt-instance/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/dt-instance/source-ts-dtv2.md';
 
   @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
@@ -40,3 +35,5 @@ export class DtInstanceComponent implements OnInit {
     };
   }
 }
+
+```

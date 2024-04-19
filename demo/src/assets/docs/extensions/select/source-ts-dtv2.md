@@ -1,17 +1,13 @@
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { Config } from 'datatables.net';
+import 'datatables.net-select';
 
 @Component({
-  selector: 'app-with-ajax',
-  templateUrl: 'with-ajax.component.html'
+  selector: 'app-select-extension',
+  templateUrl: 'select-extension.component.html'
 })
-export class WithAjaxComponent implements OnInit {
-
-  pageTitle = 'Quickstart';
-  mdIntro = 'assets/docs/basic/with-ajax/intro.md';
-  mdHTML = 'assets/docs/basic/with-ajax/source-html.md';
-  mdTS = 'assets/docs/basic/with-ajax/source-ts.md';
-  mdTSV2 = 'assets/docs/basic/with-ajax/source-ts-dtv2.md';
+export class SelectExtensionComponent implements OnInit {
 
   dtOptions: Config = {};
 
@@ -27,7 +23,10 @@ export class WithAjaxComponent implements OnInit {
       }, {
         title: 'Last name',
         data: 'lastName'
-      }]
+      }],
+      // Use this attribute to enable the select extension
+      select: true
     };
   }
 }
+```

@@ -16,6 +16,12 @@
   </div>
 </div>
 
+<div class="section" *ngIf="dtVersion == 'v1'">
+  <div class="container red white-text dtv1-notice">
+    You are viewing documentation for v1.x of datatables.net. This version is not supported anymore. It is listed here for documentation purposes only.
+  </div>
+</div>
+
 <div class="container">
 
   <h5 class="header">Description</h5>
@@ -30,7 +36,7 @@
         <li class="tab col">
           <a href="#previewTab">Preview</a>
         </li>
-        <li class="tab col" *ngIf="mdInstall.length>0">
+        <li class="tab col" *ngIf="dtVersion == 'v2' ? mdInstallV2.length>0 : mdInstall.length>0">
           <a href="#installTab">Installation</a>
         </li>
         <li class="tab col">
@@ -43,22 +49,22 @@
     </div>
 
     <!-- Preview -->
-    <div id="previewTab" class="  col s12">
+    <div id="previewTab" class="col s12">
       <ng-container *ngTemplateOutlet="template"></ng-container>
     </div>
 
     <!-- Installation -->
-    <div id="installTab" class="col s12" *ngIf="mdInstall.length > 0">
-      <markdown [src]="mdInstall"></markdown>
+    <div id="installTab" class="col s12" *ngIf="dtVersion == 'v2' ? mdInstallV2.length > 0 : mdInstall.length > 0">
+      <markdown [src]="dtVersion == 'v2' ? mdInstallV2 : mdInstall"></markdown>
     </div>
 
     <!-- HTML -->
     <div id="htmlTab" class="col s12">
-      <markdown [src]="mdHTML"></markdown>
+      <markdown [src]="dtVersion == 'v2' && mdHTMLV2.length > 0 ? mdHTMLV2 : mdHTML"></markdown>
     </div>
 
     <div id="typescriptTab" class="col s12">
-      <markdown [src]="mdTS"></markdown>
+      <markdown [src]="dtVersion == 'v2' && mdTSV2.length > 0 ? mdTSV2 : mdTS"></markdown>
     </div>
   </div>
 </div>

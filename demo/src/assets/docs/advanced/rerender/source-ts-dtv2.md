@@ -1,3 +1,4 @@
+```typescript
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Config } from 'datatables.net';
@@ -8,13 +9,6 @@ import { Subject } from 'rxjs';
   templateUrl: 'rerender.component.html'
 })
 export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
-
-  pageTitle = 'Rerender';
-  mdIntro = 'assets/docs/advanced/rerender/intro.md';
-  mdHTML = 'assets/docs/advanced/rerender/source-html.md';
-  mdTS = 'assets/docs/advanced/rerender/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/rerender/source-ts-dtv2.md';
-
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -57,3 +51,5 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 }
+
+```

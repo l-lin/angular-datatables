@@ -1,5 +1,5 @@
 ```typescript
-import { AfterViewInit, Component, OnInit, Renderer } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class RouterLinkComponent implements AfterViewInit, OnInit {
   dtOptions: DataTables.Settings = {};
 
-  constructor(private renderer: Renderer, private router: Router) { }
+  constructor(private renderer: Renderer2, private router: Router) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -33,7 +33,7 @@ export class RouterLinkComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.renderer.listenGlobal('document', 'click', (event) => {
+    this.renderer.listen('document', 'click', (event) => {
       if (event.target.hasAttribute("view-person-id")) {
         this.router.navigate(["/person/" + event.target.getAttribute("view-person-id")]);
       }

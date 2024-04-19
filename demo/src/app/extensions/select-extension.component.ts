@@ -13,6 +13,7 @@ export class SelectExtensionComponent implements OnInit {
   mdInstall = 'assets/docs/extensions/select/installation.md';
   mdHTML = 'assets/docs/extensions/select/source-html.md';
   mdTS = 'assets/docs/extensions/select/source-ts.md';
+  mdTSV2 = 'assets/docs/extensions/select/source-ts-dtv2.md';
 
   dtOptions: Config = {};
 
