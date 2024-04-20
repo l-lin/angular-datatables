@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": "tsconfig",
+    // FIXME: investigate and remove `src` suffix
+    "outDir": "../../dist/lib/schematics/src",
     "lib": [
       "es2018",
       "dom"
@@ -18,6 +19,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strictNullChecks": true,
+    "declarationMap": false,
     "target": "es5",
     "types": [
       "jasmine",

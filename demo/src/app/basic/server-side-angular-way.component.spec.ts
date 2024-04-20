@@ -9,7 +9,7 @@ import { ServerSideAngularWayComponent } from './server-side-angular-way.compone
 import { AppRoutingModule } from '../app.routing';
 
 
-let fixture: ComponentFixture<ServerSideAngularWayComponent>, component: ServerSideAngularWayComponent = null;
+let fixture: ComponentFixture<ServerSideAngularWayComponent>, component: null| ServerSideAngularWayComponent = null;
 
 describe('ServerSideAngularWayComponent', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('ServerSideAngularWayComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

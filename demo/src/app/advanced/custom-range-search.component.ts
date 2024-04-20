@@ -17,9 +17,9 @@ export class CustomRangeSearchComponent implements OnDestroy, OnInit {
   mdTSV2 = 'assets/docs/advanced/custom-range/source-ts-dtv2.md';
 
   @ViewChild(DataTableDirective, {static: false})
-  datatableElement: DataTableDirective;
-  min: number;
-  max: number;
+  datatableElement!: DataTableDirective;
+  min!: number;
+  max!: number;
 
   dtOptions: Config = {};
 

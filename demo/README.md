@@ -8,7 +8,7 @@ Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app 
 
 ## Build
 
-Run `npm run build:prod` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm run demo:build:prod` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Further help
 
@@ -16,14 +16,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Using the current version of angular-datatables
 
-If you need to check if the currenct version of angular-datatables still works with the demo, you can use [node-install-local](https://github.com/nicojs/node-install-local):
+If you need to check if the currenct version of angular-datatables still works with the demo, simply follow the instructions below:
+
+> We use [linklocal](https://npmjs.org/package/linklocal) to link library with demo app. 
 
 ```bash
 cd /path/to/angular-datatables
-npm run build
-cd demo/
-rm -rf node-modules/angular-datatables
-install-local ..
 npm start
-# Application will run on localhost:4200
+# The application will first build library (under dist/lib), 
+# copy it to demo/node_modules and run the app on localhost:4200
 ```

@@ -13,7 +13,7 @@ import { By } from '@angular/platform-browser';
 import { DemoNgComponent } from './demo-ng-template-ref.component';
 
 
-let fixture: ComponentFixture<RouterLinkComponent>, component: RouterLinkComponent = null, router: Router = null;
+let fixture: ComponentFixture<RouterLinkComponent>, component: null| RouterLinkComponent = null, router!: Router;
 
 describe('RouterLinkComponent', () => {
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('RouterLinkComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {
@@ -65,7 +65,7 @@ describe('RouterLinkComponent', () => {
     const rSpy = spyOn(router, 'navigate');
 
     const row: HTMLTableRowElement = fixture.nativeElement.querySelector('tbody tr:first-child');
-    const button: HTMLButtonElement = row.querySelector('button.btn-sm');
+    const button = row.querySelector('button.btn-sm') as HTMLButtonElement;
     button.click();
 
     expect(rSpy).toHaveBeenCalled();

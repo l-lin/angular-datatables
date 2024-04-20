@@ -23,7 +23,7 @@ describe('WithAjaxCallbackComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

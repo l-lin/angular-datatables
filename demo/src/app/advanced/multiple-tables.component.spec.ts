@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { MultipleTablesComponent } from './multiple-tables.component';
 
 
-let fixture: ComponentFixture<MultipleTablesComponent>, component: MultipleTablesComponent = null;
+let fixture: ComponentFixture<MultipleTablesComponent>, component: null| MultipleTablesComponent = null;
 
 describe('MultipleTablesComponent', () => {
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('MultipleTablesComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

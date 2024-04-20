@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { RerenderComponent } from './rerender.component';
 
 
-let fixture: ComponentFixture<RerenderComponent>, component: RerenderComponent = null;
+let fixture: ComponentFixture<RerenderComponent>, component: null| RerenderComponent = null;
 
 describe('RerenderComponent', () => {
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe('RerenderComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {
@@ -56,8 +56,8 @@ describe('RerenderComponent', () => {
 
     const rerenderSpy = spyOn(app, 'rerender' as any);
 
-    const triggerBtns: HTMLButtonElement[] = Array.from(fixture.nativeElement.querySelectorAll('button'));
-    const triggerBtn: HTMLButtonElement = triggerBtns.find(e => e.textContent.includes('Rerender'));
+    const triggerBtns = Array.from(fixture.nativeElement.querySelectorAll('button')) as HTMLButtonElement[];
+    const triggerBtn = triggerBtns.find(e => e.textContent?.includes('Rerender')) as HTMLButtonElement;
 
     triggerBtn.click();
     triggerBtn.dispatchEvent(new Event('click'));

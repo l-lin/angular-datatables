@@ -15,7 +15,7 @@ export class MultipleTablesComponent implements OnInit {
   mdTSV2 = 'assets/docs/advanced/multiple-tables/source-ts-dtv2.md';
 
   @ViewChildren(DataTableDirective)
-  dtElements: QueryList<DataTableDirective>;
+  dtElements!: QueryList<DataTableDirective>;
 
   dtOptions: Config[] = [];
 

@@ -159,9 +159,18 @@ To test schematics, you will need to setup `verdaccio`, publish the library loca
    - Run `npm adduser --registry=http://localhost:4873`
    - Give a username, password and an email address to create an account in `verdaccio`.
 
-4. Now, publish the library to `verdaccio` by running the command:
+4. Make your changes in the project.
 
-   `npm publish angular-datatables --registry http://localhost:4873`
+5. Run `npm run build:lib` to build the library and `ng add` functionality related code.
+
+6. Now, publish the library to `verdaccio` by running the command:
+
+   ```sh
+   # Make sure you compiled the library first! 
+   # `npm run build:lib`
+   cd dist/lib
+   npm publish --registry http://localhost:4873
+   ```
 
 5. Create an empty Angular project like:
 

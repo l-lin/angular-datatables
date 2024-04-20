@@ -27,8 +27,8 @@ export class ColreorderExtensionComponent implements OnInit {
       dom: 'Rt',
       // Use this attribute to enable colreorder
       colReorder: {
-        order: [1, 0, 2],
-      }
+        columns: ':nth-child(2)',
+      },
     };
   }
 }

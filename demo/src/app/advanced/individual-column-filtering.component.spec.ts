@@ -12,7 +12,7 @@ import { IndividualColumnFilteringComponent } from './individual-column-filterin
 import { Api } from 'datatables.net';
 
 
-let fixture: ComponentFixture<IndividualColumnFilteringComponent>, component: IndividualColumnFilteringComponent = null;
+let fixture: ComponentFixture<IndividualColumnFilteringComponent>, component: null| IndividualColumnFilteringComponent = null;
 
 function applyValueToInput(inputElement: HTMLInputElement, value: string, table: Api) {
   inputElement.value = value;
@@ -32,7 +32,7 @@ describe('IndividualColumnFilteringComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {
@@ -72,9 +72,9 @@ describe('IndividualColumnFilteringComponent', () => {
     const instance = await dir.dtInstance;
 
     const inputFields = Array.from(fixture.nativeElement.querySelectorAll('input')) as HTMLInputElement[];
-    const inputFieldID = inputFields.find(e => e.name == "search-id");
-    const inputFieldFirstName = inputFields.find(e => e.name == "search-first-name");
-    const inputFieldLastName = inputFields.find(e => e.name == "search-last-name");
+    const inputFieldID = inputFields.find(e => e.name == "search-id")!;
+    const inputFieldFirstName = inputFields.find(e => e.name == "search-first-name")!;
+    const inputFieldLastName = inputFields.find(e => e.name == "search-last-name")!;
 
     // # Test 1
     applyValueToInput(inputFieldID, '113', instance);

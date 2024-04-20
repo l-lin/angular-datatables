@@ -19,7 +19,7 @@ function addPackageJsonDependencies(options: IADTSchematicsOptions) {
 
     const dependencies = [
       { version: '^3.6.0', name: 'jquery', isDev: false },
-      { version: '^2.0.3', name: 'datatables.net (v2)', isDev: false },
+      { version: '^2.0.3', name: 'datatables.net', fancyName: 'datatables.net (v2)', isDev: false },
       { version: '^3.5.9', name: '@types/jquery', isDev: true }
     ];
 
@@ -32,7 +32,7 @@ function addPackageJsonDependencies(options: IADTSchematicsOptions) {
     dependencies.forEach(dependency => {
       const result = addPackageToPackageJson(tree, dependency.name, dependency.version, dependency.isDev);
       if (result) {
-        context.logger.log('info', `✅️ Added "${dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies'}"`);
+        context.logger.log('info', `✅️ Added "${dependency.fancyName || dependency.name}" into "${dependency.isDev ? 'devDependencies' : 'dependencies'}"`);
       } else {
         context.logger.log('info', `ℹ️  Skipped adding "${dependency.name}" into package.json`);
       }
@@ -58,7 +58,7 @@ function updateAngularJsonFile(options: IADTSchematicsOptions) {
 
     const assets = [
       { path: 'node_modules/jquery/dist/jquery.min.js', target: 'scripts', fancyName: 'jQuery Core' },
-      { path: 'node_modules/datatables.net/js/jquery.dataTables.min.js', target: 'scripts', fancyName: 'DataTables.net Core JS' },
+      { path: 'node_modules/datatables.net/js/dataTables.min.js', target: 'scripts', fancyName: 'DataTables.net Core JS' },
     ];
 
     if (styleDeps) {

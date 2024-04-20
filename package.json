@@ -9,7 +9,7 @@
     "link:lib": "rimraf node_modules/angular-datatables && npm run build:lib && linklocal",
     "demo:test": "ng test",
     "demo:test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
-    "lib:schematics:build": "tsc -p lib/schematics/tsconfig.json",
+    "lib:schematics:build": "rimraf dist/lib/schematics && tsc -p lib/schematics/tsconfig.json && copyfiles lib/schematics/{src/collection.json,src/ng-add/schema.json} dist",
     "demo:build:prod": "npm run clean && ng build angular-datatables-demo --configuration production --base-href=/angular-datatables",
     "version": "npm run build && git add -A",
     "postversion": "git push && git push --tags"
@@ -25,9 +25,9 @@
     "Surya Teja K <shanmukhateja@gmail.com>"
   ],
   "schematics": "./lib/schematics/src/collection.json",
-  "main": "src/index.js",
-  "module": "src/index.js",
-  "typings": "src/index.d.ts",
+  "main": "index.js",
+  "module": "index.js",
+  "typings": "index.d.ts",
   "license": "MIT",
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.2",
@@ -46,6 +46,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/jquery": "^3.5.29",
     "@types/node": "^20.11.16",
+    "copyfiles": "^2.4.1",
     "jasmine-core": "~5.1.0",
     "jasmine-spec-reporter": "~7.0.0",
     "jquery": "^3.6.0",

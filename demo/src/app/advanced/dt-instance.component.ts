@@ -16,11 +16,12 @@ export class DtInstanceComponent implements OnInit {
   mdTSV2 = 'assets/docs/advanced/dt-instance/source-ts-dtv2.md';
 
   @ViewChild(DataTableDirective, {static: false})
-  datatableElement: DataTableDirective;
+  datatableElement: DataTableDirective|undefined;
 
   dtOptions: Config = {};
 
-  displayToConsole(datatableElement: DataTableDirective): void {
+  displayToConsole(datatableElement: DataTableDirective | undefined): void {
+    if (!datatableElement) return;
     datatableElement.dtInstance.then(dtInstance => console.log(dtInstance));
   }
 

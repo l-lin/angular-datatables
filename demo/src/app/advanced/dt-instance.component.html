@@ -5,7 +5,7 @@
     </button>
   </p>
   <blockquote>
-    The DataTable instance ID is: {{ $any((datatableElement?.dtInstance | async)?.table().node())['id'] }}
+    The DataTable instance ID is: {{ $any((datatableElement?.dtInstance | async)?.table()?.node())['id'] }}
   </blockquote>
   <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
 </ng-template>

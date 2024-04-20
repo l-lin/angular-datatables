@@ -25,12 +25,12 @@ export class BaseDemoComponent implements OnInit, OnDestroy {
   @Input() mdTS = '';
   @Input() mdTSV2 = '';
 
-  @Input() template: TemplateRef<any> = null;
+  @Input() template!: TemplateRef<any>;
 
   @Input() deprecated = false;
 
-  dtVersion = null;
-  dtVersionSubscription$: Subscription = null;
+  dtVersion: 'v2'|'v1' = 'v2';
+  dtVersionSubscription$!: Subscription;
 
   constructor(
     private dtVersionService: DtVersionService
@@ -43,7 +43,6 @@ export class BaseDemoComponent implements OnInit, OnDestroy {
     this.initBackToTop();
 
     this.dtVersionSubscription$ = this.dtVersionService.versionChanged$.subscribe(v => {
-      console.log('dt version changed', v);
       this.dtVersion = v;
     });
   }

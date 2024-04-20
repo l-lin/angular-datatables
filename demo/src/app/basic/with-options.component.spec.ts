@@ -9,7 +9,7 @@ import { WithOptionsComponent } from './with-options.component';
 import { AppRoutingModule } from '../app.routing';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 
-let fixture: ComponentFixture<WithOptionsComponent>, component: WithOptionsComponent = null;
+let fixture: ComponentFixture<WithOptionsComponent>, component: null| WithOptionsComponent = null;
 
 describe('WithOptionsComponent', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('WithOptionsComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

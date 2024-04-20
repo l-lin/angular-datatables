@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { DtInstanceComponent } from './dt-instance.component';
 
 
-let fixture: ComponentFixture<DtInstanceComponent>, component: DtInstanceComponent = null;
+let fixture: ComponentFixture<DtInstanceComponent>, component: null| DtInstanceComponent = null;
 
 describe('DtInstanceComponent', () => {
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('DtInstanceComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

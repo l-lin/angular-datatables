@@ -16,7 +16,7 @@ export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit
   mdTSV2 = 'assets/docs/advanced/indi-col-filter/source-ts-dtv2.md';
 
   @ViewChild(DataTableDirective, {static: false})
-  datatableElement: DataTableDirective;
+  datatableElement!: DataTableDirective;
 
   dtOptions: Config = {};
 

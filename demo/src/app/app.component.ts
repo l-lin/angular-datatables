@@ -12,9 +12,9 @@ declare var $: any;
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  routerEventsSub$: Subscription = null;
+  routerEventsSub$!: Subscription;
 
-  dtVersion: 'v2' | 'v1' = null;
+  dtVersion: 'v2' | 'v1' = 'v2';
 
   constructor(
     private router: Router,

@@ -10,7 +10,7 @@ import { By } from '@angular/platform-browser';
 import { AngularWayComponent } from './angular-way.component';
 
 
-let fixture: ComponentFixture<AngularWayComponent>, component: AngularWayComponent = null;
+let fixture: ComponentFixture<AngularWayComponent>, component: null| AngularWayComponent = null;
 
 describe('AngularWayComponent', () => {
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe('AngularWayComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

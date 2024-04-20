@@ -10,7 +10,7 @@ import { AppRoutingModule } from '../app.routing';
 import { By } from '@angular/platform-browser';
 
 
-let fixture: ComponentFixture<WithAjaxComponent>, component: WithAjaxComponent = null;
+let fixture: ComponentFixture<WithAjaxComponent>, component: null| WithAjaxComponent = null;
 
 describe('WithAjaxComponent', () => {
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe('WithAjaxComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

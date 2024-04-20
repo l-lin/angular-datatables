@@ -17,7 +17,7 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
 
 
   @ViewChild(DataTableDirective, {static: false})
-  dtElement: DataTableDirective;
+  dtElement!: DataTableDirective;
 
   dtOptions: Config = {};
 

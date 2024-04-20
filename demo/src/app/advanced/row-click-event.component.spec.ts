@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { RowClickEventComponent } from './row-click-event.component';
 
 
-let fixture: ComponentFixture<RowClickEventComponent>, component: RowClickEventComponent = null;
+let fixture: ComponentFixture<RowClickEventComponent>, component: null| RowClickEventComponent = null;
 
 describe('RowClickEventComponent', () => {
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe('RowClickEventComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

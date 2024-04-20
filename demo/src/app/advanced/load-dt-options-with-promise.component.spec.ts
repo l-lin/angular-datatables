@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { LoadDtOptionsWithPromiseComponent } from './load-dt-options-with-promise.component';
 
 
-let fixture: ComponentFixture<LoadDtOptionsWithPromiseComponent>, component: LoadDtOptionsWithPromiseComponent = null;
+let fixture: ComponentFixture<LoadDtOptionsWithPromiseComponent>, component: null| LoadDtOptionsWithPromiseComponent = null;
 
 describe('LoadDtOptionsWithPromiseComponent', () => {
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('LoadDtOptionsWithPromiseComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

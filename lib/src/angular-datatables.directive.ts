@@ -25,7 +25,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
    * Useful when rendering angular rendered DOM
    */
   @Input()
-  dtTrigger: Subject<ADTSettings>;
+  dtTrigger!: Subject<ADTSettings>;
 
   /**
    * The DataTable instance built by the jQuery library [DataTables](datatables.net).
@@ -33,10 +33,10 @@ export class DataTableDirective implements OnDestroy, OnInit {
    * It's possible to execute the [DataTables APIs](https://datatables.net/reference/api/) with
    * this variable.
    */
-  dtInstance: Promise<Api>;
+  dtInstance!: Promise<Api>;
 
   // Only used for destroying the table when destroying this directive
-  private dt: Api;
+  private dt!: Api;
 
   constructor(
     private el: ElementRef,
@@ -63,7 +63,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
     }
   }
 
-  private displayTable(dtOptions: ADTSettings): void {
+  private displayTable(dtOptions: ADTSettings | null): void {
     // assign new options if provided
     if (dtOptions) {
       this.dtOptions = dtOptions;
@@ -116,7 +116,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
     // Filter columns with pipe declared
     const colsWithPipe = columns.filter(x => x.ngPipeInstance && !x.ngTemplateRef);
     colsWithPipe.forEach(el => {
-      const pipe = el.ngPipeInstance;
+      const pipe = el.ngPipeInstance!;
       const pipeArgs = el.ngPipeArgs || [];
       // find index of column using `data` attr
       const i = columns.filter(c => c.visible !== false).findIndex(e => e.id === el.id);
@@ -134,7 +134,7 @@ export class DataTableDirective implements OnDestroy, OnInit {
     // Filter columns using `ngTemplateRef`
     const colsWithTemplate = columns.filter(x => x.ngTemplateRef && !x.ngPipeInstance);
     colsWithTemplate.forEach(el => {
-      const { ref, context } = el.ngTemplateRef;
+      const { ref, context } = el.ngTemplateRef!;
       // get <td> element which holds data using index
       const i = columns.filter(c => c.visible !== false).findIndex(e => e.id === el.id);
       const cellFromIndex = row.childNodes.item(i);

@@ -15,5 +15,5 @@ export class ServerSideAngularWayComponent {
   mdTS = 'assets/docs/basic/server-side-angular-way/source-ts.md';
 
   dtOptions: Config = {};
-  persons: Person[];
+  persons!: Person[];
 }

@@ -11,7 +11,7 @@ import { CustomRangeSearchComponent } from './custom-range-search.component';
 import { FormsModule } from '@angular/forms';
 
 
-let fixture: ComponentFixture<CustomRangeSearchComponent>, component: CustomRangeSearchComponent = null;
+let fixture: ComponentFixture<CustomRangeSearchComponent>, component: null| CustomRangeSearchComponent = null;
 
 describe('CustomRangeSearchComponent', () => {
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('CustomRangeSearchComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

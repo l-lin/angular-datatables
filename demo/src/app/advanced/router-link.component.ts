@@ -21,7 +21,7 @@ export class RouterLinkComponent implements AfterViewInit, OnInit, OnDestroy {
   dtOptions: ADTSettings = {};
   dtTrigger = new Subject<ADTSettings>();
 
-  @ViewChild('demoNg') demoNg: TemplateRef<DemoNgComponent>;
+  @ViewChild('demoNg') demoNg!: TemplateRef<DemoNgComponent>;
 
   constructor(
     private router: Router

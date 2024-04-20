@@ -13,7 +13,7 @@ import { UsingNgTemplateRefComponent } from './using-ng-template-ref.component';
 import { DemoNgComponent } from './demo-ng-template-ref.component';
 
 
-let fixture: ComponentFixture<UsingNgTemplateRefComponent>, component: UsingNgTemplateRefComponent = null;
+let fixture: ComponentFixture<UsingNgTemplateRefComponent>, component: null| UsingNgTemplateRefComponent = null;
 
 describe('UsingNgTemplateRefComponent', () => {
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('UsingNgTemplateRefComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {
@@ -68,7 +68,7 @@ describe('UsingNgTemplateRefComponent', () => {
     expect(app.message).toBe('');
 
     const row: HTMLTableRowElement = fixture.nativeElement.querySelector('tbody tr:first-child');
-    const button: HTMLButtonElement = row.querySelector('button.btn-sm');
+    const button = row.querySelector('button.btn-sm') as HTMLButtonElement;
     button.click();
 
     expect(app.message).toBe(`Event 'action1' with data '{}`);

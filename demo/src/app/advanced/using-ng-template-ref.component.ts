@@ -21,7 +21,7 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
   dtOptions: ADTSettings = {};
   dtTrigger: Subject<ADTSettings> = new Subject<ADTSettings>();
 
-  @ViewChild('demoNg') demoNg: TemplateRef<DemoNgComponent>;
+  @ViewChild('demoNg') demoNg!: TemplateRef<DemoNgComponent>;
   message = '';
 
   ngOnInit(): void {

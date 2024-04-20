@@ -14,7 +14,7 @@ export class LoadDtOptionsWithPromiseComponent implements OnInit {
   mdTS = 'assets/docs/advanced/load-dt-opt-with-promise/source-ts.md';
   mdTSV2 = 'assets/docs/advanced/load-dt-opt-with-promise/source-ts-dtv2.md';
 
-  dtOptions: Promise<Config>;
+  dtOptions!: Promise<Config>;
 
   constructor(@Inject(HttpClient) private httpClient: HttpClient) {}
 
