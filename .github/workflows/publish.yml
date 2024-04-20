@@ -24,7 +24,7 @@ jobs:
       - name: Publish to NPM packages
         # includes a --ignore-scripts command argument to avoid executing npm life cycle scripts during this phase
         # for security concerns as scripts could steal NODE_AUTH_TOKEN
-        run: cd lib && npm publish --ignore-scripts --access public
+        run: cd dist/lib && npm publish --ignore-scripts --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
