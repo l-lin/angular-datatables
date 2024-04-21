@@ -11,7 +11,7 @@ export class NewServerSideComponent {
   mdIntro = "assets/docs/basic/new-server-side/intro.md";
   mdHTML = "assets/docs/basic/new-server-side/source-html.md";
   mdTS = "assets/docs/basic/new-server-side/source-ts.md";
-  mdTSV2 = "assets/docs/basic/new-server-side/source-ts-dtv2.md";
+  mdTSV1 = "assets/docs/basic/new-server-side/source-ts-dtv1.md";
 
   dtOptions: Config = {};
 }

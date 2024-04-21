@@ -13,7 +13,7 @@ export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit
   mdIntro = 'assets/docs/advanced/indi-col-filter/intro.md';
   mdHTML = 'assets/docs/advanced/indi-col-filter/source-html.md';
   mdTS = 'assets/docs/advanced/indi-col-filter/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/indi-col-filter/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/advanced/indi-col-filter/source-ts-dtv1.md';
 
   @ViewChild(DataTableDirective, {static: false})
   datatableElement!: DataTableDirective;

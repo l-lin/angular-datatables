@@ -144,6 +144,9 @@
         <li>
           <div class="divider"></div>
         </li>
+        <!-- Hide deprecated section completely in DT v2 -->
+        <ng-container *ngIf="dtVersion == 'v1'">
+
         <li><a class="subheader">Deprecated <span class="new badge red" data-badge-caption="">NOT SUPPORTED</span></a>
         </li>
         <li class="bold">
@@ -152,7 +155,8 @@
         <li class="bold">
           <a class="waves-effect waves-blue" routerLink="/basic/server-side-angular-way">Server side the Angular way</a>
         </li>
-      </ul>
+      </ng-container>
+    </ul>
     </li>
   </ul>
 </header>

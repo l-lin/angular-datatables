@@ -12,7 +12,7 @@ export class ServerSideAngularWayComponent {
   pageTitle = 'Server side the Angular way';
   mdIntro = 'assets/docs/basic/server-side-angular-way/intro.md';
   mdHTML = 'assets/docs/basic/server-side-angular-way/source-html.md';
-  mdTS = 'assets/docs/basic/server-side-angular-way/source-ts.md';
+  mdTSV1 = 'assets/docs/basic/server-side-angular-way/source-ts.md';
 
   dtOptions: Config = {};
   persons!: Person[];

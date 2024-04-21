@@ -13,7 +13,7 @@ export class ResponsiveExtensionComponent implements OnInit {
   mdInstall = 'assets/docs/extensions/responsive/installation.md';
   mdHTML = 'assets/docs/extensions/responsive/source-html.md';
   mdTS = 'assets/docs/extensions/responsive/source-ts.md';
-  mdTSV2 = 'assets/docs/extensions/responsive/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/extensions/responsive/source-ts-dtv1.md';
 
   dtOptions: Config = {};
 

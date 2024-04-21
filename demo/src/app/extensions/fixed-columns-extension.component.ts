@@ -12,7 +12,7 @@ export class FixedColumnsExtensionComponent implements OnInit {
   mdInstall = 'assets/docs/extensions/fixedcolumns/installation.md';
   mdHTML = 'assets/docs/extensions/fixedcolumns/source-html.md';
   mdTS = 'assets/docs/extensions/fixedcolumns/source-ts.md';
-  mdTSV2 = 'assets/docs/extensions/fixedcolumns/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/extensions/fixedcolumns/source-ts-dtv1.md';
 
   // Unfortunately this still requires `any` due to types issue in fixedcolumns
   dtOptions: any = {};

@@ -1,6 +1,7 @@
 ```typescript
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
+import { Config } from 'datatables.net';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -8,12 +9,13 @@ import { Subject } from 'rxjs';
   templateUrl: 'rerender.component.html'
 })
 export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
+
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
 
-  dtTrigger: Subject = new Subject();
+  dtTrigger: Subject<any> = new Subject();
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -32,7 +34,7 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next(null);
   }
 
   ngOnDestroy(): void {
@@ -41,12 +43,13 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    this.dtElement.dtInstance.then(dtInstance => {
       // Destroy the table first
       dtInstance.destroy();
       // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
+      this.dtTrigger.next(null);
     });
   }
 }
+
 ```

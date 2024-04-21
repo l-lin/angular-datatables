@@ -1,14 +1,14 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net';
 
 @Component({
-  selector: 'app-with-ajax',
-  templateUrl: 'with-ajax.component.html'
+  selector: 'app-select-extension',
+  templateUrl: 'select-extension.component.html'
 })
-export class WithAjaxComponent implements OnInit {
-
-  dtOptions: Config = {};
+export class SelectExtensionComponent implements OnInit {
+  
+  // Must be declared as "any", not as "DataTables.Settings"
+  dtOptions: any = {};
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -22,7 +22,8 @@ export class WithAjaxComponent implements OnInit {
       }, {
         title: 'Last name',
         data: 'lastName'
-      }]
+      }],
+      select: true
     };
   }
 }

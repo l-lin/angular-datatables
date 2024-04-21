@@ -1,20 +1,22 @@
 ```typescript
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
+import { Config } from 'datatables.net';
 
 @Component({
-  selector: 'dt-instance',
+  selector: 'app-dt-instance',
   templateUrl: 'dt-instance.component.html'
 })
 export class DtInstanceComponent implements OnInit {
-  @ViewChild(DataTableDirective, {static: false})
-  private datatableElement: DataTableDirective;
 
-  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective, {static: false})
+  datatableElement: DataTableDirective;
+
+  dtOptions: Config = {};
 
   displayToConsole(datatableElement: DataTableDirective): void {
-    datatableElement.dtInstance.then((dtInstance: DataTables.Api) => console.log(dtInstance));
+    datatableElement.dtInstance.then(dtInstance => console.log(dtInstance));
   }
 
   ngOnInit(): void {
@@ -33,4 +35,5 @@ export class DtInstanceComponent implements OnInit {
     };
   }
 }
+
 ```

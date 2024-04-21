@@ -11,9 +11,10 @@ export class ButtonsExtensionComponent implements OnInit {
   pageTitle = 'DataTables Buttons extension';
   mdIntro = 'assets/docs/extensions/buttons/intro.md';
   mdInstall = 'assets/docs/extensions/buttons/installation.md';
+  mdInstallV1 = 'assets/docs/extensions/buttons/installation-dtv1.md';
   mdHTML = 'assets/docs/extensions/buttons/source-html.md';
   mdTS = 'assets/docs/extensions/buttons/source-ts.md';
-  mdTSV2 = 'assets/docs/extensions/buttons/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/extensions/buttons/source-ts-dtv1.md';
 
   dtOptions: Config = {};
 

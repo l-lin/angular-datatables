@@ -1,5 +1,14 @@
 ```typescript
-import { CurrencyPipe, UpperCasePipe } from '@angular/common';
+// app.module.ts
+...,
+providers: [
+  UpperCasePipe,
+  CurrencyPipe     // declare your Pipe here
+],
+
+// using-ng-pipe.component
+
+import { UpperCasePipe, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ADTSettings } from 'angular-datatables/src/models/settings';
 
@@ -10,8 +19,8 @@ import { ADTSettings } from 'angular-datatables/src/models/settings';
 export class UsingNgPipeComponent implements OnInit {
 
   constructor(
-    private pipeInstance: UpperCasePipe,
-    public pipeCurrencyInstance: CurrencyPipe
+    private pipeInstance: UpperCasePipe, // inject the Pipe
+    private pipeCurrencyInstance: CurrencyPipe // inject the Pipe
   ) { }
 
   dtOptions: ADTSettings = {};
@@ -41,7 +50,6 @@ export class UsingNgPipeComponent implements OnInit {
     };
 
   }
-
 }
 
 ```

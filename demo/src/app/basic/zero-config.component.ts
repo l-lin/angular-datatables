@@ -9,7 +9,7 @@ export class ZeroConfigComponent {
   pageTitle = 'Zero configuration';
   mdIntro = 'assets/docs/basic/zero-config/intro.md';
   mdHTML = 'assets/docs/basic/zero-config/source-html.md';
-  mdTS = 'assets/docs/basic/zero-config/source-ts.md';
+  mdTSV1 = 'assets/docs/basic/zero-config/source-ts.md';
 
 
 }

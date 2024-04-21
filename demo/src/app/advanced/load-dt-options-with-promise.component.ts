@@ -12,7 +12,7 @@ export class LoadDtOptionsWithPromiseComponent implements OnInit {
   mdIntro = 'assets/docs/advanced/load-dt-opt-with-promise/intro.md';
   mdHTML = 'assets/docs/advanced/load-dt-opt-with-promise/source-html.md';
   mdTS = 'assets/docs/advanced/load-dt-opt-with-promise/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/load-dt-opt-with-promise/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/advanced/load-dt-opt-with-promise/source-ts-dtv1.md';
 
   dtOptions!: Promise<Config>;
 

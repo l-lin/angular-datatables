@@ -13,7 +13,7 @@ export class ColreorderExtensionComponent implements OnInit {
   mdInstall = 'assets/docs/extensions/colreorder/installation.md';
   mdHTML = 'assets/docs/extensions/colreorder/source-html.md';
   mdTS = 'assets/docs/extensions/colreorder/source-ts.md';
-  mdTSV2 = 'assets/docs/extensions/colreorder/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/extensions/colreorder/source-ts-dtv1.md';
 
   dtOptions: Config = {};
 

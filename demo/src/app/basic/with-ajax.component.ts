@@ -11,7 +11,7 @@ export class WithAjaxComponent implements OnInit {
   mdIntro = 'assets/docs/basic/with-ajax/intro.md';
   mdHTML = 'assets/docs/basic/with-ajax/source-html.md';
   mdTS = 'assets/docs/basic/with-ajax/source-ts.md';
-  mdTSV2 = 'assets/docs/basic/with-ajax/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/basic/with-ajax/source-ts-dtv1.md';
 
   dtOptions: Config = {};
 

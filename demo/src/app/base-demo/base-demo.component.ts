@@ -17,13 +17,12 @@ export class BaseDemoComponent implements OnInit, OnDestroy {
   @Input() mdIntro = '';
 
   @Input() mdInstall = '';
-  @Input() mdInstallV2 = '';
+  @Input() mdInstallV1 = '';
 
   @Input() mdHTML = '';
-  @Input() mdHTMLV2 = '';
 
   @Input() mdTS = '';
-  @Input() mdTSV2 = '';
+  @Input() mdTSV1 = '';
 
   @Input() template!: TemplateRef<any>;
 

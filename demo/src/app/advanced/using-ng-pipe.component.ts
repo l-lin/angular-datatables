@@ -16,8 +16,8 @@ export class UsingNgPipeComponent implements OnInit {
   pageTitle = 'Using Angular Pipe';
   mdIntro = 'assets/docs/advanced/using-ng-pipe/intro.md';
   mdHTML = 'assets/docs/advanced/using-ng-pipe/source-html.md';
+  mdTSV1 = 'assets/docs/advanced/using-ng-pipe/source-ts-dtv1.md';
   mdTS = 'assets/docs/advanced/using-ng-pipe/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/using-ng-pipe/source-ts-dtv2.md';
 
 
   dtOptions: ADTSettings = {};

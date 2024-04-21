@@ -8,5 +8,5 @@
   </div>
 </div>
 <div id="getting-started-wrapper" class="container">
-  <markdown src="assets/docs/get-started.md"></markdown>
+  <markdown [src]="dtVersion == 'v2' ? md : mdV1"></markdown>
 </div>

@@ -11,9 +11,10 @@ export class SelectExtensionComponent implements OnInit {
   pageTitle = 'DataTables Select extension';
   mdIntro = 'assets/docs/extensions/select/intro.md';
   mdInstall = 'assets/docs/extensions/select/installation.md';
+  mdInstallV1 = 'assets/docs/extensions/select/installation-dtv1.md';
   mdHTML = 'assets/docs/extensions/select/source-html.md';
   mdTS = 'assets/docs/extensions/select/source-ts.md';
-  mdTSV2 = 'assets/docs/extensions/select/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/extensions/select/source-ts-dtv1.md';
 
   dtOptions: Config = {};
 

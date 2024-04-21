@@ -1,14 +1,15 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net';
+import 'datatables.net-select';
 
 @Component({
   selector: 'app-select-extension',
   templateUrl: 'select-extension.component.html'
 })
 export class SelectExtensionComponent implements OnInit {
-  
-  // Must be declared as "any", not as "DataTables.Settings"
-  dtOptions: any = {};
+
+  dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -23,6 +24,7 @@ export class SelectExtensionComponent implements OnInit {
         title: 'Last name',
         data: 'lastName'
       }],
+      // Use this attribute to enable the select extension
       select: true
     };
   }

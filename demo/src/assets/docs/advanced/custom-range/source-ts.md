@@ -2,6 +2,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
+import { Config } from 'datatables.net';
 
 // Example from https://datatables.net/examples/plug-ins/range_filtering.html
 @Component({
@@ -9,16 +10,17 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: 'custom-range-search.component.html'
 })
 export class CustomRangeSearchComponent implements OnDestroy, OnInit {
+
   @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective;
   min: number;
   max: number;
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
 
   ngOnInit(): void {
     // We need to call the $.fn.dataTable like this because DataTables typings do not have the "ext" property
-    $.fn['dataTable'].ext.search.push((settings, data, dataIndex) => {
+    $.fn['dataTable'].ext.search.push((settings: Config, data: any, dataIndex: number) => {
       const id = parseFloat(data[0]) || 0; // use data for the id column
       if ((isNaN(this.min) && isNaN(this.max)) ||
         (isNaN(this.min) && id <= this.max) ||
@@ -51,10 +53,12 @@ export class CustomRangeSearchComponent implements OnDestroy, OnInit {
     $.fn['dataTable'].ext.search.pop();
   }
 
-  filterById(): void {
-    this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  filterById(): boolean {
+    this.datatableElement.dtInstance.then(dtInstance => {
       dtInstance.draw();
     });
+    return false;
   }
 }
+
 ```

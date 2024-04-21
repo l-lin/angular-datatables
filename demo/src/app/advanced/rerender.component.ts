@@ -13,7 +13,7 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   mdIntro = 'assets/docs/advanced/rerender/intro.md';
   mdHTML = 'assets/docs/advanced/rerender/source-html.md';
   mdTS = 'assets/docs/advanced/rerender/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/rerender/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/advanced/rerender/source-ts-dtv1.md';
 
 
   @ViewChild(DataTableDirective, {static: false})

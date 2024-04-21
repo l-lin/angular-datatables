@@ -1,13 +1,15 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net-dt';
+import 'datatables.net-responsive';
 
 @Component({
   selector: 'app-responsive-extension',
   templateUrl: 'responsive-extension.component.html'
 })
 export class ResponsiveExtensionComponent implements OnInit {
-  // Must be declared as "any", not as "DataTables.Settings"
-  dtOptions: any = {};
+
+  dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -21,7 +23,7 @@ export class ResponsiveExtensionComponent implements OnInit {
       }, {
         title: 'Last name',
         data: 'lastName',
-        class: 'none'
+        className: 'none'
       }],
       // Use this attribute to enable the responsive extension
       responsive: true

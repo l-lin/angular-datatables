@@ -11,7 +11,7 @@ export class WithOptionsComponent implements OnInit {
   mdIntro = 'assets/docs/basic/with-options/intro.md';
   mdHTML = 'assets/docs/basic/with-options/source-html.md';
   mdTS = 'assets/docs/basic/with-options/source-ts.md';
-  mdTSV2 = 'assets/docs/basic/with-options/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/basic/with-options/source-ts-dtv1.md';
 
   dtOptions: Config = {};
 

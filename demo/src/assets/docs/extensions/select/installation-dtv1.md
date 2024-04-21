@@ -7,6 +7,8 @@ You need to install its dependencies:
 npm install datatables.net-select --save
 # CSS file
 npm install datatables.net-select-dt --save
+# Typings
+npm install @types/datatables.net-select --save-dev
 ```
 
 ##### angular.json

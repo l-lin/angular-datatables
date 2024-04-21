@@ -11,7 +11,7 @@ export class RowClickEventComponent implements OnInit {
   mdIntro = 'assets/docs/advanced/row-click/intro.md';
   mdHTML = 'assets/docs/advanced/row-click/source-html.md';
   mdTS = 'assets/docs/advanced/row-click/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/row-click/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/advanced/row-click/source-ts-dtv1.md';
 
   message = '';
   dtOptions: Config = {};

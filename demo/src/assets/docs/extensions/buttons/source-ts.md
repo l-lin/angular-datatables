@@ -1,13 +1,15 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net-dt';
+import 'datatables.net-buttons-dt';
 
 @Component({
   selector: 'app-buttons-extension',
   templateUrl: 'buttons-extension.component.html'
 })
 export class ButtonsExtensionComponent implements OnInit {
-  // Must be declared as "any", not as "DataTables.Settings"
-  dtOptions: any = {};
+
+  dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -29,7 +31,12 @@ export class ButtonsExtensionComponent implements OnInit {
         'columnsToggle',
         'colvis',
         'copy',
-        'print',
+        {
+          extend: 'csv',
+          text: 'CSV export',
+          fieldSeparator: ';',
+          exportOptions: [1, 2, 3]
+        },
         'excel',
         {
           text: 'Some button',
@@ -42,4 +49,5 @@ export class ButtonsExtensionComponent implements OnInit {
     };
   }
 }
+
 ```

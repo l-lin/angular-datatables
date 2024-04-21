@@ -13,7 +13,7 @@ export class DtInstanceComponent implements OnInit {
   mdIntro = 'assets/docs/advanced/dt-instance/intro.md';
   mdHTML = 'assets/docs/advanced/dt-instance/source-html.md';
   mdTS = 'assets/docs/advanced/dt-instance/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/dt-instance/source-ts-dtv2.md';
+  mdTSV1 = 'assets/docs/advanced/dt-instance/source-ts-dtv1.md';
 
   @ViewChild(DataTableDirective, {static: false})
   datatableElement: DataTableDirective|undefined;

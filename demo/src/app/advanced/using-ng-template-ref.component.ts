@@ -16,7 +16,6 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
   mdIntro = 'assets/docs/advanced/using-ng-template-ref/intro.md';
   mdHTML = 'assets/docs/advanced/using-ng-template-ref/source-html.md';
   mdTS = 'assets/docs/advanced/using-ng-template-ref/source-ts.md';
-  mdTSV2 = 'assets/docs/advanced/using-ng-template-ref/source-ts-dtv2.md';
 
   dtOptions: ADTSettings = {};
   dtTrigger: Subject<ADTSettings> = new Subject<ADTSettings>();
