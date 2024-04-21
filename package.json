@@ -10,7 +10,7 @@
     "demo:test": "ng test",
     "demo:test-ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "lib:schematics:build": "rimraf dist/lib/schematics && tsc -p lib/schematics/tsconfig.json && copyfiles lib/schematics/{src/collection.json,src/ng-add/schema.json} dist",
-    "demo:build:prod": "npm run clean && ng build angular-datatables-demo --configuration production --base-href=/angular-datatables",
+    "demo:build:prod": "npm run clean && ng build angular-datatables-demo --configuration production --base-href=/angular-datatables/",
     "version": "npm run build:lib && git add -A",
     "postversion": "git push && git push --tags"
   },

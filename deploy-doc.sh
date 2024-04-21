@@ -25,12 +25,11 @@ project_name=${PWD##*/}
 info "Deloying the documentation to the GH pages from $cwd (project name is $project_name)"
 
 info "Building documentation..."
-cd $cwd/demo
 npm run demo:build:prod
 
 info "Copying the doc folder to /tmp"
 rm -rf /tmp/angular-datatables-demo
-cp -r dist /tmp/angular-datatables-demo
+cp -r dist/demo /tmp/angular-datatables-demo
 cd /tmp/angular-datatables-demo
 
 info "Copying project to /tmp and switch to gh-pages branch"
@@ -42,7 +41,7 @@ git checkout gh-pages
 git fetch && git reset --hard origin/gh-pages
 
 info "Remove all files except .git"
-rm -rf *
+rm -rf * .angular .vscode
 
 info "Copy the doc to the gh-pages branch"
 cp -r /tmp/angular-datatables-demo/* /tmp/$project_name
