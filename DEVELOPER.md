@@ -112,6 +112,9 @@ You may need to have the following:
 ## Release
 
 ```sh
+# Change to `lib` directory
+cd lib
+
 # this will create a new version and push to remote repository
 npm version [<newversion> | major | minor | patch]
 
