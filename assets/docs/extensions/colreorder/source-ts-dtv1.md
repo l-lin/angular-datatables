@@ -1,15 +1,13 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net';
-import 'datatables.net-colreorder';
 
 @Component({
   selector: 'app-colreorder-extension',
   templateUrl: 'colreorder-extension.component.html'
 })
 export class ColreorderExtensionComponent implements OnInit {
-
-  dtOptions: Config = {};
+  // Must be declared as "any", not as "DataTables.Settings"
+  dtOptions: any = {};
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -27,10 +25,10 @@ export class ColreorderExtensionComponent implements OnInit {
       dom: 'Rt',
       // Use this attribute to enable colreorder
       colReorder: {
-        columns: ':nth-child(2)',
-      },
+        order: [1, 0, 2],
+        fixedColumnsRight: 2
+      }
     };
   }
 }
-
 ```

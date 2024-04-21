@@ -1,14 +1,13 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import 'datatables.net-fixedcolumns-dt';
 
 @Component({
-  selector: 'app-fixed-columns-extension',
-  templateUrl: 'fixed-columns-extension.component.html'
+  selector: 'app-select-extension',
+  templateUrl: 'select-extension.component.html'
 })
-export class FixedColumnsExtensionComponent implements OnInit {
-
-  // Unfortunately this still requires `any` due to "types" issues in fixedcolumns
+export class SelectExtensionComponent implements OnInit {
+  
+  // Must be declared as "any", not as "DataTables.Settings"
   dtOptions: any = {};
 
   ngOnInit(): void {
@@ -91,5 +90,4 @@ export class FixedColumnsExtensionComponent implements OnInit {
     };
   }
 }
-
 ```

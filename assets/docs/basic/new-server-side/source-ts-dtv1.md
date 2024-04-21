@@ -1,24 +1,16 @@
 ```typescript
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Config } from 'datatables.net';
-import { DataTablesResponse } from '../../datatables-response.model';
 
 @Component({
-  selector: 'app-with-ajax-callback',
-  templateUrl: './with-ajax-callback.component.html'
+  selector: 'app-with-ajax',
+  templateUrl: 'with-ajax.component.html'
 })
-export class WithAjaxCallbackComponent implements OnInit {
-
-  constructor(
-    private http: HttpClient
-  ) { }
-
-  dtOptions: Config = {};
+export class WithAjaxComponent implements OnInit {
+  dtOptions: DataTables.Settings = {};
 
   ngOnInit(): void {
-    const that = this;
     this.dtOptions = {
+      serverSide: true,     // Set the flag 
       ajax: (dataTablesParameters: any, callback) => {
         that.http
           .post<DataTablesResponse>(
@@ -45,5 +37,4 @@ export class WithAjaxCallbackComponent implements OnInit {
     };
   }
 }
-
 ```
