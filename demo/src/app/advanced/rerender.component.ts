@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
+import { Config } from 'datatables.net';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -12,12 +13,13 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   mdIntro = 'assets/docs/advanced/rerender/intro.md';
   mdHTML = 'assets/docs/advanced/rerender/source-html.md';
   mdTS = 'assets/docs/advanced/rerender/source-ts.md';
+  mdTSV1 = 'assets/docs/advanced/rerender/source-ts-dtv1.md';
 
 
   @ViewChild(DataTableDirective, {static: false})
-  dtElement: DataTableDirective;
+  dtElement!: DataTableDirective;
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
 
   dtTrigger: Subject<any> = new Subject();
 
@@ -47,7 +49,7 @@ export class RerenderComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    this.dtElement.dtInstance.then(dtInstance => {
       // Destroy the table first
       dtInstance.destroy();
       // Call the dtTrigger to rerender again

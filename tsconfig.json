@@ -2,30 +2,40 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
     "target": "ES2022",
     "module": "esnext",
     "moduleResolution": "node",
     "lib": [
       "ES2022",
+      "es2016",
       "dom"
     ],
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": false,
+    "strict": true,
+    "strictNullChecks": true,
     "noPropertyAccessFromIndexSignature": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
+    "experimentalDecorators": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitReturns": true,
-    "useDefineForClassFields": false
+    "paths": {
+      "@angular/*": [
+        "node_modules/@angular/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "useDefineForClassFields": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
   },
-  "include": [
-    "./index.ts"
-  ],
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true,
     "enableI18nLegacyMessageIdFormat": false,

@@ -8,8 +8,8 @@ import data from '../data/data.json';
 export class PersonService {
   constructor() { }
 
-  getPerson(id: number): Person {
+  getPerson(id: string): Person|undefined {
     const persons: Person[] = data.data;
-    return persons.find(person => person.id === id);
+    return persons.find(person => person?.id == parseInt(id));
   }
 }

@@ -10,7 +10,7 @@ import { PersonService } from './person.service';
   providers: [PersonService]
 })
 export class PersonComponent implements OnInit {
-  person: Person;
+  person!: Person;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,8 +19,8 @@ export class PersonComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.person = this.personService.getPerson(id);
+    const id = this.route.snapshot.paramMap.get('id');
+    this.person = this.personService.getPerson(id!)!;
   }
 
   goBack(): void {

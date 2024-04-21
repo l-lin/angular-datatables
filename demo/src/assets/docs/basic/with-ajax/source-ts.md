@@ -1,12 +1,14 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-with-ajax',
   templateUrl: 'with-ajax.component.html'
 })
 export class WithAjaxComponent implements OnInit {
-  dtOptions: DataTables.Settings = {};
+
+  dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {

@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ADTSettings,  } from 'angular-datatables/src/models/settings';
 import { Subject } from 'rxjs';
 import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
 import { DemoNgComponent } from './demo-ng-template-ref.component';
+import { ADTSettings } from 'angular-datatables/src/models/settings';
 
 @Component({
   selector: 'app-using-ng-template-ref',
@@ -20,7 +20,7 @@ export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
   dtOptions: ADTSettings = {};
   dtTrigger: Subject<ADTSettings> = new Subject<ADTSettings>();
 
-  @ViewChild('demoNg') demoNg: TemplateRef<DemoNgComponent>;
+  @ViewChild('demoNg') demoNg!: TemplateRef<DemoNgComponent>;
   message = '';
 
   ngOnInit(): void {

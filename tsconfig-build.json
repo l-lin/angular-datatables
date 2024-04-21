@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "target": "ES5",
-    "module": "es2015",
-    "sourceMap": false,
-    "declaration": false,
-  }
-}

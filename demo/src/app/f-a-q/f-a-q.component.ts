@@ -14,7 +14,7 @@ export class FAQComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onLoad(event) {
+  onLoad(event: any) {
     // Hide Copy button
     $('.toolbar').hide();
 

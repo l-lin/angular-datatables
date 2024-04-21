@@ -1,5 +1,6 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-multiple-tables',
@@ -11,11 +12,12 @@ export class MultipleTablesComponent implements OnInit {
   mdIntro = 'assets/docs/advanced/multiple-tables/intro.md';
   mdHTML = 'assets/docs/advanced/multiple-tables/source-html.md';
   mdTS = 'assets/docs/advanced/multiple-tables/source-ts.md';
+  mdTSV1 = 'assets/docs/advanced/multiple-tables/source-ts-dtv1.md';
 
   @ViewChildren(DataTableDirective)
-  dtElements: QueryList<DataTableDirective>;
+  dtElements!: QueryList<DataTableDirective>;
 
-  dtOptions: DataTables.Settings[] = [];
+  dtOptions: Config[] = [];
 
   displayToConsole(): void {
     this.dtElements.forEach((dtElement: DataTableDirective, index: number) => {
@@ -30,7 +32,7 @@ export class MultipleTablesComponent implements OnInit {
     this.dtOptions[1] = this.buildDtOptions('data/data1.json');
   }
 
-  private buildDtOptions(url: string): DataTables.Settings {
+  private buildDtOptions(url: string): Config {
     return {
       ajax: url,
       columns: [{

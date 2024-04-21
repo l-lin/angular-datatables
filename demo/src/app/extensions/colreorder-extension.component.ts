@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net';
+import 'datatables.net-colreorder';
 
 @Component({
   selector: 'app-colreorder-extension',
@@ -11,9 +13,9 @@ export class ColreorderExtensionComponent implements OnInit {
   mdInstall = 'assets/docs/extensions/colreorder/installation.md';
   mdHTML = 'assets/docs/extensions/colreorder/source-html.md';
   mdTS = 'assets/docs/extensions/colreorder/source-ts.md';
+  mdTSV1 = 'assets/docs/extensions/colreorder/source-ts-dtv1.md';
 
-  // Must be declared as "any", not as "DataTables.Settings"
-  dtOptions: any = {};
+  dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -31,9 +33,8 @@ export class ColreorderExtensionComponent implements OnInit {
       dom: 'Rt',
       // Use this attribute to enable colreorder
       colReorder: {
-        order: [1, 0, 2],
-        fixedColumnsRight: 2
-      }
+        columns: ':nth-child(2)',
+      },
     };
   }
 }

@@ -1,0 +1,35 @@
+{
+  "name": "angular-datatables",
+  "version": "17.0.0",
+  "description": "Angular directive for DataTables",
+  "keywords": [
+    "Angular",
+    "DataTables"
+  ],
+  "author": "Louis LIN <lin.louis@pm.me> (https://l-lin.github.io/)",
+  "contributors": [
+    "Michael Bennett <michael@strukt.org>",
+    "Steven Masala <me@smasalai.com>",
+    "Surya Teja K <shanmukhateja@gmail.com>"
+  ],
+  "schematics": "./schematics/src/collection.json",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^17.3.2",
+    "@angular/core": "^17.3.2",
+    "@angular/platform-browser": "^17.3.2",
+    "datatables.net": "^2.0.3",
+    "datatables.net-dt": "^2.0.3",
+    "jquery": "^3.6.0",
+    "rxjs": "^7.4.0",
+    "zone.js": "~0.14.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/l-lin/angular-datatables.git"
+  },
+  "bugs": {
+    "url": "https://github.com/l-lin/angular-datatables/issues"
+  },
+  "homepage": "https://github.com/l-lin/angular-datatables#readme"
+}

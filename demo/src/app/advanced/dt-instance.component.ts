@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { DataTableDirective } from 'angular-datatables';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-dt-instance',
@@ -12,14 +13,16 @@ export class DtInstanceComponent implements OnInit {
   mdIntro = 'assets/docs/advanced/dt-instance/intro.md';
   mdHTML = 'assets/docs/advanced/dt-instance/source-html.md';
   mdTS = 'assets/docs/advanced/dt-instance/source-ts.md';
+  mdTSV1 = 'assets/docs/advanced/dt-instance/source-ts-dtv1.md';
 
   @ViewChild(DataTableDirective, {static: false})
-  datatableElement: DataTableDirective;
+  datatableElement: DataTableDirective|undefined;
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
 
-  displayToConsole(datatableElement: DataTableDirective): void {
-    datatableElement.dtInstance.then((dtInstance: DataTables.Api) => console.log(dtInstance));
+  displayToConsole(datatableElement: DataTableDirective | undefined): void {
+    if (!datatableElement) return;
+    datatableElement.dtInstance.then(dtInstance => console.log(dtInstance));
   }
 
   ngOnInit(): void {

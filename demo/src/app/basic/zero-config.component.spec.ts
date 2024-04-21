@@ -9,7 +9,7 @@ import { ZeroConfigComponent } from './zero-config.component';
 import { AppRoutingModule } from '../app.routing';
 import { By } from '@angular/platform-browser';
 
-let fixture: ComponentFixture<ZeroConfigComponent>, component: ZeroConfigComponent = null;
+let fixture: ComponentFixture<ZeroConfigComponent>, component: null| ZeroConfigComponent = null;
 
 describe('ZeroConfigComponent', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('ZeroConfigComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {
@@ -62,7 +62,6 @@ describe('ZeroConfigComponent', () => {
     .catch(e => {
       done.fail(e);
     });
-    done();
   });
 
 });

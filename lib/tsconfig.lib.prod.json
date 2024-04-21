@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ES2015",
+    "sourceMap": false,
+    "declaration": false,
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "partial"
+  },
+}

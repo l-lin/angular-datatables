@@ -1,12 +1,12 @@
 # Got a Question or Problem?
 
-You can ask questions by posting an issue. There is no problem, I'll just add the label `question`.
+You can ask questions by opening a discussion. We want to strictly restrict issues section for bug reports. 
 
 However, please follow those simple guidelines before posting:
 
-1. Describe your issue in an understandable english (english is not my native language, but I still try to write something decent, and so should you).
+1. Describe your issue in an understandable English (English is not my native language, but I still try to write something decent, and so should you).
 2. Please be polite (and occasionally avoid being a beggar... :unamused:).
-3. Provide a code to illustrate your issue. A [plnkr](http://plnkr.co/) or something alike is better.
+3. Provide a StackBlitz link or GitHub repo to reproduce the issue. It can help speed-up investigating your issue faster.
 4. Github provides us a wonderful [Markdown](https://help.github.com/articles/github-flavored-markdown) (text-to-HTML), so use it without restraint, especially when putting your code.
 5. Some really good advices on how to ask question:
   * on [StackOverflow](http://stackoverflow.com/help/how-to-ask)

@@ -6,7 +6,7 @@ Node.js and npm are essential to Angular development.
 
 [Get it now](https://docs.npmjs.com/getting-started/installing-node) if it's not already installed on your machine.
 
-**Verify that you are running at least node `v10.x.x` and npm `6.x.x`**
+**Verify that you are running at least node `v18.19.x` and npm `10.2.x`**
 by running `node -v` and `npm -v` in a terminal/console window.
 Older versions produce errors.
 
@@ -27,7 +27,7 @@ cd angular-datatables
 
 Install the npm packages described in the `package.json` and verify that it works:
 
-**Attention Windows Developers:  You must run all of these commands in administrator mode**.
+**Attention Windows Developers: You must run all of these commands in administrator mode**.
 
 ```bash
 npm install
@@ -40,11 +40,9 @@ The `npm run build` command compiles the library,
 
 We've captured many of the most useful commands in npm scripts defined in the `package.json`:
 
-- `npm run tsc` - runs the TypeScript compiler once.
-- `npm run tsc:w` - runs the TypeScript compiler in watch mode; the process keeps running, awaiting changes to TypeScript files and re-compiling when it sees them.
-with excellent support for Angular apps that use routing.
-- `npm test` - compiles, runs and watches the karma unit tests
-- `npm build` - compiles and generate the JS files
+- `npm start` - Run the demo/docs app locally.
+- `npm demo:test` - compiles, runs and watches the karma unit tests (`*.spec.ts` files)
+- `npm run build:lib` - compiles and generates prod builds for this library
 
 ### Updating dependencies version
 
@@ -56,39 +54,47 @@ ncu -u
 rm -rf node_modules && npm install
 ```
 
-If you want to update angular, use the cli:
+If you want to update Angular to latest version:
 
 ```bash
 ng update @angular/cli @angular/core
+```
+
+You can also install a specific Angular version using the below code:
+
+```bash
+# Downgrade to Angular 15
+ng update @angular/cli@15 @angular/core@15
 ```
 
 ## Testing
 
 These tools are configured for specific conventions described below.
 
-*It is unwise and rarely possible to run the application, the unit tests, and the e2e tests at the same time.
-We recommend that you shut down one before starting another.*
+> It is unwise and rarely possible to run the application and the unit tests at the same time.
+>
+> We recommend that you shut down one before starting another.
 
 ### Unit Tests
 
-TypeScript unit-tests are usually in the `src` folder. Their filenames must end in `.spec`.
+Unit tests are essential for ensuring that the library remains compatible with the constantly evolving Angular framework. The more tests, the better :)
 
-Look for the example `src/angular-datatables.directive.spec.ts`.
-Add more `.spec.ts` files as you wish; we configured karma to find them.
+You can find these tests in the `demo/src` folder, easily recognizable by their filenames ending with `xxx.spec.ts`.
 
-Run it with `npm test`
+For instance: `demo/src/app/app.component.spec.ts`
 
-That command first compiles the application, then simultaneously re-compiles and runs the karma test-runner.
-Both the compiler and the karma watch for (different) file changes.
+Feel free to add more `.spec.ts` files as needed; karma is set up to locate them.
 
-Shut it down manually with Ctrl-C.
+To run the tests, simply use `npm run demo:test`
 
-Test-runner output appears in the terminal window.
-We can update our app and our tests in real-time, keeping a weather eye on the console for broken tests.
-Karma is occasionally confused and it is often necessary to shut down its browser or even shut the command down (Ctrl-C) and
-restart it. No worries; it's pretty quick.
+This command will compile the application first, then proceed to re-compile and run the karma test-runner simultaneously.
+Both the compiler and karma will be on the lookout for any file changes.
 
-The `HTML-Reporter` is also wired in. That produces a prettier output; look for it in `~_test-output/tests.html`.
+The test-runner output will be displayed in the terminal window.
+
+By updating our app and tests in real-time, we can keep an eye on the console for any failing tests.
+
+Karma (test runner) is occasionally confused and it is often necessary to shut down its browser or even shut the command down (Ctrl-C) and restart it. No worries; it's pretty quick.
 
 ## Deploying the documentation to Github Pages
 
@@ -96,7 +102,7 @@ Run `deploy-doc.sh` to deploy the documentation to the Github Pages
 
 You may need to have the following:
 
-- git
+- `git`
 - have the basic commands in your OS
 
 ```bash
@@ -128,13 +134,15 @@ publishes automatically to NPM repository.
 
 # Angular Schematics
 
+We use Angular Schematics for `ng add` functionality.
+
 To build the schematics, issue the following command:
 
-`npm run schematics:build`
+`npm run lib:schematics:build`
 
 ## Testing
 
-To test schematics, you will need to setup `verdaccio`, deploy the lib locally in your machine, then install it via `ng add` in an Angular project.
+To test schematics, you will need to setup `verdaccio`, publish the library locally in your machine, then install it via `ng add` in another Angular project, preferably a newly created one in another terminal window.
 
 ### Steps
 
@@ -144,33 +152,41 @@ To test schematics, you will need to setup `verdaccio`, deploy the lib locally i
 
 2. Start `verdaccio` server on a terminal or (command prompt if on Windows) by running:
 
-    `verdaccio`
+   `verdaccio`
 
 3. Setup an account in `verdaccio` so you can publish the library on your machine:
 
-    - Run `npm adduser --registry=http://localhost:4873`
-    - Give a username, password and an email address to create an account in `verdaccio`. 
+   - Run `npm adduser --registry=http://localhost:4873`
+   - Give a username, password and an email address to create an account in `verdaccio`.
 
-4. Now, publish the library to `verdaccio` by running the command:
+4. Make your changes in the project.
 
-    `npm publish angular-datatables --registry http://localhost:4873`
+5. Run `npm run build:lib` to build the library and `ng add` functionality related code.
+
+6. Now, publish the library to `verdaccio` by running the command:
+
+   ```sh
+   # Make sure you compiled the library first! 
+   # `npm run build:lib`
+   cd dist/lib
+   npm publish --registry http://localhost:4873
+   ```
 
 5. Create an empty Angular project like:
 
-    `ng new my-demo-project`
+   `ng new my-demo-project`
 
 6. Install `angular-datatables` to this demo project by running:
 
-    `ng add --registry=http://localhost:4873 angular-datatables`
+   `ng add --registry=http://localhost:4873 angular-datatables`
 
 ### Notes
 
 1. The `--registry` flag informs `npm` to use `verdaccio` instead of NPM's registry server.
 2. If you're facing issues with `ng add` not grabbing code from `verdaccio`, try setting npm registry endpoint to `verdaccio` like:
 
-    `npm set registry http://localhost:4873`
+   `npm config set registry http://localhost:4873`
 
-3. Do remember to reset step 2 or else `npm` will stop working whenever `verdaccio` is offline!
+3. Remember to reset changes made in step 2 or else `npm` will stop working when `verdaccio` is killed.
 
-    `npm set registry https://registry.npmjs.org`
-
+   `npm config set registry https://registry.npmjs.org`

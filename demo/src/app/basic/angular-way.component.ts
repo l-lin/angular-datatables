@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Person } from '../person';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-angular-way',
@@ -12,9 +13,9 @@ export class AngularWayComponent implements OnDestroy, OnInit {
   pageTitle = 'Angular way';
   mdIntro = 'assets/docs/basic/angular-way/intro.md';
   mdHTML = 'assets/docs/basic/angular-way/source-html.md';
-  mdTS = 'assets/docs/basic/angular-way/source-ts.md';
+  mdTSV1 = 'assets/docs/basic/angular-way/source-ts.md';
 
-  dtOptions: DataTables.Settings = {};
+  dtOptions: Config = {};
   persons: Person[] = [];
 
   // We use this trigger because fetching the list of persons can be quite long,

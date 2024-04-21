@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ADTSettings } from 'angular-datatables/src/models/settings';
 import { Subject } from 'rxjs';
 import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
 import { DemoNgComponent } from './demo-ng-template-ref.component';
+import { ADTSettings } from 'angular-datatables/src/models/settings';
 
 @Component({
   selector: 'app-router-link',
@@ -14,15 +14,14 @@ export class RouterLinkComponent implements AfterViewInit, OnInit, OnDestroy {
   pageTitle = 'Router Link';
   mdIntro = 'assets/docs/advanced/router-link/intro.md';
   mdHTML = 'assets/docs/advanced/router-link/source-html.md';
+  mdTSV1 = 'assets/docs/advanced/router-link/source-ts-dtv1.md';
   mdTS = 'assets/docs/advanced/router-link/source-ts.md';
-  mdTSHigh = 'assets/docs/advanced/router-link/source-tsHigh.md';
-  mdTSHeading = 'TypeScript (Angular v9 and below)';
-  mdTSHighHeading = 'TypeScript (Angular v10 and above)';
+  mdTSHeading = 'TypeScript';
 
   dtOptions: ADTSettings = {};
   dtTrigger = new Subject<ADTSettings>();
 
-  @ViewChild('demoNg') demoNg: TemplateRef<DemoNgComponent>;
+  @ViewChild('demoNg') demoNg!: TemplateRef<DemoNgComponent>;
 
   constructor(
     private router: Router

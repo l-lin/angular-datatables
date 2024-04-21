@@ -13,7 +13,7 @@ import { By } from '@angular/platform-browser';
 import { Person } from 'app/person';
 
 
-let fixture: ComponentFixture<UsingNgPipeComponent>, component: UsingNgPipeComponent = null;
+let fixture: ComponentFixture<UsingNgPipeComponent>, component: null| UsingNgPipeComponent = null;
 
 describe('UsingNgPipeComponent', () => {
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('UsingNgPipeComponent', () => {
       imports: [
         AppRoutingModule,
         RouterTestingModule,
-        DataTablesModule.forRoot(),
+        DataTablesModule,
         HttpClientModule,
         MarkdownModule.forRoot(
           {

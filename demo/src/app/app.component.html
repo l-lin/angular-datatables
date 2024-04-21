@@ -17,6 +17,20 @@
         </a>
       </h3>
     </li>
+    <li>
+      <a class="dt-version-button btn-flat" data-activates='dropdown1'>
+        DT version: '{{dtVersion}}'
+        <svg class="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+      </a>
+
+      <ul id="dropdown1" [(ngModel)]="dtVersion" ngDefaultControl class='dropdown-content'>
+        <li [class.active]="dtVersion == 'v2'" (click)="onDTVersionChanged('v2')" value="v2" style="padding:0 32px">v2.x</li>
+        <li [class.active]="dtVersion == 'v1'" (click)="onDTVersionChanged('v1')" value="v1" style="padding:0 32px">v1.x</li>
+      </ul>
+    </li>
+    <li>
+      <div class="divider"></div>
+    </li>
     <li><a class="subheader">Getting Started</a></li>
     <li class="bold">
       <a routerLink="/getting-started" class="waves-effect waves-blue">Installation</a>
@@ -112,7 +126,7 @@
               </li>
               <li>
                 <a class="waves-effect waves-blue" routerLink="/extensions/fixed-columns">Fixed Columns extension</a>
-              </li>  
+              </li>
             </ul>
           </div>
         </li>
@@ -130,6 +144,9 @@
         <li>
           <div class="divider"></div>
         </li>
+        <!-- Hide deprecated section completely in DT v2 -->
+        <ng-container *ngIf="dtVersion == 'v1'">
+
         <li><a class="subheader">Deprecated <span class="new badge red" data-badge-caption="">NOT SUPPORTED</span></a>
         </li>
         <li class="bold">
@@ -138,7 +155,8 @@
         <li class="bold">
           <a class="waves-effect waves-blue" routerLink="/basic/server-side-angular-way">Server side the Angular way</a>
         </li>
-      </ul>
+      </ng-container>
+    </ul>
     </li>
   </ul>
 </header>

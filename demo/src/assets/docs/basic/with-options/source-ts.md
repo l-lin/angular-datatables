@@ -1,12 +1,14 @@
 ```typescript
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net';
 
 @Component({
-  selector: 'with-options',
+  selector: 'app-with-options',
   templateUrl: 'with-options.component.html'
 })
 export class WithOptionsComponent implements OnInit {
-  dtOptions: DataTables.Settings = {};
+
+  dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -14,4 +16,5 @@ export class WithOptionsComponent implements OnInit {
     };
   }
 }
+
 ```

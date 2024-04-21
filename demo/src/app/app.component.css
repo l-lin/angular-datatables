@@ -9,8 +9,9 @@ header .container a {
 }
 
 .plus {
-  font-size: 65px;
-  text-shadow: 4px 4px rgba(0, 0, 0, 0.21);
+  font-size: 35px;
+  position: relative;
+  top: -2vh;
 }
 
 ul.side-nav.fixed ul.collapsible-accordion a.collapsible-header {
@@ -34,7 +35,7 @@ ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a {
 }
 
 .side-nav .logo a {
-  height: 120px !important;
+  min-height: 120px !important;
   background-color: #2196f3;
   color: #fff;
 }
@@ -72,4 +73,15 @@ ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a {
 
 #logo-container {
   display: block;
+}
+
+
+.dt-version-button {
+  text-transform: none;
+  text-align: center;
+}
+
+.dt-version-button svg {
+  position: relative;
+  top: 6px;
 }

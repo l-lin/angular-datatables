@@ -1,55 +1,49 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { DtVersionService } from '../dt-version.service';
+import { Subscription } from 'rxjs';
 
 // needed to re-init tabs on route change
-declare var $: any;
+declare var $: JQueryStatic;
 
 @Component({
   selector: 'app-base-demo',
   templateUrl: './base-demo.component.html',
   styleUrls: ['./base-demo.component.css']
 })
-export class BaseDemoComponent implements OnInit {
+export class BaseDemoComponent implements OnInit, OnDestroy {
+
+  @Input() pageTitle = '';
+
+  @Input() mdIntro = '';
+
+  @Input() mdInstall = '';
+  @Input() mdInstallV1 = '';
+
+  @Input() mdHTML = '';
+
+  @Input() mdTS = '';
+  @Input() mdTSV1 = '';
+
+  @Input() template!: TemplateRef<any>;
+
+  @Input() deprecated = false;
+
+  dtVersion: 'v2'|'v1' = 'v2';
+  dtVersionSubscription$!: Subscription;
 
   constructor(
-    private router: Router
-  ) { }
-
-  @Input()
-  pageTitle = '';
-
-  @Input()
-  mdIntro = '';
-
-  @Input()
-  mdInstall = '';
-
-  @Input()
-  mdHTML = '';
-
-  @Input()
-  mdTS = '';
-
-  @Input()
-  mdTSHeading = 'TypeScript';
-
-  @Input()
-  mdTSHigh = '';
-
-  @Input()
-  mdTSHighHeading = '';
-
-  @Input()
-  template: TemplateRef<any> = null;
-
-  @Input()
-  deprecated = false;
+    private dtVersionService: DtVersionService
+  ) {}
 
   ngOnInit() {
     // Re-init tabs on route change
 
     // Init back to top
     this.initBackToTop();
+
+    this.dtVersionSubscription$ = this.dtVersionService.versionChanged$.subscribe(v => {
+      this.dtVersion = v;
+    });
   }
 
   private scrollCallback() {
@@ -59,19 +53,20 @@ export class BaseDemoComponent implements OnInit {
       $('#toTop').fadeOut();
     }
   }
+
   initBackToTop() {
     // hide scroll button on page load
-    $().ready(this.scrollCallback);
+    $(this.scrollCallback);
     // scroll handler
-    $(window).scroll(this.scrollCallback);
+    $(window).on('scroll', this.scrollCallback);
 
     $("#toTop").on('click', function () {
       $("html, body").animate({ scrollTop: 0 }, 1000);
     });
   }
 
-  scrollToElement($elem): void {
-    $elem.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+  ngOnDestroy(): void {
+    this.dtVersionSubscription$?.unsubscribe();
   }
 
 }

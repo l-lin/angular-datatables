@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Config } from 'datatables.net-dt';
+import 'datatables.net-buttons-dt';
 
 @Component({
   selector: 'app-buttons-extension',
@@ -9,12 +11,12 @@ export class ButtonsExtensionComponent implements OnInit {
   pageTitle = 'DataTables Buttons extension';
   mdIntro = 'assets/docs/extensions/buttons/intro.md';
   mdInstall = 'assets/docs/extensions/buttons/installation.md';
+  mdInstallV1 = 'assets/docs/extensions/buttons/installation-dtv1.md';
   mdHTML = 'assets/docs/extensions/buttons/source-html.md';
   mdTS = 'assets/docs/extensions/buttons/source-ts.md';
+  mdTSV1 = 'assets/docs/extensions/buttons/source-ts-dtv1.md';
 
-
-  // Must be declared as "any", not as "DataTables.Settings"
-  dtOptions: any = {};
+  dtOptions: Config = {};
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -40,7 +42,7 @@ export class ButtonsExtensionComponent implements OnInit {
           extend: 'csv',
           text: 'CSV export',
           fieldSeparator: ';',
-          exportOption: [1, 2, 3]
+          exportOptions: [1, 2, 3]
         },
         'excel',
         {

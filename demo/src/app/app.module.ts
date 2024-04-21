@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, SecurityContext } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { DataTablesModule } from 'angular-datatables';
@@ -38,7 +38,7 @@ import { SelectExtensionComponent } from './extensions/select-extension.componen
 import { UsingNgPipeComponent } from './advanced/using-ng-pipe.component';
 
 // Using Angular Pipe
-import { CurrencyPipe, UpperCasePipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, UpperCasePipe } from '@angular/common';
 
 // Markdown
 import { MarkdownModule } from 'ngx-markdown';
@@ -87,8 +87,10 @@ import { NewServerSideComponent } from './basic/new-server-side/new-server-side.
     NewServerSideComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     DataTablesModule,
     AppRoutingModule,
