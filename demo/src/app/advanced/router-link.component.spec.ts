@@ -1,5 +1,5 @@
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
@@ -18,26 +18,22 @@ let fixture: ComponentFixture<RouterLinkComponent>, component: null| RouterLinkC
 describe('RouterLinkComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         BaseDemoComponent,
         DemoNgComponent,
         RouterLinkComponent,
         DataTableDirective
-      ],
-      imports: [
-        AppRoutingModule,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
-        HttpClientModule,
-        MarkdownModule.forRoot(
-          {
+        MarkdownModule.forRoot({
             sanitize: SecurityContext.NONE
-          }
-        ),
-        FormsModule
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).createComponent(RouterLinkComponent);
+        }),
+        FormsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+}).createComponent(RouterLinkComponent);
 
     component = fixture.componentInstance;
     router = TestBed.inject(Router);

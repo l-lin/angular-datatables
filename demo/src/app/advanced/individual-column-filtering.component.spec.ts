@@ -1,5 +1,5 @@
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
@@ -24,25 +24,21 @@ function applyValueToInput(inputElement: HTMLInputElement, value: string, table:
 describe('IndividualColumnFilteringComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         BaseDemoComponent,
         IndividualColumnFilteringComponent,
         DataTableDirective
-      ],
-      imports: [
-        AppRoutingModule,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
-        HttpClientModule,
-        MarkdownModule.forRoot(
-          {
+        MarkdownModule.forRoot({
             sanitize: SecurityContext.NONE
-          }
-        ),
-        FormsModule
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).createComponent(IndividualColumnFilteringComponent);
+        }),
+        FormsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+}).createComponent(IndividualColumnFilteringComponent);
 
     component = fixture.componentInstance;
 
