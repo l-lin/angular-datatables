@@ -1,6 +1,6 @@
 {
   "name": "angular-datatables",
-  "version": "17.1.0",
+  "version": "18.0.0",
   "description": "Angular directive for DataTables",
   "keywords": [
     "Angular",
@@ -15,14 +15,14 @@
   "schematics": "./schematics/src/collection.json",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^17.3.2",
-    "@angular/core": "^17.3.2",
-    "@angular/platform-browser": "^17.3.2",
+    "@angular/common": "^18.0.5",
+    "@angular/core": "^18.0.5",
+    "@angular/platform-browser": "^18.0.5",
     "datatables.net": "^2.0.3",
     "datatables.net-dt": "^2.0.3",
     "jquery": "^3.6.0",
     "rxjs": "^7.4.0",
-    "zone.js": "~0.14.0"
+    "zone.js": "~0.14.3"
   },
   "repository": {
     "type": "git",

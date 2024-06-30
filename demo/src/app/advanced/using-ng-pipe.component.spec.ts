@@ -1,5 +1,5 @@
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
@@ -18,29 +18,25 @@ let fixture: ComponentFixture<UsingNgPipeComponent>, component: null| UsingNgPip
 describe('UsingNgPipeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         BaseDemoComponent,
         UsingNgPipeComponent,
         DataTableDirective
-      ],
-      imports: [
-        AppRoutingModule,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
-        HttpClientModule,
-        MarkdownModule.forRoot(
-          {
+        MarkdownModule.forRoot({
             sanitize: SecurityContext.NONE
-          }
-        ),
-        FormsModule
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [
+        }),
+        FormsModule],
+    providers: [
         UpperCasePipe,
-        CurrencyPipe
-      ]
-    }).createComponent(UsingNgPipeComponent);
+        CurrencyPipe,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+}).createComponent(UsingNgPipeComponent);
 
     component = fixture.componentInstance;
 

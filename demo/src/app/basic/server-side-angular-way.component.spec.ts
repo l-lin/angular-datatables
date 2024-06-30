@@ -1,5 +1,5 @@
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA, SecurityContext } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
@@ -14,24 +14,20 @@ let fixture: ComponentFixture<ServerSideAngularWayComponent>, component: null| S
 describe('ServerSideAngularWayComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         BaseDemoComponent,
         ServerSideAngularWayComponent,
         DataTableDirective
-      ],
-      imports: [
-        AppRoutingModule,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
-        HttpClientModule,
-        MarkdownModule.forRoot(
-          {
+        MarkdownModule.forRoot({
             sanitize: SecurityContext.NONE
-          }
-        )
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).createComponent(ServerSideAngularWayComponent);
+        })],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+}).createComponent(ServerSideAngularWayComponent);
 
     component = fixture.componentInstance;
 

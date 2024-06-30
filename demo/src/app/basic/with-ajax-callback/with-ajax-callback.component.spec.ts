@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { SecurityContext, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -15,24 +15,20 @@ describe('WithAjaxCallbackComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         BaseDemoComponent,
         WithAjaxCallbackComponent,
         DataTableDirective
-      ],
-      imports: [
-        AppRoutingModule,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
-        HttpClientModule,
-        MarkdownModule.forRoot(
-          {
+        MarkdownModule.forRoot({
             sanitize: SecurityContext.NONE
-          }
-        )
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).createComponent(WithAjaxCallbackComponent);
+        })],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+}).createComponent(WithAjaxCallbackComponent);
 
     component = fixture.componentInstance;
 

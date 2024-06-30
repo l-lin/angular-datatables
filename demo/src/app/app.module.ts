@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, SecurityContext } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { DataTablesModule } from 'angular-datatables';
 
@@ -56,13 +56,11 @@ import { NewServerSideComponent } from './basic/new-server-side/new-server-side.
     WelcomeComponent,
     GettingStartedComponent,
     PersonComponent,
-
     ZeroConfigComponent,
     WithOptionsComponent,
     WithAjaxComponent,
     AngularWayComponent,
     ServerSideAngularWayComponent,
-
     CustomRangeSearchComponent,
     DtInstanceComponent,
     IndividualColumnFilteringComponent,
@@ -71,7 +69,6 @@ import { NewServerSideComponent } from './basic/new-server-side/new-server-side.
     RowClickEventComponent,
     MultipleTablesComponent,
     RouterLinkComponent,
-
     ButtonsExtensionComponent,
     ColreorderExtensionComponent,
     FixedColumnsExtensionComponent,
@@ -86,24 +83,21 @@ import { NewServerSideComponent } from './basic/new-server-side/new-server-side.
     WithAjaxCallbackComponent,
     NewServerSideComponent
   ],
+  bootstrap: [AppComponent],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     DataTablesModule,
     AppRoutingModule,
-    MarkdownModule.forRoot(
-      {
-        sanitize: SecurityContext.NONE
-      }
-    )
-  ],
+    MarkdownModule.forRoot({
+      sanitize: SecurityContext.NONE
+    })],
   providers: [
     UpperCasePipe,
-    CurrencyPipe
-  ],
-  bootstrap: [AppComponent]
+    CurrencyPipe,
+    provideHttpClient(withInterceptorsFromDi())
+  ]
 })
 export class AppModule { }

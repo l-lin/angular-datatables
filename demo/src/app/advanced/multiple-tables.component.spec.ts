@@ -1,5 +1,5 @@
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA, QueryList, SecurityContext } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
@@ -16,25 +16,21 @@ let fixture: ComponentFixture<MultipleTablesComponent>, component: null| Multipl
 describe('MultipleTablesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         BaseDemoComponent,
         MultipleTablesComponent,
         DataTableDirective
-      ],
-      imports: [
-        AppRoutingModule,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [AppRoutingModule,
         RouterTestingModule,
         DataTablesModule,
-        HttpClientModule,
-        MarkdownModule.forRoot(
-          {
+        MarkdownModule.forRoot({
             sanitize: SecurityContext.NONE
-          }
-        ),
-        FormsModule
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).createComponent(MultipleTablesComponent);
+        }),
+        FormsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+}).createComponent(MultipleTablesComponent);
 
     component = fixture.componentInstance;
 
