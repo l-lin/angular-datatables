@@ -3,8 +3,9 @@ import { Subject } from 'rxjs';
 import { IDemoNgComponentEventType } from './demo-ng-template-ref-event-type';
 
 @Component({
-  selector: 'app-demo-ng-template-ref',
-  templateUrl: './demo-ng-template-ref.component.html',
+    selector: 'app-demo-ng-template-ref',
+    templateUrl: './demo-ng-template-ref.component.html',
+    standalone: false
 })
 export class DemoNgComponent implements OnInit {
 

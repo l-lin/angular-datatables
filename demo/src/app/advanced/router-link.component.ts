@@ -6,8 +6,9 @@ import { DemoNgComponent } from './demo-ng-template-ref.component';
 import { ADTSettings } from 'angular-datatables/src/models/settings';
 
 @Component({
-  selector: 'app-router-link',
-  templateUrl: 'router-link.component.html'
+    selector: 'app-router-link',
+    templateUrl: 'router-link.component.html',
+    standalone: false
 })
 export class RouterLinkComponent implements AfterViewInit, OnInit, OnDestroy {
 

@@ -3,8 +3,9 @@ import { Config } from 'datatables.net';
 import 'datatables.net-select';
 
 @Component({
-  selector: 'app-select-extension',
-  templateUrl: 'select-extension.component.html'
+    selector: 'app-select-extension',
+    templateUrl: 'select-extension.component.html',
+    standalone: false
 })
 export class SelectExtensionComponent implements OnInit {
 

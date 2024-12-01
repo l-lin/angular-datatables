@@ -6,9 +6,10 @@ import { Subscription } from 'rxjs';
 declare var $: JQueryStatic;
 
 @Component({
-  selector: 'app-base-demo',
-  templateUrl: './base-demo.component.html',
-  styleUrls: ['./base-demo.component.css']
+    selector: 'app-base-demo',
+    templateUrl: './base-demo.component.html',
+    styleUrls: ['./base-demo.component.css'],
+    standalone: false
 })
 export class BaseDemoComponent implements OnInit, OnDestroy {
 

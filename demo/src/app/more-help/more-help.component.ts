@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-more-help',
-  templateUrl: './more-help.component.html',
-  styleUrls: ['./more-help.component.css']
+    selector: 'app-more-help',
+    templateUrl: './more-help.component.html',
+    styleUrls: ['./more-help.component.css'],
+    standalone: false
 })
 export class MoreHelpComponent implements OnInit {
 

@@ -4,8 +4,9 @@ import { Config } from 'datatables.net';
 import { DataTablesResponse } from '../../datatables-response.model';
 
 @Component({
-  selector: 'app-with-ajax-callback',
-  templateUrl: './with-ajax-callback.component.html'
+    selector: 'app-with-ajax-callback',
+    templateUrl: './with-ajax-callback.component.html',
+    standalone: false
 })
 export class WithAjaxCallbackComponent implements OnInit {
 

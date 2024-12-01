@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ADTSettings } from 'angular-datatables/src/models/settings';
 
 @Component({
-  selector: 'app-using-ng-pipe',
-  templateUrl: './using-ng-pipe.component.html'
+    selector: 'app-using-ng-pipe',
+    templateUrl: './using-ng-pipe.component.html',
+    standalone: false
 })
 export class UsingNgPipeComponent implements OnInit {
 

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-f-a-q',
-  templateUrl: './f-a-q.component.html',
-  styleUrls: ['./f-a-q.component.css']
+    selector: 'app-f-a-q',
+    templateUrl: './f-a-q.component.html',
+    styleUrls: ['./f-a-q.component.css'],
+    standalone: false
 })
 export class FAQComponent implements OnInit {
 

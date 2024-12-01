@@ -3,8 +3,9 @@ import { Config } from 'datatables.net-dt';
 import 'datatables.net-responsive';
 
 @Component({
-  selector: 'app-responsive-extension',
-  templateUrl: 'responsive-extension.component.html'
+    selector: 'app-responsive-extension',
+    templateUrl: 'responsive-extension.component.html',
+    standalone: false
 })
 export class ResponsiveExtensionComponent implements OnInit {
 

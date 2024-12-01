@@ -3,8 +3,9 @@ import { DtVersionService } from './dt-version.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-getting-started',
-  templateUrl: 'getting-started.component.html'
+    selector: 'app-getting-started',
+    templateUrl: 'getting-started.component.html',
+    standalone: false
 })
 export class GettingStartedComponent implements OnInit {
 

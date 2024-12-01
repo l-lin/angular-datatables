@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Config } from 'datatables.net';
 
 @Component({
-  selector: 'app-with-ajax',
-  templateUrl: 'with-ajax.component.html'
+    selector: 'app-with-ajax',
+    templateUrl: 'with-ajax.component.html',
+    standalone: false
 })
 export class WithAjaxComponent implements OnInit {
 

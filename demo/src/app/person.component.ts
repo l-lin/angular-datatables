@@ -5,9 +5,10 @@ import { Person } from './person';
 import { PersonService } from './person.service';
 
 @Component({
-  selector: 'app-person',
-  templateUrl: 'person.component.html',
-  providers: [PersonService]
+    selector: 'app-person',
+    templateUrl: 'person.component.html',
+    providers: [PersonService],
+    standalone: false
 })
 export class PersonComponent implements OnInit {
   person!: Person;

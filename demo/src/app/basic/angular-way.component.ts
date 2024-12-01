@@ -5,8 +5,9 @@ import { Person } from '../person';
 import { Config } from 'datatables.net';
 
 @Component({
-  selector: 'app-angular-way',
-  templateUrl: 'angular-way.component.html'
+    selector: 'app-angular-way',
+    templateUrl: 'angular-way.component.html',
+    standalone: false
 })
 export class AngularWayComponent implements OnDestroy, OnInit {
 

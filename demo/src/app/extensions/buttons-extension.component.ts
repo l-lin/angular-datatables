@@ -3,8 +3,9 @@ import { Config } from 'datatables.net-dt';
 import 'datatables.net-buttons-dt';
 
 @Component({
-  selector: 'app-buttons-extension',
-  templateUrl: 'buttons-extension.component.html'
+    selector: 'app-buttons-extension',
+    templateUrl: 'buttons-extension.component.html',
+    standalone: false
 })
 export class ButtonsExtensionComponent implements OnInit {
 

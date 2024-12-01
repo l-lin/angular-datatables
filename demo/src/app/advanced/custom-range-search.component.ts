@@ -5,8 +5,9 @@ import { Config } from 'datatables.net';
 
 // Example from https://datatables.net/examples/plug-ins/range_filtering.html
 @Component({
-  selector: 'app-custom-range-search',
-  templateUrl: 'custom-range-search.component.html'
+    selector: 'app-custom-range-search',
+    templateUrl: 'custom-range-search.component.html',
+    standalone: false
 })
 export class CustomRangeSearchComponent implements OnDestroy, OnInit {
 

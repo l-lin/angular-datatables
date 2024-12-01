@@ -4,8 +4,9 @@ import { DataTableDirective } from 'angular-datatables';
 import { Config } from 'datatables.net';
 
 @Component({
-  selector: 'app-individual-column-filtering',
-  templateUrl: 'individual-column-filtering.component.html'
+    selector: 'app-individual-column-filtering',
+    templateUrl: 'individual-column-filtering.component.html',
+    standalone: false
 })
 export class IndividualColumnFilteringComponent implements OnInit, AfterViewInit {
 
