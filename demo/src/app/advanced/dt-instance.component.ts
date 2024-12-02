@@ -4,8 +4,9 @@ import { DataTableDirective } from 'angular-datatables';
 import { Config } from 'datatables.net';
 
 @Component({
-  selector: 'app-dt-instance',
-  templateUrl: 'dt-instance.component.html'
+    selector: 'app-dt-instance',
+    templateUrl: 'dt-instance.component.html',
+    standalone: false
 })
 export class DtInstanceComponent implements OnInit {
 

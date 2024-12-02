@@ -15,14 +15,14 @@
   "schematics": "./schematics/src/collection.json",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^18.0.5",
-    "@angular/core": "^18.0.5",
-    "@angular/platform-browser": "^18.0.5",
+    "@angular/common": "^19.0.1",
+    "@angular/core": "^19.0.1",
+    "@angular/platform-browser": "^19.0.1",
     "datatables.net": "^2.0.3",
     "datatables.net-dt": "^2.0.3",
     "jquery": "^3.6.0",
     "rxjs": "^7.4.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "~0.15.0"
   },
   "repository": {
     "type": "git",

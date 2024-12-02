@@ -11,7 +11,8 @@ import { ADTSettings, ADTColumns } from './models/settings';
 import { Api } from 'datatables.net';
 
 @Directive({
-  selector: '[datatable]'
+    selector: '[datatable]',
+    standalone: false
 })
 export class DataTableDirective implements OnDestroy, OnInit {
   /**

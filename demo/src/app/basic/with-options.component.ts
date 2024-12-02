@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Config } from 'datatables.net';
 
 @Component({
-  selector: 'app-with-options',
-  templateUrl: 'with-options.component.html'
+    selector: 'app-with-options',
+    templateUrl: 'with-options.component.html',
+    standalone: false
 })
 export class WithOptionsComponent implements OnInit {
 

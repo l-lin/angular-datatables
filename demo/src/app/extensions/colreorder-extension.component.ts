@@ -3,8 +3,9 @@ import { Config } from 'datatables.net';
 import 'datatables.net-colreorder';
 
 @Component({
-  selector: 'app-colreorder-extension',
-  templateUrl: 'colreorder-extension.component.html'
+    selector: 'app-colreorder-extension',
+    templateUrl: 'colreorder-extension.component.html',
+    standalone: false
 })
 export class ColreorderExtensionComponent implements OnInit {
 

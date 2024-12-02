@@ -5,8 +5,9 @@ import { DemoNgComponent } from './demo-ng-template-ref.component';
 import { ADTSettings } from 'angular-datatables/src/models/settings';
 
 @Component({
-  selector: 'app-using-ng-template-ref',
-  templateUrl: './using-ng-template-ref.component.html',
+    selector: 'app-using-ng-template-ref',
+    templateUrl: './using-ng-template-ref.component.html',
+    standalone: false
 })
 export class UsingNgTemplateRefComponent implements OnInit, AfterViewInit {
 
