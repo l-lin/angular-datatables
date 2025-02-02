@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This project is no longer maintained! Feel free to fork it to your needs.
+
 # Angular DataTables
 
 ![build](https://github.com/l-lin/angular-datatables/workflows/build/badge.svg)
